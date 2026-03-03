@@ -15,9 +15,11 @@ public class Crystal : MonoBehaviour
     private bool isLit = false;
     private int lastTeamIndex = -1;
     private bool cooldownActive = false;
+    private ParticleSystem particles;
 
     private void Awake()
     {
+        particles = GetComponentInChildren<ParticleSystem>();
         crystalLight = GetComponent<Light>();
         crystalLight.intensity = intensityWhileUnpicked; // Set initial intensity to the "unpicked" value, which is the default state of the crystal
     }
@@ -43,6 +45,7 @@ public class Crystal : MonoBehaviour
 
     void TurnLightOn(int teamIndex)
     {
+        particles.Play();
         lastTeamIndex = teamIndex;
         isLit = true;
         cooldownActive = true;

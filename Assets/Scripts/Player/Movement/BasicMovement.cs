@@ -103,5 +103,10 @@ public class BasicMovement : MonoBehaviour, IMovement
         movementDisabled = false;
     }
 
+    void IMovement.DisableMovement(bool movementDisabled)
+    {
+        this.movementDisabled = movementDisabled; 
+    }
+
     #endregion
 }

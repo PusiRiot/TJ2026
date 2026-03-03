@@ -27,6 +27,12 @@ interface IMovement
     IEnumerator DisableMovement(float duration);
 
     /// <summary>
+    /// Enable or disable movement on command
+    /// </summary>
+    /// <param name="movementDisabled"></param>
+    void DisableMovement(bool movementDisabled);
+
+    /// <summary>
     /// Player abilities related to movement (e.g. dash, teleport...).
     /// </summary>
     /// <param name="abilityType"></param>

@@ -39,14 +39,20 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext ctx)
     {
+        if (ctx.started)
+            playerCombat.ChargeAttack();
+
         if (ctx.performed)
-            playerCombat.Attack(1f);
+            playerCombat.ExecuteAttack(true);
+
+        if (ctx.canceled && ctx.duration < 0.5f)
+            playerCombat.ExecuteAttack(false);
     }
 
     public void Parry(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-            playerCombat.Parry();
+        if (ctx.canceled)
+            StartCoroutine(playerCombat.ParryAttack());
     }
 
     public void Dash(InputAction.CallbackContext ctx)

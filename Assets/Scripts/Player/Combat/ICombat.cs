@@ -13,17 +13,24 @@ interface ICombat
     /// <para>The attack effect could be damage, knockback, or any other effect that the attack has.</para> 
     /// <para>The method should see if it collides with another ICombat interface and Hit if it's not protected</para>
     /// </summary>
-    void Attack(float? attackRadius = null);
+    void ChargeAttack();
+
+    /// <summary>
+    /// This executes an attack with the given attack effect. 
+    /// <para>The attack effect could be damage, knockback, or any other effect that the attack has.</para> 
+    /// <para>The method should see if it collides with another ICombat interface and Hit if it's not protected</para>
+    /// </summary>
+    void ExecuteAttack(bool isHeavyAttack);
 
     /// <summary>
     /// While parry executes the player is protected from attacks
     /// <para>NOTE: This could have a cooldown or something</para>
     /// </summary>
-    void Parry();
+    IEnumerator ParryAttack();
 
     /// <summary>
     /// When the player is hit by an attack, this method should be called with the attack effect. 
     /// <para>It should execute the defense according to the given attack effect (e.g. reduce health, apply knockback, etc.)</para>
     /// </summary>
-    void GetHit(float? attackEffect = null);
+    void ReceiveAttack(float? attackEffect = null, bool unableToParry = false);
 }
