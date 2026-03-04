@@ -39,30 +39,25 @@ public class GameManager : Singleton<GameManager>
     }
 
     #region Get global game stats
-    public Color GetTeamColor(int teamIndex)
-    {
-        return gameStats.teamColor[teamIndex];
-    }
+    public Color GetTeamColor(int teamIndex){ return gameStats.TeamColor[teamIndex]; }
 
-    public Material GetTeamEmissiveMaterial(int teamIndex)
-    {
-        return gameStats.teamEmissiveMaterial[teamIndex];
-    }
+    public Material GetTeamEmissiveMaterial(int teamIndex){ return gameStats.TeamEmissiveMaterial[teamIndex]; }
 
-    public float GetRequiredLightHoldTime()
-    {
-        return gameStats.RequiredLightHoldTime;
-    }
+    public float GetReclaimCrystalDuration(){ return gameStats.ReclaimCrystalDuration; }
 
-    public float GetGameDuration()
-    {
-        return gameStats.Duration;
-    }
+    public float GetGameDuration(){ return gameStats.GameDuration; }
 
-    public float GetCrystalCooldownTime()
-    {
-        return gameStats.CrystalCooldownTime;
-    }
+    public float GetCrystalCooldownDuration(){ return gameStats.CrystalCooldownDuration; }
+
+    public float GetLightStunDuration(){ return gameStats.LightStunDuration; }
+
+    public float GetHeavyStunDuration(){ return gameStats.HeavyStunDuration; }
+
+    public float GetDashCooldownDuration(){ return gameStats.DashCooldownDuration; }
+
+    public float GetDashDuration(){ return gameStats.DashDuration; }
+
+    public float GetDashSpeedIncrement() { return gameStats.DashSpeedIncrement; }
 
     #endregion
 
@@ -107,7 +102,7 @@ public class GameManager : Singleton<GameManager>
 
     IEnumerator CounterCoroutine()
     {
-        yield return new WaitForSeconds(gameStats.Duration);
+        yield return new WaitForSeconds(gameStats.GameDuration);
         if (teamScore[0] > teamScore[1])
         {
             EndGame.Invoke(0);

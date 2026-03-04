@@ -24,7 +24,22 @@ public class Crystal : MonoBehaviour
         crystalLight.intensity = intensityWhileUnpicked; // Set initial intensity to the "unpicked" value, which is the default state of the crystal
     }
 
-    public void LightUp(int teamIndex)
+    /// <summary>
+    /// Player just started to reclaim crystal
+    /// <para>Here should be the code to slowly lit up crystal to give feedback to player</para>
+    /// </summary>
+
+    public void ReclaimingStarted()
+    {
+
+    }
+
+    /// <summary>
+    /// Player reclaimed crystal
+    /// <para>Here code related to scoring and visual effects when just reclaimed</para>
+    /// </summary>
+    /// <param name="teamIndex"></param>
+    public void ReclaimingPerformed(int teamIndex)
     {
         if (cooldownActive) return; // Prevent multiple scoring while the crystal has just been lit
 
@@ -43,6 +58,16 @@ public class Crystal : MonoBehaviour
         TurnLightOn(teamIndex);
     }
 
+    /// <summary>
+    /// Player stopped illuminating crystal without reclaiming it
+    /// <para>Here should be the code to lit down crystal again</para>
+    /// </summary>
+    public void ReclaimingCanceled()
+    {
+
+    }
+
+
     void TurnLightOn(int teamIndex)
     {
         particles.Play();
@@ -56,7 +81,7 @@ public class Crystal : MonoBehaviour
 
     IEnumerator TurnLightOff()
     {
-        yield return new WaitForSeconds(GameManager.Instance.GetCrystalCooldownTime());
+        yield return new WaitForSeconds(GameManager.Instance.GetCrystalCooldownDuration());
         crystalLight.intensity = intensityWhilePicked;
         cooldownActive = false;
     }
