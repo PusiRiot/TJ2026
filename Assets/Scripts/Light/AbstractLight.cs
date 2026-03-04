@@ -35,7 +35,7 @@ public abstract class AbstractLight : MonoBehaviour
             teamIndex = 1;
         }
         
-        requiredHoldTime = GameManager.Instance.GetRequiredLightHoldTime();
+        requiredHoldTime = GameManager.Instance.GetReclaimCrystalDuration();
     }
     private void Update()
     {

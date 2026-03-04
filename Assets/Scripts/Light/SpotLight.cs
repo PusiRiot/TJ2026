@@ -47,7 +47,7 @@ public class SpotLight : AbstractLight
 
                         if (detectionTimers[crystal] >= requiredHoldTime) 
                         { 
-                            crystal.LightUp(teamIndex);
+                            crystal.ReclaimingPerformed(teamIndex);
                             detectionTimers[crystal] = 0f; // reset timer after lighting up
                         }
                     }

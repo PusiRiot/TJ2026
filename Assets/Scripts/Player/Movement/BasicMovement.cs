@@ -15,24 +15,33 @@ public class BasicMovement : MonoBehaviour, IMovement
 
     // Dash
     float dashIncrement;
+    float dashDuration;
+    float dashCooldownDuration;
+
     bool dashExecuting = false;
+    bool dashCoolingDown = false;
     TrailRenderer trailRenderer;
+
     #endregion
 
-    private void Awake()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
+
+        dashDuration = GameManager.Instance.GetDashDuration();
+        dashIncrement = GameManager.Instance.GetDashSpeedIncrement();
+        dashCooldownDuration = GameManager.Instance.GetDashCooldownDuration();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (!movementDisabled)
             Motion();
     }
 
-    private void Motion()
+    void Motion()
     {
         // Movement
         Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
@@ -49,9 +58,9 @@ public class BasicMovement : MonoBehaviour, IMovement
             rb.linearVelocity = motionVector.normalized * speed;
     }
 
-    private IEnumerator Dash()
+    IEnumerator Dash()
     {
-        if (movementDisabled || dashExecuting) yield return null;
+        if (movementDisabled || dashExecuting || dashCoolingDown) yield return null;
 
         dashExecuting = true;
         trailRenderer.emitting = true;
@@ -61,9 +70,13 @@ public class BasicMovement : MonoBehaviour, IMovement
         Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
         rb.linearVelocity = dashDir * speed * dashIncrement;
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(dashDuration);
         trailRenderer.emitting = false;
         dashExecuting = false;
+        dashCoolingDown = true;
+
+        yield return new WaitForSeconds(dashCooldownDuration); // NOTE: if stamina system were to be done, this implementation should change
+        dashCoolingDown = false;
     }
 
 
