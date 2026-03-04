@@ -84,7 +84,6 @@ public class GameManager : Singleton<GameManager>
     {
         if (!suddenDeathEnabled)
         {
-
             if (teamScore[0] >= maxScore)
             {
                 EndGame.Invoke(0);

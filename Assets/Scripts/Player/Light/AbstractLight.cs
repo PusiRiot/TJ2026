@@ -10,6 +10,7 @@ using UnityEngine;
 /// </summary>
 public abstract class AbstractLight : MonoBehaviour
 {
+    private Light light;
     /// <summary>
     /// Team index of the player that owns this light, used to determine which team gets the score when lighting up a crystal and what color the light should be.
     /// </summary>
@@ -22,6 +23,8 @@ public abstract class AbstractLight : MonoBehaviour
 
     private void Awake()
     {
+        light = GetComponent<Light>();
+
         Player player = GetComponentInParent<Player>();
         if (player.gameObject.CompareTag("Player1"))
         {
@@ -45,6 +48,16 @@ public abstract class AbstractLight : MonoBehaviour
     protected virtual void DetectLightCollision()
     {
         throw new System.NotImplementedException("Implement on child object");
+    }
+
+    public void TurnOn()
+    {
+        light.enabled = true;
+    }
+
+    public void TurnOff()
+    {
+        light.enabled = false;
     }
 }
 

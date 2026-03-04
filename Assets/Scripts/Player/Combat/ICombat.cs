@@ -9,11 +9,11 @@ using System.Collections;
 interface ICombat
 {
     /// <summary>
-    /// This executes an attack with the given attack effect. 
-    /// <para>The attack effect could be damage, knockback, or any other effect that the attack has.</para> 
-    /// <para>The method should see if it collides with another ICombat interface and Hit if it's not protected</para>
+    /// This charges an attack
     /// </summary>
     void ChargeAttack();
+
+    void InterruptCharge();
 
     /// <summary>
     /// This executes an attack with the given attack effect. 
@@ -29,8 +29,8 @@ interface ICombat
     IEnumerator ParryAttack();
 
     /// <summary>
-    /// When the player is hit by an attack, this method should be called with the attack effect. 
+    /// When the player is hit by an attack, this method should be called with the attack duration. 
     /// <para>It should execute the defense according to the given attack effect (e.g. reduce health, apply knockback, etc.)</para>
     /// </summary>
-    void ReceiveAttack(float? attackEffect = null, bool unableToParry = false);
+    void ReceiveAttack(float attackDuration, bool unableToParry = false);
 }
