@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc1ab9e6e29d0c4b997ebda43a3faeb, type: 3}
   m_Name: GameStats
   m_EditorClassIdentifier: Assembly-CSharp::GameStats
-  Duration: 120
-  teamColor:
-  - {r: 0, g: 1, b: 0.92462564, a: 0}
-  - {r: 0.5447296, g: 1, b: 0, a: 0}
-  teamEmissiveMaterial:
+  GameDuration: 120
+  TeamColor:
+  - {r: 0.25, g: 0.42466617, b: 1, a: 0}
+  - {r: 0.18546599, g: 1, b: 0.15566039, a: 0}
+  TeamEmissiveMaterial:
   - {fileID: 2100000, guid: a1e2bc239b1d60044a7cd98413048d6e, type: 2}
   - {fileID: 2100000, guid: e1685f431a614fe42a5b4fdc9e9d8b95, type: 2}
-  RequiredLightHoldTime: 2
-  CrystalCooldownTime: 10
+  ReclaimCrystalDuration: 2
+  CrystalCooldownDuration: 5
+  LightStunDuration: 1
+  HeavyStunDuration: 3
+  DashCooldownDuration: 5
+  DashDuration: 0.2
+  DashSpeedIncrement: 2
