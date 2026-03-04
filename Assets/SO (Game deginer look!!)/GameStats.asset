@@ -24,5 +24,5 @@ MonoBehaviour:
   LightStunDuration: 1
   HeavyStunDuration: 3
   DashCooldownDuration: 5
-  DashDuration: 0.2
-  DashSpeedIncrement: 5
+  DashDuration: 0.1
+  DashSpeedIncrement: 10

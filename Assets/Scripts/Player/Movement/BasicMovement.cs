@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(TrailRenderer))]
 [RequireComponent(typeof(Rigidbody))]
@@ -16,10 +17,12 @@ public class BasicMovement : MonoBehaviour, IMovement
     // Dash
     float dashIncrement;
     float dashDuration;
-    float dashCooldownDuration;
+    float maxStamina;
+    float currentStamina;
+    float staminaConsumption;
+    float staminaRegenRate;
 
     bool dashExecuting = false;
-    bool dashCoolingDown = false;
     TrailRenderer trailRenderer;
 
     #endregion
@@ -32,12 +35,21 @@ public class BasicMovement : MonoBehaviour, IMovement
 
         dashDuration = GameManager.Instance.GetDashDuration();
         dashIncrement = GameManager.Instance.GetDashSpeedIncrement();
-        dashCooldownDuration = GameManager.Instance.GetDashCooldownDuration();
+        maxStamina = GameManager.Instance.GetMaxStamina();
+        staminaConsumption = GameManager.Instance.GetStaminaConsumption();
+        staminaRegenRate = GameManager.Instance.GetStaminaRegenRate();
+
+        currentStamina = maxStamina;
     }
 
     void FixedUpdate()
     {
         Motion();
+
+        // Stamina regeneration
+        currentStamina += staminaRegenRate * Time.fixedDeltaTime;
+
+        if(currentStamina > maxStamina) currentStamina = maxStamina;
     }
 
     void Motion()
@@ -87,9 +99,9 @@ public class BasicMovement : MonoBehaviour, IMovement
         movementDisabled = false;
     }
 
-    IEnumerator IMovement.Dash(bool ignoreCooldown)
+    IEnumerator IMovement.Dash(bool ignoreStamina)
     {
-        if (ignoreCooldown || (!movementDisabled && !dashExecuting && !dashCoolingDown))
+        if (ignoreStamina || (!movementDisabled && !dashExecuting && currentStamina >= staminaConsumption))
         {
             dashExecuting = true;
             trailRenderer.emitting = true;
@@ -103,12 +115,9 @@ public class BasicMovement : MonoBehaviour, IMovement
             trailRenderer.emitting = false;
             dashExecuting = false;
 
-            if (!ignoreCooldown)
+            if (!ignoreStamina)
             {
-                dashCoolingDown = true;
-
-                yield return new WaitForSeconds(dashCooldownDuration); // NOTE: if stamina system were to be done, this implementation should change
-                dashCoolingDown = false;
+                currentStamina -= staminaConsumption;
             }
         }
     }

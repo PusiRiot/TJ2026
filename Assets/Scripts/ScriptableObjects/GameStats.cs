@@ -17,7 +17,9 @@ public class GameStats : ScriptableObject
     public float CrystalCooldownDuration = 5f; // Time a crystal needs to be unlit before it can be lit up again, to prevent score changes from very quick flashes of light and to add some strategy to the game.
     public float LightStunDuration = 1f;
     public float HeavyStunDuration = 3f;
-    public float DashCooldownDuration = 5f;
     public float DashDuration = 0.2f;
     public float DashSpeedIncrement = 2f;
+    public float MaxStamina = 100.0f;
+    public float StaminaConsumption = 100.0f;
+    public float StaminaRegenRate = 20.0f;
 }

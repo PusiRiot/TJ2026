@@ -53,11 +53,15 @@ public class GameManager : Singleton<GameManager>
 
     public float GetHeavyStunDuration(){ return gameStats.HeavyStunDuration; }
 
-    public float GetDashCooldownDuration(){ return gameStats.DashCooldownDuration; }
-
     public float GetDashDuration(){ return gameStats.DashDuration; }
 
     public float GetDashSpeedIncrement() { return gameStats.DashSpeedIncrement; }
+
+    public float GetMaxStamina() { return gameStats.MaxStamina; }
+
+    public float GetStaminaConsumption() { return gameStats.StaminaConsumption; }
+
+    public float GetStaminaRegenRate() { return gameStats.StaminaRegenRate; }
 
     #endregion
 
