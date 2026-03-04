@@ -101,9 +101,9 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "17.3.0",
+      "version": "file:com.unity.render-pipelines.universal@a6e30d1f59f5",
       "depth": 0,
-      "source": "builtin",
+      "source": "embedded",
       "dependencies": {
         "com.unity.render-pipelines.core": "17.3.0",
         "com.unity.shadergraph": "17.3.0",
@@ -111,9 +111,9 @@
       }
     },
     "com.unity.render-pipelines.universal-config": {
-      "version": "17.0.3",
-      "depth": 1,
-      "source": "builtin",
+      "version": "file:com.unity.render-pipelines.universal-config@8dc1aab4af1d",
+      "depth": 0,
+      "source": "embedded",
       "dependencies": {
         "com.unity.render-pipelines.core": "17.0.3"
       }
