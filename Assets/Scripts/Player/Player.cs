@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
         else
             teamIndex = 1;
 
-        playerMovement.Init(playerStats.Speed, playerStats.DashIncrement, teamIndex);
+        playerMovement.Init(playerStats.Speed, teamIndex);
     }
 
     #region Player input
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext ctx)
     {
-        // TODO: is it a bug that charging sparks appear when light attacking?
+        // NOTE: is it a bug that charging sparks appear when light attacking?
 
         if (ctx.interaction is TapInteraction)
         {
@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
     public void Dash(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
-            playerMovement.ExecuteAbility(MovementAbilityType.Dash);
+            StartCoroutine(playerMovement.Dash(false));
     }
 
     #endregion

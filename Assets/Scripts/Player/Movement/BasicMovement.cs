@@ -37,8 +37,7 @@ public class BasicMovement : MonoBehaviour, IMovement
 
     void FixedUpdate()
     {
-        if (!movementDisabled)
-            Motion();
+        Motion();
     }
 
     void Motion()
@@ -54,38 +53,16 @@ public class BasicMovement : MonoBehaviour, IMovement
         }
 
         // move in the direction of the input
-        if (!dashExecuting)
+        if (!movementDisabled && !dashExecuting)
             rb.linearVelocity = motionVector.normalized * speed;
-    }
-
-    IEnumerator Dash()
-    {
-        if (movementDisabled || dashExecuting || dashCoolingDown) yield return null;
-
-        dashExecuting = true;
-        trailRenderer.emitting = true;
-
-        // execute dash in movement direction or forward
-        Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y); 
-        Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
-        rb.linearVelocity = dashDir * speed * dashIncrement;
-
-        yield return new WaitForSeconds(dashDuration);
-        trailRenderer.emitting = false;
-        dashExecuting = false;
-        dashCoolingDown = true;
-
-        yield return new WaitForSeconds(dashCooldownDuration); // NOTE: if stamina system were to be done, this implementation should change
-        dashCoolingDown = false;
     }
 
 
     #region IMovement implementation
 
-    void IMovement.Init(float _speed, float _dashIncrement, int _teamIndex)
+    void IMovement.Init(float _speed, int _teamIndex)
     {
         speed = _speed;
-        dashIncrement = _dashIncrement;
 
         // Add trailRenderer material, it is linked to the team index to change color accordingly
         List<Material> trailRendererMats = new();
@@ -98,17 +75,11 @@ public class BasicMovement : MonoBehaviour, IMovement
         moveInput = new Vector2(horizontal, vertical);
     }
 
-    void IMovement.ExecuteAbility(MovementAbilityType abilityType)
-    {
-        switch (abilityType)
-        {
-            case MovementAbilityType.Dash:
-                Debug.Log("dashing");
-                StartCoroutine(Dash()); 
-                break;
-        }
-    }
-
+    /// <summary>
+    /// Disable movement for a specific amount of time. Doesn't disable rotation
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     IEnumerator IMovement.DisableMovement(float duration)
     {
         movementDisabled = true; 
@@ -116,6 +87,36 @@ public class BasicMovement : MonoBehaviour, IMovement
         movementDisabled = false;
     }
 
+    IEnumerator IMovement.Dash(bool ignoreCooldown)
+    {
+        if (ignoreCooldown || (!movementDisabled && !dashExecuting && !dashCoolingDown))
+        {
+            dashExecuting = true;
+            trailRenderer.emitting = true;
+
+            // execute dash in movement direction or forward
+            Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
+            Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
+            rb.linearVelocity = dashDir * speed * dashIncrement;
+
+            yield return new WaitForSeconds(dashDuration);
+            trailRenderer.emitting = false;
+            dashExecuting = false;
+
+            if (!ignoreCooldown)
+            {
+                dashCoolingDown = true;
+
+                yield return new WaitForSeconds(dashCooldownDuration); // NOTE: if stamina system were to be done, this implementation should change
+                dashCoolingDown = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Disable or enable movement. Doesn't disable rotation
+    /// </summary>
+    /// <param name="movementDisabled"></param>
     void IMovement.DisableMovement(bool movementDisabled)
     {
         this.movementDisabled = movementDisabled; 

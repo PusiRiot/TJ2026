@@ -62,6 +62,9 @@ public class StunCombat : MonoBehaviour, ICombat
                 }
             }
         }
+
+        lightStunDuration = GameManager.Instance.GetLightStunDuration();
+        heavyStunDuration = GameManager.Instance.GetHeavyStunDuration();
     }
 
     void Update()
@@ -92,12 +95,12 @@ public class StunCombat : MonoBehaviour, ICombat
     IEnumerator HeavyAttack()
     {
         //dash
-        playerMovement.ExecuteAbility(MovementAbilityType.Dash);
+        StartCoroutine(playerMovement.Dash(true));
         isProtectedByParry = true;
         isAttackingHeavy = true;
 
         // after dash player is no longer attacking
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(GameManager.Instance.GetDashDuration());
         isAttackingHeavy = false;
         isProtectedByParry = false;
     }
@@ -111,7 +114,6 @@ public class StunCombat : MonoBehaviour, ICombat
             StunCombat enemy = collider.gameObject.GetComponentInParent<StunCombat>();
             if (enemy != null && enemy != this)
             {
-                Debug.Log("Stun attack is hitting!");
                 enemy.ReceiveAttack(lightStunDuration);
             }
         }
@@ -123,7 +125,6 @@ public class StunCombat : MonoBehaviour, ICombat
         StunCombat enemy = collision.gameObject.GetComponentInParent<StunCombat>();
         if (enemy != null && enemy != this)
         {
-            Debug.Log("Stun attack is hitting!");
             enemy.ReceiveAttack(heavyStunDuration, false);
         }
     }
@@ -152,7 +153,6 @@ public class StunCombat : MonoBehaviour, ICombat
     {
         isProtectedByParry = true;
         yield return new WaitForSeconds(1f);
-        Debug.Log("Parry over! Player unprotected.");
         isProtectedByParry = false;
 
     }

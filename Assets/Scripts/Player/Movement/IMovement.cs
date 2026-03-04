@@ -11,7 +11,7 @@ interface IMovement
     /// Initialize movement parameters. This should be called when the movement is first assigned to the player.
     /// </summary>
     /// <param name="speed"></param>
-    void Init(float speed, float dashIncrement, int teamIndex);
+    void Init(float speed, int teamIndex);
 
     /// <summary>
     /// Primary movement method. Should be called every frame in the player class, and it should move the player according to the given horizontal and vertical input.
@@ -33,8 +33,8 @@ interface IMovement
     void DisableMovement(bool movementDisabled);
 
     /// <summary>
-    /// Player abilities related to movement (e.g. dash, teleport...).
     /// </summary>
-    /// <param name="abilityType"></param>
-    void ExecuteAbility(MovementAbilityType abilityType);
+    /// <param name="ignoreCooldown"></param>
+    /// <returns></returns>
+    IEnumerator Dash(bool ignoreCooldown);
 }

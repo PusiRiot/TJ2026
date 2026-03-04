@@ -11,6 +11,8 @@ public class ScoreUIManager : MonoBehaviour
     float timePassed = 0;
     [SerializeField] private GameObject endGamePanel; // TODO: This is a temporary solution
 
+    bool timeBelowZero = false;
+
     private void Awake()
     {
         // TODO: Once everything is more stablished we should add a way to ensure this is always assigned instead of manually checking the inspector, maybe with a tag or something like that
@@ -40,7 +42,8 @@ public class ScoreUIManager : MonoBehaviour
 
     void Update()
     {
-        UpdateTimer();
+        if (!timeBelowZero)
+            UpdateTimer();
     }
 
     void UpdateScoreUI(int teamIndex, int teamScore)
@@ -52,6 +55,7 @@ public class ScoreUIManager : MonoBehaviour
     {
         timePassed += Time.deltaTime;
         int currentTime = Mathf.CeilToInt(GameManager.Instance.GetGameDuration() - timePassed);
+        if (currentTime <= 0) timeBelowZero = true;
 
         timerText.text = currentTime.ToString();
     }
