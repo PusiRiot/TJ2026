@@ -168,7 +168,7 @@
                 {
                     "name": "",
                     "id": "c7c804a4-6e4d-4d57-ae0e-9c2a037395e8",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -179,7 +179,7 @@
                 {
                     "name": "",
                     "id": "534db06f-37b1-4773-b0fc-f578cce2237b",
-                    "path": "<Keyboard>/capsLock",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -355,7 +355,7 @@
                 {
                     "name": "",
                     "id": "dfc92d70-cf95-49e6-85bf-bfa1b692453e",
-                    "path": "<Keyboard>/slash",
+                    "path": "<Keyboard>/minus",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
