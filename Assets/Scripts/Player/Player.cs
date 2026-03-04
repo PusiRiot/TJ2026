@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
     public void Dash(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
-            playerMovement.ExecuteAbility(MovementAbilityType.Dash);
+            StartCoroutine(playerMovement.Dash(false));
     }
 
     #endregion

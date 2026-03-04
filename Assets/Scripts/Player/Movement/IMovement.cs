@@ -33,8 +33,8 @@ interface IMovement
     void DisableMovement(bool movementDisabled);
 
     /// <summary>
-    /// Player abilities related to movement (e.g. dash, teleport...).
     /// </summary>
-    /// <param name="abilityType"></param>
-    void ExecuteAbility(MovementAbilityType abilityType);
+    /// <param name="ignoreCooldown"></param>
+    /// <returns></returns>
+    IEnumerator Dash(bool ignoreCooldown);
 }

@@ -92,7 +92,7 @@ public class StunCombat : MonoBehaviour, ICombat
     IEnumerator HeavyAttack()
     {
         //dash
-        playerMovement.ExecuteAbility(MovementAbilityType.Dash);
+        StartCoroutine(playerMovement.Dash(true));
         isProtectedByParry = true;
         isAttackingHeavy = true;
 
