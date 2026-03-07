@@ -21,7 +21,7 @@
                     "id": "ebfd33a8-4720-4d01-a999-99b9eb821a01",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.75),Tap",
+                    "interactions": "Hold(duration=0.65),Tap",
                     "initialStateCheck": false
                 },
                 {
@@ -153,7 +153,7 @@
                     "id": "01f9c70b-91b6-4bbb-82d9-38e41ed0455a",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.75),Tap",
+                    "interactions": "Hold(duration=0.65),Tap",
                     "initialStateCheck": false
                 },
                 {
@@ -301,7 +301,7 @@
                     "name": "",
                     "id": "0dfbd55c-deae-4c64-8667-8a9f9b53f0c9",
                     "path": "<Gamepad>/rightShoulder",
-                    "interactions": "Hold,Tap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
