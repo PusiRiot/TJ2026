@@ -44,7 +44,10 @@ public class SpotLight : AbstractLight
                         if (detectionTimers.ContainsKey(crystal))
                             detectionTimers[crystal] += Time.deltaTime;
                         else
+                        {
+                            crystal.ReclaimingStarted();
                             detectionTimers[crystal] = Time.deltaTime;
+                        }
 
                         if (detectionTimers[crystal] >= requiredHoldTime) 
                         { 
@@ -61,7 +64,10 @@ public class SpotLight : AbstractLight
         foreach (var dictionaryCrystal in detectionTimers.Keys.ToList())
         {
             if (!detectedThisFrame.Contains(dictionaryCrystal))
-                detectionTimers[dictionaryCrystal] = 0f;
+            {
+                dictionaryCrystal.ReclaimingCanceled();
+                detectionTimers.Remove(dictionaryCrystal);
+            }
         }
 
         detectedThisFrame.Clear();
