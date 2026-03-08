@@ -20,9 +20,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a1e2bc239b1d60044a7cd98413048d6e, type: 2}
   - {fileID: 2100000, guid: e1685f431a614fe42a5b4fdc9e9d8b95, type: 2}
   ReclaimCrystalDuration: 2
-  CrystalCooldownDuration: 5
+  CrystalCooldownDuration: 12
   LightStunDuration: 1
   HeavyStunDuration: 3
-  DashCooldownDuration: 5
   DashDuration: 0.1
   DashSpeedIncrement: 10
+  MaxStamina: 100
+  StaminaConsumption: 100
+  StaminaRegenRate: 20

@@ -46,6 +46,7 @@ struct Light
 // Attenuation smoothly decreases to light range.
 float DistanceAttenuation(float distanceSqr, half2 distanceAttenuation)
 {
+    /*
     // We use a shared distance attenuation for additional directional and puctual lights
     // for directional lights attenuation will be 1
     float lightAtten = rcp(distanceSqr);
@@ -57,6 +58,26 @@ float DistanceAttenuation(float distanceSqr, half2 distanceAttenuation)
     smoothFactor = smoothFactor * smoothFactor;
 
     return lightAtten * smoothFactor;
+    */
+    
+    // Calculate the linear distance from the squared distance value.
+    float distance = sqrt(distanceSqr);
+
+    // Calculate the range of the light by taking the inverse square root of the attenuation parameter.
+    float range = rsqrt(distanceAttenuation.x);
+
+    // Normalize the distance to a value between 0 and 1 (1 at the source, 0 at the max range).
+    float distance01 = saturate(1.0f - (distance / range));
+
+    // Apply quadratic falloff.
+    float lightAtten = pow(distance01, 2.0f);
+
+    // Smooth the falloff across the entire range for a more gradual and natural fade.
+    float smoothFactor = smoothstep(0.0f, 1.0f, distance01);
+    lightAtten *= smoothFactor;
+        
+    return lightAtten;
+
 }
 
 half AngleAttenuation(half3 spotDirection, half3 lightDirection, half2 spotAttenuation)

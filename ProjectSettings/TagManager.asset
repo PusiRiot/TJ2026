@@ -16,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
@@ -48,3 +48,5 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
+  - Player1
+  - Player2

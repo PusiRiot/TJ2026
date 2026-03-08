@@ -9,7 +9,7 @@ using UnityEngine;
 public class Crystal : MonoBehaviour
 {
     [SerializeField] float intensityWhileUnpicked = 0f; // Intensity of the crystal light when it's unlit and not picked.
-    [SerializeField] float intensityWhilePicked = 0.5f; // Intensity of the crystal light when it's unlit but picked.
+    [SerializeField] float intensityWhilePicked = 0f; // Intensity of the crystal light when it's unlit but picked.
     [SerializeField] float intensityWhileCooling = 3f; // Intensity of the crystal light when it has just been lit and is in cooldown.
     private Light crystalLight;
     private bool isLit = false;
