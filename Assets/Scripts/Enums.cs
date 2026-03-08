@@ -20,7 +20,7 @@ public enum LightAbilityType
 
 /// UI RELATED ENUMS
 
-enum SceneName
+public enum SceneName
 {
     MainMenu,
     Game,

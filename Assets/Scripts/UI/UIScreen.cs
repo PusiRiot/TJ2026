@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class BaseScreen : MonoBehaviour, IScreen
+public class UIScreen : MonoBehaviour
 {
-    [SerializeField] protected ScreenName _name;
+    [SerializeField] protected ScreenName screenName;
 
     public string GetName()
     {
-        return _name.ToString();
+        return screenName.ToString();
     }
 
     public void Hide()

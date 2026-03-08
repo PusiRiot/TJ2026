@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// This class is responsible for managing the score UI, it listens to the GameManager's ChangeScore event and updates the score display accordingly.
 /// </summary>
-public class ScoreUIManager : MonoBehaviour
+public class GameUIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
     [SerializeField] private TextMeshProUGUI timerText;
