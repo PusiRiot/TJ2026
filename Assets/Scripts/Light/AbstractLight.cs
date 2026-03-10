@@ -38,6 +38,7 @@ public abstract class AbstractLight : MonoBehaviour
         
         requiredHoldTime = GameManager.Instance.GetReclaimCrystalDuration();
     }
+
     private void Update()
     {
         if (lightCollisionEnabled)

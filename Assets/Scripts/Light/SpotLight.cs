@@ -41,17 +41,22 @@ public class SpotLight : AbstractLight
                         
                         // increase or start timer for this crystal
                         if (detectionTimers.ContainsKey(crystal))
+                        { 
+                            // Check if the crystal can be captured
+                            if(!crystal.CanCapture(teamIndex)) return;
+
                             detectionTimers[crystal] += Time.deltaTime;
+
+                            if(crystal.ReclaimingPerforming(detectionTimers[crystal]))
+                            {
+                                crystal.ReclaimingPerformed(teamIndex);
+                                detectionTimers[crystal] = 0f; // reset timer after lighting up
+                            }
+                        }
                         else
                         {
                             crystal.ReclaimingStarted();
                             detectionTimers[crystal] = Time.deltaTime;
-                        }
-
-                        if (detectionTimers[crystal] >= requiredHoldTime) 
-                        { 
-                            crystal.ReclaimingPerformed(teamIndex);
-                            detectionTimers[crystal] = 0f; // reset timer after lighting up
                         }
                     }
 

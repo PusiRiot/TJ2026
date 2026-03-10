@@ -19,7 +19,7 @@ MonoBehaviour:
   TeamEmissiveMaterial:
   - {fileID: 2100000, guid: a1e2bc239b1d60044a7cd98413048d6e, type: 2}
   - {fileID: 2100000, guid: e1685f431a614fe42a5b4fdc9e9d8b95, type: 2}
-  ReclaimCrystalDuration: 2
+  ReclaimCrystalDuration: 3
   CrystalCooldownDuration: 12
   LightStunDuration: 1
   HeavyStunDuration: 3
