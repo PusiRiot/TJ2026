@@ -45,10 +45,10 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
-  m_Range: 20
-  m_SpotAngle: 35
-  m_InnerSpotAngle: 15
+  m_Intensity: 15
+  m_Range: 35
+  m_SpotAngle: 50
+  m_InnerSpotAngle: 30
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 2
@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886c4db1663e63b47b27b62492798aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpotLight
-  viewRange: 8
-  viewAngle: 50
+  viewRange: 15
+  viewAngle: 20
   detectCrystalMask:
     serializedVersion: 2
     m_Bits: 55
