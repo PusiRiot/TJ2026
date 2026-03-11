@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 239378781582670930, guid: f3b55ca8ea2d96747be064a96f19b2ca, type: 3}
+  - {fileID: 2100000, guid: 122a31f3239fa474da0c8305d124c2da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 2745275578870017874}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -3.461, z: -0}
+  m_LocalPosition: {x: 1.5, y: -3.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -182,7 +182,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8997540729582357075, guid: f3b55ca8ea2d96747be064a96f19b2ca, type: 3}
+  - {fileID: 2100000, guid: fb57561932550094c9709d9e5f2ca275, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -225,8 +225,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.14823616, y: 1.4823612, z: 2.9498985}
-  m_Center: {x: -0.014681427, y: 0.7428681, z: 1.4897729}
+  m_Size: {x: 0.14823623, y: 1.4823612, z: 2.9498985}
+  m_Center: {x: -0.014680719, y: -0.7589182, z: 1.4897729}
 --- !u!1 &8659494277035724076
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ Transform:
   m_GameObject: {fileID: 8659494277035724076}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0.453, z: 0}
+  m_LocalPosition: {x: 1.5, y: -0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -294,7 +294,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -418916579352623236, guid: f3b55ca8ea2d96747be064a96f19b2ca, type: 3}
+  - {fileID: 2100000, guid: fb57561932550094c9709d9e5f2ca275, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -337,5 +337,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.14823614, y: 1.4823612, z: 2.9498985}
-  m_Center: {x: -0.017385727, y: -0.7438709, z: 1.4897729}
+  m_Size: {x: 0.14823622, y: 1.4823612, z: 2.9498985}
+  m_Center: {x: -0.017385853, y: 0.7579165, z: 1.4897729}
