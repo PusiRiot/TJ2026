@@ -1,38 +1,43 @@
-
-/// GAME RELATED ENUMS
-
-public enum PlayerTeam
-{
-    Red,
-    Blue
-}
-
-public enum MovementAbilityType
-{
-    Dash,
-    SpeedBoost
-}
-public enum LightAbilityType
-{
-    IntensityBoost,
-    LightningStrike
-}
-
-/// UI RELATED ENUMS
-
 public enum SceneName
 {
-    MainMenu,
-    Game,
-    GameOver
+    StartScene,
+    MainMenuScene,
+    GameScene,
+    GameSandboxScene,
 }
 
 public enum ScreenName 
 { 
-    Game, 
-    MainMenu, 
-    Pause, 
-    EndFeedback, 
+    MainMenu,
+    PlayerSelection,
+    PlayerSelectionSandbox,
+    Game,
+    GameSandbox,
+    Pause,
+    PauseSandbox, //TODO: review, this is probably going to end up being the same as 1v1
+    Options,
+    OptionsSandbox, //TODO: review, this is probably going to end up being the same as 1v1
+    Victory, 
     Instructions, 
-    Credits 
+    Credits,
+}
+
+public enum PlayerCharacter
+{
+    Brawlight,
+    Peggy
+}
+
+// GAME EVENTS
+public enum GameEvent
+{
+    GameEnd, // data = (int)team1Score, (int)team2Score
+    ScoreUpdate, // data = (int)team1Score, (int)team2Score 
+    SuddenDeath, // no data
+}
+
+public enum PlayerMovementEvent
+{
+    DashConsumed, // data = (int)teamIndex
+    DashEnabled, // data = (int)teamIndex
 }

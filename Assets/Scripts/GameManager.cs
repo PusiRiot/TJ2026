@@ -1,17 +1,40 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 /// <summary>
 /// Game logic and state
 /// </summary>
-public class GameManager : Singleton<GameManager>
+public class GameManager : Subject<GameEvent>
 {
+    #region Variables
     [SerializeField] GameStats gameStats;
+
     int[] teamScore = new int[2] { 0, 0 };
+
     bool suddenDeathEnabled = false;
-    public event System.Action<int, int> UpdateUIScore;
-    public event System.Action<int> EndGame;
+    public bool SuddenDeathEnabled { get { return suddenDeathEnabled; } }
+
     int maxScore;
+    #endregion
+
+    #region Singleton implementation
+    public static GameManager Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        UnpauseGame();
+    }
+
+    #endregion
 
     private void Start()
     {
@@ -20,25 +43,14 @@ public class GameManager : Singleton<GameManager>
             Debug.LogError("GameStats not assigned in GameManager!");
         }
 
-        ResetGame();
-        StartCoroutine(CounterCoroutine());
-    }
-
-    public void ResetGame()
-    {
-        StopAllCoroutines();
+        AddObserversOnScene();
 
         maxScore = FindObjectsByType<Crystal>(FindObjectsSortMode.None).Length;
-
-        teamScore[0] = 0;
-        UpdateUIScore?.Invoke(0, 0);
-        teamScore[1] = 0;
-        UpdateUIScore?.Invoke(1, 0);
-
-        suddenDeathEnabled = false;
     }
 
     #region Get global game stats
+
+    public int GetMaxScore() { return maxScore; }
     public Color GetTeamColor(int teamIndex){ return gameStats.TeamColor[teamIndex]; }
 
     public Material GetTeamEmissiveMaterial(int teamIndex){ return gameStats.TeamEmissiveMaterial[teamIndex]; }
@@ -65,13 +77,25 @@ public class GameManager : Singleton<GameManager>
 
     #endregion
 
+    #region Pause Game
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void UnpauseGame()
+    {
+        Time.timeScale = 1;
+    }
+    #endregion
+
     #region Score management
 
     public void ChangeScore(int teamIndex, int scoreChange)
     {
         teamScore[teamIndex] += scoreChange;
         Debug.Log($"Team {teamIndex} score changed! Current score: {teamScore[0]} - {teamScore[1]}");
-        UpdateUIScore?.Invoke(teamIndex, teamScore[teamIndex]);
+        Notify(GameEvent.ScoreUpdate, teamScore);
         CheckWinCondition();
     }
 
@@ -83,40 +107,24 @@ public class GameManager : Singleton<GameManager>
     {
         if (!suddenDeathEnabled)
         {
-            if (teamScore[0] >= maxScore)
-            {
-                EndGame.Invoke(0);
-            }
-            else if (teamScore[1] >= maxScore)
-            {
-                EndGame.Invoke(1);
-            }
+            if (teamScore[0] >= maxScore || teamScore[1] >= maxScore)
+                Notify(GameEvent.GameEnd, teamScore);
         } else
         {
-            if (teamScore[0] > teamScore[1])
-            {
-                EndGame.Invoke(0);
-            }
-            else if (teamScore[1] > teamScore[0])
-            {
-                EndGame.Invoke(1);
-            }
+            if (teamScore[0] != teamScore[1])
+                Notify(GameEvent.GameEnd, teamScore);
         }
     }
 
-    IEnumerator CounterCoroutine()
+    public void TimerEnded()
     {
-        yield return new WaitForSeconds(gameStats.GameDuration);
-        if (teamScore[0] > teamScore[1])
+        if (teamScore[0] != teamScore[1])
         {
-            EndGame.Invoke(0);
-        }
-        else if (teamScore[1] > teamScore[0])
-        {
-            EndGame.Invoke(1);
+            Notify(GameEvent.GameEnd, teamScore);
         }
         else
         {
+            Notify(GameEvent.SuddenDeath);
             suddenDeathEnabled = true;
         }
     }

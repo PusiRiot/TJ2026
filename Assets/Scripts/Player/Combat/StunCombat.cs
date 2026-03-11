@@ -6,7 +6,7 @@ using UnityEngine;
 public class StunCombat : MonoBehaviour, ICombat
 {
 
-    private IMovement playerMovement;
+    private PlayerMovement playerMovement;
     private Player player;
 
     private AbstractLight playerLight;
@@ -33,7 +33,7 @@ public class StunCombat : MonoBehaviour, ICombat
     #region MonoBehaviour
     void Awake()
     {
-        playerMovement = GetComponent<IMovement>();
+        playerMovement = GetComponent<PlayerMovement>();
         player = GetComponent<Player>();
 
         // Initialize player light
