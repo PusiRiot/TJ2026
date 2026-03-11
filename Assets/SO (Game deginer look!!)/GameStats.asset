@@ -16,10 +16,11 @@ MonoBehaviour:
   TeamColor:
   - {r: 0.25, g: 0.42466617, b: 1, a: 0}
   - {r: 0.18546599, g: 1, b: 0.15566039, a: 0}
+  - {r: 0.9716981, g: 0.9640193, b: 0.7746084, a: 0}
   TeamEmissiveMaterial:
   - {fileID: 2100000, guid: a1e2bc239b1d60044a7cd98413048d6e, type: 2}
   - {fileID: 2100000, guid: e1685f431a614fe42a5b4fdc9e9d8b95, type: 2}
-  ReclaimCrystalDuration: 3
+  ReclaimCrystalPointsPerSecond: 10
   CrystalCooldownDuration: 12
   LightStunDuration: 1
   HeavyStunDuration: 3

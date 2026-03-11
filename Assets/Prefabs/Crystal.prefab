@@ -196,8 +196,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Crystal
   intensityWhileUnpicked: 0
-  intensityWhilePicked: 0.5
+  intensityWhilePicked: 0
   intensityWhileCooling: 3
+  inactiveResetTime: 1
 --- !u!114 &1945625049616731527
 MonoBehaviour:
   m_ObjectHideFlags: 0

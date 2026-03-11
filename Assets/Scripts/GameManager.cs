@@ -43,7 +43,7 @@ public class GameManager : Singleton<GameManager>
 
     public Material GetTeamEmissiveMaterial(int teamIndex){ return gameStats.TeamEmissiveMaterial[teamIndex]; }
 
-    public float GetReclaimCrystalDuration(){ return gameStats.ReclaimCrystalDuration; }
+    public float GetReclaimCrystalPointsPerSecond(){ return gameStats.ReclaimCrystalPointsPerSecond; }
 
     public float GetGameDuration(){ return gameStats.GameDuration; }
 

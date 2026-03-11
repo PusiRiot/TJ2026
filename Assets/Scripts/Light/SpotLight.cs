@@ -38,7 +38,13 @@ public class SpotLight : AbstractLight
                     if (rh.collider == hit)
                     {
                         detectedThisFrame.Add(crystal);
-                        
+
+                        crystal.ReclaimFlag(teamIndex);
+
+
+
+                        // OBSOLETE CODE: DELETE WHEN VERIFIED
+                        /*
                         // increase or start timer for this crystal
                         if (detectionTimers.ContainsKey(crystal))
                         { 
@@ -58,6 +64,7 @@ public class SpotLight : AbstractLight
                             crystal.ReclaimingStarted();
                             detectionTimers[crystal] = Time.deltaTime;
                         }
+                        */
                     }
 
                 }
