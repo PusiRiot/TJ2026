@@ -20,7 +20,7 @@ public abstract class AbstractLight : MonoBehaviour
     /// <summary>
     /// Only light up a crystal after the player has been shining on it for a certain amount of time, to prevent score changes from very quick flashes of light.
     /// </summary>
-    protected float requiredHoldTime = 2f;
+    protected float reclaimPointsPerSecond = 2f;
 
     private void Awake()
     {
@@ -36,8 +36,9 @@ public abstract class AbstractLight : MonoBehaviour
             teamIndex = 1;
         }
         
-        requiredHoldTime = GameManager.Instance.GetReclaimCrystalDuration();
+        reclaimPointsPerSecond = GameManager.Instance.GetReclaimCrystalPointsPerSecond();
     }
+
     private void Update()
     {
         if (lightCollisionEnabled)
