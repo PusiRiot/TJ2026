@@ -55,7 +55,7 @@ public class GameManager : Subject<GameEvent>
 
     public Material GetTeamEmissiveMaterial(int teamIndex){ return gameStats.TeamEmissiveMaterial[teamIndex]; }
 
-    public float GetReclaimCrystalDuration(){ return gameStats.ReclaimCrystalDuration; }
+    public float GetReclaimCrystalPointsPerSecond(){ return gameStats.ReclaimCrystalPointsPerSecond; }
 
     public float GetGameDuration(){ return gameStats.GameDuration; }
 

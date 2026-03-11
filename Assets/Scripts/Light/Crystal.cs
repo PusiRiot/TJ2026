@@ -1,4 +1,8 @@
+using NUnit.Framework;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 /// <summary>
@@ -11,28 +15,104 @@ public class Crystal : MonoBehaviour
     [SerializeField] float intensityWhileUnpicked = 0f; // Intensity of the crystal light when it's unlit and not picked.
     [SerializeField] float intensityWhilePicked = 0f; // Intensity of the crystal light when it's unlit but picked.
     [SerializeField] float intensityWhileCooling = 3f; // Intensity of the crystal light when it has just been lit and is in cooldown.
+
     private Light crystalLight;
     private bool isLit = false;
-    private int lastTeamIndex = -1;
+    private int teamCaptured = 2;
     private bool cooldownActive = false;
     private ParticleSystem particles;
+
+    // Capture variables
+    [SerializeField] const float reclaimPointsTotal = 30f;
+    private float reclaimPointsCurrent = 0f;
+    private bool isBeingReclaimed = false;
+    private bool isBeingContested = false;
+    private List<Color> teamsColor = new List<Color>();
+
+
+    // Capture flags
+    private List<bool> teamsReclaiming = new List<bool> { false, false };
+    [SerializeField] float inactiveResetTime = 1f;
+    private float inactiveCountdown = 0f;
+    private float inactiveMinusPointsPerSecond = 10f;
+    private Action inactiveActionPerFrame;
+
+
+
+
+
 
     private void Awake()
     {
         particles = GetComponentInChildren<ParticleSystem>();
         crystalLight = GetComponent<Light>();
         crystalLight.intensity = intensityWhileUnpicked; // Set initial intensity to the "unpicked" value, which is the default state of the crystal
+
+        teamsColor.Add(GameManager.Instance.GetTeamColor(0));   // Team 1 color
+        teamsColor.Add(GameManager.Instance.GetTeamColor(1));   // Team 2 color
+        teamsColor.Add(GameManager.Instance.GetTeamColor(2));   // Neutral color
+
+        crystalLight.color = teamsColor[2]; // Set initial color to neutral
+        inactiveActionPerFrame += InactiveReset;
     }
+
+
+    /// <summary>
+    /// Late Update to reset the teams reclaiming the crystal
+    /// </summary>
+    private void LateUpdate()
+    {
+        ManageTeamsReclaim();
+    }
+
 
     /// <summary>
     /// Player just started to reclaim crystal
     /// <para>Here should be the code to slowly lit up crystal to give feedback to player</para>
     /// </summary>
-
-    public void ReclaimingStarted()
+    public void ReclaimingStarted(int teamIndex)
     {
-
+        // Just set some parameters for crystal capture
+        Debug.Log("Reclaiming started");
+        var particleMain = particles.main;
+        particleMain.startColor = teamsColor[teamCaptured];
+        particles.Play();
     }
+
+    // TODO: Connect the lights color to the color of the team in the GameManager
+
+
+    /// <summary>
+    /// Function called every frame while the player is reclaiming the crystal
+    /// </summary>
+    /// <param name="teamIndex"> </param>
+    /// <param name="reclaimPointsPerSecond"></param>
+    /// <returns></returns>
+    public bool ReclaimingPerforming(int teamIndex, float reclaimPointsPerSecond)
+    {
+        if (CanStartReclaim(teamIndex))
+        {
+            ReclaimingStarted(teamIndex);
+        }
+
+        if (cooldownActive || teamIndex == teamCaptured) return false; // Prevent reclaiming while the crystal has just been lit
+
+
+        float deltaTime = Time.deltaTime;
+        float capturePointsGained = deltaTime * reclaimPointsPerSecond;
+        reclaimPointsCurrent += capturePointsGained;
+
+        IncreaseCaptureLight(teamIndex);
+
+        if (reclaimPointsCurrent >= reclaimPointsTotal) // Check if crystal is captured
+        {
+            reclaimPointsCurrent = 0; // Cap the capture points to the total
+            ReclaimingPerformed(teamIndex);
+            return true; // Capture complete
+        }
+        return false;
+    }
+
 
     /// <summary>
     /// Player reclaimed crystal
@@ -43,18 +123,17 @@ public class Crystal : MonoBehaviour
     {
         if (cooldownActive) return; // Prevent multiple scoring while the crystal has just been lit
 
-        if (teamIndex == lastTeamIndex) return; // Prevent scoring if the same team tries to light the crystal again
-
         if (isLit) // A different team is trying to light the crystal, add to their score and subtract from the previous team score
         {
             GameManager.Instance.ChangeScore(teamIndex, 1);
-            GameManager.Instance.ChangeScore(lastTeamIndex, -1);
+            GameManager.Instance.ChangeScore(teamCaptured, -1);
         }
         else // Crystal lit for the first time, just add to the team's score
         {
             GameManager.Instance.ChangeScore(teamIndex, 1);
         }
 
+        teamCaptured = teamIndex;
         TurnLightOn(teamIndex);
     }
 
@@ -70,8 +149,6 @@ public class Crystal : MonoBehaviour
 
     void TurnLightOn(int teamIndex)
     {
-        particles.Play();
-        lastTeamIndex = teamIndex;
         isLit = true;
         cooldownActive = true;
         crystalLight.color = GameManager.Instance.GetTeamColor(teamIndex);
@@ -85,4 +162,86 @@ public class Crystal : MonoBehaviour
         crystalLight.intensity = intensityWhilePicked;
         cooldownActive = false;
     }
+
+    private void IncreaseCaptureLight(int teamIndex)
+    {
+        float captureProgress = reclaimPointsCurrent / reclaimPointsTotal;
+        crystalLight.intensity = captureProgress * intensityWhileCooling;
+        Color lastColor = teamsColor[2];
+        if (isLit)
+        {
+            lastColor = teamsColor[teamCaptured];
+        }
+        InterpolateBetweenColors(lastColor, teamsColor[teamIndex], captureProgress);
+    }
+
+    private void InterpolateBetweenColors(Color baseColor, Color destintyColor, float p)
+    {
+        Color colorLerped = Color.Lerp(baseColor, destintyColor, p);
+        crystalLight.color = colorLerped;
+    }
+
+    /// <summary>
+    /// Returns if the selected team can capture the crystal
+    /// </summary>
+    /// <param name="teamIndex"></param>
+    /// <returns></returns>
+    public bool CanStartReclaim(int teamIndex)
+    {
+        Debug.Log($"{!cooldownActive}, {reclaimPointsCurrent}");
+        // return (!cooldownActive && reclaimPointsCurrent <= 1);
+        // TODO: ADD FLAG TO KNOW WHEN IS THE FIRST FRAME RECLAIMING THE CRYSTAL
+        return false;
+    }
+
+    private void ManageTeamsReclaim()
+    {
+        if (teamsReclaiming[0] == true && teamsReclaiming[1] == true)
+        {
+            // Both team are reclaiming
+            inactiveCountdown = 0f;
+            crystalLight.color = teamsColor[2]; // Set color to neutral when contested
+        }
+        else if (teamsReclaiming[0] == true)
+        {
+            // Team 1 is reclaiming
+            inactiveCountdown = 0f;
+            ReclaimingPerforming(0, GameManager.Instance.GetReclaimCrystalPointsPerSecond());
+
+        }
+        else if (teamsReclaiming[1] == true)
+        {
+            // Team 2 is reclaiming
+            inactiveCountdown = 0f;
+            ReclaimingPerforming(1, GameManager.Instance.GetReclaimCrystalPointsPerSecond());
+
+        }
+        else
+        {
+            // No team is reclaiming
+            inactiveCountdown += Time.deltaTime;
+            inactiveActionPerFrame.Invoke();
+        }
+
+        teamsReclaiming[0] = false;
+        teamsReclaiming[1] = false;
+    }
+
+    private void InactiveReset()
+    {
+        if (reclaimPointsCurrent <= 0) return;
+        if (inactiveCountdown < inactiveResetTime)
+            return;
+
+        reclaimPointsCurrent = Time.deltaTime * inactiveMinusPointsPerSecond;
+        crystalLight.intensity -= reclaimPointsCurrent / reclaimPointsTotal * intensityWhileCooling;
+
+    }
+
+    public void ReclaimFlag(int teamIndex)
+    {
+        teamsReclaiming[teamIndex] = true;
+    }
+
 }
+
