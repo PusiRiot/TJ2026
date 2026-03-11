@@ -140,7 +140,7 @@
                 "m_Node": {
                     "m_Id": "1a063ca398d8499782c58dd3fc607446"
                 },
-                "m_SlotId": 2
+                "m_SlotId": 0
             }
         },
         {
@@ -725,10 +725,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -672.7272338867188,
-            "y": 352.8385925292969,
-            "width": 0.0,
-            "height": 0.0
+            "x": -711.9999389648438,
+            "y": 272.0,
+            "width": 94.0,
+            "height": 34.0
         }
     },
     "m_Slots": [
