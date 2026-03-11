@@ -124,8 +124,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8740630553479805479}
         m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-        m_MethodName: HideCurrentScreen
-        m_Mode: 1
+        m_MethodName: ShowNextScreen
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a584ff7e1ed4240ae31e6a58b548ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButton
-  nextScreenName: 11
+  nextScreenName: 3
   nextSceneName: 1
 --- !u!1 &3696030465205764174
 GameObject:
@@ -1014,7 +1014,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8616483368218158488}
-  - component: {fileID: 2766212219456400306}
+  - component: {fileID: 3201734680806777389}
   m_Layer: 5
   m_Name: PauseScreen
   m_TagString: Untagged
@@ -1047,7 +1047,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2766212219456400306
+--- !u!114 &3201734680806777389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1056,9 +1056,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6679209888614663209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ed9a667f3dbcce4292874da2420d5b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c0554678d1a8824e9ea8e94de35fb8d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIScreenPause
+  m_EditorClassIdentifier: Assembly-CSharp::UIScreen
   screenName: 5
   firstToNavigate: {fileID: 3307090948904086890}
 --- !u!1 &8719796634614169274

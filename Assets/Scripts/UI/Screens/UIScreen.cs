@@ -19,7 +19,12 @@ public class UIScreen : MonoBehaviour
 
     virtual public void Show()
     {
-        gameObject.SetActive(true);
+        if (screenName == ScreenName.Game)
+            GameManager.Instance.UnpauseGame();
+        if (screenName == ScreenName.Pause)
+            GameManager.Instance.PauseGame();
+
         EventSystem.current.SetSelectedGameObject(firstToNavigate);
+        gameObject.SetActive(true);
     }
 }
