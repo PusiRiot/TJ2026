@@ -9,19 +9,31 @@ using UnityEngine.SceneManagement;
 /// <para> To switch between scenes call LoadScene</para>
 /// <para> To reload game call ReloadScene</para>
 /// </summary>
-public class UINavigationManager : Singleton<UINavigationManager>
+public class UINavigationManager : MonoBehaviour
 {
 
     [SerializeField] private ScreenName _firstShownScreenName; // the screen that will first be visible on the canvas when the scene starts
     private IDictionary<string, UIScreen> _screens;
     private UIScreen _currentScreen;
+    private UIScreen _lastScreen;
+
+    #region Singleton implementation
+    public static UINavigationManager Instance { get; private set; }
 
     /// <summary>
-    /// Enables all screens on Awake so they can be initialized
+    /// Awake does the singleton implementation
+    /// <para>It also enables all screens on Awake so they can be initialized</para>
     /// </summary>
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         UIScreen[] screensUnderManager = GetComponentsInChildren<UIScreen>(true);
 
@@ -30,6 +42,9 @@ public class UINavigationManager : Singleton<UINavigationManager>
             screen.Show();
         }
     }
+
+    #endregion
+
 
     /// <summary>
     /// Hides all screens on Start and stores them in a dictionary for easy access, then shows the first screen defined on the inspector
@@ -69,11 +84,12 @@ public class UINavigationManager : Singleton<UINavigationManager>
             return; // if the screen wasn't found, return without switching
         }
 
-        if (_currentScreen != null) // if there's a screen showing at the moment of the change hide it and store it as the previous screen
+        if (_currentScreen != null && hidePreviousScreen) // if there's a screen showing at the moment of the change hide it and store it as the previous screen
         {
-            _currentScreen.Hide();
+            _currentScreen?.Hide();
         }
 
+        _lastScreen = _currentScreen;
         _currentScreen = screenToSwitch;
         _currentScreen.Show();
     }
@@ -84,18 +100,19 @@ public class UINavigationManager : Singleton<UINavigationManager>
     public void HideCurrentScreen()
     {
         _currentScreen?.Hide();
+        _currentScreen = _lastScreen;
     }
     #endregion
 
     #region Scene change methods
     public void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void LoadScene(SceneName nextSceneName)
     {
-        SceneManager.LoadScene(SceneManager.GetSceneByName(nextSceneName.ToString()).buildIndex, LoadSceneMode.Single);
+        SceneManager.LoadScene(nextSceneName.ToString());
     }
     #endregion
 }

@@ -1,14 +1,18 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// This class is responsible for managing the in game UI (score, timer...), it listen's to GameManager events.
 /// </summary>
-public class GameUIManager : MonoBehaviour
+public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObserver<GameEvent>
 {
     #region Variables
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
+    [SerializeField] private Image[] playerDashEnabled = new Image[2];
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private TextMeshProUGUI timeUpText;
     float timePassed = 0;
 
     bool timeBelowZero = false;
@@ -16,45 +20,25 @@ public class GameUIManager : MonoBehaviour
 
     #region Monobehaviour
 
-    private void Awake()
+    private void Start()
     {
-        // TODO: Once everything is more stablished we should add a way to ensure this is always assigned instead of manually checking the inspector, maybe with a tag or something like that
-        if (teamScoreTexts == null)
-        {
-            Debug.LogWarning("Team score texts not assigned in the inspector, unless you want to see a sea of red on the console you should add them :)");
-        }
-
         teamScoreTexts[0].text = "0";
         teamScoreTexts[1].text = "0";
 
-        timerText.text = GameManager.Instance.GetGameDuration().ToString("F2");
+        timerText.text = System.TimeSpan.FromSeconds(GameManager.Instance.GetGameDuration()).ToString(@"mm\:ss");
+
+        timeUpText.enabled = false;
+
+        //StartCoroutine(StartCountdown());
     }
+
+
     void Update()
     {
         if (!timeBelowZero)
             UpdateTimer();
     }
     #endregion
-
-    #region Event listeners setup
-
-    private void OnEnable()
-    {
-        GameManager.Instance.UpdateUIScore += UpdateScoreUI;
-        GameManager.Instance.EndGame += EndGameUI;
-    }
-    private void OnDisable()
-    {
-        GameManager.Instance.UpdateUIScore -= UpdateScoreUI;
-        GameManager.Instance.EndGame -= EndGameUI;
-    }
-    #endregion
-
-    #region Update score, timer and player stuff
-    void UpdateScoreUI(int teamIndex, int teamScore)
-    {
-        teamScoreTexts[teamIndex].text = teamScore.ToString();
-    }
 
     void UpdateTimer()
     {
@@ -63,17 +47,94 @@ public class GameUIManager : MonoBehaviour
         if (currentTime <= 0)
         {
             timeBelowZero = true;
-            GameManager.Instance.TimerEnded(); // Notify GameManager of timer end
+            StartCoroutine(TimeUp());
         }
 
-        timerText.text = currentTime.ToString();
+        timerText.text = System.TimeSpan.FromSeconds(currentTime).ToString(@"mm\:ss");
     }
-    #endregion
 
-    #region Victory screen
-    void EndGameUI(int winningTeamIndex)
+    IEnumerator StartCountdown()
     {
-        UINavigationManager.Instance.ShowScreen(ScreenName.Victory);
+        GameManager.Instance.PauseGame();
+        timeUpText.enabled = true;
+
+        //for (int i = 3; i > 0; i--)
+        //{
+        //    timeUpText.text = i + "...";
+        //    yield return new WaitForSecondsRealtime(1);
+        //}
+        timeUpText.text = "3...";
+        yield return new WaitForSecondsRealtime(1);
+        timeUpText.text = "2...";
+        yield return new WaitForSecondsRealtime(1);
+        timeUpText.text = "1...";
+        yield return new WaitForSecondsRealtime(1);
+
+        timeUpText.text = "¡Ya!";
+        yield return new WaitForSecondsRealtime(1);
+        timeUpText.enabled = false;
+
+        GameManager.Instance.UnpauseGame();
+    }
+
+    IEnumerator TimeUp()
+    {
+        GameManager.Instance.PauseGame(); // pause game and set message that time's up
+        timeUpText.text = "¡Tiempo!";
+        timeUpText.enabled = true;
+        yield return new WaitForSecondsRealtime(2); 
+        GameManager.Instance.TimerEnded(); // Notify GameManager of timer end
+    }
+
+    IEnumerator SuddenDeath()
+    {
+        timeUpText.text = "Muerte súbita";
+        yield return new WaitForSecondsRealtime(2);
+        GameManager.Instance.UnpauseGame();
+        timeUpText.enabled = false;
+    }
+
+    #region IObserver
+    public void OnNotify(PlayerMovementEvent evt, object data = null)
+    {
+        switch (evt)
+        {
+            case PlayerMovementEvent.DashConsumed:
+            {
+                int teamIndex = (int)data;
+                Color teamColor = playerDashEnabled[teamIndex].color;
+                teamColor.a = 0.05f;
+                playerDashEnabled[teamIndex].color = teamColor;
+                break;
+            }
+            case PlayerMovementEvent.DashEnabled:
+            {
+                int teamIndex = (int)data;
+                Color teamColor = playerDashEnabled[teamIndex].color;
+                teamColor.a = 1f;
+                playerDashEnabled[teamIndex].color = teamColor;
+                break;
+            }
+        }
+    }
+
+    public void OnNotify(GameEvent evt, object data = null)
+    {
+        switch (evt)
+        {
+            case GameEvent.ScoreUpdate:
+            {
+                int[] score = data as int[];
+                teamScoreTexts[0].text = score[0].ToString();
+                teamScoreTexts[1].text = score[1].ToString();
+                break;
+            }
+            case GameEvent.SuddenDeath:
+            {
+                StartCoroutine(SuddenDeath());
+                break;
+            }
+        }
     }
     #endregion
 }

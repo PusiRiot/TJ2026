@@ -1,20 +1,21 @@
 using TMPro;
 using UnityEngine;
 
-public class UIScreenVictory : UIScreen
+public class UIScreenVictory : UIScreen, IObserver<GameEvent>
 {
     [SerializeField] TextMeshProUGUI winningTeamText;
 
-    public override void Show()
+    public void OnNotify(GameEvent evt, object data = null)
     {
-        int[] teamScore = GameManager.Instance.TeamScore;
+        if (evt == GameEvent.GameEnd)
+        {
+            int[] teamScore = (int[])data;
+            if (teamScore[0] > teamScore[1])
+                winningTeamText.text = "Gana el jugador 1";
+            else
+                winningTeamText.text = "Gana el jugador 2";
 
-        if (teamScore[0] > teamScore[1])
-            winningTeamText.text = "Team 1 wins";
-        else
-            winningTeamText.text = "Team 2 wins";
-
-
-        base.Show();
+            Show();
+        }
     }
 }

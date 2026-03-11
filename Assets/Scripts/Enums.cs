@@ -1,10 +1,9 @@
-/// UI RELATED ENUMS
 public enum SceneName
 {
     StartScene,
-    MainMenu,
-    Game1v1,
-    GameSandbox,
+    MainMenuScene,
+    GameScene,
+    GameSandboxScene,
 }
 
 public enum ScreenName 
@@ -27,4 +26,18 @@ public enum PlayerCharacter
 {
     Brawlight,
     Peggy
+}
+
+// GAME EVENTS
+public enum GameEvent
+{
+    GameEnd, // data = (int)team1Score, (int)team2Score
+    ScoreUpdate, // data = (int)team1Score, (int)team2Score 
+    SuddenDeath, // no data
+}
+
+public enum PlayerMovementEvent
+{
+    DashConsumed, // data = (int)teamIndex
+    DashEnabled, // data = (int)teamIndex
 }

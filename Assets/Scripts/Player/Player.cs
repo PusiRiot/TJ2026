@@ -13,24 +13,22 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerStats playerStats;
     private InputAction attackHoldAction;
-    private IMovement playerMovement;
+    private PlayerMovement playerMovement;
     private ICombat playerCombat;
     int teamIndex = -1;
 
     void Awake()
     {
-        playerMovement = gameObject.GetComponent<IMovement>();
-        playerMovement ??= gameObject.AddComponent<BasicMovement>();
-
-        playerCombat = gameObject.GetComponent<ICombat>();
-        playerCombat ??= gameObject.AddComponent<StunCombat>();
-
         if (CompareTag("Player1"))
             teamIndex = 0;
         else
             teamIndex = 1;
 
+        playerMovement = gameObject.AddComponent<PlayerMovement>();
         playerMovement.Init(playerStats.Speed, teamIndex);
+
+        playerCombat = gameObject.GetComponent<ICombat>();
+        playerCombat ??= gameObject.AddComponent<StunCombat>();
 
         attackHoldAction = gameObject.GetComponent<PlayerInput>().actions.FindAction("Attack");
     }
@@ -80,6 +78,11 @@ public class Player : MonoBehaviour
     {
         attackHoldAction.Disable();
         attackHoldAction.Enable();
+    }
+
+    public void PauseGame()
+    {
+        UINavigationManager.Instance.ShowScreen(ScreenName.Pause, false);
     }
 
     #endregion

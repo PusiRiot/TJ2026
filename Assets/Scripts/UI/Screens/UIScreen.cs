@@ -9,7 +9,7 @@ public class UIScreen : MonoBehaviour
         return screenName.ToString();
     }
 
-    public void Hide()
+    virtual public void Hide()
     {
         gameObject.SetActive(false);
     }

@@ -33,4 +33,9 @@ public class UIButton : MonoBehaviour
     {
         UINavigationManager.Instance.HideCurrentScreen();
     }
+
+    public void GoToUrl(string url)
+    {
+        Application.OpenURL(url);
+    }
 }

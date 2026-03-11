@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9124829035150311560}
   - component: {fileID: 694485707851605570}
   m_Layer: 5
-  m_Name: MainMenuButton
+  m_Name: CreditsBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -276}
-  m_SizeDelta: {x: 200, y: 40}
+  m_AnchoredPosition: {x: 0, y: -225}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8198891381977421152
 CanvasRenderer:
@@ -124,15 +124,15 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 694485707851605570}
         m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-        m_MethodName: LoadNextScene
-        m_Mode: 1
+        m_MethodName: ShowNextScreen
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &694485707851605570
 MonoBehaviour:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a584ff7e1ed4240ae31e6a58b548ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButton
-  nextScreenName: 0
+  nextScreenName: 11
   nextSceneName: 1
 --- !u!1 &1004284899346969453
 GameObject:
@@ -213,17 +213,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Men\xFA principal"
+  m_text: "Cr\xE9ditos"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280160034
-  m_fontColor: {r: 0.13207549, g: 0.057938773, b: 0.11663033, a: 1}
+    rgba: 4284264434
+  m_fontColor: {r: 0.9490197, g: 0.6862745, b: 0.36078432, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -350,19 +350,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Revancha
-
-'
+  m_text: Jugar
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280160034
-  m_fontColor: {r: 0.13333334, g: 0.05882353, b: 0.11764706, a: 1}
+    rgba: 4284264434
+  m_fontColor: {r: 0.9490197, g: 0.6862745, b: 0.36078432, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -436,7 +434,7 @@ GameObject:
   - component: {fileID: 3507952392600406677}
   - component: {fileID: 8551272026614873299}
   m_Layer: 5
-  m_Name: Winning team text
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -458,7 +456,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 18}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3507952392600406677
@@ -489,7 +487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gana el jugador 1
+  m_text: Brawlight Manor
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -498,8 +496,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284264434
+  m_fontColor: {r: 0.9490196, g: 0.6862745, b: 0.36078432, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -516,8 +514,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
-  m_fontSizeBase: 120
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -570,9 +568,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8616483368218158488}
-  - component: {fileID: 214121666349744300}
+  - component: {fileID: 1785596408271063484}
   m_Layer: 5
-  m_Name: VictoryScreen
+  m_Name: MainMenuScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -590,7 +588,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1915862695660109090}
+  - {fileID: 6078892359716747218}
   - {fileID: 4473828157900550597}
   - {fileID: 1166783821988450227}
   - {fileID: 2466646896962541878}
@@ -601,7 +599,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &214121666349744300
+--- !u!114 &1785596408271063484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -610,12 +608,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6679209888614663209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be6dd76ed68b7e0439b959f299ce0ab2, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c0554678d1a8824e9ea8e94de35fb8d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIScreenVictory
-  screenName: 9
-  winningTeamText: {fileID: 8551272026614873299}
---- !u!1 &8372228475538386656
+  m_EditorClassIdentifier: Assembly-CSharp::UIScreen
+  screenName: 0
+--- !u!1 &8161378173482176056
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -623,9 +620,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1915862695660109090}
-  - component: {fileID: 6949253598070968468}
-  - component: {fileID: 689006532427001076}
+  - component: {fileID: 6078892359716747218}
+  - component: {fileID: 4159950969393560988}
+  - component: {fileID: 8453761172669894048}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -633,13 +630,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1915862695660109090
+--- !u!224 &6078892359716747218
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8372228475538386656}
+  m_GameObject: {fileID: 8161378173482176056}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1}
@@ -652,28 +649,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &6949253598070968468
+--- !u!222 &4159950969393560988
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8372228475538386656}
+  m_GameObject: {fileID: 8161378173482176056}
   m_CullTransparentMesh: 1
---- !u!114 &689006532427001076
+--- !u!114 &8453761172669894048
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8372228475538386656}
+  m_GameObject: {fileID: 8161378173482176056}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2830189, g: 0.11080456, b: 0.24235716, a: 1}
+  m_Color: {r: 0.4745098, g: 0.19215687, b: 0.40784314, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -704,7 +701,7 @@ GameObject:
   - component: {fileID: 3340234507585122712}
   - component: {fileID: 6053143447129580517}
   m_Layer: 5
-  m_Name: RematchButton
+  m_Name: PlayBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -727,8 +724,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -65}
-  m_SizeDelta: {x: 200, y: 40}
+  m_AnchoredPosition: {x: 0, y: -49.8}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6045408895695067879
 CanvasRenderer:
@@ -812,9 +809,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694485707851605570}
+      - m_Target: {fileID: 6053143447129580517}
         m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-        m_MethodName: ReloadScene
+        m_MethodName: LoadNextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -822,7 +819,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &6053143447129580517
 MonoBehaviour:
@@ -837,4 +834,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButton
   nextScreenName: 0
-  nextSceneName: 1
+  nextSceneName: 2
