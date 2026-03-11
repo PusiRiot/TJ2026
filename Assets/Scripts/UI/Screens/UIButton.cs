@@ -38,4 +38,9 @@ public class UIButton : MonoBehaviour
     {
         Application.OpenURL(url);
     }
+
+    public void ExitApp()
+    {
+        Application.Quit();
+    }
 }
