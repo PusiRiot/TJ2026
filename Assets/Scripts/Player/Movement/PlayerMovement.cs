@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(TrailRenderer))]
 [RequireComponent(typeof(Rigidbody))]
-public class BasicMovement : MonoBehaviour, IMovement
+public class PlayerMovement : Subject<PlayerMovementEvent>
 {
     #region Variables
     const float ROTATION_SPEED = 7f;
@@ -13,6 +12,7 @@ public class BasicMovement : MonoBehaviour, IMovement
     Vector2 moveInput;
     bool movementDisabled = false;
     Rigidbody rb;
+    int teamIndex = -1;
 
     // Dash
     float dashIncrement;
@@ -40,6 +40,8 @@ public class BasicMovement : MonoBehaviour, IMovement
         staminaRegenRate = GameManager.Instance.GetStaminaRegenRate();
 
         currentStamina = maxStamina;
+
+        AddObserversOnScene();
     }
 
     void FixedUpdate()
@@ -47,9 +49,8 @@ public class BasicMovement : MonoBehaviour, IMovement
         Motion();
 
         // Stamina regeneration
-        currentStamina += staminaRegenRate * Time.fixedDeltaTime;
-
-        if(currentStamina > maxStamina) currentStamina = maxStamina;
+        if (currentStamina < maxStamina)
+            RegenerateStamina();
     }
 
     void Motion()
@@ -69,20 +70,32 @@ public class BasicMovement : MonoBehaviour, IMovement
             rb.linearVelocity = motionVector.normalized * speed;
     }
 
+    void RegenerateStamina()
+    {
+        currentStamina += staminaRegenRate * Time.fixedDeltaTime;
 
-    #region IMovement implementation
+        if (currentStamina >= maxStamina)
+        {
+            currentStamina = maxStamina;
+            Notify(PlayerMovementEvent.DashEnabled, teamIndex);
+        }
+    }
 
-    void IMovement.Init(float _speed, int _teamIndex)
+
+    #region Public methods
+
+    public void Init(float _speed, int _teamIndex)
     {
         speed = _speed;
 
         // Add trailRenderer material, it is linked to the team index to change color accordingly
         List<Material> trailRendererMats = new();
+        teamIndex = _teamIndex;
         trailRendererMats.Add(GameManager.Instance.GetTeamEmissiveMaterial(_teamIndex));
         trailRenderer.SetMaterials(trailRendererMats);
     }
 
-    void IMovement.Move(float horizontal, float vertical)
+    public void Move(float horizontal, float vertical)
     {
         moveInput = new Vector2(horizontal, vertical);
     }
@@ -92,17 +105,18 @@ public class BasicMovement : MonoBehaviour, IMovement
     /// </summary>
     /// <param name="duration"></param>
     /// <returns></returns>
-    IEnumerator IMovement.DisableMovement(float duration)
+    public IEnumerator DisableMovement(float duration)
     {
         movementDisabled = true; 
         yield return new WaitForSeconds(duration);
         movementDisabled = false;
     }
 
-    IEnumerator IMovement.Dash(bool ignoreStamina)
+    public IEnumerator Dash(bool ignoreStamina)
     {
         if (ignoreStamina || (!movementDisabled && !dashExecuting && currentStamina >= staminaConsumption))
         {
+            Notify(PlayerMovementEvent.DashConsumed, teamIndex);
             dashExecuting = true;
             trailRenderer.emitting = true;
 
@@ -126,9 +140,9 @@ public class BasicMovement : MonoBehaviour, IMovement
     /// Disable or enable movement. Doesn't disable rotation
     /// </summary>
     /// <param name="movementDisabled"></param>
-    void IMovement.DisableMovement(bool movementDisabled)
+    public void DisableMovement(bool movementDisabled)
     {
-        this.movementDisabled = movementDisabled; 
+        this.movementDisabled = movementDisabled;
     }
 
     #endregion
