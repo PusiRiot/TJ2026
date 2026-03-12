@@ -168,6 +168,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d912ead6-f104-45d9-96c2-6af032fe06bc
     m_ActionName: 'Player 2/Dash[/Keyboard/rightCtrl]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9fb0e513-79b0-4fee-bef9-75020b7309a6
+    m_ActionName: 'Player 1/Pause[/Keyboard/escape,/XInputControllerWindows/start]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7fcf5142-ab27-4fcb-b423-4fe9ad8c1c20
+    m_ActionName: Player 2/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player 2
@@ -372,6 +380,10 @@ PrefabInstance:
     - target: {fileID: 3816165549230168845, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216735353326599200, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_Color.b

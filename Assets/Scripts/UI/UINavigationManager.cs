@@ -15,6 +15,7 @@ public class UINavigationManager : MonoBehaviour
     [SerializeField] private ScreenName _firstShownScreenName; // the screen that will first be visible on the canvas when the scene starts
     private IDictionary<string, UIScreen> _screens;
     private UIScreen _currentScreen;
+    public UIScreen CurrentScreen {  get { return _currentScreen; } }
     private UIScreen _lastScreen;
 
     #region Singleton implementation

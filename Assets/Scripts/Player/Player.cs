@@ -82,7 +82,8 @@ public class Player : MonoBehaviour
 
     public void PauseGame()
     {
-        UINavigationManager.Instance.ShowScreen(ScreenName.Pause, false);
+        if (UINavigationManager.Instance.CurrentScreen.GetName() == ScreenName.Game.ToString())
+            UINavigationManager.Instance.ShowScreen(ScreenName.Pause, false);
     }
 
     #endregion
