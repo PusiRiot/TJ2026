@@ -140,14 +140,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Crystal
   intensityWhileUnpicked: 0
-  intensityWhilePicked: 0
-  intensityWhileCooling: 3
-  capturingParticles:
-  - {fileID: 2792032985083412432}
-  - {fileID: 3564660146840932120}
-  capturingParticlesMinSize: 0.25
-  capturingParticlesMaxSize: 1.5
+  intensityWhilePicked: 3
+  intensityWhileCooling: 5
   inactiveResetTime: 1
+  reclaimingStartedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  reclaimingFinishedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  contestedStartedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  contestedFinishedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  cooldownStartedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  cooldownFinishedCallback:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1945625049616731527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4963,7 +4976,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    vectorLabel1_3: W
+    vectorLabel1_3: 
 --- !u!199 &1205427034740859214
 ParticleSystemRenderer:
   serializedVersion: 7

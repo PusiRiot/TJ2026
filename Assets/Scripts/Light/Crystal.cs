@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Crystal class, attached to the crystal game objects. 
@@ -13,37 +15,52 @@ using UnityEngine;
 public class Crystal : MonoBehaviour
 {
     [SerializeField] float intensityWhileUnpicked = 0f; // Intensity of the crystal light when it's unlit and not picked.
-    [SerializeField] float intensityWhilePicked = 0f; // Intensity of the crystal light when it's unlit but picked.
-    [SerializeField] float intensityWhileCooling = 3f; // Intensity of the crystal light when it has just been lit and is in cooldown.
+
+    [SerializeField] float intensityWhilePicked = 3f; // Intensity of the crystal light when it's unlit but picked.
+    [SerializeField] float intensityWhileCooling = 5f; // Intensity of the crystal light when it has just been lit and is in cooldown.
     [SerializeField] List<ParticleSystem> capturingParticles;
     [SerializeField] float capturingParticlesMinSize = 0.25f;
     [SerializeField] float capturingParticlesMaxSize = 1.5f;
 
     private Light crystalLight;
     private bool isLit = false;
+    // By default using generic color
     private int teamCaptured = 2;
     private bool cooldownActive = false;
 
     // Capture variables
     [SerializeField] const float reclaimPointsTotal = 30f;
     private float reclaimPointsCurrent = 0f;
-    private bool isBeingReclaimed = false;
-    private bool isBeingContested = false;
     private List<Color> teamsColor = new List<Color>();
     private int lastTeamReclaiming = 2;
 
 
     // Capture flags
-    private List<bool> teamsReclaiming = new List<bool> { false, false };
+    // This can and might be done in a single List (memory optimization)
+    private List<bool> teamsReclaiming           = new List<bool> { false, false };
+    private List<bool> teamsReclaimingPrevFrame  = new List<bool> { false, false };
+    private List<bool> teamsReclaimingFirstFrame = new List<bool> { false, false };
+
     [SerializeField] float inactiveResetTime = 1f;
     private float inactiveCountdown = 0f;
     private float inactiveMinusPointsPerSecond = 10f;
-    private Action inactiveActionPerFrame;
+    private UnityEvent inactiveActionPerFrame = new UnityEvent();
 
 
+    // Reclaiming callbacks
+    public  UnityEvent<int> reclaimingStartedCallback = new UnityEvent<int>();
+    private UnityEvent<int> reclaimingUpdateCallback = new UnityEvent<int>();
+    public  UnityEvent<int> reclaimingFinishedCallback = new UnityEvent<int>();
 
+    // Contested callbacks
+    public UnityEvent contestedStartedCallback = new UnityEvent();
+    private UnityEvent contestedUpdateCallback = new UnityEvent();
+    public  UnityEvent contestedFinishedCallback = new UnityEvent();
 
-
+    // Cooldown callbacks (when the crystal is not captured and lit)
+    public UnityEvent cooldownStartedCallback = new UnityEvent();
+    private UnityEvent cooldownUpdateCallback = new UnityEvent();
+    public  UnityEvent cooldownFinishedCallback = new UnityEvent();
 
     private void Awake()
     {
@@ -55,62 +72,134 @@ public class Crystal : MonoBehaviour
         teamsColor.Add(GameManager.Instance.GetTeamColor(2));   // Neutral color
 
         crystalLight.color = teamsColor[2]; // Set initial color to neutral
-        inactiveActionPerFrame += InactiveReset;
+        inactiveActionPerFrame.AddListener(InactiveReset);
+
+        // Assing callbacks
+        reclaimingUpdateCallback.AddListener((teamIndex) => ReclaimingPerforming(teamIndex)); 
+        reclaimingUpdateCallback.AddListener((teamIndex) => IncreaseCaptureLight(teamIndex));
+
+        reclaimingFinishedCallback.AddListener((foo) => reclaimPointsCurrent = 0);
+        reclaimingFinishedCallback.AddListener(ReclaimingPerformed);
     }
 
-
-    /// <summary>
-    /// Late Update to reset the teams reclaiming the crystal
-    /// </summary>
     private void LateUpdate()
     {
         ManageTeamsReclaim();
+        ManageFinishActions();
+        UpdateTeamsReclaimingList();
     }
 
-
-    /// <summary>
-    /// Player just started to reclaim crystal
-    /// <para>Here should be the code to slowly lit up crystal to give feedback to player</para>
-    /// </summary>
-    public void ReclaimingStarted(int teamIndex)
+    private void ManageTeamsReclaim()
     {
-        // Just set some parameters for crystal capture
-        Debug.Log("Reclaiming started");
-        capturingParticles[teamIndex].gameObject.SetActive(true);
-    }
-
-    // TODO: Connect the lights color to the color of the team in the GameManager
-
-
-    /// <summary>
-    /// Function called every frame while the player is reclaiming the crystal
-    /// </summary>
-    /// <param name="teamIndex"> </param>
-    /// <param name="reclaimPointsPerSecond"></param>
-    /// <returns></returns>
-    public bool ReclaimingPerforming(int teamIndex, float reclaimPointsPerSecond)
-    {
-        if (CanStartReclaim(teamIndex))
+        if (teamsReclaiming[0] && teamsReclaiming[1])
         {
-            ReclaimingStarted(teamIndex);
+            if (!teamsReclaimingPrevFrame[0] || !teamsReclaimingPrevFrame[1])   // Check if this was the first frame of both teams reclaiming
+                contestedStartedCallback.Invoke();
+
+            // Both team are reclaiming
+            contestedUpdateCallback.Invoke();
+            inactiveCountdown = 0f;
+            crystalLight.color = teamsColor[2]; // Set color to neutral when contested
+
+// TODO: ACTIVATE PARTICLES
+    }
+
+
+        }
+        else if (teamsReclaiming[0] == true && !cooldownActive && teamCaptured != 0)
+        {
+            if (!teamsReclaimingPrevFrame[0]) // First time team 0 is reclaiming
+                reclaimingStartedCallback.Invoke(0);
+            else
+            {
+                inactiveCountdown = 0f;
+                reclaimingUpdateCallback.Invoke(0);
+            }
+
+        }
+        else if (teamsReclaiming[1] == true && !cooldownActive && teamCaptured != 1)
+        {
+            if(!teamsReclaimingPrevFrame[1]) // First time team 1 is reclaiming
+                reclaimingStartedCallback.Invoke(1);
+            else
+            {
+                // Team 2 is reclaiming
+                inactiveCountdown = 0f;
+                reclaimingUpdateCallback.Invoke(1);
+            }
+
+        }
+        else if (reclaimPointsCurrent > 0) 
+        {
+
+            inactiveCountdown += Time.deltaTime;
+
+            // No team is reclaiming
+            if(inactiveCountdown > inactiveResetTime)
+            {
+                if((inactiveCountdown - Time.deltaTime) <= inactiveResetTime) // Check if this is the first frame of being inactive
+                    cooldownStartedCallback.Invoke();
+            }
+
+            inactiveActionPerFrame.Invoke();
+        }
+    }
+
+    private void ManageFinishActions()
+    {
+        if (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1])
+        {
+            if (!teamsReclaiming[0] || !teamsReclaiming[1])    // Check if one of the teams stopped reclaiming
+                contestedFinishedCallback.Invoke();
         }
 
-        if (cooldownActive || teamIndex == teamCaptured) return false; // Prevent reclaiming while the crystal has just been lit
+        if(reclaimPointsCurrent >= reclaimPointsTotal)
+        {
+            if(teamsReclaiming[0])
+                reclaimingFinishedCallback.Invoke(0);
+            else
+                reclaimingFinishedCallback.Invoke(1);
+        }
 
+        // TODO: Add cooldown finished callback invoke 
+    }
 
+    private void UpdateTeamsReclaimingList()
+    {
+        teamsReclaimingPrevFrame[0] = teamsReclaiming[0];
+        teamsReclaimingPrevFrame[1] = teamsReclaiming[1];
+
+        if (teamsReclaiming[0] && !teamsReclaimingPrevFrame[0])
+        {
+            teamsReclaimingFirstFrame[0] = true;
+        }
+        else
+        {
+            teamsReclaimingFirstFrame[0] = false;
+        }
+        // TODO: SHOW CAPTURE FEEDBACK ON 
+        // wtf move this somewhere else
+        ShowCaptureFeedback(teamCaptured, teamIndex);
+
+        if (teamsReclaiming[1] && !teamsReclaimingPrevFrame[1])
+        {
+            teamsReclaimingFirstFrame[1] = true;
+        }
+        else
+        {
+            teamsReclaimingFirstFrame[1] = false;
+        }
+
+        teamsReclaiming[0] = false;
+        teamsReclaiming[1] = false;
+    }
+
+    public void ReclaimingPerforming(int teamIndex)
+    {
+        float reclaimPointsPerSecond = GameManager.Instance.GetReclaimCrystalPointsPerSecond();
         float deltaTime = Time.deltaTime;
         float capturePointsGained = deltaTime * reclaimPointsPerSecond;
         reclaimPointsCurrent += capturePointsGained;
-
-        ShowCaptureFeedback(teamCaptured, teamIndex);
-
-        if (reclaimPointsCurrent >= reclaimPointsTotal) // Check if crystal is captured
-        {
-            reclaimPointsCurrent = 0; // Cap the capture points to the total
-            ReclaimingPerformed(teamIndex);
-            return true; // Capture complete
-        }
-        return false;
     }
 
 
@@ -143,19 +232,6 @@ public class Crystal : MonoBehaviour
         TurnLightOn(teamIndex);
     }
 
-    /// <summary>
-    /// Player stopped illuminating crystal without reclaiming it
-    /// <para>Here should be the code to lit down crystal again</para>
-    /// </summary>
-    public void ReclaimingCanceled()
-    {
-        // Deactivate particles
-        foreach (ParticleSystem p in capturingParticles)
-        {
-            p.gameObject.SetActive(false);
-        }
-    }
-
 
     void TurnLightOn(int teamIndex)
     {
@@ -169,83 +245,36 @@ public class Crystal : MonoBehaviour
     IEnumerator TurnLightOff()
     {
         yield return new WaitForSeconds(GameManager.Instance.GetCrystalCooldownDuration());
-        crystalLight.intensity = intensityWhilePicked;
+        crystalLight.intensity = intensityWhileUnpicked;
         cooldownActive = false;
     }
 
     private void ShowCaptureFeedback(int startingTeam, int endingTeam)
     {
         float captureProgress = reclaimPointsCurrent / reclaimPointsTotal;
-        Color interpolatedColor = Color.Lerp(teamsColor[startingTeam], teamsColor[endingTeam], captureProgress);
-
-        //Crystal
-        crystalLight.intensity = captureProgress * intensityWhileCooling;
-        crystalLight.color = interpolatedColor;
+        crystalLight.intensity = captureProgress * intensityWhilePicked;
+        Color lastColor = teamsColor[2];
+        if (isLit)
+        {
+            lastColor = teamsColor[teamCaptured];
+        }
+        InterpolateBetweenColors(lastColor, teamsColor[teamIndex], captureProgress);
+    }
 
         //Particle
         var capturingParticlesMain = capturingParticles[endingTeam].main;
         capturingParticlesMain.startSize = capturingParticlesMinSize + (capturingParticlesMaxSize - capturingParticlesMinSize) * captureProgress;
     }
 
-    /// <summary>
-    /// Returns if the selected team can capture the crystal
-    /// </summary>
-    /// <param name="teamIndex"></param>
-    /// <returns></returns>
-    public bool CanStartReclaim(int teamIndex)
-    {
-        Debug.Log($"{!cooldownActive}, {reclaimPointsCurrent}");
-        // return (!cooldownActive && reclaimPointsCurrent <= 1);
-        // TODO: ADD FLAG TO KNOW WHEN IS THE FIRST FRAME RECLAIMING THE CRYSTAL
-        return false;
-    }
-
-    private void ManageTeamsReclaim()
-    {
-        if (teamsReclaiming[0] == true && teamsReclaiming[1] == true)
-        {
-            // Both team are reclaiming
-            inactiveCountdown = 0f;
-            crystalLight.color = teamsColor[2]; // Set color to neutral when contested
-        }
-        else if (teamsReclaiming[0] == true)
-        {
-            // Team 1 is reclaiming
-            inactiveCountdown = 0f;
-            lastTeamReclaiming = 0;
-            ReclaimingPerforming(0, GameManager.Instance.GetReclaimCrystalPointsPerSecond());
-
-        }
-        else if (teamsReclaiming[1] == true)
-        {
-            // Team 2 is reclaiming
-            inactiveCountdown = 0f;
-            lastTeamReclaiming = 1;
-            ReclaimingPerforming(1, GameManager.Instance.GetReclaimCrystalPointsPerSecond());
-
-        }
-        else
-        {
-            // No team is reclaiming
-            inactiveCountdown += Time.deltaTime;
-            inactiveActionPerFrame.Invoke();
-        }
-
-        teamsReclaiming[0] = false;
-        teamsReclaiming[1] = false;
-    }
-
     private void InactiveReset()
     {
-        if (reclaimPointsCurrent <= 0) {
-            reclaimPointsCurrent = 0;
-            return; 
-        }
-        if (inactiveCountdown < inactiveResetTime)
+        if (reclaimPointsCurrent <= 0) return;
+        if (inactiveCountdown < inactiveResetTime)  // Check if a second has passed since the last time the crystal was being reclaimed
             return;
 
-        reclaimPointsCurrent -= Time.deltaTime * inactiveMinusPointsPerSecond;
-        ShowCaptureFeedback(lastTeamReclaiming, teamCaptured);
+        // Adjust intensity to the current amount of points
+        reclaimPointsCurrent = Time.deltaTime * inactiveMinusPointsPerSecond;
+        crystalLight.intensity -= reclaimPointsCurrent / reclaimPointsTotal * intensityWhilePicked;
 
     }
 
