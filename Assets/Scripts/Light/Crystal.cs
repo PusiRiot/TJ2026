@@ -15,8 +15,8 @@ public class Crystal : MonoBehaviour
     [SerializeField] float intensityWhileUnpicked = 0f; // Intensity of the crystal light when it's unlit and not picked.
     [SerializeField] float intensityWhilePicked = 0f; // Intensity of the crystal light when it's unlit but picked.
     [SerializeField] float intensityWhileCooling = 3f; // Intensity of the crystal light when it has just been lit and is in cooldown.
-    [SerializeField] ParticleSystem capturingParticles;
-    [SerializeField] float capturingParticlesMinSize = 0.75f;
+    [SerializeField] List<ParticleSystem> capturingParticles;
+    [SerializeField] float capturingParticlesMinSize = 0.25f;
     [SerializeField] float capturingParticlesMaxSize = 1.5f;
 
     private Light crystalLight;
@@ -30,11 +30,11 @@ public class Crystal : MonoBehaviour
     private bool isBeingReclaimed = false;
     private bool isBeingContested = false;
     private List<Color> teamsColor = new List<Color>();
+    private int lastTeamReclaiming = 2;
 
 
     // Capture flags
     private List<bool> teamsReclaiming = new List<bool> { false, false };
-    private int lastTeamReclaiming = 2;
     [SerializeField] float inactiveResetTime = 1f;
     private float inactiveCountdown = 0f;
     private float inactiveMinusPointsPerSecond = 10f;
@@ -76,7 +76,7 @@ public class Crystal : MonoBehaviour
     {
         // Just set some parameters for crystal capture
         Debug.Log("Reclaiming started");
-        capturingParticles.gameObject.SetActive(true);
+        capturingParticles[teamIndex].gameObject.SetActive(true);
     }
 
     // TODO: Connect the lights color to the color of the team in the GameManager
@@ -121,7 +121,12 @@ public class Crystal : MonoBehaviour
     /// <param name="teamIndex"></param>
     public void ReclaimingPerformed(int teamIndex)
     {
-        capturingParticles.gameObject.SetActive(false);
+        // Deactivate particles
+        foreach(ParticleSystem p in capturingParticles)
+        {
+            p.gameObject.SetActive(false);
+        }
+
         if (cooldownActive) return; // Prevent multiple scoring while the crystal has just been lit
 
         if (isLit) // A different team is trying to light the crystal, add to their score and subtract from the previous team score
@@ -144,6 +149,11 @@ public class Crystal : MonoBehaviour
     /// </summary>
     public void ReclaimingCanceled()
     {
+        // Deactivate particles
+        foreach (ParticleSystem p in capturingParticles)
+        {
+            p.gameObject.SetActive(false);
+        }
     }
 
 
@@ -173,14 +183,8 @@ public class Crystal : MonoBehaviour
         crystalLight.color = interpolatedColor;
 
         //Particle
-        var capturingParticlesMain = capturingParticles.main;
+        var capturingParticlesMain = capturingParticles[endingTeam].main;
         capturingParticlesMain.startSize = capturingParticlesMinSize + (capturingParticlesMaxSize - capturingParticlesMinSize) * captureProgress;
-        capturingParticlesMain.startColor = interpolatedColor;
-
-        if(reclaimPointsCurrent <= 0)
-        {
-            capturingParticles.gameObject.SetActive(false);
-        }
     }
 
     /// <summary>
