@@ -196,9 +196,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Crystal
   intensityWhileUnpicked: 0
-  intensityWhilePicked: 0
-  intensityWhileCooling: 3
+  intensityWhilePicked: 3
+  intensityWhileCooling: 5
   inactiveResetTime: 1
+  reclaimingStartedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  reclaimingFinishedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  contestedStartedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  contestedFinishedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  cooldownStartedCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  cooldownFinishedCallback:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1945625049616731527
 MonoBehaviour:
   m_ObjectHideFlags: 0

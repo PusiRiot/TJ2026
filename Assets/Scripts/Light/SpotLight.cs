@@ -90,7 +90,6 @@ public class SpotLight : AbstractLight
         {
             if (!detectedThisFrame.Contains(dictionaryCrystal))
             {
-                dictionaryCrystal.ReclaimingCanceled();
                 detectionTimers.Remove(dictionaryCrystal);
             }
         }
