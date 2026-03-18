@@ -24,7 +24,7 @@ public class CrystalSpawner : MonoBehaviour
 
     // Spawns that are still unactive
     private List<GameObject>[] remainingSpawns;
-    private int[] crystalsSpawnedPerBlock = new int[4];
+    private int[] crystalsSpawnedPerBlock = new int[4] { 0, 0, 0, 0 };
     // Suma de los cristales que faltan en cada bloque para llegar al minimo de cada bloque
     private int crystalsTillMinimum;
     // Lista de los indices de bloques que aun tienen que llegar al minimo
@@ -39,7 +39,7 @@ public class CrystalSpawner : MonoBehaviour
         for (int i = 0; i < numCrystalsToSpawn; i++)
         {
             // We still need to reach our minimums, spawn a crystal in a block that needs to reach its minimum
-            if(numCrystalsToSpawn - i == crystalsTillMinimum)
+            if(crystalsTillMinimum > 0 && numCrystalsToSpawn - i == crystalsTillMinimum)
             {
                 // We dont care which one to fulfill the minimum since we're gonna eventually fulfill all, so get the first that needs it
                 spawnCrystal(blocksThatStillNeedMinimum[0]);
@@ -65,11 +65,16 @@ public class CrystalSpawner : MonoBehaviour
         // Remove it from remaining spawns
         remainingSpawns[blockIndex].RemoveAt(randomIndex);
 
-        // Check if we fulfilled a minimum
-        if (crystalsSpawnedPerBlock[blockIndex] == minCrystalsPerBlock)
+        // Is this block still needing a minimum
+        if(blocksThatStillNeedMinimum.Contains(blockIndex))
         {
             crystalsTillMinimum--;
-            blocksThatStillNeedMinimum.Remove(blockIndex);
+
+            // Check if we fulfilled the minimum
+            if (crystalsSpawnedPerBlock[blockIndex] == minCrystalsPerBlock)
+            {
+                blocksThatStillNeedMinimum.Remove(blockIndex);
+            }
         }
     }
 }
