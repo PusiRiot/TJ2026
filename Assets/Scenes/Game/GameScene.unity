@@ -543,34 +543,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crystal
       objectReference: {fileID: 0}
-    - target: {fileID: 2792032985083412432, guid: 591a34dab362a7640bd404fe14034658, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.9169811
-      objectReference: {fileID: 0}
-    - target: {fileID: 2792032985083412432, guid: 591a34dab362a7640bd404fe14034658, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2792032985083412432, guid: 591a34dab362a7640bd404fe14034658, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.7591751
-      objectReference: {fileID: 0}
-    - target: {fileID: 2792032985083412432, guid: 591a34dab362a7640bd404fe14034658, type: 3}
-      propertyPath: InitialModule.startColor.minColor.b
-      value: 0.3224787
-      objectReference: {fileID: 0}
-    - target: {fileID: 2792032985083412432, guid: 591a34dab362a7640bd404fe14034658, type: 3}
-      propertyPath: InitialModule.startColor.minColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2792032985083412432, guid: 591a34dab362a7640bd404fe14034658, type: 3}
-      propertyPath: InitialModule.startColor.minColor.r
-      value: 0.3509434
-      objectReference: {fileID: 0}
-    - target: {fileID: 2792032985083412432, guid: 591a34dab362a7640bd404fe14034658, type: 3}
-      propertyPath: InitialModule.startColor.minMaxState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8393564880521486373, guid: 591a34dab362a7640bd404fe14034658, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.7
@@ -1054,6 +1026,14 @@ PrefabInstance:
     - target: {fileID: 1316670898158648603, guid: 591a34dab362a7640bd404fe14034658, type: 3}
       propertyPath: m_Name
       value: Crystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931645933371335586, guid: 591a34dab362a7640bd404fe14034658, type: 3}
+      propertyPath: capturedParticles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931645933371335586, guid: 591a34dab362a7640bd404fe14034658, type: 3}
+      propertyPath: capturingParticles.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8393564880521486373, guid: 591a34dab362a7640bd404fe14034658, type: 3}
       propertyPath: m_LocalPosition.x

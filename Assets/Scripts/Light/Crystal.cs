@@ -21,6 +21,7 @@ public class Crystal : MonoBehaviour
     [SerializeField] List<ParticleSystem> capturingParticles;
     [SerializeField] float capturingParticlesMinSize = 0.25f;
     [SerializeField] float capturingParticlesMaxSize = 1.5f;
+    [SerializeField] List<ParticleSystem> capturedParticles;
 
     private Light crystalLight;
     private bool isLit = false;
@@ -101,7 +102,6 @@ public class Crystal : MonoBehaviour
             inactiveCountdown = 0f;
             crystalLight.color = teamsColor[2]; // Set color to neutral when contested
 
-            // TODO: ACTIVATE PARTICLES
         }
         else if (teamsReclaiming[0] == true && !cooldownActive && teamCaptured != 0)
         {
@@ -173,10 +173,6 @@ public class Crystal : MonoBehaviour
         {
             teamsReclaimingFirstFrame[0] = false;
         }
-        // TODO: SHOW CAPTURE FEEDBACK ON 
-        // wtf move this somewhere else
-        // wtf is this and wtf is doing here
-        // ShowCaptureFeedback(teamCaptured, teamIndex);
 
         if (teamsReclaiming[1] && !teamsReclaimingPrevFrame[1])
         {
@@ -212,6 +208,8 @@ public class Crystal : MonoBehaviour
         {
             p.gameObject.SetActive(false);
         }
+
+        capturedParticles[teamIndex].Play();
 
         if (cooldownActive) return; // Prevent multiple scoring while the crystal has just been lit
 
