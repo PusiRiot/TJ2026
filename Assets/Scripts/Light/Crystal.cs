@@ -77,7 +77,8 @@ public class Crystal : MonoBehaviour
 
         // Assing callbacks
         reclaimingUpdateCallback.AddListener((teamIndex) => ReclaimingPerforming(teamIndex)); 
-        reclaimingUpdateCallback.AddListener((teamIndex) => IncreaseCaptureLight(teamIndex));
+        reclaimingUpdateCallback.AddListener((teamIndex) => ShowCaptureFeedback(teamIndex));
+        reclaimingStartedCallback.AddListener((teamIndex) => ReclaimingStarted(teamIndex));
 
         reclaimingFinishedCallback.AddListener((foo) => reclaimPointsCurrent = 0);
         reclaimingFinishedCallback.AddListener(ReclaimingPerformed);
@@ -227,6 +228,10 @@ public class Crystal : MonoBehaviour
         TurnLightOn(teamIndex);
     }
 
+    private void ReclaimingStarted(int teamIndex)
+    {
+        capturingParticles[teamIndex].gameObject.SetActive(true);
+    }
 
     void TurnLightOn(int teamIndex)
     {
@@ -244,7 +249,7 @@ public class Crystal : MonoBehaviour
         cooldownActive = false;
     }
 
-    private void IncreaseCaptureLight(int teamIndex)
+    private void ShowCaptureFeedback(int teamIndex)
     {
         float captureProgress = reclaimPointsCurrent / reclaimPointsTotal;
         crystalLight.intensity = captureProgress * intensityWhilePicked;
@@ -254,6 +259,9 @@ public class Crystal : MonoBehaviour
             lastColor = teamsColor[teamCaptured];
         }
         InterpolateBetweenColors(lastColor, teamsColor[teamIndex], captureProgress);
+
+        var particlesMain = capturingParticles[teamIndex].main;
+        particlesMain.startSize = capturingParticlesMinSize + captureProgress * (capturingParticlesMaxSize - capturingParticlesMinSize);
     }
 
     private void InterpolateBetweenColors(Color baseColor, Color destintyColor, float p)
