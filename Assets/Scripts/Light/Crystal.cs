@@ -101,10 +101,7 @@ public class Crystal : MonoBehaviour
             inactiveCountdown = 0f;
             crystalLight.color = teamsColor[2]; // Set color to neutral when contested
 
-// TODO: ACTIVATE PARTICLES
-    }
-
-
+            // TODO: ACTIVATE PARTICLES
         }
         else if (teamsReclaiming[0] == true && !cooldownActive && teamCaptured != 0)
         {
@@ -115,7 +112,6 @@ public class Crystal : MonoBehaviour
                 inactiveCountdown = 0f;
                 reclaimingUpdateCallback.Invoke(0);
             }
-
         }
         else if (teamsReclaiming[1] == true && !cooldownActive && teamCaptured != 1)
         {
@@ -179,7 +175,8 @@ public class Crystal : MonoBehaviour
         }
         // TODO: SHOW CAPTURE FEEDBACK ON 
         // wtf move this somewhere else
-        ShowCaptureFeedback(teamCaptured, teamIndex);
+        // wtf is this and wtf is doing here
+        // ShowCaptureFeedback(teamCaptured, teamIndex);
 
         if (teamsReclaiming[1] && !teamsReclaimingPrevFrame[1])
         {
@@ -249,7 +246,7 @@ public class Crystal : MonoBehaviour
         cooldownActive = false;
     }
 
-    private void ShowCaptureFeedback(int startingTeam, int endingTeam)
+    private void IncreaseCaptureLight(int teamIndex)
     {
         float captureProgress = reclaimPointsCurrent / reclaimPointsTotal;
         crystalLight.intensity = captureProgress * intensityWhilePicked;
@@ -261,9 +258,10 @@ public class Crystal : MonoBehaviour
         InterpolateBetweenColors(lastColor, teamsColor[teamIndex], captureProgress);
     }
 
-        //Particle
-        var capturingParticlesMain = capturingParticles[endingTeam].main;
-        capturingParticlesMain.startSize = capturingParticlesMinSize + (capturingParticlesMaxSize - capturingParticlesMinSize) * captureProgress;
+    private void InterpolateBetweenColors(Color baseColor, Color destintyColor, float p)
+    {
+        Color colorLerped = Color.Lerp(baseColor, destintyColor, p);
+        crystalLight.color = colorLerped;
     }
 
     private void InactiveReset()
