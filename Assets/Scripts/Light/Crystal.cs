@@ -16,10 +16,10 @@ using UnityEngine.Events;
 public class Crystal : MonoBehaviour
 {
     [SerializeField] float intensityWhileUnpicked = 0f; // Intensity of the crystal light when it's unlit and not picked.
-
     [SerializeField] float intensityWhilePicked = 3f; // Intensity of the crystal light when it's unlit but picked.
     [SerializeField] float intensityWhileCooling = 5f; // Intensity of the crystal light when it has just been lit and is in cooldown.
     [SerializeField] List<ParticleSystem> capturingParticles;
+    [SerializeField] float intensityMin = 0.25f;
     [SerializeField] float capturingParticlesMinSize = 0.25f;
     [SerializeField] float capturingParticlesMaxSize = 1.5f;
     [SerializeField] List<ParticleSystem> capturedParticles;
@@ -81,10 +81,13 @@ public class Crystal : MonoBehaviour
         inactiveActionPerFrame.AddListener(() => animator.SetBool("capturing", false));
 
         // Assing callbacks
-        reclaimingUpdateCallback.AddListener((teamIndex) => ReclaimingPerforming(teamIndex)); 
-        reclaimingStartedCallback.AddListener((teamIndex) => ReclaimingStarted(teamIndex));
+        reclaimingUpdateCallback.AddListener(ReclaimingPerforming); 
+        reclaimingStartedCallback.AddListener(ReclaimingStarted);
         reclaimingStartedCallback.AddListener((foo) => animator.SetBool("capturing", true));
 
+        reclaimingStartedCallback.AddListener(ReclaimingStarted);
+        reclaimingUpdateCallback.AddListener(ReclaimingPerforming); 
+        reclaimingUpdateCallback.AddListener((foo) => ShowCaptureFeedback());
         reclaimingFinishedCallback.AddListener((foo) => reclaimPointsCurrent = 0);
         reclaimingFinishedCallback.AddListener(ReclaimingPerformed);
         reclaimingFinishedCallback.AddListener((foo) => { animator.SetTrigger("captured"); animator.SetBool("capturing", false);});  
@@ -268,7 +271,7 @@ public class Crystal : MonoBehaviour
     private void ShowCaptureFeedback()
     {
         float captureProgress = reclaimPointsCurrent / reclaimPointsTotal;
-        crystalLight.intensity = captureProgress * intensityWhilePicked;
+        crystalLight.intensity = captureProgress * intensityWhilePicked + intensityMin;
 
         foreach(ParticleSystem p in capturingParticles)
         {

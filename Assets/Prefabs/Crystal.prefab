@@ -5050,6 +5050,7 @@ MonoBehaviour:
   capturingParticles:
   - {fileID: 2792032985083412432}
   - {fileID: 3564660146840932120}
+  intensityMin: 0.25
   capturingParticlesMinSize: 0.25
   capturingParticlesMaxSize: 1.5
   capturedParticles:
@@ -14885,7 +14886,7 @@ GameObject:
   - component: {fileID: 8827099223641062843}
   - component: {fileID: 6729733198543096177}
   m_Layer: 0
-  m_Name: crystal
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
