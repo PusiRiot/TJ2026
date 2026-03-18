@@ -81,6 +81,9 @@ public class Crystal : MonoBehaviour
 
         reclaimingFinishedCallback.AddListener((foo) => reclaimPointsCurrent = 0);
         reclaimingFinishedCallback.AddListener(ReclaimingPerformed);
+        
+        reclaimingFinishedCallback.AddListener((teamIndex) => capturedParticles[teamIndex].Play());
+
     }
 
     private void LateUpdate()
@@ -123,7 +126,6 @@ public class Crystal : MonoBehaviour
                 inactiveCountdown = 0f;
                 reclaimingUpdateCallback.Invoke(1);
             }
-
         }
         else if (reclaimPointsCurrent > 0) 
         {
@@ -148,8 +150,8 @@ public class Crystal : MonoBehaviour
             if (!teamsReclaiming[0] || !teamsReclaiming[1])    // Check if one of the teams stopped reclaiming
                 contestedFinishedCallback.Invoke();
         }
-
-        if(reclaimPointsCurrent >= reclaimPointsTotal)
+        
+        if (reclaimPointsCurrent >= reclaimPointsTotal)
         {
             if(teamsReclaiming[0])
                 reclaimingFinishedCallback.Invoke(0);
@@ -195,7 +197,6 @@ public class Crystal : MonoBehaviour
         reclaimPointsCurrent += capturePointsGained;
     }
 
-
     /// <summary>
     /// Player reclaimed crystal
     /// <para>Here code related to scoring and visual effects when just reclaimed</para>
@@ -208,8 +209,6 @@ public class Crystal : MonoBehaviour
         {
             p.gameObject.SetActive(false);
         }
-
-        capturedParticles[teamIndex].Play();
 
         if (cooldownActive) return; // Prevent multiple scoring while the crystal has just been lit
 
@@ -226,7 +225,6 @@ public class Crystal : MonoBehaviour
         teamCaptured = teamIndex;
         TurnLightOn(teamIndex);
     }
-
 
     void TurnLightOn(int teamIndex)
     {
