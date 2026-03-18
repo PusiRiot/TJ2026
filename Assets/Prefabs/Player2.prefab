@@ -325,6 +325,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Light_PlayerHighlight
       objectReference: {fileID: 0}
+    - target: {fileID: 2777935202501950131, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2777935202501950131, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2777935202501950131, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2777935202501950131, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2777935202501950131, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2777935202501950131, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2777935202501950131, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3167965638416287655, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 4
@@ -383,7 +411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216735353326599200, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -1.86
       objectReference: {fileID: 0}
     - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_Color.b
@@ -392,6 +420,18 @@ PrefabInstance:
     - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_Color.r
       value: 0.7372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_Intensity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_SpotAngle
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_RenderingLayerMask
