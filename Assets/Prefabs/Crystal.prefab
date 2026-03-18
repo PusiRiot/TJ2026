@@ -5045,12 +5045,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Crystal
   intensityWhileUnpicked: 0
-  intensityWhilePicked: 3
+  intensityWhilePicked: 2
   intensityWhileCooling: 5
   capturingParticles:
   - {fileID: 2792032985083412432}
   - {fileID: 3564660146840932120}
-  intensityMin: 0.25
+  intensityMin: 1
   capturingParticlesMinSize: 0.25
   capturingParticlesMaxSize: 1.5
   capturedParticles:
@@ -14886,7 +14886,7 @@ GameObject:
   - component: {fileID: 8827099223641062843}
   - component: {fileID: 6729733198543096177}
   m_Layer: 0
-  m_Name: Mesh
+  m_Name: crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
