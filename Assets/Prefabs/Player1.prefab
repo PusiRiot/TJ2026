@@ -337,6 +337,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Light_PlayerHighlight
       objectReference: {fileID: 0}
+    - target: {fileID: 509578629417646399, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3167965638416287655, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 4294967295
@@ -387,11 +391,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216735353326599200, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000000029802322
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5216735353326599200, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -1.86
       objectReference: {fileID: 0}
     - target: {fileID: 5216735353326599200, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -418,12 +422,20 @@ PrefabInstance:
       value: 0.1254902
       objectReference: {fileID: 0}
     - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_Intensity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_SpotAngle
-      value: 35
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_InnerSpotAngle
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_RenderingLayerMask
