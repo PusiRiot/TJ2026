@@ -35,6 +35,8 @@ public class Crystal : MonoBehaviour
     private float reclaimPointsCurrent = 0f;
     private List<Color> teamsColor = new List<Color>();
 
+    Animator animator;
+
 
     // Capture flags
     // This can and might be done in a single List (memory optimization)
@@ -72,15 +74,24 @@ public class Crystal : MonoBehaviour
         teamsColor.Add(GameManager.Instance.GetTeamColor(1));   // Team 2 color
         teamsColor.Add(GameManager.Instance.GetTeamColor(2));   // Neutral color
 
+        animator = GetComponent<Animator>();
+
         crystalLight.color = teamsColor[2]; // Set initial color to neutral
         inactiveActionPerFrame.AddListener(InactiveReset);
+        inactiveActionPerFrame.AddListener(() => animator.SetBool("capturing", false));
 
         // Assing callbacks
         reclaimingUpdateCallback.AddListener((teamIndex) => ReclaimingPerforming(teamIndex)); 
         reclaimingStartedCallback.AddListener((teamIndex) => ReclaimingStarted(teamIndex));
+        reclaimingStartedCallback.AddListener((foo) => animator.SetBool("capturing", true));
 
         reclaimingFinishedCallback.AddListener((foo) => reclaimPointsCurrent = 0);
         reclaimingFinishedCallback.AddListener(ReclaimingPerformed);
+        reclaimingFinishedCallback.AddListener((foo) => { animator.SetTrigger("captured"); animator.SetBool("capturing", false);});  
+
+        contestedStartedCallback.AddListener(() => animator.SetBool("contested", true));
+
+        contestedFinishedCallback.AddListener(() => animator.SetBool("contested", false));
     }
 
     private void LateUpdate()
@@ -193,6 +204,11 @@ public class Crystal : MonoBehaviour
         float deltaTime = Time.deltaTime;
         float capturePointsGained = deltaTime * reclaimPointsPerSecond;
         reclaimPointsCurrent += capturePointsGained;
+
+        capturingParticles[teamIndex].gameObject.SetActive(true);
+        capturingParticles[(teamIndex + 1) % 2].gameObject.SetActive(false);
+        crystalLight.color = teamsColor[teamIndex];
+
         ShowCaptureFeedback();
     }
 
@@ -230,8 +246,7 @@ public class Crystal : MonoBehaviour
 
     private void ReclaimingStarted(int teamIndex)
     {
-        capturingParticles[teamIndex].gameObject.SetActive(true);
-        crystalLight.color = teamsColor[teamIndex];
+        
     }
 
     void TurnLightOn(int teamIndex)
