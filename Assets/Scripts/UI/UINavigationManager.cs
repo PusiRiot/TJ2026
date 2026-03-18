@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -11,12 +12,17 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class UINavigationManager : MonoBehaviour
 {
+    #region Variables
 
-    [SerializeField] private ScreenName _firstShownScreenName; // the screen that will first be visible on the canvas when the scene starts
-    private IDictionary<string, UIScreen> _screens;
-    private UIScreen _currentScreen;
-    public UIScreen CurrentScreen {  get { return _currentScreen; } }
-    private UIScreen _lastScreen;
+    [SerializeField] ScreenName firstShownScreen; // the screen that will first be visible on the canvas when the scene starts
+    IDictionary<string, UIScreen> screens;
+    UIScreen currentScreen;
+    UIScreen lastScreen;
+    bool lastFrameUsedGamepad = false;
+    Vector2 lastMousePos = Vector2.zero;
+
+    public UIScreen CurrentScreen { get { return currentScreen; } }
+    #endregion
 
     #region Singleton implementation
     public static UINavigationManager Instance { get; private set; }
@@ -46,7 +52,7 @@ public class UINavigationManager : MonoBehaviour
 
     #endregion
 
-
+    #region MonoBehaviour
     /// <summary>
     /// Hides all screens on Start and stores them in a dictionary for easy access, then shows the first screen defined on the inspector
     /// </summary>
@@ -54,17 +60,43 @@ public class UINavigationManager : MonoBehaviour
     private void Start() // some things need to go before
     {
         // store all the screens (even the inactive ones) in a dictionary
-        _screens = new Dictionary<string, UIScreen>();
+        screens = new Dictionary<string, UIScreen>();
         UIScreen[] screensUnderManager = GetComponentsInChildren<UIScreen>(true);
 
         foreach (UIScreen screen in screensUnderManager)
         {
             screen.Hide();
-            _screens.Add(screen.GetName(), screen);
+            screens.Add(screen.GetName(), screen);
         }
 
-        ShowScreen(_firstShownScreenName); // show the first screen
+        ShowScreen(firstShownScreen); // show the first screen
     }
+
+
+    void Update()
+    {
+        if (Gamepad.current != null && Gamepad.current.wasUpdatedThisFrame)
+        {
+            Debug.Log("gamepad updated");
+            if (!lastFrameUsedGamepad)
+            {
+                currentScreen.SelectFirstToNavigate();
+            }
+            lastFrameUsedGamepad = true;
+        }
+        else if (Mouse.current != null && Mouse.current.position.ReadValue() != lastMousePos)
+        {
+            lastMousePos = Mouse.current.position.ReadValue();
+            Debug.Log("mouse updated");
+            if (lastFrameUsedGamepad)
+            {
+                currentScreen.DeselectFirstToNavigate();
+            }
+            lastFrameUsedGamepad = false;
+        }
+    }
+
+    #endregion
 
     #region Screen navigation related methods
 
@@ -78,21 +110,25 @@ public class UINavigationManager : MonoBehaviour
     {
         // try to find the screen by its name on the dictionary
         UIScreen screenToSwitch;
-        bool foundScreen = _screens.TryGetValue(screenName.ToString(), out screenToSwitch);
+        bool foundScreen = screens.TryGetValue(screenName.ToString(), out screenToSwitch);
 
         if (!foundScreen)
         {
             return; // if the screen wasn't found, return without switching
         }
 
-        if (_currentScreen != null && hidePreviousScreen) // if there's a screen showing at the moment of the change hide it and store it as the previous screen
+        if (currentScreen != null && hidePreviousScreen) // if there's a screen showing at the moment of the change hide it and store it as the previous screen
         {
-            _currentScreen?.Hide();
+            currentScreen?.Hide();
         }
 
-        _lastScreen = _currentScreen;
-        _currentScreen = screenToSwitch;
-        _currentScreen.Show();
+        lastScreen = currentScreen;
+        currentScreen = screenToSwitch;
+        if (lastFrameUsedGamepad)
+        {
+            currentScreen.SelectFirstToNavigate();
+        }
+        currentScreen.Show();
     }
 
     /// <summary>
@@ -100,8 +136,8 @@ public class UINavigationManager : MonoBehaviour
     /// </summary>
     public void HideCurrentScreen()
     {
-        _currentScreen?.Hide();
-        _currentScreen = _lastScreen;
+        currentScreen?.Hide();
+        currentScreen = lastScreen;
     }
     #endregion
 

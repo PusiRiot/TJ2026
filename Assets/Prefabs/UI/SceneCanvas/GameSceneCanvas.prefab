@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fba9180cf7b97943a99e909cf5d5fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UINavigationManager
-  _firstShownScreenName: 3
+  firstShownScreen: 3
 --- !u!1001 &978363543250176224
 PrefabInstance:
   m_ObjectHideFlags: 0

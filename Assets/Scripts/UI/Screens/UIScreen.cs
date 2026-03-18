@@ -24,7 +24,16 @@ public class UIScreen : MonoBehaviour
         if (screenName == ScreenName.Pause)
             GameManager.Instance.PauseGame();
 
-        EventSystem.current.SetSelectedGameObject(firstToNavigate);
         gameObject.SetActive(true);
+    }
+
+    public void SelectFirstToNavigate()
+    {
+        EventSystem.current.SetSelectedGameObject(firstToNavigate);
+    }
+
+    public void DeselectFirstToNavigate()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }
