@@ -57,7 +57,6 @@ public class SpotLight : AbstractLight
                         crystal.ReclaimFlag(teamIndex);
 
 
-
                         // OBSOLETE CODE: DELETE WHEN VERIFIED
                         /*
                         // increase or start timer for this crystal
@@ -91,7 +90,6 @@ public class SpotLight : AbstractLight
         {
             if (!detectedThisFrame.Contains(dictionaryCrystal))
             {
-                dictionaryCrystal.ReclaimingCanceled();
                 detectionTimers.Remove(dictionaryCrystal);
             }
         }
