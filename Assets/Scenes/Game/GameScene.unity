@@ -1476,6 +1476,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 724899478}
     m_Modifications:
+    - target: {fileID: 77189768311994688, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 302027473378999951, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.61
@@ -1543,6 +1547,10 @@ PrefabInstance:
     - target: {fileID: 2460181694831317149, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3413650005864148361, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_Intensity
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5534068816989410830, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_LocalPosition.z

@@ -11,9 +11,11 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
     #region Variables
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
+    [SerializeField] private Slider[] playerLives = new Slider[2];
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
     float timePassed = 0;
+    int _maxLives;
 
     bool timeBelowZero = false;
     #endregion
@@ -28,6 +30,12 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         timerText.text = System.TimeSpan.FromSeconds(GameManager.Instance.GetGameDuration()).ToString(@"mm\:ss");
 
         timeUpText.enabled = false;
+
+        _maxLives = GameManager.Instance.GetMaxLives();
+        playerLives[0].maxValue = _maxLives;
+        playerLives[0].value = _maxLives;
+        playerLives[1].maxValue = _maxLives;
+        playerLives[1].value = _maxLives;
 
         //StartCoroutine(StartCountdown());
     }
@@ -132,6 +140,24 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
             case GameEvent.SuddenDeath:
             {
                 StartCoroutine(SuddenDeath());
+                break;
+            }
+        }
+    }
+
+    public void OnNotify(PlayerCombatEvent evt, object data = null)
+    {
+        switch (evt)
+        {
+            case PlayerCombatEvent.ReceivedDamage:
+            {
+                int[] dataDamage = data as int[];
+                playerLives[dataDamage[0]].value = dataDamage[1];
+                break;
+            }
+            case PlayerCombatEvent.BackToLife:
+            {
+                playerLives[(int)data].value = _maxLives;
                 break;
             }
         }

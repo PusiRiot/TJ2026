@@ -12,20 +12,22 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     Vector2 moveInput;
     bool movementDisabled = false;
     Rigidbody rb;
-    int teamIndex = -1;
+    int _teamIndex = -1;
 
     // Dash
-    float dashIncrement;
-    float dashDuration;
-    float maxStamina;
+    float _dashIncrement;
+    float _dashDuration;
+    float _maxStamina;
     float currentStamina;
-    float staminaConsumption;
-    float staminaRegenRate;
+    float _staminaConsumption;
+    float _staminaRegenRate;
 
     bool dashExecuting = false;
     TrailRenderer trailRenderer;
 
     #endregion
+
+    #region MonoBehaviour
 
     void Awake()
     {
@@ -33,13 +35,13 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
 
-        dashDuration = GameManager.Instance.GetDashDuration();
-        dashIncrement = GameManager.Instance.GetDashSpeedIncrement();
-        maxStamina = GameManager.Instance.GetMaxStamina();
-        staminaConsumption = GameManager.Instance.GetStaminaConsumption();
-        staminaRegenRate = GameManager.Instance.GetStaminaRegenRate();
+        _dashDuration = GameManager.Instance.GetDashDuration();
+        _dashIncrement = GameManager.Instance.GetDashSpeedIncrement();
+        _maxStamina = GameManager.Instance.GetMaxStamina();
+        _staminaConsumption = GameManager.Instance.GetStaminaConsumption();
+        _staminaRegenRate = GameManager.Instance.GetStaminaRegenRate();
 
-        currentStamina = maxStamina;
+        currentStamina = _maxStamina;
 
         AddObserversOnScene();
     }
@@ -49,9 +51,11 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         Motion();
 
         // Stamina regeneration
-        if (currentStamina < maxStamina)
+        if (currentStamina < _maxStamina)
             RegenerateStamina();
     }
+
+    #endregion
 
     void Motion()
     {
@@ -72,25 +76,25 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
 
     void RegenerateStamina()
     {
-        currentStamina += staminaRegenRate * Time.fixedDeltaTime;
+        currentStamina += _staminaRegenRate * Time.fixedDeltaTime;
 
-        if (currentStamina >= maxStamina)
+        if (currentStamina >= _maxStamina)
         {
-            currentStamina = maxStamina;
-            Notify(PlayerMovementEvent.DashEnabled, teamIndex);
+            currentStamina = _maxStamina;
+            Notify(PlayerMovementEvent.DashEnabled, _teamIndex);
         }
     }
 
 
     #region Public methods
 
-    public void Init(float _speed, int _teamIndex)
+    public void Initialize(float speed, int teamIndex)
     {
-        speed = _speed;
+        this.speed = speed;
 
         // Add trailRenderer material, it is linked to the team index to change color accordingly
         List<Material> trailRendererMats = new();
-        teamIndex = _teamIndex;
+        _teamIndex = teamIndex;
         trailRendererMats.Add(GameManager.Instance.GetTeamEmissiveMaterial(_teamIndex));
         trailRenderer.SetMaterials(trailRendererMats);
     }
@@ -114,24 +118,24 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
 
     public IEnumerator Dash(bool ignoreStamina)
     {
-        if (ignoreStamina || (!movementDisabled && !dashExecuting && currentStamina >= staminaConsumption))
+        if (ignoreStamina || (!movementDisabled && !dashExecuting && currentStamina >= _staminaConsumption))
         {
-            Notify(PlayerMovementEvent.DashConsumed, teamIndex);
             dashExecuting = true;
             trailRenderer.emitting = true;
 
             // execute dash in movement direction or forward
             Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
             Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
-            rb.linearVelocity = dashDir * speed * dashIncrement;
+            rb.linearVelocity = dashDir * speed * _dashIncrement;
 
-            yield return new WaitForSeconds(dashDuration);
+            yield return new WaitForSeconds(_dashDuration);
             trailRenderer.emitting = false;
             dashExecuting = false;
 
             if (!ignoreStamina)
             {
-                currentStamina -= staminaConsumption;
+                currentStamina -= _staminaConsumption;
+                Notify(PlayerMovementEvent.DashConsumed, _teamIndex);
             }
         }
     }

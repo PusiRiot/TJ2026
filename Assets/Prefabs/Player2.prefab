@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620e1ffeb27b19b498ee5b3e842bbc7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  playerStats: {fileID: 11400000, guid: d8a3701717215e44fa35265858f876cb, type: 2}
+  _playerStats: {fileID: 11400000, guid: d8a3701717215e44fa35265858f876cb, type: 2}
 --- !u!96 &3603972203886635427
 TrailRenderer:
   serializedVersion: 4
@@ -325,6 +325,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Light_PlayerHighlight
       objectReference: {fileID: 0}
+    - target: {fileID: 413025778221929326, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.13
+      objectReference: {fileID: 0}
     - target: {fileID: 3167965638416287655, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 4
@@ -397,6 +401,14 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6182437815099353903, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182437815099353903, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 63b58fee7a756e740ba326ad5656fd10, type: 2}
     - target: {fileID: 6249071143194372615, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 4

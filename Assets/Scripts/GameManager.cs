@@ -49,30 +49,38 @@ public class GameManager : Subject<GameEvent>
     }
 
     #region Get global game stats
+    // Duration
+    public float GetGameDuration() { return gameStats.GameDuration; }
 
-    public int GetMaxScore() { return maxScore; }
+    // Team colors and materials
     public Color GetTeamColor(int teamIndex){ return gameStats.TeamColor[teamIndex]; }
-
     public Material GetTeamEmissiveMaterial(int teamIndex){ return gameStats.TeamEmissiveMaterial[teamIndex]; }
 
-    public float GetReclaimCrystalPointsPerSecond(){ return gameStats.ReclaimCrystalPointsPerSecond; }
+    // Crystal
+    public int GetMaxLives() { return gameStats.MaxLives; }
 
-    public float GetGameDuration(){ return gameStats.GameDuration; }
-
+    public float GetReclaimCrystalPointsPerSecond() { return gameStats.ReclaimCrystalPointsPerSecond; }
     public float GetCrystalCooldownDuration(){ return gameStats.CrystalCooldownDuration; }
 
-    public float GetLightStunDuration(){ return gameStats.LightStunDuration; }
+    // Combat
+    public int LightMeleeDamage(){ return gameStats.LightMeleeDamage; }
+    public int HeavyMeleeDamage(){ return gameStats.HeavyMeleeDamage; }
 
-    public float GetHeavyStunDuration(){ return gameStats.HeavyStunDuration; }
+    public float HeavyMeleeLightOffDuration(){ return gameStats.HeavyMeleeLightOffDuration; }
+    public float SuccesfulParryLightOffDuration(){ return gameStats.SuccesfulParryLightOffDuration; }
 
+    public float ParryDuration(){ return gameStats.ParryDuration; }
+
+    public float LightMeleeCooldownDuration(){ return gameStats.LightMeleeCooldownDuration; }
+    public float HeavyMeleeCooldownDuration(){ return gameStats.HeavyMeleeCooldownDuration; }
+    public float ParryCooldownDuration(){ return gameStats.ParryCooldownDuration; }
+    public float DeathDuration(){ return gameStats.DeathDuration; }
+
+    // Movement
     public float GetDashDuration(){ return gameStats.DashDuration; }
-
     public float GetDashSpeedIncrement() { return gameStats.DashSpeedIncrement; }
-
     public float GetMaxStamina() { return gameStats.MaxStamina; }
-
     public float GetStaminaConsumption() { return gameStats.StaminaConsumption; }
-
     public float GetStaminaRegenRate() { return gameStats.StaminaRegenRate; }
 
     #endregion
