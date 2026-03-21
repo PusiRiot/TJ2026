@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -11,26 +12,46 @@ using UnityEngine.InputSystem.Interactions;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlayerStats playerStats;
+    #region Variables
+    // Read-only variables (preceded by _ (can't be set to readonly because they have to be initialized on runtime))
+    [SerializeField] private PlayerStats _playerStats;
+    private int _teamIndex = -1;
+
+    // needed references
     private InputAction attackHoldAction;
     private PlayerMovement playerMovement;
-    private ICombat playerCombat;
-    int teamIndex = -1;
+    private PlayerCombat playerCombat;
+
+    // booleans control
+    private bool isDashEnabled = true;
+    private bool isParryEnabled = true;
+    private bool isHeavyMeleeEnabled = true;
+    private bool isLightMeleeEnabled = true;
+
+    // actions cooldown
+    private float _lightMeleeCooldownDuration = -1f;
+    private float _heavyMeleeCooldownDuration = -1f;
+    private float _parryCooldownDuration = -1f;
+    #endregion
 
     void Awake()
     {
         if (CompareTag("Player1"))
-            teamIndex = 0;
+            _teamIndex = 0;
         else
-            teamIndex = 1;
+            _teamIndex = 1;
 
         playerMovement = gameObject.AddComponent<PlayerMovement>();
-        playerMovement.Init(playerStats.Speed, teamIndex);
+        playerMovement.Initialize(_playerStats.Speed, _teamIndex);
 
-        playerCombat = gameObject.GetComponent<ICombat>();
-        playerCombat ??= gameObject.AddComponent<StunCombat>();
+        playerCombat = gameObject.AddComponent<PlayerCombat>();
+        playerCombat.Initialize(_teamIndex);
 
         attackHoldAction = gameObject.GetComponent<PlayerInput>().actions.FindAction("Attack");
+
+        _lightMeleeCooldownDuration = GameManager.Instance.LightMeleeCooldownDuration();
+        _heavyMeleeCooldownDuration = GameManager.Instance.HeavyMeleeCooldownDuration();
+        _parryCooldownDuration = GameManager.Instance.ParryCooldownDuration();
     }
 
     #region Player input
@@ -40,44 +61,38 @@ public class Player : MonoBehaviour
     }
 
     public void Attack(InputAction.CallbackContext ctx)
-    {
-        // NOTE: is it a bug that charging sparks appear when light attacking?
-
-        if (ctx.interaction is TapInteraction)
+    {   if (playerCombat.enabled)
         {
-            if (ctx.performed)
-                playerCombat.ExecuteAttack(false);
-        }
+            if (ctx.interaction is TapInteraction && isLightMeleeEnabled)
+            {
+                if (ctx.performed)
+                    playerCombat.ExecuteAttack(false);
+            }
 
-        if (ctx.interaction is HoldInteraction)
-        {
-            if (ctx.started)
-                playerCombat.ChargeAttack();
+            if (ctx.interaction is HoldInteraction && isHeavyMeleeEnabled)
+            {
+                if (ctx.started)
+                    playerCombat.ChargeAttack();
 
-            if (ctx.canceled)
-                playerCombat.InterruptCharge();
+                if (ctx.canceled)
+                    playerCombat.InterruptCharge();
 
-            if (ctx.performed)
-                playerCombat.ExecuteAttack(true);
+                if (ctx.performed)
+                    playerCombat.ExecuteAttack(true);
+            }
         }
     }
 
     public void Parry(InputAction.CallbackContext ctx)
     {
-        if (ctx.canceled)
+        if (playerCombat.enabled && ctx.performed && isParryEnabled)
             StartCoroutine(playerCombat.ParryAttack());
     }
 
     public void Dash(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && isDashEnabled)
             StartCoroutine(playerMovement.Dash(false));
-    }
-
-    public void CancelAttack()
-    {
-        attackHoldAction.Disable();
-        attackHoldAction.Enable();
     }
 
     public void PauseGame()
@@ -86,5 +101,53 @@ public class Player : MonoBehaviour
             UINavigationManager.Instance.ShowScreen(ScreenName.Pause, false);
     }
 
+    #endregion
+
+    #region Cancel player input
+
+    /// <summary>
+    /// Cancel ongoing charge attack
+    /// </summary>
+    public void CancelChargeAttack()
+    {
+        attackHoldAction.Disable();
+        attackHoldAction.Enable();
+    }
+
+    public void DisableWorldInteraction()
+    {
+        CancelChargeAttack();
+
+        playerCombat.enabled = false; // other players cant interact if this one doesnt have combat enabled, and this one cannot perform actions
+        isDashEnabled = false;
+    }
+
+    public void EnableWorldInteraction()
+    {
+        playerCombat.enabled = true;
+        isDashEnabled = true;
+    }
+
+    public IEnumerator ParryCooldown(float duration)
+    {
+        isParryEnabled = false;
+        yield return new WaitForSeconds(duration);
+        isParryEnabled = true;
+    }
+
+    public IEnumerator LightMeleeCooldown(float duration)
+    {
+        isLightMeleeEnabled = false;
+        yield return new WaitForSeconds(duration);
+        isLightMeleeEnabled = true;
+    }
+
+    public IEnumerator HeavyMeleeCooldown(float duration)
+    {
+        isHeavyMeleeEnabled = false;
+        yield return new WaitForSeconds(duration);
+        CancelChargeAttack();
+        isHeavyMeleeEnabled = true;
+    }
     #endregion
 }

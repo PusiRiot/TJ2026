@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620e1ffeb27b19b498ee5b3e842bbc7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  playerStats: {fileID: 11400000, guid: 40a75fd1d09e60c45bb05ce900f4106b, type: 2}
+  _playerStats: {fileID: 11400000, guid: 40a75fd1d09e60c45bb05ce900f4106b, type: 2}
 --- !u!96 &1122160399420250751
 TrailRenderer:
   serializedVersion: 4
@@ -337,9 +337,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Light_PlayerHighlight
       objectReference: {fileID: 0}
+    - target: {fileID: 413025778221929326, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.183
+      objectReference: {fileID: 0}
+    - target: {fileID: 413025778221929326, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.395
+      objectReference: {fileID: 0}
     - target: {fileID: 509578629417646399, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167965638416287655, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_Intensity
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3167965638416287655, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_RenderingLayerMask
@@ -441,6 +453,14 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6182437815099353903, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182437815099353903, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de9204325a6fd542836a1d13a32e004, type: 2}
     - target: {fileID: 6249071143194372615, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 2

@@ -41,3 +41,11 @@ public enum PlayerMovementEvent
     DashConsumed, // data = (int)teamIndex
     DashEnabled, // data = (int)teamIndex
 }
+
+public enum PlayerCombatEvent
+{
+    ReceivedDamage, // data = {(int)teamIndex, (int)damage}
+    Death, // data  = (int)teamIndex
+    BackToLife, // data = (int)teamIndex
+    SuccessfulParry,
+}

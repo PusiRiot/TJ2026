@@ -6,14 +6,16 @@ using UnityEngine.UI;
 /// <summary>
 /// This class is responsible for managing the in game UI (score, timer...), it listen's to GameManager events.
 /// </summary>
-public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObserver<GameEvent>
+public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObserver<GameEvent>, IObserver<PlayerCombatEvent>
 {
     #region Variables
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
+    [SerializeField] private Slider[] playerLives = new Slider[2];
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
     float timePassed = 0;
+    int _maxLives;
 
     bool timeBelowZero = false;
     #endregion
@@ -28,6 +30,12 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         timerText.text = System.TimeSpan.FromSeconds(GameManager.Instance.GetGameDuration()).ToString(@"mm\:ss");
 
         timeUpText.enabled = false;
+
+        _maxLives = GameManager.Instance.GetMaxLives();
+        playerLives[0].maxValue = _maxLives;
+        playerLives[0].value = _maxLives;
+        playerLives[1].maxValue = _maxLives;
+        playerLives[1].value = _maxLives;
 
         //StartCoroutine(StartCountdown());
     }
@@ -132,6 +140,27 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
             case GameEvent.SuddenDeath:
             {
                 StartCoroutine(SuddenDeath());
+                break;
+            }
+        }
+    }
+
+    public void OnNotify(PlayerCombatEvent evt, object data = null)
+    {
+        switch (evt)
+        {
+            case PlayerCombatEvent.ReceivedDamage:
+            {
+                int[] dataDamage = data as int[];
+                int teamIndex = dataDamage[0];
+                int damage = dataDamage[1];
+                int newValue = (int)playerLives[teamIndex].value - damage;
+                playerLives[teamIndex].value = newValue < 0 ? 0 : newValue;
+                break;
+            }
+            case PlayerCombatEvent.BackToLife:
+            {
+                playerLives[(int)data].value = _maxLives;
                 break;
             }
         }
