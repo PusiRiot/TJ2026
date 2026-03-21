@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// This class is responsible for managing the in game UI (score, timer...), it listen's to GameManager events.
 /// </summary>
-public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObserver<GameEvent>
+public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObserver<GameEvent>, IObserver<PlayerCombatEvent>
 {
     #region Variables
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
@@ -152,7 +152,10 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
             case PlayerCombatEvent.ReceivedDamage:
             {
                 int[] dataDamage = data as int[];
-                playerLives[dataDamage[0]].value = dataDamage[1];
+                int teamIndex = dataDamage[0];
+                int damage = dataDamage[1];
+                int newValue = (int)playerLives[teamIndex].value - damage;
+                playerLives[teamIndex].value = newValue < 0 ? 0 : newValue;
                 break;
             }
             case PlayerCombatEvent.BackToLife:

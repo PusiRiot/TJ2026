@@ -44,7 +44,7 @@ public enum PlayerMovementEvent
 
 public enum PlayerCombatEvent
 {
-    ReceivedDamage, // data = {(int)teamIndex, damage}
+    ReceivedDamage, // data = {(int)teamIndex, (int)damage}
     Death, // data  = (int)teamIndex
     BackToLife, // data = (int)teamIndex
     SuccessfulParry,

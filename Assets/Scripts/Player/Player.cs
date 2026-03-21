@@ -27,6 +27,11 @@ public class Player : MonoBehaviour
     private bool isParryEnabled = true;
     private bool isHeavyMeleeEnabled = true;
     private bool isLightMeleeEnabled = true;
+
+    // actions cooldown
+    private float _lightMeleeCooldownDuration = -1f;
+    private float _heavyMeleeCooldownDuration = -1f;
+    private float _parryCooldownDuration = -1f;
     #endregion
 
     void Awake()
@@ -43,6 +48,10 @@ public class Player : MonoBehaviour
         playerCombat.Initialize(_teamIndex);
 
         attackHoldAction = gameObject.GetComponent<PlayerInput>().actions.FindAction("Attack");
+
+        _lightMeleeCooldownDuration = GameManager.Instance.LightMeleeCooldownDuration();
+        _heavyMeleeCooldownDuration = GameManager.Instance.HeavyMeleeCooldownDuration();
+        _parryCooldownDuration = GameManager.Instance.ParryCooldownDuration();
     }
 
     #region Player input
@@ -108,9 +117,6 @@ public class Player : MonoBehaviour
     public void DisableWorldInteraction()
     {
         CancelChargeAttack();
-        StopCoroutine(nameof(DisableParry));
-        StopCoroutine(nameof(DisableLightMelee));
-        StopCoroutine(nameof(DisableHeavyMelee));
 
         playerCombat.enabled = false; // other players cant interact if this one doesnt have combat enabled, and this one cannot perform actions
         isDashEnabled = false;
@@ -122,24 +128,25 @@ public class Player : MonoBehaviour
         isDashEnabled = true;
     }
 
-    public IEnumerator DisableParry(float duration)
+    public IEnumerator ParryCooldown(float duration)
     {
         isParryEnabled = false;
         yield return new WaitForSeconds(duration);
         isParryEnabled = true;
     }
 
-    public IEnumerator DisableLightMelee(float duration)
+    public IEnumerator LightMeleeCooldown(float duration)
     {
         isLightMeleeEnabled = false;
         yield return new WaitForSeconds(duration);
         isLightMeleeEnabled = true;
     }
 
-    public IEnumerator DisableHeavyMelee(float duration)
+    public IEnumerator HeavyMeleeCooldown(float duration)
     {
         isHeavyMeleeEnabled = false;
         yield return new WaitForSeconds(duration);
+        CancelChargeAttack();
         isHeavyMeleeEnabled = true;
     }
     #endregion

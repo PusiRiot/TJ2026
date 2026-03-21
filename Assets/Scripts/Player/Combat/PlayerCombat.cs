@@ -10,23 +10,23 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     private int _teamIndex = -1;
 
     // Lives
-    private int _maxLives = 6;
-    private int currentLives = 0;
+    private int _maxLives = -1;
+    private int currentLives = -1;
 
     // Combat
-    private int _lightMeleeDamage = 1;
-    private int _heavyMeleeDamage = 3;
+    private int _lightMeleeDamage = -1;
+    private int _heavyMeleeDamage = -1;
 
-    private float _heavyMeleeLightOffDuration = 3;
-    private float _succesfulParryLightOffDuration = 3;
+    private float _heavyMeleeLightOffDuration = -1;
+    private float _succesfulParryLightOffDuration = -1;
 
-    private float _deathDuration = 1f;
+    private float _deathDuration = -1f;
 
-    private float _parryDuration = 1f;
+    private float _parryDuration = -1f;
 
-    private float _lightMeleeCooldownDuration = 1f;
-    private float _heavyMeleeCooldownDuration = 1f;
-    private float _parryCooldownDuration = 1f;
+    private float _lightMeleeCooldownDuration = -1f;
+    private float _heavyMeleeCooldownDuration = -1f;
+    private float _parryCooldownDuration = -1f;
 
     // Needed player references
     private PlayerMovement playerMovement;
@@ -53,6 +53,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     {
         _teamIndex = teamIndex;
 
+        _deathDuration = GameManager.Instance.DeathDuration();
+
         _maxLives = GameManager.Instance.GetMaxLives();
         currentLives = _maxLives;
 
@@ -74,7 +76,10 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     #region MonoBehaviour
     void Awake()
     {
+        base.AddObserversOnScene();
+
         playerMovement = GetComponent<PlayerMovement>();
+
         player = GetComponent<Player>();
 
         // Initialize player light
@@ -103,8 +108,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
                 }
             }
         }
-
-        base.AddObserversOnScene();
     }
 
     void Update()
@@ -123,11 +126,17 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
 
         if (isHeavyAttack)
         {
+            // cooldown
+            StartCoroutine(player.HeavyMeleeCooldown(_heavyMeleeCooldownDuration));
+
             InterruptCharge();
             StartCoroutine(HeavyAttack());
         }
         else
         {
+            // cooldown
+            StartCoroutine(player.LightMeleeCooldown(_lightMeleeCooldownDuration));
+
             LightAttack();
         }
     }
@@ -147,6 +156,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
 
     void LightAttack()
     {
+        // check collision
         Collider[] collisions = Physics.OverlapSphere(transform.position, 1f);
 
         foreach (Collider collider in collisions)
@@ -154,9 +164,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
             PlayerCombat enemy = collider.gameObject.GetComponentInParent<PlayerCombat>();
             if (enemy != null && enemy != this)
             {
-                // cooldown
-                player.DisableLightMelee(_lightMeleeCooldownDuration);
-
                 // effect
                 enemy.ReceiveAttack(_lightMeleeDamage, 0f, true);
             }
@@ -169,8 +176,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         PlayerCombat enemy = collision.gameObject.GetComponentInParent<PlayerCombat>();
         if (enemy != null && enemy != this)
         {
-            // cooldown
-            player.DisableHeavyMelee(_heavyMeleeCooldownDuration);
 
             // effect
             bool succesful = enemy.ReceiveAttack(_heavyMeleeDamage, _heavyMeleeLightOffDuration, false);
@@ -201,7 +206,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     public IEnumerator ParryAttack()
     {
         // cooldown
-        player.DisableParry(_parryCooldownDuration);
+        StartCoroutine(player.ParryCooldown(_parryCooldownDuration));
 
         // effect
         isProtectedByParry = true;
@@ -221,8 +226,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         // Light switching
         if (lightOffDuration > 0)
         {
-            StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
-            StartCoroutine(TurnLightOff(lightOffDuration));
+            StopCoroutine(nameof(TurnLightOff));
+            StartCoroutine(nameof(TurnLightOff), lightOffDuration);
         }
 
         // Interrupt player attacks
@@ -232,10 +237,12 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
 
         // Damage
         currentLives -= damage;
-        Notify(PlayerCombatEvent.ReceivedDamage, new {_teamIndex, damage});
+        Notify(PlayerCombatEvent.ReceivedDamage, new int[]{_teamIndex, damage});
 
-        if (currentLives < 0)
-            StartCoroutine(Death());
+        if (currentLives <= 0)
+        {
+            StartCoroutine(nameof(Death));
+        }
 
         isHurtGlowActive = true;
 
@@ -246,7 +253,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     {
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
-        StartCoroutine(TurnLightOff(_succesfulParryLightOffDuration));
+        StartCoroutine(nameof(TurnLightOff), _succesfulParryLightOffDuration); // only coroutines started by name can be stopped by name
 
         // stun for one second
         playerMovement.DisableMovement(1.0f);
@@ -257,13 +264,16 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         Notify(PlayerCombatEvent.Death, _teamIndex);
         currentLives = _maxLives;
 
-        // light switching
-        StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
-        playerLight.TurnOff(); // don't call method to not start twice the same coroutine
-
         // disable actions and world interaction
         player.DisableWorldInteraction();
 
+        // light switching
+        StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
+
+        Debug.Log("stopped coroutine");
+        playerLight.TurnOff(); // don't call method to not start twice the same coroutine
+
+        Debug.Log(_deathDuration);
         yield return new WaitForSeconds(_deathDuration);
 
         // light switching
