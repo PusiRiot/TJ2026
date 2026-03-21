@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,10 +16,10 @@ using UnityEngine.Events;
 public class Crystal : MonoBehaviour
 {
     [SerializeField] float intensityWhileUnpicked = 0f; // Intensity of the crystal light when it's unlit and not picked.
-
     [SerializeField] float intensityWhilePicked = 3f; // Intensity of the crystal light when it's unlit but picked.
     [SerializeField] float intensityWhileCooling = 5f; // Intensity of the crystal light when it has just been lit and is in cooldown.
     [SerializeField] List<ParticleSystem> capturingParticles;
+    [SerializeField] float intensityMin = 0.25f;
     [SerializeField] float capturingParticlesMinSize = 0.25f;
     [SerializeField] float capturingParticlesMaxSize = 1.5f;
     [SerializeField] List<ParticleSystem> capturedParticles;
@@ -33,7 +34,8 @@ public class Crystal : MonoBehaviour
     [SerializeField] const float reclaimPointsTotal = 30f;
     private float reclaimPointsCurrent = 0f;
     private List<Color> teamsColor = new List<Color>();
-    private int lastTeamReclaiming = 2;
+
+    Animator animator;
 
 
     // Capture flags
@@ -72,15 +74,27 @@ public class Crystal : MonoBehaviour
         teamsColor.Add(GameManager.Instance.GetTeamColor(1));   // Team 2 color
         teamsColor.Add(GameManager.Instance.GetTeamColor(2));   // Neutral color
 
+        animator = GetComponent<Animator>();
+
         crystalLight.color = teamsColor[2]; // Set initial color to neutral
         inactiveActionPerFrame.AddListener(InactiveReset);
+        inactiveActionPerFrame.AddListener(() => animator.SetBool("capturing", false));
 
         // Assing callbacks
-        reclaimingUpdateCallback.AddListener((teamIndex) => ReclaimingPerforming(teamIndex)); 
-        reclaimingUpdateCallback.AddListener((teamIndex) => IncreaseCaptureLight(teamIndex));
+        reclaimingUpdateCallback.AddListener(ReclaimingPerforming); 
+        reclaimingStartedCallback.AddListener(ReclaimingStarted);
+        reclaimingStartedCallback.AddListener((foo) => animator.SetBool("capturing", true));
 
+        reclaimingStartedCallback.AddListener(ReclaimingStarted);
+        reclaimingUpdateCallback.AddListener(ReclaimingPerforming); 
+        reclaimingUpdateCallback.AddListener((foo) => ShowCaptureFeedback());
         reclaimingFinishedCallback.AddListener((foo) => reclaimPointsCurrent = 0);
         reclaimingFinishedCallback.AddListener(ReclaimingPerformed);
+        reclaimingFinishedCallback.AddListener((foo) => { animator.SetTrigger("captured"); animator.SetBool("capturing", false);});  
+
+        contestedStartedCallback.AddListener(() => animator.SetBool("contested", true));
+
+        contestedFinishedCallback.AddListener(() => animator.SetBool("contested", false));
     }
 
     private void LateUpdate()
@@ -193,6 +207,12 @@ public class Crystal : MonoBehaviour
         float deltaTime = Time.deltaTime;
         float capturePointsGained = deltaTime * reclaimPointsPerSecond;
         reclaimPointsCurrent += capturePointsGained;
+
+        capturingParticles[teamIndex].gameObject.SetActive(true);
+        capturingParticles[(teamIndex + 1) % 2].gameObject.SetActive(false);
+        crystalLight.color = teamsColor[teamIndex];
+
+        ShowCaptureFeedback();
     }
 
 
@@ -227,6 +247,10 @@ public class Crystal : MonoBehaviour
         TurnLightOn(teamIndex);
     }
 
+    private void ReclaimingStarted(int teamIndex)
+    {
+        
+    }
 
     void TurnLightOn(int teamIndex)
     {
@@ -244,34 +268,27 @@ public class Crystal : MonoBehaviour
         cooldownActive = false;
     }
 
-    private void IncreaseCaptureLight(int teamIndex)
+    private void ShowCaptureFeedback()
     {
         float captureProgress = reclaimPointsCurrent / reclaimPointsTotal;
-        crystalLight.intensity = captureProgress * intensityWhilePicked;
-        Color lastColor = teamsColor[2];
-        if (isLit)
+        crystalLight.intensity = captureProgress * intensityWhilePicked + intensityMin;
+
+        foreach(ParticleSystem p in capturingParticles)
         {
-            lastColor = teamsColor[teamCaptured];
+            var particlesMain = p.main;
+            particlesMain.startSize = capturingParticlesMinSize + captureProgress * (capturingParticlesMaxSize - capturingParticlesMinSize);
+
+            if (particlesMain.startSize.constant <= capturingParticlesMinSize) p.gameObject.SetActive(false);
         }
-        InterpolateBetweenColors(lastColor, teamsColor[teamIndex], captureProgress);
     }
-
-    private void InterpolateBetweenColors(Color baseColor, Color destintyColor, float p)
-    {
-        Color colorLerped = Color.Lerp(baseColor, destintyColor, p);
-        crystalLight.color = colorLerped;
-    }
-
     private void InactiveReset()
     {
         if (reclaimPointsCurrent <= 0) return;
         if (inactiveCountdown < inactiveResetTime)  // Check if a second has passed since the last time the crystal was being reclaimed
             return;
 
-        // Adjust intensity to the current amount of points
-        reclaimPointsCurrent = Time.deltaTime * inactiveMinusPointsPerSecond;
-        crystalLight.intensity -= reclaimPointsCurrent / reclaimPointsTotal * intensityWhilePicked;
-
+        reclaimPointsCurrent -= Time.deltaTime * inactiveMinusPointsPerSecond;
+        ShowCaptureFeedback();
     }
 
     public void ReclaimFlag(int teamIndex)
