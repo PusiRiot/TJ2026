@@ -24,7 +24,8 @@ public abstract class AbstractLight : MonoBehaviour
 
     private void Awake()
     {
-        light = GetComponent<Light>();
+        light = GetComponentInChildren<Light>();
+        light.color = GameManager.Instance.GetTeamColor(teamIndex);
 
         Player player = GetComponentInParent<Player>();
         if (player.gameObject.CompareTag("Player1"))
