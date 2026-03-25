@@ -287,7 +287,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.5
+      scalar: 2.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5054,7 +5054,7 @@ MonoBehaviour:
   - {fileID: 2792032985083412432}
   - {fileID: 3564660146840932120}
   capturingParticlesMinSize: 0.25
-  capturingParticlesMaxSize: 1.5
+  capturingParticlesMaxSize: 1.25
   animateParticlesRate: 1
   capturedParticles:
   - {fileID: 1548818391287797559}
@@ -5493,7 +5493,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.5
+      scalar: 2.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
