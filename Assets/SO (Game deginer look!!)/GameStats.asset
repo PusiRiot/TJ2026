@@ -31,7 +31,7 @@ MonoBehaviour:
   ParryDuration: 1
   LightMeleeCooldownDuration: 1
   HeavyMeleeCooldownDuration: 1
-  ParryCooldownDuration: 1
+  ParryCooldownDuration: 3
   DashDuration: 0.1
   DashSpeedIncrement: 10
   MaxStamina: 100

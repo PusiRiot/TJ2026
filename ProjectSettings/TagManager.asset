@@ -9,6 +9,7 @@ TagManager:
   - ParrySparkParticles
   - ChargeAttackParticles
   - AttackParticles
+  - ParryingParticles
   layers:
   - Default
   - TransparentFX

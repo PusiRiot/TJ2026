@@ -35,6 +35,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
 
     // Visual effects
     private ParticleSystem parrySparks;
+    private ParticleSystem parryingSparks;
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
     private List<Material> playerBlinkMaterials = new();
@@ -94,6 +95,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
                 chargeSparks = particle;
             else if (particle.gameObject.CompareTag("AttackParticles"))
                 attackSparks = particle;
+            else if (particle.gameObject.CompareTag("ParryingParticles"))
+                parryingSparks = particle;
         }
         // Hurt blink materials initialization
         SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -203,16 +206,21 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     #endregion
 
     #region Hurt and parry methods
-    public IEnumerator ParryAttack()
+    public IEnumerator Parry()
     {
         // cooldown
         StartCoroutine(player.ParryCooldown(_parryCooldownDuration));
 
         // effect
+        parryingSparks.Play();
         isProtectedByParry = true;
-        yield return new WaitForSeconds(_parryDuration);
-        isProtectedByParry = false;
+        playerMovement.DisableMovement(true);
 
+        yield return new WaitForSeconds(_parryDuration);
+
+        parryingSparks.Stop();
+        isProtectedByParry = false;
+        playerMovement.DisableMovement(false);
     }
 
     public bool ReceiveAttack(int damage, float lightOffDuration, bool unableToParry)
@@ -256,7 +264,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         StartCoroutine(nameof(TurnLightOff), _succesfulParryLightOffDuration); // only coroutines started by name can be stopped by name
 
         // stun for one second
-        playerMovement.DisableMovement(1.0f);
+        StartCoroutine(playerMovement.DisableMovement(1.0f));
     }
 
     IEnumerator Death()
