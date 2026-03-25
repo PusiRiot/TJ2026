@@ -17,7 +17,7 @@ public class SpotLight : AbstractLight
 
     private void Start()
     {
-        Light flashlight = gameObject.GetComponent<Light>();
+        Light flashlight = gameObject.GetComponentInChildren<Light>();
         if (flashlight == null)
         {
             Debug.LogError("CAN NOT FIND LIGHT COMPONENT ON PLAYER GAMEPLAY LIGHT, CHECK CHILDREN");
