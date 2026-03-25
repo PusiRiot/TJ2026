@@ -104,6 +104,7 @@ public class Crystal : MonoBehaviour
 
         reclaimingUpdateCallback.AddListener(ShowCaptureFeedback);
         reclaimingUpdateCallback.AddListener(ReclaimingPerforming);
+        reclaimingUpdateCallback.AddListener((foo) => Debug.Log($"{foo} team is capturing"));
 
         reclaimingFinishedCallback.AddListener((foo) => reclaimPointsCurrent = 0);
         reclaimingFinishedCallback.AddListener(ReclaimingPerformed);
@@ -197,15 +198,6 @@ public class Crystal : MonoBehaviour
         {
 
             inactiveCountdown += Time.deltaTime;
-
-            // This person misunderstood what the cooldown is I think
-            /*// No team is reclaiming
-            if (inactiveCountdown > inactiveResetTime)
-            {
-                if ((inactiveCountdown - Time.deltaTime) <= inactiveResetTime) // Check if this is the first frame of being inactive
-                    cooldownStartedCallback.Invoke();
-            }*/
-
             inactiveActionPerFrame.Invoke();
         }
     }
