@@ -37,7 +37,7 @@ public class GameStats : ScriptableObject
 
     public float LightMeleeCooldownDuration = 1f;
     public float HeavyMeleeCooldownDuration = 1f;
-    public float ParryCooldownDuration = 1f;
+    public float ParryCooldownDuration = 3f;
 
     [Header ("Movement")]
     public float DashDuration = 0.2f;
