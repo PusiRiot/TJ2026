@@ -25,6 +25,8 @@ MonoBehaviour:
   MaxLives: 6
   LightMeleeDamage: 1
   HeavyMeleeDamage: 3
+  HeavyMeleeDashDuration: 0.075
+  HeavyMeleeDashSpeedIncrement: 8
   HeavyMeleeLightOffDuration: 3
   SuccesfulParryLightOffDuration: 3
   DeathDuration: 7
@@ -32,8 +34,8 @@ MonoBehaviour:
   LightMeleeCooldownDuration: 1
   HeavyMeleeCooldownDuration: 1
   ParryCooldownDuration: 3
-  DashDuration: 0.1
-  DashSpeedIncrement: 10
+  DashDuration: 0.075
+  DashSpeedIncrement: 10.5
   MaxStamina: 100
   StaminaConsumption: 100
   StaminaRegenRate: 20
