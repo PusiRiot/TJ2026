@@ -46,8 +46,8 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 15
   m_Range: 35
-  m_SpotAngle: 35
-  m_InnerSpotAngle: 15
+  m_SpotAngle: 45.095596
+  m_InnerSpotAngle: 29.918882
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 2
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpotLight
   viewRange: 18
-  viewAngle: 15
+  viewAngle: 26
   detectCrystalMask:
     serializedVersion: 2
     m_Bits: 55
