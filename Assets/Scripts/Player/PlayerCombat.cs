@@ -17,6 +17,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     private int _lightMeleeDamage = -1;
     private int _heavyMeleeDamage = -1;
 
+    private float _heavyMeleeDashDuration = -1f;
+    private float _heavyMeleeDashSpeedIncrement = -1f;
+
     private float _heavyMeleeLightOffDuration = -1;
     private float _succesfulParryLightOffDuration = -1;
 
@@ -61,6 +64,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
 
         _lightMeleeDamage = GameManager.Instance.LightMeleeDamage();
         _heavyMeleeDamage = GameManager.Instance.HeavyMeleeDamage();
+
+        _heavyMeleeDashDuration = GameManager.Instance.HeavyMeleeDashDuration();
+        _heavyMeleeDashSpeedIncrement = GameManager.Instance.HeavyMeleeDashSpeedIncrement();
 
         _heavyMeleeLightOffDuration = GameManager.Instance.HeavyMeleeLightOffDuration();
         _succesfulParryLightOffDuration = GameManager.Instance.SuccesfulParryLightOffDuration();
@@ -147,7 +153,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     IEnumerator HeavyAttack()
     {
         //dash
-        StartCoroutine(playerMovement.Dash(true));
+        StartCoroutine(playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement));
         isProtectedByParry = true;
         isAttackingHeavy = true;
 

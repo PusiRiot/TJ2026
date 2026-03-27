@@ -65,6 +65,10 @@ public class GameManager : Subject<GameEvent>
     // Combat
     public int LightMeleeDamage(){ return gameStats.LightMeleeDamage; }
     public int HeavyMeleeDamage(){ return gameStats.HeavyMeleeDamage; }
+    
+    public float HeavyMeleeDashDuration() { return gameStats.HeavyMeleeDashDuration; }
+
+    public float HeavyMeleeDashSpeedIncrement() { return gameStats.HeavyMeleeDashSpeedIncrement; }
 
     public float HeavyMeleeLightOffDuration(){ return gameStats.HeavyMeleeLightOffDuration; }
     public float SuccesfulParryLightOffDuration(){ return gameStats.SuccesfulParryLightOffDuration; }

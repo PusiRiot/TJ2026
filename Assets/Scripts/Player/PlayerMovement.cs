@@ -15,7 +15,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     int _teamIndex = -1;
 
     // Dash
-    float _dashIncrement;
+    float _dashSpeedIncrement;
     float _dashDuration;
     float _maxStamina;
     float currentStamina;
@@ -36,7 +36,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         trailRenderer.emitting = false;
 
         _dashDuration = GameManager.Instance.GetDashDuration();
-        _dashIncrement = GameManager.Instance.GetDashSpeedIncrement();
+        _dashSpeedIncrement = GameManager.Instance.GetDashSpeedIncrement();
         _maxStamina = GameManager.Instance.GetMaxStamina();
         _staminaConsumption = GameManager.Instance.GetStaminaConsumption();
         _staminaRegenRate = GameManager.Instance.GetStaminaRegenRate();
@@ -116,9 +116,10 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         movementDisabled = false;
     }
 
-    public IEnumerator Dash(bool ignoreStamina)
+    // To be called by Dash Action
+    public IEnumerator Dash()
     {
-        if (ignoreStamina || (!movementDisabled && !dashExecuting && currentStamina >= _staminaConsumption))
+        if (!movementDisabled && !dashExecuting && currentStamina >= _staminaConsumption)
         {
             dashExecuting = true;
             trailRenderer.emitting = true;
@@ -126,18 +127,31 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
             // execute dash in movement direction or forward
             Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
             Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
-            rb.linearVelocity = dashDir * speed * _dashIncrement;
+            rb.linearVelocity = dashDir * speed * _dashSpeedIncrement;
 
             yield return new WaitForSeconds(_dashDuration);
             trailRenderer.emitting = false;
             dashExecuting = false;
 
-            if (!ignoreStamina)
-            {
-                currentStamina -= _staminaConsumption;
-                Notify(PlayerMovementEvent.DashConsumed, _teamIndex);
-            }
+            currentStamina -= _staminaConsumption;
+            Notify(PlayerMovementEvent.DashConsumed, _teamIndex);
         }
+    }
+
+    // To be called by Heavy Melee
+    public IEnumerator Dash(float dashDuration, float dashSpeedIncrement)
+    {
+        dashExecuting = true;
+        trailRenderer.emitting = true;
+
+        // execute dash in movement direction or forward
+        Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
+        rb.linearVelocity = dashDir * speed * dashSpeedIncrement;
+
+        yield return new WaitForSeconds(dashDuration);
+        trailRenderer.emitting = false;
+        dashExecuting = false;
     }
 
     /// <summary>

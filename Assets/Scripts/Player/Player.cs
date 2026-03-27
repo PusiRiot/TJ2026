@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
     public void Dash(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && isDashEnabled)
-            StartCoroutine(playerMovement.Dash(false));
+            StartCoroutine(playerMovement.Dash());
     }
 
     public void PauseGame()

@@ -28,6 +28,9 @@ public class GameStats : ScriptableObject
     public int LightMeleeDamage = 1;
     public int HeavyMeleeDamage = 3;
 
+    public float HeavyMeleeDashDuration = 0.2f;
+    public float HeavyMeleeDashSpeedIncrement = 1f;
+
     public float HeavyMeleeLightOffDuration = 3;
     public float SuccesfulParryLightOffDuration = 3;
 
