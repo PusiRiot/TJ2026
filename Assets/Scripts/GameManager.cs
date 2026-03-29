@@ -81,6 +81,7 @@ public class GameManager : Subject<GameEvent>
     public float DeathDuration(){ return gameStats.DeathDuration; }
 
     // Movement
+    public float GetPlayerRotationSpeed(){ return gameStats.PlayerRotationSpeed; }
     public float GetDashDuration(){ return gameStats.DashDuration; }
     public float GetDashSpeedIncrement() { return gameStats.DashSpeedIncrement; }
     public float GetMaxStamina() { return gameStats.MaxStamina; }

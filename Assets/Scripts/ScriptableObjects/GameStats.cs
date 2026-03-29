@@ -43,6 +43,7 @@ public class GameStats : ScriptableObject
     public float ParryCooldownDuration = 3f;
 
     [Header ("Movement")]
+    public float PlayerRotationSpeed = 7f;
     public float DashDuration = 0.2f;
     public float DashSpeedIncrement = 2f;
     public float MaxStamina = 100.0f;

@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerMovement : Subject<PlayerMovementEvent>
 {
     #region Variables
-    const float ROTATION_SPEED = 7f;
+    float _rotationSpeed;
     float speed;
     Vector2 moveInput;
     bool movementDisabled = false;
@@ -35,6 +35,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
 
+        _rotationSpeed = GameManager.Instance.GetPlayerRotationSpeed();
         _dashDuration = GameManager.Instance.GetDashDuration();
         _dashSpeedIncrement = GameManager.Instance.GetDashSpeedIncrement();
         _maxStamina = GameManager.Instance.GetMaxStamina();
@@ -66,7 +67,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         if (motionVector.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(motionVector);
-            rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * ROTATION_SPEED));
+            rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * _rotationSpeed));
         }
 
         // move in the direction of the input

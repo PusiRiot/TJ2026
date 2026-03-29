@@ -34,6 +34,7 @@ MonoBehaviour:
   LightMeleeCooldownDuration: 1
   HeavyMeleeCooldownDuration: 1
   ParryCooldownDuration: 3
+  PlayerRotationSpeed: 5
   DashDuration: 0.075
   DashSpeedIncrement: 10.5
   MaxStamina: 100
