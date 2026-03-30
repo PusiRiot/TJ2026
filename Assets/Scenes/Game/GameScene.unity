@@ -21988,6 +21988,10 @@ PrefabInstance:
       propertyPath: m_SpotAngle
       value: 29.918882
       objectReference: {fileID: 0}
+    - target: {fileID: 7402702083262171701, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 29.918882
+      objectReference: {fileID: 0}
     - target: {fileID: 8877095996779028710, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.4
@@ -27386,11 +27390,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Heal
   teamParticles:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 91459928158563920}
+  - {fileID: 1622301783993949848}
   teamPulseParticles:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 849824088}
+  - {fileID: 447487743}
   greenParticles: {fileID: 1467817959}
   animateParticlesRate: 0.1
   contestUI: {fileID: 7748817706369353073}
@@ -27460,7 +27464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &8835910550678640881
 MeshRenderer:
   m_ObjectHideFlags: 0
