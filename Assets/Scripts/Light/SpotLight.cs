@@ -12,8 +12,6 @@ public class SpotLight : AbstractLight
     [SerializeField] private float viewRange = 3f;
     [SerializeField] private float viewAngle = 40f;
     [SerializeField] private LayerMask detectCrystalMask;
-    private Dictionary<Crystal, float> detectionTimers = new ();
-    private HashSet<Crystal> detectedThisFrame = new ();
 
     /// <summary>
     /// Detect if any crystals are within the spotlight's range and angle, and if there is a clear line of sight to them. If so, call to crystal method to light it up.
@@ -38,49 +36,11 @@ public class SpotLight : AbstractLight
                 {
                     if (rh.collider == hit)
                     {
-                        detectedThisFrame.Add(crystal);
-
                         crystal.ReclaimFlag(teamIndex);
-
-
-                        // OBSOLETE CODE: DELETE WHEN VERIFIED
-                        /*
-                        // increase or start timer for this crystal
-                        if (detectionTimers.ContainsKey(crystal))
-                        { 
-                            // Check if the crystal can be captured
-                            if(!crystal.CanCapture(teamIndex)) return;
-
-                            detectionTimers[crystal] += Time.deltaTime;
-
-                            if(crystal.ReclaimingPerforming(detectionTimers[crystal]))
-                            {
-                                crystal.ReclaimingPerformed(teamIndex);
-                                detectionTimers[crystal] = 0f; // reset timer after lighting up
-                            }
-                        }
-                        else
-                        {
-                            crystal.ReclaimingStarted();
-                            detectionTimers[crystal] = Time.deltaTime;
-                        }
-                        */
                     }
-
                 }
             }
         }
-
-        // Reset timers for crystals not detected this frame
-        foreach (var dictionaryCrystal in detectionTimers.Keys.ToList())
-        {
-            if (!detectedThisFrame.Contains(dictionaryCrystal))
-            {
-                detectionTimers.Remove(dictionaryCrystal);
-            }
-        }
-
-        detectedThisFrame.Clear();
     }
 
     /// <summary>

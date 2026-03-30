@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,9 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     bool movementDisabled = false;
     Rigidbody rb;
     int _teamIndex = -1;
+
+    // Animator
+    Animator animator;
 
     // Dash
     float _dashSpeedIncrement;
@@ -34,6 +38,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         rb = GetComponent<Rigidbody>();
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
+        animator = GetComponentInChildren<Animator>();
 
         _rotationSpeed = GameManager.Instance.GetPlayerRotationSpeed();
         _dashDuration = GameManager.Instance.GetDashDuration();
@@ -68,11 +73,21 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         {
             Quaternion targetRotation = Quaternion.LookRotation(motionVector);
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * _rotationSpeed));
+
+            // Animation turn
+            //float turn = Vector3.SignedAngle(transform.forward, motionVector, Vector3.up);
+            //float turnNormalized = turn / 90f;
+            //animator.SetFloat("Turn", turnNormalized);
         }
 
         // move in the direction of the input
         if (!movementDisabled && !dashExecuting)
+        {
             rb.linearVelocity = motionVector.normalized * speed;
+
+            // Animation walk forward
+            animator.SetFloat("Speed", motionVector.magnitude, 0.1f, Time.deltaTime);
+        }
     }
 
     void RegenerateStamina()
@@ -86,6 +101,17 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         }
     }
 
+    /// <summary>
+    /// To stop players pushing each other on collision
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
+    }
 
     #region Public methods
 
