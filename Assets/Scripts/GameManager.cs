@@ -57,12 +57,19 @@ public class GameManager : Subject<GameEvent>
     public Material GetTeamEmissiveMaterial(int teamIndex){ return gameStats.TeamEmissiveMaterial[teamIndex]; }
 
     // Crystal
-    public int GetMaxLives() { return gameStats.MaxLives; }
+    public float GetTotalReclaimCrystalPoints() { return gameStats.TotalReclaimCrystalPoints; }
 
     public float GetReclaimCrystalPointsPerSecond() { return gameStats.ReclaimCrystalPointsPerSecond; }
+
+    public float GetCrystalTimeToInactiveReset() { return gameStats.CrystalTimeToInactiveReset; }
     public float GetCrystalCooldownDuration(){ return gameStats.CrystalCooldownDuration; }
 
+    // Heal
+    public float GetHealCadence() { return gameStats.HealCadence; }
+    public int GetHealAmount() { return gameStats.HealAmount; }
+
     // Combat
+    public int GetMaxLives() { return gameStats.MaxLives; }
     public int LightMeleeDamage(){ return gameStats.LightMeleeDamage; }
     public int HeavyMeleeDamage(){ return gameStats.HeavyMeleeDamage; }
     

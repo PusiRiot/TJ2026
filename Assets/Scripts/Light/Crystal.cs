@@ -45,7 +45,7 @@ public class Crystal : MonoBehaviour
     private bool cooldownActive = false;
 
     // Capture variables
-    [SerializeField] const float reclaimPointsTotal = 30f;
+    float reclaimPointsTotal;
     private float reclaimPointsCurrent = 0f;
     private List<Color> teamsColor = new List<Color>();
 
@@ -61,7 +61,7 @@ public class Crystal : MonoBehaviour
     private List<bool> teamsReclaimingPrevFrame  = new List<bool> { false, false };
     private List<bool> teamsReclaimingFirstFrame = new List<bool> { false, false };
 
-    [SerializeField] float inactiveResetTime = 1f;
+    float inactiveResetTime;
     private float inactiveCountdown = 0f;
     private float inactiveMinusPointsPerSecond = 10f;
     private UnityEvent inactiveActionPerFrame = new UnityEvent();
@@ -84,6 +84,8 @@ public class Crystal : MonoBehaviour
 
     private void Awake()
     {
+        inactiveResetTime = GameManager.Instance.GetCrystalTimeToInactiveReset();
+        reclaimPointsTotal = GameManager.Instance.GetTotalReclaimCrystalPoints();
         crystalLight = GetComponent<Light>();
         crystalLight.intensity = intensityWhileUnpicked; // Set initial intensity to the "unpicked" value, which is the default state of the crystal
 
