@@ -27396,7 +27396,7 @@ MonoBehaviour:
   - {fileID: 849824088}
   - {fileID: 447487743}
   greenParticles: {fileID: 1467817959}
-  animateParticlesRate: 0.1
+  animateParticlesRate: 1
   contestUI: {fileID: 7748817706369353073}
   reclaimingStartedCallback:
     m_PersistentCalls:

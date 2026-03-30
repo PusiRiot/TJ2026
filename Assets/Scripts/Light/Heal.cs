@@ -35,7 +35,6 @@ public class Heal : MonoBehaviour
     // This can and might be done in a single List (memory optimization)
     private List<bool> teamsReclaiming           = new List<bool> { false, false };
     private List<bool> teamsReclaimingPrevFrame  = new List<bool> { false, false };
-    private List<bool> teamsReclaimingFirstFrame = new List<bool> { false, false };
 
     // Reclaiming callbacks
     public  UnityEvent<int> reclaimingStartedCallback = new UnityEvent<int>();
@@ -119,8 +118,12 @@ public class Heal : MonoBehaviour
         }
         else if (teamsReclaiming[0] == true)
         {
-            if (!teamsReclaimingPrevFrame[0]) // First time team 0 is reclaiming
+            if (!teamsReclaimingPrevFrame[0] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1]))
+            {
+                // First time team 0 is reclaiming
+                Debug.Log(teamsReclaimingPrevFrame[0] + " " + teamsReclaimingPrevFrame[1]);
                 reclaimingStartedCallback.Invoke(0);
+            }
             else
             {
                 reclaimingUpdateCallback.Invoke(0);
@@ -128,8 +131,12 @@ public class Heal : MonoBehaviour
         }
         else if (teamsReclaiming[1] == true)
         {
-            if (!teamsReclaimingPrevFrame[1]) // First time team 1 is reclaiming
+            if (!teamsReclaimingPrevFrame[1] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1]))
+            {
+                // First time team 0 is reclaiming
+                Debug.Log(teamsReclaimingPrevFrame[0] + " " + teamsReclaimingPrevFrame[1]);
                 reclaimingStartedCallback.Invoke(1);
+            }
             else
             {
                 // Team 2 is reclaiming
@@ -160,30 +167,13 @@ public class Heal : MonoBehaviour
         teamsReclaimingPrevFrame[0] = teamsReclaiming[0];
         teamsReclaimingPrevFrame[1] = teamsReclaiming[1];
 
-        if (teamsReclaiming[0] && !teamsReclaimingPrevFrame[0])
-        {
-            teamsReclaimingFirstFrame[0] = true;
-        }
-        else
-        {
-            teamsReclaimingFirstFrame[0] = false;
-        }
-
-        if (teamsReclaiming[1] && !teamsReclaimingPrevFrame[1])
-        {
-            teamsReclaimingFirstFrame[1] = true;
-        }
-        else
-        {
-            teamsReclaimingFirstFrame[1] = false;
-        }
-
         teamsReclaiming[0] = false;
         teamsReclaiming[1] = false;
     }
 
     private void ContestedStarted()
     {
+        StopAllCoroutines();
         animateParticles = false;
 
         // Activate both particles for feedback. Might change
@@ -234,6 +224,8 @@ public class Heal : MonoBehaviour
         greenParticlesMain.startSize = teamParticlesSize;
 
         StartCoroutine(Pulse(teamIndex));
+
+        Debug.Log("Team " + teamIndex + " started reclaiming heal");
     }
 
     public void ReclaimFlag(int teamIndex)

@@ -176,7 +176,7 @@ public class Crystal : MonoBehaviour
         }
         else if (teamsReclaiming[0] == true && !cooldownActive && teamCaptured != 0)
         {
-            if (!teamsReclaimingPrevFrame[0]) // First time team 0 is reclaiming
+            if (!teamsReclaimingPrevFrame[0] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1])) // First time team 0 is reclaiming
                 reclaimingStartedCallback.Invoke(0);
             else
             {
@@ -186,7 +186,7 @@ public class Crystal : MonoBehaviour
         }
         else if (teamsReclaiming[1] == true && !cooldownActive && teamCaptured != 1)
         {
-            if (!teamsReclaimingPrevFrame[1]) // First time team 1 is reclaiming
+            if (!teamsReclaimingPrevFrame[1] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1])) // First time team 1 is reclaiming
                 reclaimingStartedCallback.Invoke(1);
             else
             {
