@@ -16,7 +16,7 @@ MonoBehaviour:
   Walk: {fileID: 7400000, guid: d509ca400aa99f44780fa25a136336a0, type: 2}
   Melee: {fileID: 7400000, guid: 18e4f07057bf63c41aa4f155ee3c28d1, type: 2}
   Charge: {fileID: 7400000, guid: b5313e5f39b80b44ca54dee9bac6f22b, type: 2}
-  Stun: {fileID: 7400000, guid: 5ff0adff13141c1449091ecea44ab33e, type: 2}
+  Stun: {fileID: 7400000, guid: 2f2b19b0ffb54ba4aa10de0ae16f6b30, type: 2}
   StunAttack: {fileID: 7400000, guid: 062a9731a16ecbe40ac0d77a6fe6c761, type: 2}
-  Parry: {fileID: 7400000, guid: 1c93d04d88c6e1d44af4210ca13901b6, type: 2}
+  Parry: {fileID: 7400000, guid: 431c6f7d61698f9488d342afd32b96c3, type: 2}
   ParrySuccess: {fileID: 7400000, guid: ba6923d9eb9f52e46a747ef963e29c88, type: 2}
