@@ -63,6 +63,18 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         // Movement
         Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
 
+        // Stop them from pushing each other when they are not moving, but allow them to push each other when they are moving
+        if (motionVector.magnitude == 0.0f)
+        {
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY
+                | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+        }
+
+        else
+        {
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+        }
+
         // rotate to face the movement direction
         if (motionVector.sqrMagnitude > 0.01f)
         {
