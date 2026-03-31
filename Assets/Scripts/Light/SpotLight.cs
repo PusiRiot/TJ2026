@@ -24,19 +24,39 @@ public class SpotLight : AbstractLight
 
         foreach (var hit in hits)
         {
-            if (!hit.transform.TryGetComponent<Crystal>(out var crystal)) continue; // Skip if it's not a crystal
-
-            Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
-
-            // Check angle
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
+            // Skip if it's not a crystal
+            if (hit.transform.TryGetComponent<Crystal>(out var crystal))
             {
-                // Check line of sight
-                if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, detectCrystalMask))
+                Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
+
+                // Check angle
+                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
                 {
-                    if (rh.collider == hit)
+                    // Check line of sight
+                    if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, detectCrystalMask))
                     {
-                        crystal.ReclaimFlag(teamIndex);
+                        if (rh.collider == hit)
+                        {
+                            crystal.ReclaimFlag(teamIndex);
+                        }
+                    }
+                }
+            }
+            else if(hit.transform.TryGetComponent<Heal>(out var heal))
+            {
+                Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
+
+                // Check angle
+                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
+                {
+                    // Check line of sight
+                    //TODO CHANGE LAYER TO HEAL LAYER
+                    if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, detectCrystalMask))
+                    {
+                        if (rh.collider == hit)
+                        {
+                            heal.ReclaimFlag(teamIndex);
+                        }
                     }
                 }
             }

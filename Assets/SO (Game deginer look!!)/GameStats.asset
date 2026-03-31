@@ -21,18 +21,24 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a1e2bc239b1d60044a7cd98413048d6e, type: 2}
   - {fileID: 2100000, guid: e1685f431a614fe42a5b4fdc9e9d8b95, type: 2}
   ReclaimCrystalPointsPerSecond: 10
-  CrystalCooldownDuration: 12
+  TotalReclaimCrystalPoints: 30
+  CrystalTimeToInactiveReset: 1
+  CrystalInactiveResetPointsPerSecond: 15
+  CrystalCooldownDuration: 15
+  HealCadence: 2
+  HealAmount: 2
   MaxLives: 6
+  DeathDuration: 10
   LightMeleeDamage: 1
-  HeavyMeleeDamage: 3
-  HeavyMeleeDashDuration: 0.075
-  HeavyMeleeDashSpeedIncrement: 8
-  HeavyMeleeLightOffDuration: 3
-  SuccesfulParryLightOffDuration: 3
-  DeathDuration: 7
-  ParryDuration: 1
+  LightMeleeRange: 1
   LightMeleeCooldownDuration: 1
+  HeavyMeleeDamage: 3
+  HeavyMeleeDashDuration: 0.15
+  HeavyMeleeDashSpeedIncrement: 7
+  HeavyMeleeLightOffDuration: 4
   HeavyMeleeCooldownDuration: 1
+  SuccesfulParryLightOffDuration: 4
+  ParryDuration: 1.25
   ParryCooldownDuration: 3
   PlayerRotationSpeed: 5
   DashDuration: 0.075

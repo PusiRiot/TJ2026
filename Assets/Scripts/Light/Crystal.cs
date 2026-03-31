@@ -45,7 +45,7 @@ public class Crystal : MonoBehaviour
     private bool cooldownActive = false;
 
     // Capture variables
-    [SerializeField] const float reclaimPointsTotal = 30f;
+    float reclaimPointsTotal;
     private float reclaimPointsCurrent = 0f;
     private List<Color> teamsColor = new List<Color>();
 
@@ -61,9 +61,9 @@ public class Crystal : MonoBehaviour
     private List<bool> teamsReclaimingPrevFrame  = new List<bool> { false, false };
     private List<bool> teamsReclaimingFirstFrame = new List<bool> { false, false };
 
-    [SerializeField] float inactiveResetTime = 1f;
+    float inactiveResetTime;
     private float inactiveCountdown = 0f;
-    private float inactiveMinusPointsPerSecond = 10f;
+    private float inactiveMinusPointsPerSecond;
     private UnityEvent inactiveActionPerFrame = new UnityEvent();
 
 
@@ -84,6 +84,9 @@ public class Crystal : MonoBehaviour
 
     private void Awake()
     {
+        inactiveResetTime = GameManager.Instance.GetCrystalTimeToInactiveReset();
+        reclaimPointsTotal = GameManager.Instance.GetTotalReclaimCrystalPoints();
+        inactiveMinusPointsPerSecond = GameManager.Instance.GetCrystalInactiveResetPointsPerSecond();
         crystalLight = GetComponent<Light>();
         crystalLight.intensity = intensityWhileUnpicked; // Set initial intensity to the "unpicked" value, which is the default state of the crystal
 
@@ -174,7 +177,7 @@ public class Crystal : MonoBehaviour
         }
         else if (teamsReclaiming[0] == true && !cooldownActive && teamCaptured != 0)
         {
-            if (!teamsReclaimingPrevFrame[0]) // First time team 0 is reclaiming
+            if (!teamsReclaimingPrevFrame[0] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1])) // First time team 0 is reclaiming
                 reclaimingStartedCallback.Invoke(0);
             else
             {
@@ -184,7 +187,7 @@ public class Crystal : MonoBehaviour
         }
         else if (teamsReclaiming[1] == true && !cooldownActive && teamCaptured != 1)
         {
-            if (!teamsReclaimingPrevFrame[1]) // First time team 1 is reclaiming
+            if (!teamsReclaimingPrevFrame[1] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1])) // First time team 1 is reclaiming
                 reclaimingStartedCallback.Invoke(1);
             else
             {

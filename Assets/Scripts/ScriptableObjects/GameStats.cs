@@ -19,27 +19,37 @@ public class GameStats : ScriptableObject
 
     [Header ("Crystal")]
     public float ReclaimCrystalPointsPerSecond = 10f; // Number of points the player reclaims at the crystal per second
+    public float TotalReclaimCrystalPoints = 25f; // Number of points the player needs to reclaim to score the crystal
+    public float CrystalTimeToInactiveReset = 1f; // Time it takes for the crystal reclaim points to reset once its inactive
+    public float CrystalInactiveResetPointsPerSecond = 15f; // Rate at which reclaim points decrease when the crystal is inactive
     public float CrystalCooldownDuration = 5f; // Time a crystal needs to be unlit before it can be lit up again, to prevent score changes from very quick flashes of light and to add some strategy to the game.
 
+    [Header("Heal")]
+    public float HealCadence = 2.0f; // Time between each heal pulse
+    public int HealAmount = 2; // Amount of health the player recovers with each heal pulse
 
-    [Header("Combat")]
+
+    [Header("General Combat")]
     public int MaxLives = 6;
-
-    public int LightMeleeDamage = 1;
-    public int HeavyMeleeDamage = 3;
-
-    public float HeavyMeleeDashDuration = 0.2f;
-    public float HeavyMeleeDashSpeedIncrement = 1f;
-
-    public float HeavyMeleeLightOffDuration = 3;
-    public float SuccesfulParryLightOffDuration = 3;
-
     public float DeathDuration = 7;
 
-    public float ParryDuration = 1f;
+    [Header("Light Melee")]
 
+    public int LightMeleeDamage = 1;
+    public float LightMeleeRange = 1.0f;
     public float LightMeleeCooldownDuration = 1f;
+
+    [Header("Heavy Melee")]
+
+    public int HeavyMeleeDamage = 3;
+    public float HeavyMeleeDashDuration = 0.2f;
+    public float HeavyMeleeDashSpeedIncrement = 1f;
+    public float HeavyMeleeLightOffDuration = 3;
     public float HeavyMeleeCooldownDuration = 1f;
+
+    [Header("Parry")]
+    public float SuccesfulParryLightOffDuration = 3;
+    public float ParryDuration = 1f;
     public float ParryCooldownDuration = 3f;
 
     [Header ("Movement")]

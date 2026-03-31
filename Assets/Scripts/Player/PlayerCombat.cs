@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombat : Subject<PlayerCombatEvent>
+public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEvent>
 {
     #region Variables
     // Read-only variables are preceded by _ (can't be set to readonly because they have to be initialized on runtime)
@@ -37,11 +37,17 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     private AbstractLight playerLight;
     private PlayerAnimator playerAnimator;
 
+    // Colliders
+    private GameObject regularCollider;
+    private GameObject heavyMeleeCollider;
+    private GameObject parryCollider;
+
     // Visual effects
     private ParticleSystem parrySparks;
     private ParticleSystem parryingSparks;
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
+    private ParticleSystem healParticles;
     private List<Material> playerBlinkMaterials = new();
     // Hurt glow
     private float currentBlinkAmount = 0.0f;
@@ -53,6 +59,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     private bool isAttackingHeavy = false;
     private bool isChargingAttack = false;
     private bool isHurtGlowActive = false;
+    private bool alreadyHit = false; // to prevent hitting multiple times with the heavy melee dash
 
     public void Initialize(int teamIndex)
     {
@@ -106,7 +113,24 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
                 attackSparks = particle;
             else if (particle.gameObject.CompareTag("ParryingParticles"))
                 parryingSparks = particle;
+            else if (particle.gameObject.CompareTag("HealParticles"))
+                healParticles = particle;
         }
+        // Colliders initialization
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider c in colliders)
+        {
+            if (c.gameObject.CompareTag("RegularCollider"))
+                regularCollider = c.gameObject;
+            else if (c.gameObject.CompareTag("HeavyMeleeCollider"))
+                heavyMeleeCollider = c.gameObject;
+            else if (c.gameObject.CompareTag("ParryCollider"))
+                parryCollider = c.gameObject;
+        }
+
+        heavyMeleeCollider.SetActive(false);
+        parryCollider.SetActive(false);
+
         // Hurt blink materials initialization
         SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer playerMesh in playerMeshes)
@@ -157,15 +181,21 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         playerAnimator.TriggerHeavyAttack();
 
         //dash
-        playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement);
+        regularCollider.SetActive(false);
+        parryCollider.SetActive(false);
+        heavyMeleeCollider.SetActive(true);
         isProtectedByParry = true;
         isAttackingHeavy = true;
+        alreadyHit = false;
+        playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement);
 
         // after dash player is no longer attacking
         yield return new WaitForSeconds(GameManager.Instance.GetDashDuration());
         isAttackingHeavy = false;
         isProtectedByParry = false;
         playerAnimator.CancelAttack();
+        regularCollider.SetActive(true);
+        heavyMeleeCollider.SetActive(false);
     }
 
     IEnumerator LightAttack()
@@ -177,7 +207,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         attackSparks.Play();
 
         // check collision
-        Collider[] collisions = Physics.OverlapSphere(transform.position, 2f);
+        float range = GameManager.Instance.LightMeleeRange();
+        Collider[] collisions = Physics.OverlapSphere(transform.position, range);
 
         foreach (Collider collider in collisions)
         {
@@ -195,12 +226,14 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         if (!isAttackingHeavy) return;
 
         PlayerCombat enemy = collision.gameObject.GetComponentInParent<PlayerCombat>();
-        if (enemy != null && enemy != this)
+        if (enemy != null && enemy != this && !alreadyHit)
         {
             isAttackingHeavy = false; // to avoid multiple collisions on the same attack
             // effect
             bool succesful = enemy.ReceiveAttack(_heavyMeleeDamage, _heavyMeleeLightOffDuration, false);
             if (!succesful) ParryResponse();
+
+            alreadyHit = true;
         }
     }
     #endregion
@@ -238,10 +271,15 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         parryingSparks.Play();
         isProtectedByParry = true;
         playerMovement.DisableMovement(true);
+        regularCollider.SetActive(false);
+        heavyMeleeCollider.SetActive(false);
+        parryCollider.SetActive(true);
 
         yield return new WaitForSeconds(_parryDuration);
 
         parryingSparks.Stop();
+        parryCollider.SetActive(false);
+        regularCollider.SetActive(true);
         isProtectedByParry = false;
         playerMovement.DisableMovement(false);
     }
@@ -374,6 +412,31 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
             mat.SetFloat("_BlinkAmount", currentBlinkAmount);
     }
     #endregion
+
+    #endregion
+
+    #region IObserver
+
+    public void OnNotify(PlayerCombatEvent evt, object data = null)
+    {
+        switch (evt)
+        {
+            case PlayerCombatEvent.ReceivedHeal:
+                {
+                    int[] dataHeal = data as int[];
+                    int teamIndex = dataHeal[0];
+                    int healAmount = dataHeal[1];
+                    if(player.GetTeamIndex() == teamIndex)
+                    {
+                        if (currentLives == _maxLives) return;
+
+                        currentLives = Math.Min(currentLives + healAmount, _maxLives);
+                        healParticles.Play();
+                    }
+                    break;
+                }
+        }
+    }
 
     #endregion
 }

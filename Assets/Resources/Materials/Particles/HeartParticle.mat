@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LavalampParticle
-  m_Shader: {fileID: -6465566751694194690, guid: cabc7dca1250e4d49b278b57a2e20c49, type: 3}
+  m_Name: HeartParticle
+  m_Shader: {fileID: -6465566751694194690, guid: a35a73a8a21d89041bba11aee3d70d74, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -105,6 +105,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _HeartSize: 0.8
     - _Metallic: 0
     - _NoiseScale: 1.5
     - _OcclusionStrength: 1
