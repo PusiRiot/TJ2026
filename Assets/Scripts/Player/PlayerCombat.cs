@@ -35,6 +35,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     private PlayerMovement playerMovement;
     private Player player;
     private AbstractLight playerLight;
+    private PlayerAnimator playerAnimator;
 
     // Visual effects
     private ParticleSystem parrySparks;
@@ -89,6 +90,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
 
         player = GetComponent<Player>();
 
+        playerAnimator = GetComponent<PlayerAnimator>();
+
         // Initialize player light
         playerLight = GetComponentInChildren<AbstractLight>();
 
@@ -131,10 +134,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     #region Attack methods
     public void ExecuteAttack(bool isHeavyAttack)
     {
-        attackSparks.Play();
-
         if (isHeavyAttack)
         {
+            attackSparks.Play();
             // cooldown
             StartCoroutine(player.HeavyMeleeCooldown(_heavyMeleeCooldownDuration));
 
@@ -146,14 +148,16 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
             // cooldown
             StartCoroutine(player.LightMeleeCooldown(_lightMeleeCooldownDuration));
 
-            LightAttack();
+            StartCoroutine(LightAttack());
         }
     }
 
     IEnumerator HeavyAttack()
     {
+        playerAnimator.TriggerHeavyAttack();
+
         //dash
-        StartCoroutine(playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement));
+        playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement);
         isProtectedByParry = true;
         isAttackingHeavy = true;
 
@@ -161,12 +165,19 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         yield return new WaitForSeconds(GameManager.Instance.GetDashDuration());
         isAttackingHeavy = false;
         isProtectedByParry = false;
+        playerAnimator.CancelAttack();
     }
 
-    void LightAttack()
+    IEnumerator LightAttack()
     {
+        playerAnimator.TriggerLightAttack();
+        StartCoroutine(playerMovement.DisableMovement(0.4f));
+
+        yield return new WaitForSeconds(0.2f); //TODO: to sync with animation, can be changed later when we have the final one
+        attackSparks.Play();
+
         // check collision
-        Collider[] collisions = Physics.OverlapSphere(transform.position, 1f);
+        Collider[] collisions = Physics.OverlapSphere(transform.position, 2f);
 
         foreach (Collider collider in collisions)
         {
@@ -178,14 +189,15 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
             }
         }
     }
-    void OnCollisionEnter(Collision collision)
+   
+    void OnCollisionStay(Collision collision)
     {
         if (!isAttackingHeavy) return;
 
         PlayerCombat enemy = collision.gameObject.GetComponentInParent<PlayerCombat>();
         if (enemy != null && enemy != this)
         {
-
+            isAttackingHeavy = false; // to avoid multiple collisions on the same attack
             // effect
             bool succesful = enemy.ReceiveAttack(_heavyMeleeDamage, _heavyMeleeLightOffDuration, false);
             if (!succesful) ParryResponse();
@@ -198,6 +210,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     {
         if (isChargingAttack || isAttackingHeavy) return;
 
+        playerAnimator.TriggerChargeAttack();
         isChargingAttack = true;
         chargeSparks.Play();
         playerMovement.DisableMovement(true);
@@ -205,6 +218,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
 
     public void InterruptCharge()
     {
+        playerAnimator.CancelChargeAttack();
         isChargingAttack = false;
         chargeSparks.Stop();
         playerMovement.DisableMovement(false);
@@ -237,6 +251,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
             return false;
         }
 
+        playerAnimator.TriggerStun();
+
         // Light switching
         if (lightOffDuration > 0)
         {
@@ -265,6 +281,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
 
     void ParryResponse()
     {
+        playerAnimator.TriggerStun();
+
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
         StartCoroutine(nameof(TurnLightOff), _succesfulParryLightOffDuration); // only coroutines started by name can be stopped by name

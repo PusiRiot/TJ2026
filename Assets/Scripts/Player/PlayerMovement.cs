@@ -16,7 +16,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     int _teamIndex = -1;
 
     // Animator
-    Animator animator;
+    PlayerAnimator playerAnimator;
 
     // Dash
     float _dashSpeedIncrement;
@@ -38,7 +38,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         rb = GetComponent<Rigidbody>();
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
-        animator = GetComponentInChildren<Animator>();
+        playerAnimator = GetComponent<PlayerAnimator>();
 
         _rotationSpeed = GameManager.Instance.GetPlayerRotationSpeed();
         _dashDuration = GameManager.Instance.GetDashDuration();
@@ -73,11 +73,6 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         {
             Quaternion targetRotation = Quaternion.LookRotation(motionVector);
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * _rotationSpeed));
-
-            // Animation turn
-            //float turn = Vector3.SignedAngle(transform.forward, motionVector, Vector3.up);
-            //float turnNormalized = turn / 90f;
-            //animator.SetFloat("Turn", turnNormalized);
         }
 
         // move in the direction of the input
@@ -86,7 +81,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
             rb.linearVelocity = motionVector.normalized * speed;
 
             // Animation walk forward
-            animator.SetFloat("Speed", motionVector.magnitude, 0.1f, Time.deltaTime);
+            playerAnimator.Motion = motionVector.magnitude;
         }
     }
 
@@ -99,6 +94,21 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
             currentStamina = _maxStamina;
             Notify(PlayerMovementEvent.DashEnabled, _teamIndex);
         }
+    }
+
+    IEnumerator DashMovement(float dashDuration, float dashSpeedIncrement)
+    {
+        dashExecuting = true;
+        trailRenderer.emitting = true;
+
+        // execute dash in movement direction or forward
+        Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
+        rb.linearVelocity = dashDir * speed * dashSpeedIncrement;
+
+        yield return new WaitForSeconds(dashDuration);
+        trailRenderer.emitting = false;
+        dashExecuting = false;
     }
 
     /// <summary>
@@ -143,42 +153,25 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         movementDisabled = false;
     }
 
-    // To be called by Dash Action
-    public IEnumerator Dash()
+    /// <summary>
+    /// To be called by Player input, it executes a dash with dash parameters if the player has enough stamina, has movement enabled and the dash is not on cooldown
+    /// </summary>
+    public void Dash()
     {
         if (!movementDisabled && !dashExecuting && currentStamina >= _staminaConsumption)
         {
-            dashExecuting = true;
-            trailRenderer.emitting = true;
-
-            // execute dash in movement direction or forward
-            Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
-            Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
-            rb.linearVelocity = dashDir * speed * _dashSpeedIncrement;
-
-            yield return new WaitForSeconds(_dashDuration);
-            trailRenderer.emitting = false;
-            dashExecuting = false;
-
-            currentStamina -= _staminaConsumption;
-            Notify(PlayerMovementEvent.DashConsumed, _teamIndex);
+            StartCoroutine(DashMovement(_dashDuration, _dashSpeedIncrement));
         }
     }
 
-    // To be called by Heavy Melee
-    public IEnumerator Dash(float dashDuration, float dashSpeedIncrement)
+    /// <summary>
+    /// To be called by Heavy Melee, it executes a dash with the given parameters and it always executes
+    /// </summary>
+    /// <param name="dashDuration"></param>
+    /// <param name="dashSpeedIncrement"></param>
+    public void Dash(float dashDuration, float dashSpeedIncrement)
     {
-        dashExecuting = true;
-        trailRenderer.emitting = true;
-
-        // execute dash in movement direction or forward
-        Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
-        Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
-        rb.linearVelocity = dashDir * speed * dashSpeedIncrement;
-
-        yield return new WaitForSeconds(dashDuration);
-        trailRenderer.emitting = false;
-        dashExecuting = false;
+        StartCoroutine(DashMovement(dashDuration, dashSpeedIncrement));
     }
 
     /// <summary>

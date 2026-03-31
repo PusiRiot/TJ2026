@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private InputAction attackHoldAction;
     private PlayerMovement playerMovement;
     private PlayerCombat playerCombat;
+    private PlayerAnimator playerAnimator;
 
     // booleans control
     private bool isDashEnabled = true;
@@ -35,6 +36,8 @@ public class Player : MonoBehaviour
             _teamIndex = 0;
         else
             _teamIndex = 1;
+
+        playerAnimator = gameObject.AddComponent<PlayerAnimator>();
 
         playerMovement = gameObject.AddComponent<PlayerMovement>();
         playerMovement.Initialize(_playerStats.Speed, _teamIndex);
@@ -83,7 +86,7 @@ public class Player : MonoBehaviour
     public void Dash(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && isDashEnabled)
-            StartCoroutine(playerMovement.Dash());
+            playerMovement.Dash();
     }
 
     public void PauseGame()
