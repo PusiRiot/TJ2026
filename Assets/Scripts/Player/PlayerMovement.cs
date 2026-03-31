@@ -64,7 +64,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
 
         // Stop them from pushing each other when they are not moving, but allow them to push each other when they are moving
-        if (motionVector.magnitude == 0.0f)
+        if (!dashExecuting && (motionVector.magnitude == 0.0f || movementDisabled))
         {
             rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY
                 | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
@@ -136,6 +136,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         {
             dashExecuting = true;
             trailRenderer.emitting = true;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
 
             // execute dash in movement direction or forward
             Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
@@ -156,6 +157,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     {
         dashExecuting = true;
         trailRenderer.emitting = true;
+        rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
 
         // execute dash in movement direction or forward
         Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);

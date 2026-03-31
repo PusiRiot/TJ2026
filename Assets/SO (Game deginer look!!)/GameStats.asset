@@ -31,11 +31,11 @@ MonoBehaviour:
   LightMeleeDamage: 1
   HeavyMeleeDamage: 3
   HeavyMeleeDashDuration: 0.15
-  HeavyMeleeDashSpeedIncrement: 5.5
+  HeavyMeleeDashSpeedIncrement: 7
   HeavyMeleeLightOffDuration: 3
   SuccesfulParryLightOffDuration: 4
   DeathDuration: 10
-  ParryDuration: 1
+  ParryDuration: 1.25
   LightMeleeCooldownDuration: 1
   HeavyMeleeCooldownDuration: 1
   ParryCooldownDuration: 3

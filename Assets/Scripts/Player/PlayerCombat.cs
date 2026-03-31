@@ -36,6 +36,11 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private Player player;
     private AbstractLight playerLight;
 
+    // Colliders
+    private GameObject regularCollider;
+    private GameObject heavyMeleeCollider;
+    private GameObject parryCollider;
+
     // Visual effects
     private ParticleSystem parrySparks;
     private ParticleSystem parryingSparks;
@@ -107,6 +112,21 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             else if (particle.gameObject.CompareTag("HealParticles"))
                 healParticles = particle;
         }
+        // Colliders initialization
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider c in colliders)
+        {
+            if (c.gameObject.CompareTag("RegularCollider"))
+                regularCollider = c.gameObject;
+            else if (c.gameObject.CompareTag("HeavyMeleeCollider"))
+                heavyMeleeCollider = c.gameObject;
+            else if (c.gameObject.CompareTag("ParryCollider"))
+                parryCollider = c.gameObject;
+        }
+
+        heavyMeleeCollider.SetActive(false);
+        parryCollider.SetActive(false);
+
         // Hurt blink materials initialization
         SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer playerMesh in playerMeshes)
@@ -156,6 +176,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     IEnumerator HeavyAttack()
     {
         //dash
+        regularCollider.SetActive(false);
+        parryCollider.SetActive(false);
+        heavyMeleeCollider.SetActive(true);
         StartCoroutine(playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement));
         isProtectedByParry = true;
         isAttackingHeavy = true;
@@ -164,6 +187,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         yield return new WaitForSeconds(GameManager.Instance.GetDashDuration());
         isAttackingHeavy = false;
         isProtectedByParry = false;
+        regularCollider.SetActive(true);
+        heavyMeleeCollider.SetActive(false);
     }
 
     void LightAttack()
@@ -224,10 +249,15 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         parryingSparks.Play();
         isProtectedByParry = true;
         playerMovement.DisableMovement(true);
+        regularCollider.SetActive(false);
+        heavyMeleeCollider.SetActive(false);
+        parryCollider.SetActive(true);
 
         yield return new WaitForSeconds(_parryDuration);
 
         parryingSparks.Stop();
+        parryCollider.SetActive(false);
+        regularCollider.SetActive(true);
         isProtectedByParry = false;
         playerMovement.DisableMovement(false);
     }
