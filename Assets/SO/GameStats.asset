@@ -38,7 +38,7 @@ MonoBehaviour:
   HeavyMeleeLightOffDuration: 4
   HeavyMeleeCooldownDuration: 1
   SuccesfulParryLightOffDuration: 4
-  ParryDuration: 8
+  ParryDuration: 1.25
   ParryCooldownDuration: 3
   PlayerRotationSpeed: 5
   DashDuration: 0.075

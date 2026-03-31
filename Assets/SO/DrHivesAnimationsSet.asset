@@ -18,5 +18,5 @@ MonoBehaviour:
   Charge: {fileID: 7400000, guid: b27ae607874108742b58fcf496269b44, type: 2}
   Stun: {fileID: 7400000, guid: b7f20fe3d84c80e43a9fe65891f22b0b, type: 2}
   StunAttack: {fileID: 7400000, guid: 34223578a8f180c4d905964809dc2483, type: 2}
-  Parry: {fileID: 7400000, guid: 2d810a8bcb2abac45ab891bcb3e178fe, type: 2}
+  Parry: {fileID: 7400000, guid: d83bf5990ecdb104e82d92c2b92b7629, type: 2}
   ParrySuccess: {fileID: 7400000, guid: 90e4b3e520ae3d8498ca2cf7ddbb49cc, type: 2}
