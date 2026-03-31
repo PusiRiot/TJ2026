@@ -58,6 +58,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private bool isAttackingHeavy = false;
     private bool isChargingAttack = false;
     private bool isHurtGlowActive = false;
+    private bool alreadyHit = false; // to prevent hitting multiple times with the heavy melee dash
 
     public void Initialize(int teamIndex)
     {
@@ -182,6 +183,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         StartCoroutine(playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement));
         isProtectedByParry = true;
         isAttackingHeavy = true;
+        alreadyHit = false;
 
         // after dash player is no longer attacking
         yield return new WaitForSeconds(GameManager.Instance.GetDashDuration());
@@ -212,12 +214,14 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         if (!isAttackingHeavy) return;
 
         PlayerCombat enemy = collision.gameObject.GetComponentInParent<PlayerCombat>();
-        if (enemy != null && enemy != this)
+        if (enemy != null && enemy != this && !alreadyHit)
         {
 
             // effect
             bool succesful = enemy.ReceiveAttack(_heavyMeleeDamage, _heavyMeleeLightOffDuration, false);
             if (!succesful) ParryResponse();
+
+            alreadyHit = true;
         }
     }
     #endregion
