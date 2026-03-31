@@ -5,8 +5,7 @@ public class PlayerAnimationsSet : ScriptableObject
 {
     public AnimationClip Idle;
     public AnimationClip Walk;
-    public AnimationClip HeavyMelee;
-    public AnimationClip LightMelee;
+    public AnimationClip Melee;
     public AnimationClip Charge;
     public AnimationClip Stun;
     public AnimationClip StunAttack;

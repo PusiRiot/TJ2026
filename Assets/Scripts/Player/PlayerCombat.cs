@@ -257,6 +257,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
             return false;
         }
 
+        // disable movement shortly for hit stun
+        playerMovement.DisableMovement(0.02f);
+
         // animation
         playerAnimator.TriggerStunAttack();
 

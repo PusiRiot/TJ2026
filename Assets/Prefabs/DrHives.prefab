@@ -7738,7 +7738,7 @@ GameObject:
   - component: {fileID: 7142732147414197017}
   - component: {fileID: 1122160399420250751}
   m_Layer: 6
-  m_Name: Blackthorne
+  m_Name: DrHives
   m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7933,6 +7933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _playerStats: {fileID: 11400000, guid: 40a75fd1d09e60c45bb05ce900f4106b, type: 2}
+  _animationSet: {fileID: 11400000, guid: 92b0e0272cdbad749ac084b69469d5db, type: 2}
 --- !u!96 &1122160399420250751
 TrailRenderer:
   serializedVersion: 4

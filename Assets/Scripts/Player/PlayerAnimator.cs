@@ -15,9 +15,9 @@ public class PlayerAnimator : MonoBehaviour
 
     #region MonoBehaviour
 
-    void Awake()
+    void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
 
         var overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
 
@@ -35,11 +35,8 @@ public class PlayerAnimator : MonoBehaviour
             if (original.name.Contains("Walk"))
                 overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(original, animationSet.Walk);
 
-            if (original.name.Contains("HeavyMelee"))
-                overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(original, animationSet.HeavyMelee);
-
-            if (original.name.Contains("LightMelee"))
-                overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(original, animationSet.LightMelee);
+            if (original.name.Contains("Melee"))
+                overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(original, animationSet.Melee);
 
             if (original.name.Contains("Charge"))
                 overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(original, animationSet.Charge);

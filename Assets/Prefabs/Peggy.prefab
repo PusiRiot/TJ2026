@@ -5426,7 +5426,7 @@ Animator:
   m_GameObject: {fileID: 7245926608551445898}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d4a0d26e78f6f0e4785304f78489184f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3dc9da20111515e469ac3f2d03795498, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5981,6 +5981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _playerStats: {fileID: 11400000, guid: d8a3701717215e44fa35265858f876cb, type: 2}
+  _animationSet: {fileID: 11400000, guid: 7e1d682c3551bab40ab299352740ec41, type: 2}
 --- !u!96 &3603972203886635427
 TrailRenderer:
   serializedVersion: 4

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b666c4afebd2dfa49a4968668d679ac7, type: 3}
+  m_Name: DrHivesAnimationsSet
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationsSet
+  Idle: {fileID: 7400000, guid: 370b7f10b50f3534fbccedf3b9ebd642, type: 2}
+  Walk: {fileID: 7400000, guid: becf95bd9c0dc5d449d51f5f2ae6ddac, type: 2}
+  Melee: {fileID: 7400000, guid: e2c9bc7279f93d243aa30d1dc285a4e3, type: 2}
+  Charge: {fileID: 7400000, guid: b27ae607874108742b58fcf496269b44, type: 2}
+  Stun: {fileID: 7400000, guid: b7f20fe3d84c80e43a9fe65891f22b0b, type: 2}
+  StunAttack: {fileID: 7400000, guid: 34223578a8f180c4d905964809dc2483, type: 2}
+  Parry: {fileID: 7400000, guid: 2d810a8bcb2abac45ab891bcb3e178fe, type: 2}
+  ParrySuccess: {fileID: 7400000, guid: 90e4b3e520ae3d8498ca2cf7ddbb49cc, type: 2}
