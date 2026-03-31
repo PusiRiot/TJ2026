@@ -2754,7 +2754,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.61, y: -2.78, z: -1.29}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8522835648358219616}
@@ -2770,7 +2770,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7953011735170054437}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 1
   m_LinearDamping: 10
   m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3510,6 +3510,14 @@ PrefabInstance:
     - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664820850225874385, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_SpotAngle
+      value: 29.91888
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664820850225874385, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 29.91888
       objectReference: {fileID: 0}
     - target: {fileID: 7597649379654322392, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_Name
