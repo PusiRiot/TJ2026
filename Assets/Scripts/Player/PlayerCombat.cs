@@ -35,6 +35,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private PlayerMovement playerMovement;
     private Player player;
     private AbstractLight playerLight;
+    private PlayerAnimator playerAnimator;
 
     // Colliders
     private GameObject regularCollider;
@@ -96,6 +97,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         player = GetComponent<Player>();
 
+        playerAnimator = GetComponent<PlayerAnimator>();
+
         // Initialize player light
         playerLight = GetComponentInChildren<AbstractLight>();
 
@@ -155,10 +158,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     #region Attack methods
     public void ExecuteAttack(bool isHeavyAttack)
     {
-        attackSparks.Play();
-
         if (isHeavyAttack)
         {
+            attackSparks.Play();
             // cooldown
             StartCoroutine(player.HeavyMeleeCooldown(_heavyMeleeCooldownDuration));
 
@@ -170,31 +172,40 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             // cooldown
             StartCoroutine(player.LightMeleeCooldown(_lightMeleeCooldownDuration));
 
-            LightAttack();
+            StartCoroutine(LightAttack());
         }
     }
 
     IEnumerator HeavyAttack()
     {
+        playerAnimator.TriggerHeavyAttack();
+
         //dash
         regularCollider.SetActive(false);
         parryCollider.SetActive(false);
         heavyMeleeCollider.SetActive(true);
-        StartCoroutine(playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement));
         isProtectedByParry = true;
         isAttackingHeavy = true;
         alreadyHit = false;
+        playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement);
 
         // after dash player is no longer attacking
         yield return new WaitForSeconds(GameManager.Instance.GetDashDuration());
         isAttackingHeavy = false;
         isProtectedByParry = false;
+        playerAnimator.CancelAttack();
         regularCollider.SetActive(true);
         heavyMeleeCollider.SetActive(false);
     }
 
-    void LightAttack()
+    IEnumerator LightAttack()
     {
+        playerAnimator.TriggerLightAttack();
+        StartCoroutine(playerMovement.DisableMovement(0.4f));
+
+        yield return new WaitForSeconds(0.2f); //TODO: to sync with animation, can be changed later when we have the final one
+        attackSparks.Play();
+
         // check collision
         float range = GameManager.Instance.LightMeleeRange();
         Collider[] collisions = Physics.OverlapSphere(transform.position, range);
@@ -209,14 +220,15 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             }
         }
     }
-    void OnCollisionEnter(Collision collision)
+   
+    void OnCollisionStay(Collision collision)
     {
         if (!isAttackingHeavy) return;
 
         PlayerCombat enemy = collision.gameObject.GetComponentInParent<PlayerCombat>();
         if (enemy != null && enemy != this && !alreadyHit)
         {
-
+            isAttackingHeavy = false; // to avoid multiple collisions on the same attack
             // effect
             bool succesful = enemy.ReceiveAttack(_heavyMeleeDamage, _heavyMeleeLightOffDuration, false);
             if (!succesful) ParryResponse();
@@ -231,6 +243,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     {
         if (isChargingAttack || isAttackingHeavy) return;
 
+        playerAnimator.TriggerChargeAttack();
         isChargingAttack = true;
         chargeSparks.Play();
         playerMovement.DisableMovement(true);
@@ -238,6 +251,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     public void InterruptCharge()
     {
+        playerAnimator.CancelChargeAttack();
         isChargingAttack = false;
         chargeSparks.Stop();
         playerMovement.DisableMovement(false);
@@ -249,6 +263,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     {
         // cooldown
         StartCoroutine(player.ParryCooldown(_parryCooldownDuration));
+
+        // animation
+        playerAnimator.TriggerParry();
 
         // effect
         parryingSparks.Play();
@@ -271,9 +288,18 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     {
         if (isProtectedByParry && !unableToParry)
         {
+            // animation
+            playerAnimator.TriggerParrySuccess();
+
             parrySparks.Play();
             return false;
         }
+
+        // disable movement shortly for hit stun
+        playerMovement.DisableMovement(0.02f);
+
+        // animation
+        playerAnimator.TriggerStunAttack();
 
         // Light switching
         if (lightOffDuration > 0)
@@ -285,6 +311,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         // Interrupt player attacks
         if (isChargingAttack)
             player.CancelChargeAttack();
+
+        StopCoroutine(LightAttack());
 
 
         // Damage
@@ -303,6 +331,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     void ParryResponse()
     {
+        playerAnimator.TriggerStun();
+
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
         StartCoroutine(nameof(TurnLightOff), _succesfulParryLightOffDuration); // only coroutines started by name can be stopped by name

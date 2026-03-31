@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,9 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     bool movementDisabled = false;
     Rigidbody rb;
     int _teamIndex = -1;
+
+    // Animator
+    PlayerAnimator playerAnimator;
 
     // Dash
     float _dashSpeedIncrement;
@@ -34,6 +38,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         rb = GetComponent<Rigidbody>();
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
+        playerAnimator = GetComponent<PlayerAnimator>();
 
         _rotationSpeed = GameManager.Instance.GetPlayerRotationSpeed();
         _dashDuration = GameManager.Instance.GetDashDuration();
@@ -84,7 +89,12 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
 
         // move in the direction of the input
         if (!movementDisabled && !dashExecuting)
+        {
             rb.linearVelocity = motionVector.normalized * speed;
+
+            // Animation walk forward
+            playerAnimator.Motion = motionVector.magnitude;
+        }
     }
 
     void RegenerateStamina()
@@ -98,6 +108,35 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         }
     }
 
+    IEnumerator DashMovement(float dashDuration, float dashSpeedIncrement)
+    {
+        dashExecuting = true;
+        trailRenderer.emitting = true;
+
+        // Stop them from pushing each other when they are not moving, but allow them to push each other when they are moving
+        rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+
+        // execute dash in movement direction or forward
+        Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
+        rb.linearVelocity = dashDir * speed * dashSpeedIncrement;
+
+        yield return new WaitForSeconds(dashDuration);
+        trailRenderer.emitting = false;
+        dashExecuting = false;
+    }
+
+    /// <summary>
+    /// To stop players pushing each other on collision
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
+    }
 
     #region Public methods
 
@@ -129,44 +168,25 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         movementDisabled = false;
     }
 
-    // To be called by Dash Action
-    public IEnumerator Dash()
+    /// <summary>
+    /// To be called by Player input, it executes a dash with dash parameters if the player has enough stamina, has movement enabled and the dash is not on cooldown
+    /// </summary>
+    public void Dash()
     {
         if (!movementDisabled && !dashExecuting && currentStamina >= _staminaConsumption)
         {
-            dashExecuting = true;
-            trailRenderer.emitting = true;
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-
-            // execute dash in movement direction or forward
-            Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
-            Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
-            rb.linearVelocity = dashDir * speed * _dashSpeedIncrement;
-
-            yield return new WaitForSeconds(_dashDuration);
-            trailRenderer.emitting = false;
-            dashExecuting = false;
-
-            currentStamina -= _staminaConsumption;
-            Notify(PlayerMovementEvent.DashConsumed, _teamIndex);
+            StartCoroutine(DashMovement(_dashDuration, _dashSpeedIncrement));
         }
     }
 
-    // To be called by Heavy Melee
-    public IEnumerator Dash(float dashDuration, float dashSpeedIncrement)
+    /// <summary>
+    /// To be called by Heavy Melee, it executes a dash with the given parameters and it always executes
+    /// </summary>
+    /// <param name="dashDuration"></param>
+    /// <param name="dashSpeedIncrement"></param>
+    public void Dash(float dashDuration, float dashSpeedIncrement)
     {
-        dashExecuting = true;
-        trailRenderer.emitting = true;
-        rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-
-        // execute dash in movement direction or forward
-        Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
-        Vector3 dashDir = motionVector.sqrMagnitude > 0.01f ? motionVector.normalized : transform.forward;
-        rb.linearVelocity = dashDir * speed * dashSpeedIncrement;
-
-        yield return new WaitForSeconds(dashDuration);
-        trailRenderer.emitting = false;
-        dashExecuting = false;
+        StartCoroutine(DashMovement(dashDuration, dashSpeedIncrement));
     }
 
     /// <summary>

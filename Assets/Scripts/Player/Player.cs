@@ -15,12 +15,14 @@ public class Player : MonoBehaviour
     #region Variables
     // Read-only variables (preceded by _ (can't be set to readonly because they have to be initialized on runtime))
     [SerializeField] private PlayerStats _playerStats;
+    [SerializeField] private PlayerAnimationsSet _animationSet; // assign in inspector
     private int _teamIndex = -1;
 
     // needed references
     private InputAction attackHoldAction;
     private PlayerMovement playerMovement;
     private PlayerCombat playerCombat;
+    private PlayerAnimator playerAnimator;
 
     // booleans control
     private bool isDashEnabled = true;
@@ -35,6 +37,9 @@ public class Player : MonoBehaviour
             _teamIndex = 0;
         else
             _teamIndex = 1;
+
+        playerAnimator = gameObject.AddComponent<PlayerAnimator>();
+        playerAnimator.Initialize(_animationSet);
 
         playerMovement = gameObject.AddComponent<PlayerMovement>();
         playerMovement.Initialize(_playerStats.Speed, _teamIndex);
@@ -83,7 +88,7 @@ public class Player : MonoBehaviour
     public void Dash(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && isDashEnabled)
-            StartCoroutine(playerMovement.Dash());
+            playerMovement.Dash();
     }
 
     public void PauseGame()
