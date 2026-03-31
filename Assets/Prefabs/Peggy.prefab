@@ -3895,7 +3895,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7194087541381012829}
-  - component: {fileID: 5950740206076098493}
   - component: {fileID: 9199692683469466953}
   m_Layer: 6
   m_Name: Body
@@ -3921,29 +3920,6 @@ Transform:
   - {fileID: 767043013035368719}
   m_Father: {fileID: 302027473378999951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &5950740206076098493
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7245926608551445898}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.8786774
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &9199692683469466953
 Animator:
   serializedVersion: 7

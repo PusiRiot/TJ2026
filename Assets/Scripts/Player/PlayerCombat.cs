@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEvent>
 {
@@ -116,6 +117,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             else if (particle.gameObject.CompareTag("HealParticles"))
                 healParticles = particle;
         }
+
         // Colliders initialization
         Collider[] colliders = GetComponentsInChildren<Collider>();
         foreach (Collider c in colliders)
@@ -277,7 +279,17 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         yield return new WaitForSeconds(_parryDuration);
 
-        parryingSparks.Stop();
+        StopParry(false);
+    }
+
+    void StopParry(bool parrySuccesfull)
+    {
+        if (parrySuccesfull)
+            playerAnimator.TriggerParrySuccess();
+        else
+            playerAnimator.CancelParry();
+
+        parryingSparks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         parryCollider.SetActive(false);
         regularCollider.SetActive(true);
         isProtectedByParry = false;
@@ -288,10 +300,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     {
         if (isProtectedByParry && !unableToParry)
         {
-            // animation
-            playerAnimator.TriggerParrySuccess();
-
             parrySparks.Play();
+            StopParry(true);
             return false;
         }
 

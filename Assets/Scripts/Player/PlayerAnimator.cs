@@ -103,6 +103,11 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetTrigger("Stun");
     }
 
+    public void CancelStun()
+    {
+        animator.SetTrigger("StunStop");
+    }
+
     public void TriggerStunAttack()
     {
         animator.SetTrigger("StunAttack");
@@ -116,6 +121,11 @@ public class PlayerAnimator : MonoBehaviour
     public void TriggerParry()
     {
         animator.SetTrigger("Parry");
+    }
+
+    public void CancelParry()
+    {
+        animator.SetTrigger("ParryStop");
     }
 
     public void CancelChargeAttack()
