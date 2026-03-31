@@ -21,7 +21,7 @@
                     "id": "ebfd33a8-4720-4d01-a999-99b9eb821a01",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.5),Tap",
+                    "interactions": "Hold(duration=0.4),Tap",
                     "initialStateCheck": false
                 },
                 {
@@ -111,7 +111,7 @@
                 {
                     "name": "",
                     "id": "3c1366f3-f6be-484d-8dc1-252869107f7f",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -133,7 +133,7 @@
                 {
                     "name": "",
                     "id": "534db06f-37b1-4773-b0fc-f578cce2237b",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

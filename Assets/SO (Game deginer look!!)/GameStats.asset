@@ -23,7 +23,7 @@ MonoBehaviour:
   ReclaimCrystalPointsPerSecond: 10
   TotalReclaimCrystalPoints: 30
   CrystalTimeToInactiveReset: 1
-  CrystalInactiveResetPointsPerSecond: 15
+  CrystalInactiveResetPointsPerSecond: 25
   CrystalCooldownDuration: 15
   HealCadence: 2
   HealAmount: 2
