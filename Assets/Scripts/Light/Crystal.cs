@@ -63,7 +63,7 @@ public class Crystal : MonoBehaviour
 
     float inactiveResetTime;
     private float inactiveCountdown = 0f;
-    private float inactiveMinusPointsPerSecond = 10f;
+    private float inactiveMinusPointsPerSecond;
     private UnityEvent inactiveActionPerFrame = new UnityEvent();
 
 
@@ -86,6 +86,7 @@ public class Crystal : MonoBehaviour
     {
         inactiveResetTime = GameManager.Instance.GetCrystalTimeToInactiveReset();
         reclaimPointsTotal = GameManager.Instance.GetTotalReclaimCrystalPoints();
+        inactiveMinusPointsPerSecond = GameManager.Instance.GetCrystalInactiveResetPointsPerSecond();
         crystalLight = GetComponent<Light>();
         crystalLight.intensity = intensityWhileUnpicked; // Set initial intensity to the "unpicked" value, which is the default state of the crystal
 

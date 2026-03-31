@@ -21,6 +21,7 @@ public class GameStats : ScriptableObject
     public float ReclaimCrystalPointsPerSecond = 10f; // Number of points the player reclaims at the crystal per second
     public float TotalReclaimCrystalPoints = 25f; // Number of points the player needs to reclaim to score the crystal
     public float CrystalTimeToInactiveReset = 1f; // Time it takes for the crystal reclaim points to reset once its inactive
+    public float CrystalInactiveResetPointsPerSecond = 15f; // Rate at which reclaim points decrease when the crystal is inactive
     public float CrystalCooldownDuration = 5f; // Time a crystal needs to be unlit before it can be lit up again, to prevent score changes from very quick flashes of light and to add some strategy to the game.
 
     [Header("Heal")]

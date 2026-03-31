@@ -14,7 +14,7 @@ using UnityEngine.UIElements;
 /// <summary>
 /// Heal class, attached to the heal game objects. 
 /// </summary>
-public class Heal : MonoBehaviour
+public class Heal : Subject<PlayerCombatEvent>
 {
     [SerializeField] List<ParticleSystem> teamParticles;
     [SerializeField] List<ParticleSystem> teamPulseParticles;
@@ -48,6 +48,7 @@ public class Heal : MonoBehaviour
 
     private void Awake()
     {
+        base.AddObserversOnScene();
         healCadence = GameManager.Instance.GetHealCadence();
         healAmount = GameManager.Instance.GetHealAmount();
 
@@ -121,7 +122,6 @@ public class Heal : MonoBehaviour
             if (!teamsReclaimingPrevFrame[0] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1]))
             {
                 // First time team 0 is reclaiming
-                Debug.Log(teamsReclaimingPrevFrame[0] + " " + teamsReclaimingPrevFrame[1]);
                 reclaimingStartedCallback.Invoke(0);
             }
             else
@@ -134,7 +134,6 @@ public class Heal : MonoBehaviour
             if (!teamsReclaimingPrevFrame[1] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1]))
             {
                 // First time team 0 is reclaiming
-                Debug.Log(teamsReclaimingPrevFrame[0] + " " + teamsReclaimingPrevFrame[1]);
                 reclaimingStartedCallback.Invoke(1);
             }
             else
@@ -224,8 +223,6 @@ public class Heal : MonoBehaviour
         greenParticlesMain.startSize = teamParticlesSize;
 
         StartCoroutine(Pulse(teamIndex));
-
-        Debug.Log("Team " + teamIndex + " started reclaiming heal");
     }
 
     public void ReclaimFlag(int teamIndex)
@@ -240,7 +237,7 @@ public class Heal : MonoBehaviour
             yield return new WaitForSeconds(healCadence);
             animator.SetTrigger("pulse");
             teamPulseParticles[teamIndex].Play();
-            // Heal player
+            Notify(PlayerCombatEvent.ReceivedHeal, new int[] { teamIndex, healAmount });
         }
     }
 

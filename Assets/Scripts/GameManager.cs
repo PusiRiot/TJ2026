@@ -61,6 +61,7 @@ public class GameManager : Subject<GameEvent>
 
     public float GetReclaimCrystalPointsPerSecond() { return gameStats.ReclaimCrystalPointsPerSecond; }
 
+    public float GetCrystalInactiveResetPointsPerSecond() { return gameStats.CrystalInactiveResetPointsPerSecond; }
     public float GetCrystalTimeToInactiveReset() { return gameStats.CrystalTimeToInactiveReset; }
     public float GetCrystalCooldownDuration(){ return gameStats.CrystalCooldownDuration; }
 

@@ -158,6 +158,15 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
                 playerLives[teamIndex].value = newValue < 0 ? 0 : newValue;
                 break;
             }
+            case PlayerCombatEvent.ReceivedHeal:
+                {
+                    int[] dataHeal = data as int[];
+                    int teamIndex = dataHeal[0];
+                    int healAmount = dataHeal[1];
+                    int newValue = Mathf.Min((int)playerLives[teamIndex].value + healAmount, _maxLives);
+                    playerLives[teamIndex].value = newValue < 0 ? 0 : newValue;
+                    break;
+                }
             case PlayerCombatEvent.BackToLife:
             {
                 playerLives[(int)data].value = _maxLives;

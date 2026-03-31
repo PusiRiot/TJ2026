@@ -11409,6 +11409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1388426518}
   - component: {fileID: 1388426519}
+  - component: {fileID: 1388426520}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11444,6 +11445,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameStats: {fileID: 11400000, guid: 433977458b07cd544a9b7350d1e96774, type: 2}
+--- !u!114 &1388426520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388426517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059a1e5537e2bf245b5208d55c7b391f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealSpawn
 --- !u!1001 &1400267268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16550,7 +16563,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0, g: 1, b: 0.4345944, a: 1}
-  m_Intensity: 2
+  m_Intensity: 3
   m_Range: 10
   m_SpotAngle: 50
   m_InnerSpotAngle: 50
@@ -26991,7 +27004,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &3981512905825890510
 ParticleSystemRenderer:
   serializedVersion: 7

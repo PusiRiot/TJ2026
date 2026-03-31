@@ -10,6 +10,7 @@ TagManager:
   - ChargeAttackParticles
   - AttackParticles
   - ParryingParticles
+  - HealParticles
   layers:
   - Default
   - TransparentFX

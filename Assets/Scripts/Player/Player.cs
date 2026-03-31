@@ -141,4 +141,6 @@ public class Player : MonoBehaviour
         isHeavyMeleeEnabled = true;
     }
     #endregion
+
+    public int GetTeamIndex() { return _teamIndex; }
 }

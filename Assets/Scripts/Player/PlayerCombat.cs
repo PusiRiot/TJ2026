@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombat : Subject<PlayerCombatEvent>
+public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEvent>
 {
     #region Variables
     // Read-only variables are preceded by _ (can't be set to readonly because they have to be initialized on runtime)
@@ -41,6 +41,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     private ParticleSystem parryingSparks;
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
+    private ParticleSystem healParticles;
     private List<Material> playerBlinkMaterials = new();
     // Hurt glow
     private float currentBlinkAmount = 0.0f;
@@ -103,6 +104,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
                 attackSparks = particle;
             else if (particle.gameObject.CompareTag("ParryingParticles"))
                 parryingSparks = particle;
+            else if (particle.gameObject.CompareTag("HealParticles"))
+                healParticles = particle;
         }
         // Hurt blink materials initialization
         SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -344,6 +347,31 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
             mat.SetFloat("_BlinkAmount", currentBlinkAmount);
     }
     #endregion
+
+    #endregion
+
+    #region IObserver
+
+    public void OnNotify(PlayerCombatEvent evt, object data = null)
+    {
+        switch (evt)
+        {
+            case PlayerCombatEvent.ReceivedHeal:
+                {
+                    int[] dataHeal = data as int[];
+                    int teamIndex = dataHeal[0];
+                    int healAmount = dataHeal[1];
+                    if(player.GetTeamIndex() == teamIndex)
+                    {
+                        if (currentLives == _maxLives) return;
+
+                        currentLives = Math.Min(currentLives + healAmount, _maxLives);
+                        healParticles.Play();
+                    }
+                    break;
+                }
+        }
+    }
 
     #endregion
 }
