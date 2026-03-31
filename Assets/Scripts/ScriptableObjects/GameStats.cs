@@ -29,24 +29,27 @@ public class GameStats : ScriptableObject
     public int HealAmount = 2; // Amount of health the player recovers with each heal pulse
 
 
-    [Header("Combat")]
+    [Header("General Combat")]
     public int MaxLives = 6;
-
-    public int LightMeleeDamage = 1;
-    public int HeavyMeleeDamage = 3;
-
-    public float HeavyMeleeDashDuration = 0.2f;
-    public float HeavyMeleeDashSpeedIncrement = 1f;
-
-    public float HeavyMeleeLightOffDuration = 3;
-    public float SuccesfulParryLightOffDuration = 3;
-
     public float DeathDuration = 7;
 
-    public float ParryDuration = 1f;
+    [Header("Light Melee")]
 
+    public int LightMeleeDamage = 1;
+    public float LightMeleeRange = 1.0f;
     public float LightMeleeCooldownDuration = 1f;
+
+    [Header("Heavy Melee")]
+
+    public int HeavyMeleeDamage = 3;
+    public float HeavyMeleeDashDuration = 0.2f;
+    public float HeavyMeleeDashSpeedIncrement = 1f;
+    public float HeavyMeleeLightOffDuration = 3;
     public float HeavyMeleeCooldownDuration = 1f;
+
+    [Header("Parry")]
+    public float SuccesfulParryLightOffDuration = 3;
+    public float ParryDuration = 1f;
     public float ParryCooldownDuration = 3f;
 
     [Header ("Movement")]

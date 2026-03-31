@@ -73,7 +73,9 @@ public class GameManager : Subject<GameEvent>
     public int GetMaxLives() { return gameStats.MaxLives; }
     public int LightMeleeDamage(){ return gameStats.LightMeleeDamage; }
     public int HeavyMeleeDamage(){ return gameStats.HeavyMeleeDamage; }
-    
+
+    public float LightMeleeRange(){ return gameStats.LightMeleeRange; }
+
     public float HeavyMeleeDashDuration() { return gameStats.HeavyMeleeDashDuration; }
 
     public float HeavyMeleeDashSpeedIncrement() { return gameStats.HeavyMeleeDashSpeedIncrement; }

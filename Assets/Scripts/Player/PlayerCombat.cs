@@ -194,7 +194,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     void LightAttack()
     {
         // check collision
-        Collider[] collisions = Physics.OverlapSphere(transform.position, 1f);
+        float range = GameManager.Instance.LightMeleeRange();
+        Collider[] collisions = Physics.OverlapSphere(transform.position, range);
 
         foreach (Collider collider in collisions)
         {
