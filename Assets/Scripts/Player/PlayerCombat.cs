@@ -257,7 +257,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
             return false;
         }
 
-        playerAnimator.TriggerStun();
+        // animation
+        playerAnimator.TriggerStunAttack();
 
         // Light switching
         if (lightOffDuration > 0)
@@ -269,6 +270,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         // Interrupt player attacks
         if (isChargingAttack)
             player.CancelChargeAttack();
+
+        StopCoroutine(LightAttack());
 
 
         // Damage

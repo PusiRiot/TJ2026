@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     #region Variables
     // Read-only variables (preceded by _ (can't be set to readonly because they have to be initialized on runtime))
     [SerializeField] private PlayerStats _playerStats;
+    [SerializeField] private PlayerAnimationsSet _animationSet; // assign in inspector
     private int _teamIndex = -1;
 
     // needed references
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
             _teamIndex = 1;
 
         playerAnimator = gameObject.AddComponent<PlayerAnimator>();
+        playerAnimator.Initialize(_animationSet);
 
         playerMovement = gameObject.AddComponent<PlayerMovement>();
         playerMovement.Initialize(_playerStats.Speed, _teamIndex);
