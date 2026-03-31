@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
@@ -53,6 +52,12 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetTrigger("Stun");
     }
+
+    public void TriggerAttackStun()
+    {
+        animator.SetTrigger("AttackStun");
+    }
+
     public void TriggerParrySuccess()
     {
         animator.SetTrigger("ParrySuccess");

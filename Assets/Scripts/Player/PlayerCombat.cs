@@ -231,6 +231,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
         // cooldown
         StartCoroutine(player.ParryCooldown(_parryCooldownDuration));
 
+        // animation
+        playerAnimator.TriggerParry();
+
         // effect
         parryingSparks.Play();
         isProtectedByParry = true;
@@ -247,6 +250,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>
     {
         if (isProtectedByParry && !unableToParry)
         {
+            // animation
+            playerAnimator.TriggerParrySuccess();
+
             parrySparks.Play();
             return false;
         }
