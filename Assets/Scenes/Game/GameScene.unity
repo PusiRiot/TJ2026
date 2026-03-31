@@ -2589,6 +2589,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2248693748542341547, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_RenderingLayersMask.m_Bits
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2296588339338954722, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_Mass
       value: 1
@@ -2596,6 +2600,10 @@ PrefabInstance:
     - target: {fileID: 2296588339338954722, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_AngularDamping
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2368417715503558453, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3753841604761147041, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_SpotAngle
@@ -2605,9 +2613,33 @@ PrefabInstance:
       propertyPath: m_InnerSpotAngle
       value: 29.91888
       objectReference: {fileID: 0}
+    - target: {fileID: 4067300155652640615, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659137622620708889, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5701795966559846764, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_RenderingLayersMask.m_Bits
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6066148970662809469, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_RenderingLayersMask.m_Bits
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498285216643926344, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7953011735170054437, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_Name
       value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125865657405608455, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_RenderingLayersMask.m_Bits
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
