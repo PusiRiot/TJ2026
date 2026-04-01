@@ -23,6 +23,7 @@ public class Heal : Subject<PlayerCombatEvent>
     [SerializeField] GameObject contestUI;
 
     Animator animator;
+    Light spotlight;
 
     bool animateParticles = false;
 
@@ -53,6 +54,9 @@ public class Heal : Subject<PlayerCombatEvent>
         healAmount = GameManager.Instance.GetHealAmount();
 
         animator = GetComponent<Animator>();
+
+        spotlight = GetComponentInChildren<Light>();
+        spotlight.color = GameManager.Instance.GetHealColor();   // Change color to heal color
 
         teamParticlesSize = greenParticles.main.startSize.constant;
 

@@ -4059,8 +4059,8 @@ GameObject:
   - component: {fileID: 7088187727541744592}
   - component: {fileID: 5320540092430186098}
   - component: {fileID: 3603972203886635427}
-  - component: {fileID: 4988592170253092119}
   - component: {fileID: 5794465996510834581}
+  - component: {fileID: 4988592170253092119}
   - component: {fileID: 8947501621782601496}
   m_Layer: 0
   m_Name: Peggy
@@ -4394,18 +4394,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &4988592170253092119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7953011735170054437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d360a2d5268d3744aa924876e8e149ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
 --- !u!114 &5794465996510834581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4418,6 +4406,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dabf965b68b97b74c896a19e21133f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
+--- !u!114 &4988592170253092119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953011735170054437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d360a2d5268d3744aa924876e8e149ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
 --- !u!114 &8947501621782601496
 MonoBehaviour:
   m_ObjectHideFlags: 0

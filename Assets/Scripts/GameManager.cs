@@ -56,6 +56,9 @@ public class GameManager : Subject<GameEvent>
     public Color GetTeamColor(int teamIndex){ return gameStats.TeamColor[teamIndex]; }
     public Material GetTeamEmissiveMaterial(int teamIndex){ return gameStats.TeamEmissiveMaterial[teamIndex]; }
 
+    public Color GetDamageColor() { return gameStats.DamageColor; }
+    public Color GetHealColor() { return gameStats.HealColor; }
+
     // Crystal
     public float GetTotalReclaimCrystalPoints() { return gameStats.TotalReclaimCrystalPoints; }
 
@@ -71,6 +74,9 @@ public class GameManager : Subject<GameEvent>
 
     // Combat
     public int GetMaxLives() { return gameStats.MaxLives; }
+
+    public float GetGlowOverlayGlowUp() { return gameStats.GlowOverlayGlowUp; }
+    public float GetGlowOverlayGlowDown() { return gameStats.GlowOverlayGlowDown; }
     public int LightMeleeDamage(){ return gameStats.LightMeleeDamage; }
     public int HeavyMeleeDamage(){ return gameStats.HeavyMeleeDamage; }
 

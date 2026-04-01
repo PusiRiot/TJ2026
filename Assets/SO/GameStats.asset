@@ -20,6 +20,8 @@ MonoBehaviour:
   TeamEmissiveMaterial:
   - {fileID: 2100000, guid: a1e2bc239b1d60044a7cd98413048d6e, type: 2}
   - {fileID: 2100000, guid: e1685f431a614fe42a5b4fdc9e9d8b95, type: 2}
+  DamageColor: {r: 1, g: 0, b: 0.12310076, a: 1}
+  HealColor: {r: 0, g: 1, b: 0.39215687, a: 1}
   ReclaimCrystalPointsPerSecond: 10
   TotalReclaimCrystalPoints: 30
   CrystalTimeToInactiveReset: 1
@@ -36,8 +38,10 @@ MonoBehaviour:
   HeavyMeleeDashDuration: 0.15
   HeavyMeleeDashSpeedIncrement: 7
   HeavyMeleeLightOffDuration: 4
+  HeavyMeleeStunDuration: 0.2
   HeavyMeleeCooldownDuration: 1
   SuccesfulParryLightOffDuration: 4
+  SuccesfulParryStunDuration: 1
   ParryDuration: 1.25
   ParryCooldownDuration: 1
   PlayerRotationSpeed: 5

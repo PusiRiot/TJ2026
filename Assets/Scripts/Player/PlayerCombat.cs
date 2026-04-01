@@ -30,6 +30,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     private float _parryDuration = -1f;
 
+    private float _glowUpDuration = -1f;
+    private float _glowDownDuration = -1f;
+
     // Needed player references
     private PlayerMovement playerMovement;
     private Player player;
@@ -48,17 +51,19 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
     private ParticleSystem healParticles;
-    private List<Material> playerBlinkMaterials = new();
-    // Hurt glow
-    private float currentBlinkAmount = 0.0f;
-    private float hurtGlowStep;
-    private float hurtGlowDuration;
+
+    // Glow overlay
+    private List<Material> glowOverlayMaterials = new List<Material>();
+    private float currentAlpha = 0f;
+    private float targetAlpha = 0f;
+    private float interpolationSpeed = 0f;
+    private Color glowColor;
+
 
     // Boolean control
     private bool isProtectedByParry = false;
     private bool isAttackingHeavy = false;
     private bool isChargingAttack = false;
-    private bool isHurtGlowActive = false;
     private bool alreadyHit = false; // to prevent hitting multiple times with the heavy melee dash
 
     public void Initialize(int teamIndex)
@@ -69,6 +74,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         _maxLives = GameManager.Instance.GetMaxLives();
         currentLives = _maxLives;
+
+        _glowUpDuration = GameManager.Instance.GetGlowOverlayGlowUp();
+        _glowDownDuration = GameManager.Instance.GetGlowOverlayGlowDown();
 
         _lightMeleeDamage = GameManager.Instance.LightMeleeDamage();
         _heavyMeleeDamage = GameManager.Instance.HeavyMeleeDamage();
@@ -132,28 +140,71 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         heavyMeleeCollider.SetActive(false);
         parryCollider.SetActive(false);
 
-        // Hurt blink materials initialization
+        // Glow overlay materials initialization
         SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer playerMesh in playerMeshes)
         {
             foreach(Material mat in playerMesh.materials)
             {
-                if (mat.HasFloat("_BlinkAmount"))
+                if (mat.HasFloat("_Fresnel"))
                 {
-                    playerBlinkMaterials.Add(mat);
-                    mat.SetFloat("_BlinkAmount", currentBlinkAmount);
+                    glowOverlayMaterials.Add(mat);
+                    mat.SetColor("_Color", new Color(0,0,0,0));
                 }
             }
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (isHurtGlowActive)
+        if(targetAlpha != currentAlpha)
         {
-            HurtGlowTimeStep();
+            currentAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, interpolationSpeed * Time.fixedDeltaTime);
+            foreach (Material mat in glowOverlayMaterials)
+            {
+                mat.SetColor("_Color", new Color(glowColor.r, glowColor.g, glowColor.b, currentAlpha));
+            }
         }
     }
+
+    #endregion
+
+    #region Glow overlay methods
+
+    private IEnumerator AnimateGlowOverlay(Color inGlowColor)
+    {
+        glowColor = inGlowColor;
+        interpolationSpeed = 1f / _glowUpDuration;
+        currentAlpha = 0.0f;
+        targetAlpha = 1.0f;
+
+        foreach (Material mat in glowOverlayMaterials)
+        {
+            mat.SetColor("_Color", new Color(glowColor.r, glowColor.g, glowColor.b, currentAlpha));
+        }
+
+        yield return new WaitForSeconds(_glowUpDuration);
+
+        interpolationSpeed = 1f / _glowDownDuration;
+        currentAlpha = 1.0f;
+        targetAlpha = 0.0f;
+
+        foreach (Material mat in glowOverlayMaterials)
+        {
+            mat.SetColor("_Color", new Color(glowColor.r, glowColor.g, glowColor.b, currentAlpha));
+        }
+
+        yield return new WaitForSeconds(_glowDownDuration);
+
+        interpolationSpeed = 0f;
+        currentAlpha = targetAlpha;
+
+        foreach (Material mat in glowOverlayMaterials)
+        {
+            mat.SetColor("_Color", new Color(0,0,0,0));
+        }
+    }
+
     #endregion
 
     #region Attack methods
@@ -377,44 +428,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     }
 
-    #region Hurt glow
-    void HurtGlowTimeStep()
-    {
-        hurtGlowStep += Time.deltaTime;
-
-        float normalizedInvencibilityStep = hurtGlowStep / hurtGlowDuration;
-        ChangeHurtGlow(normalizedInvencibilityStep);
-
-        if (hurtGlowStep >= hurtGlowDuration)
-        {
-            currentBlinkAmount = 0f;
-            foreach (Material mat in playerBlinkMaterials)
-                mat.SetFloat("_BlinkAmount", currentBlinkAmount);
-
-            hurtGlowStep = 0;
-            isHurtGlowActive = false;
-        }
-    }
-
-    void ChangeHurtGlow(float step)
-    {
-        if (step < 0.5f)
-        {
-            float renormalizedStep = step / 0.5f;
-            currentBlinkAmount = Math.Clamp(renormalizedStep, 0f, 1f);
-        }
-        else
-        {
-            step = step - 0.5f;
-            float renormalizedStep = step / 0.5f;
-            currentBlinkAmount = Math.Clamp(renormalizedStep, 0f, 1f);
-        }
-
-        foreach (Material mat in playerBlinkMaterials)
-            mat.SetFloat("_BlinkAmount", currentBlinkAmount);
-    }
-    #endregion
-
     #endregion
 
     #region IObserver
@@ -434,6 +447,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
                     currentLives = Math.Min(currentLives + healAmount, _maxLives);
                     healParticles.Play();
+                    StartCoroutine(AnimateGlowOverlay(GameManager.Instance.GetHealColor()));
                 }
                 break;
             }
@@ -446,13 +460,12 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
                 {
                     // Damage
                     currentLives -= damageAmount;
+                    StartCoroutine(AnimateGlowOverlay(GameManager.Instance.GetDamageColor()));
 
                     if (currentLives <= 0)
                     {
                         StartCoroutine(nameof(Death));
                     }
-
-                    isHurtGlowActive = true;
                 }
                 break;
             }
