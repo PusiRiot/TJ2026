@@ -157,7 +157,7 @@ Light:
   m_Intensity: 15
   m_Range: 35
   m_SpotAngle: 45.095596
-  m_InnerSpotAngle: 29.918882
+  m_InnerSpotAngle: 45.095596
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 2
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 3183352793477667471}
   - component: {fileID: 6010404706873405199}
   m_Layer: 0
-  m_Name: Gameplay light
+  m_Name: SpotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

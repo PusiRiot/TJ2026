@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Hability",
+                    "type": "Button",
+                    "id": "9ab8a384-fee1-4dbf-9e21-749c0dd9557e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -162,6 +171,17 @@
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53cf7d6d-81fb-47a6-82eb-962f9d78d3e2",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -206,7 +226,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "New action",
+                    "name": "Hability",
                     "type": "Button",
                     "id": "7fcf5142-ab27-4fcb-b423-4fe9ad8c1c20",
                     "expectedControlType": "",
@@ -395,11 +415,11 @@
                 {
                     "name": "",
                     "id": "6d1fab48-941e-49ec-a17a-1035aaa8ff48",
-                    "path": "",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Hability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

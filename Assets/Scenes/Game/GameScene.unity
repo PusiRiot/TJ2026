@@ -2557,18 +2557,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1550682839786485508, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1550682839786485508, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1550682839786485508, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2248693748542341547, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_RenderingLayersMask.m_Bits
       value: 4
@@ -2576,10 +2564,6 @@ PrefabInstance:
     - target: {fileID: 2368417715503558453, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3430809458499208200, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3753841604761147041, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_SpotAngle

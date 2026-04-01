@@ -23,7 +23,7 @@ MonoBehaviour:
   ReclaimCrystalPointsPerSecond: 10
   TotalReclaimCrystalPoints: 30
   CrystalTimeToInactiveReset: 1
-  CrystalInactiveResetPointsPerSecond: 25
+  CrystalInactiveResetPointsPerSecond: 30
   CrystalCooldownDuration: 15
   HealCadence: 2
   HealAmount: 2
@@ -39,7 +39,7 @@ MonoBehaviour:
   HeavyMeleeCooldownDuration: 1
   SuccesfulParryLightOffDuration: 4
   ParryDuration: 1.25
-  ParryCooldownDuration: 3
+  ParryCooldownDuration: 1
   PlayerRotationSpeed: 5
   DashDuration: 0.075
   DashSpeedIncrement: 10.5

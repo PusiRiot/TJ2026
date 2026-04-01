@@ -4049,6 +4049,7 @@ GameObject:
   - component: {fileID: 2296588339338954722}
   - component: {fileID: 5585661653511377687}
   - component: {fileID: 7088187727541744592}
+  - component: {fileID: 5320540092430186098}
   - component: {fileID: 3603972203886635427}
   m_Layer: 0
   m_Name: Peggy
@@ -4072,6 +4073,7 @@ Transform:
   m_Children:
   - {fileID: 7194087541381012829}
   - {fileID: 2849021753919387632}
+  - {fileID: 4760911270220838940}
   - {fileID: 1315566232592939909}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4212,9 +4214,25 @@ MonoBehaviour:
     m_ActionId: 9fb0e513-79b0-4fee-bef9-75020b7309a6
     m_ActionName: 'Player 1/Pause[/Keyboard/escape,/XInputControllerWindows/start]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7088187727541744592}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Hability
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7fcf5142-ab27-4fcb-b423-4fe9ad8c1c20
     m_ActionName: Player 2/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9ab8a384-fee1-4dbf-9e21-749c0dd9557e
+    m_ActionName: 'Player 1/Hability[/Keyboard/tab]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player 2
@@ -4234,6 +4252,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _playerStats: {fileID: 11400000, guid: d8a3701717215e44fa35265858f876cb, type: 2}
   _animationSet: {fileID: 11400000, guid: 7e1d682c3551bab40ab299352740ec41, type: 2}
+--- !u!114 &5320540092430186098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953011735170054437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6165dd7759c7b6a42823855baf0d3c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlareHability
 --- !u!96 &3603972203886635427
 TrailRenderer:
   serializedVersion: 4
@@ -4933,4 +4963,66 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3816165549230168845, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
   m_PrefabInstance: {fileID: 2788971569517551752}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7944259499199652499
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 302027473378999951}
+    m_Modifications:
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022723801411869484, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+      propertyPath: m_Name
+      value: AreaLight
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+--- !u!4 &4760911270220838940 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3183352793477667471, guid: b1cd458d69ae53d458ab0c5b692c6fba, type: 3}
+  m_PrefabInstance: {fileID: 7944259499199652499}
   m_PrefabAsset: {fileID: 0}
