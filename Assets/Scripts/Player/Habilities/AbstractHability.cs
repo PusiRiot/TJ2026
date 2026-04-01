@@ -8,12 +8,14 @@ using UnityEngine;
 public abstract class AbstractHability : MonoBehaviour
 {
     protected Player player;
+    protected PlayerStats _playerStats;
     protected int _teamIndex;
 
-    public void Initialize(int teamIndex, Player player)
+    public void Initialize(int teamIndex, Player player, PlayerStats playerStats)
     {
         this.player = player;
         this._teamIndex = teamIndex;
+        this._playerStats = playerStats;
     }
 
     virtual public void Activate()

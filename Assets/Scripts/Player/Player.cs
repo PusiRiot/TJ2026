@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         if (playerHability == null)
             throw new System.Exception("Player hability not assigned on inspector!");
 
-        playerHability.Initialize(_teamIndex, this);
+        playerHability.Initialize(_teamIndex, this, _playerStats);
 
         playerAnimator = gameObject.AddComponent<PlayerAnimator>();
         playerAnimator.Initialize(_animationSet);
