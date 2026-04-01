@@ -13,9 +13,11 @@ public class GameStats : ScriptableObject
     [Header ("Duration")]
     public float GameDuration = 120f; // if the time runs out, the team with the highest score wins. If it's a tie, the game goes to sudden death
 
-    [Header ("Team colors and materials")]
+    [Header ("Colors and materials")]
     public Color[] TeamColor = new Color[2]; // team colors, to be used for the crystals and the player lights. The index of the color should correspond to the team index (e.g. teamColors[0] is the color for team 1)
     public Material[] TeamEmissiveMaterial = new Material[2]; // to be used for the crystal emissive material and dash
+    public Color DamageColor;
+    public Color HealColor;
 
     [Header ("Crystal")]
     public float ReclaimCrystalPointsPerSecond = 10f; // Number of points the player reclaims at the crystal per second
