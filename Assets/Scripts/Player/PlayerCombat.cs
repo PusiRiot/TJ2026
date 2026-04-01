@@ -22,7 +22,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private float _heavyMeleeDashSpeedIncrement = -1f;
 
     private float _heavyMeleeLightOffDuration = -1;
+    private float _heavyMeleeStunDuration = -1;
     private float _succesfulParryLightOffDuration = -1;
+    private float _succesfulParryStunDuration = -1;
 
     private float _deathDuration = -1f;
 
@@ -33,6 +35,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private Player player;
     private AbstractLight playerLight;
     private PlayerAnimator playerAnimator;
+    private AbstractAbility playerAbility;
 
     // Colliders
     private GameObject regularCollider;
@@ -74,9 +77,11 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         _heavyMeleeDashSpeedIncrement = GameManager.Instance.HeavyMeleeDashSpeedIncrement();
 
         _heavyMeleeLightOffDuration = GameManager.Instance.HeavyMeleeLightOffDuration();
+        _heavyMeleeStunDuration = GameManager.Instance.HeavyMeleeStunDuration();
         _succesfulParryLightOffDuration = GameManager.Instance.SuccesfulParryLightOffDuration();
 
         _parryDuration = GameManager.Instance.ParryDuration();
+        _succesfulParryStunDuration = GameManager.Instance.SuccesfulParryStunDuration();
     }
 
     #endregion
@@ -91,6 +96,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         player = GetComponent<Player>();
 
         playerAnimator = GetComponent<PlayerAnimator>();
+
+        playerAbility = GetComponent<AbstractAbility>();
 
         // Initialize player light
         playerLight = GetComponentInChildren<AbstractLight>();
@@ -205,7 +212,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             if (enemy != null && enemy != this)
             {
                 // effect
-                enemy.ReceiveAttack(_lightMeleeDamage, 0f, true);
+                enemy.ReceiveLightMelee();
             }
         }
     }
@@ -219,7 +226,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         {
             isAttackingHeavy = false; // to avoid multiple collisions on the same attack
             // effect
-            bool succesful = enemy.ReceiveAttack(_heavyMeleeDamage, _heavyMeleeLightOffDuration, false);
+            bool succesful = enemy.ReceiveHeavyMelee();
             if (!succesful) ParryResponse();
 
             alreadyHit = true;
@@ -280,9 +287,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         playerMovement.DisableMovement(false);
     }
 
-    public bool ReceiveAttack(int damage, float lightOffDuration, bool unableToParry)
+    public bool ReceiveHeavyMelee()
     {
-        if (isProtectedByParry && !unableToParry)
+        if (isProtectedByParry)
         {
             parrySparks.Play();
             StopParry(true);
@@ -290,37 +297,31 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         }
 
         // disable movement shortly for hit stun
-        playerMovement.DisableMovement(0.02f);
+        playerMovement.DisableMovement(_heavyMeleeStunDuration);
 
         // animation
         playerAnimator.TriggerStunAttack();
 
-        // Light switching
-        if (lightOffDuration > 0)
-        {
-            StopCoroutine(nameof(TurnLightOff));
-            StartCoroutine(nameof(TurnLightOff), lightOffDuration);
-        }
+        StopCoroutine(nameof(TurnLightOff));
+        StartCoroutine(nameof(TurnLightOff), _heavyMeleeLightOffDuration);
 
         // Interrupt player attacks
         if (isChargingAttack)
             player.CancelChargeAttack();
 
+        playerAbility.Stop();
         StopCoroutine(LightAttack());
 
-
         // Damage
-        currentLives -= damage;
-        Notify(PlayerCombatEvent.ReceivedDamage, new int[]{_teamIndex, damage});
-
-        if (currentLives <= 0)
-        {
-            StartCoroutine(nameof(Death));
-        }
-
-        isHurtGlowActive = true;
+        Notify(PlayerCombatEvent.ReceivedDamage, new int[]{_teamIndex, _heavyMeleeDamage});
 
         return true;
+    }
+
+    public void ReceiveLightMelee()
+    {
+        // Damage
+        Notify(PlayerCombatEvent.ReceivedDamage, new int[] { _teamIndex, _lightMeleeDamage });
     }
 
     void ParryResponse()
@@ -332,7 +333,14 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         StartCoroutine(nameof(TurnLightOff), _succesfulParryLightOffDuration); // only coroutines started by name can be stopped by name
 
         // stun for one second
-        StartCoroutine(playerMovement.DisableMovement(1.0f));
+        StartCoroutine(playerMovement.DisableMovement(_succesfulParryStunDuration));
+
+        // Interrupt player attacks
+        if (isChargingAttack)
+            player.CancelChargeAttack();
+
+        playerAbility.Stop();
+        StopCoroutine(LightAttack());
     }
 
     IEnumerator Death()
@@ -416,19 +424,38 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         switch (evt)
         {
             case PlayerCombatEvent.ReceivedHeal:
+            {
+                int[] dataHeal = data as int[];
+                int teamIndex = dataHeal[0];
+                int healAmount = dataHeal[1];
+                if (_teamIndex == teamIndex)
                 {
-                    int[] dataHeal = data as int[];
-                    int teamIndex = dataHeal[0];
-                    int healAmount = dataHeal[1];
-                    if(_teamIndex == teamIndex)
-                    {
-                        if (currentLives == _maxLives) return;
+                    if (currentLives == _maxLives) return;
 
-                        currentLives = Math.Min(currentLives + healAmount, _maxLives);
-                        healParticles.Play();
-                    }
-                    break;
+                    currentLives = Math.Min(currentLives + healAmount, _maxLives);
+                    healParticles.Play();
                 }
+                break;
+            }
+            case PlayerCombatEvent.ReceivedDamage:
+            {
+                int[] dataDamage = data as int[];
+                int teamIndex = dataDamage[0];
+                int damageAmount = dataDamage[1];
+                if (_teamIndex == teamIndex)
+                {
+                    // Damage
+                    currentLives -= damageAmount;
+
+                    if (currentLives <= 0)
+                    {
+                        StartCoroutine(nameof(Death));
+                    }
+
+                    isHurtGlowActive = true;
+                }
+                break;
+            }
         }
     }
 

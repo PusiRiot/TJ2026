@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Subject<TEvent> : MonoBehaviour
 {
     // Avoid duplicated observers 
-    private readonly HashSet<IObserver<TEvent>> _observers = new HashSet<IObserver<TEvent>>();
+    protected readonly HashSet<IObserver<TEvent>> _observers = new HashSet<IObserver<TEvent>>();
 
     protected void AddObserversOnScene()
     {

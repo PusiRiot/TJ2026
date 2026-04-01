@@ -45,10 +45,12 @@ public class GameStats : ScriptableObject
     public float HeavyMeleeDashDuration = 0.2f;
     public float HeavyMeleeDashSpeedIncrement = 1f;
     public float HeavyMeleeLightOffDuration = 3;
+    public float HeavyMeleeStunDuration = 0.2f;
     public float HeavyMeleeCooldownDuration = 1f;
 
     [Header("Parry")]
     public float SuccesfulParryLightOffDuration = 3;
+    public float SuccesfulParryStunDuration = 1f;
     public float ParryDuration = 1f;
     public float ParryCooldownDuration = 3f;
 

@@ -81,9 +81,12 @@ public class GameManager : Subject<GameEvent>
     public float HeavyMeleeDashSpeedIncrement() { return gameStats.HeavyMeleeDashSpeedIncrement; }
 
     public float HeavyMeleeLightOffDuration(){ return gameStats.HeavyMeleeLightOffDuration; }
+    public float HeavyMeleeStunDuration(){ return gameStats.HeavyMeleeStunDuration; }
     public float SuccesfulParryLightOffDuration(){ return gameStats.SuccesfulParryLightOffDuration; }
 
     public float ParryDuration(){ return gameStats.ParryDuration; }
+
+    public float SuccesfulParryStunDuration(){ return gameStats.SuccesfulParryStunDuration; }
 
     public float LightMeleeCooldownDuration(){ return gameStats.LightMeleeCooldownDuration; }
     public float HeavyMeleeCooldownDuration(){ return gameStats.HeavyMeleeCooldownDuration; }

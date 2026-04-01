@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6757598342464528363}
   - component: {fileID: 7077189386768332497}
   - component: {fileID: 5559372865176592610}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 641180458465351787}
   - component: {fileID: 3857522725873395252}
   - component: {fileID: 800947651079599149}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 7765905658845007154}
   - component: {fileID: 4533427355790861894}
   - component: {fileID: 8015867164283259647}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ContestUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 8797840374406962875}
   - component: {fileID: 2133856923002312955}
   - component: {fileID: 7099273292579626399}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ParticlesYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5139,7 +5139,7 @@ GameObject:
   - component: {fileID: 3187911207615588322}
   - component: {fileID: 4290573748364989166}
   - component: {fileID: 4068983456037554430}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PulseYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10033,7 +10033,7 @@ GameObject:
   - component: {fileID: 4595429580409917465}
   - component: {fileID: 1488219426008563475}
   - component: {fileID: 6137757910843168744}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PulsePurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14927,7 +14927,7 @@ GameObject:
   - component: {fileID: 7008034129997507027}
   - component: {fileID: 5488624330829611003}
   - component: {fileID: 6145698008088363661}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ParticlesPurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19773,7 +19773,7 @@ GameObject:
   - component: {fileID: 5733338780285938590}
   - component: {fileID: 3338625974144442669}
   - component: {fileID: 3626644898889598301}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19893,7 +19893,7 @@ GameObject:
   - component: {fileID: 7608473762991580852}
   - component: {fileID: 5791161039128347725}
   - component: {fileID: 7119526039986041437}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19994,7 +19994,7 @@ GameObject:
   - component: {fileID: 1085812741898356010}
   - component: {fileID: 7897055773009479487}
   - component: {fileID: 1916508179527303397}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ParticlesGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
