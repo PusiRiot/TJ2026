@@ -8,9 +8,9 @@ using UnityEngine;
 /// That way, the light can give the crystal information about which team is lighting it up, so that it can update the score and choose the color accordingly. 
 /// </remarks>
 /// </summary>
-public abstract class AbstractLight : MonoBehaviour
+public abstract class AbstractLight : Subject<PlayerCombatEvent>
 {
-    private Light flashlight;
+    protected Light flashlight;
     private bool lightCollisionEnabled = true;
     /// <summary>
     /// Team index of the player that owns this light, used to determine which team gets the score when lighting up a crystal and what color the light should be.
@@ -24,6 +24,7 @@ public abstract class AbstractLight : MonoBehaviour
 
     private void Awake()
     {
+        base.AddObserversOnScene();
         Player player = GetComponentInParent<Player>();
         if (player.gameObject.CompareTag("Player1"))
         {

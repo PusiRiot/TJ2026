@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 4050468987990942590}
   - component: {fileID: 1481704094309267386}
   m_Layer: 0
-  m_Name: Light
+  m_Name: RegularLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,6 +284,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpotLight
   viewRange: 18
   viewAngle: 26
-  detectCrystalMask:
+  ignorePlayerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 63
+  ignoreCrystalMask:
+    serializedVersion: 2
+    m_Bits: 119

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3656863529290725063}
   - component: {fileID: 6544237610647519877}
   - component: {fileID: 5784500755866073675}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CapturedParticlesYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4917,7 +4917,7 @@ GameObject:
   - component: {fileID: 7931645933371335586}
   - component: {fileID: 1945625049616731527}
   - component: {fileID: 7520093514281665875}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5061,7 +5061,6 @@ MonoBehaviour:
   - {fileID: 6544237610647519877}
   captureProgressBar: {fileID: 2697660735871342553}
   contestUI: {fileID: 5508731113333593329}
-  inactiveResetTime: 1
   reclaimingStartedCallback:
     m_PersistentCalls:
       m_Calls: []
@@ -5142,7 +5141,7 @@ GameObject:
   - component: {fileID: 112907774947898783}
   - component: {fileID: 7039254242726613381}
   - component: {fileID: 2697660735871342553}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5217,7 +5216,7 @@ GameObject:
   - component: {fileID: 114307580686913725}
   - component: {fileID: 1548818391287797559}
   - component: {fileID: 4844549797287531325}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CapturedParticlesPurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10120,7 +10119,7 @@ GameObject:
   - component: {fileID: 7890051711620956504}
   - component: {fileID: 2792032985083412432}
   - component: {fileID: 1205427034740859214}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CapturingParticlesPurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14965,7 +14964,7 @@ GameObject:
   - component: {fileID: 5561941608033645086}
   - component: {fileID: 8827099223641062843}
   - component: {fileID: 6729733198543096177}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15055,7 +15054,7 @@ GameObject:
   - component: {fileID: 2815195442863175870}
   - component: {fileID: 2454315256243626388}
   - component: {fileID: 8982892352376856483}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ContestUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15131,7 +15130,7 @@ GameObject:
   - component: {fileID: 7415242987944415706}
   - component: {fileID: 4957221781821887624}
   - component: {fileID: 1548129292988965079}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15233,7 +15232,7 @@ GameObject:
   - component: {fileID: 4552392337449876623}
   - component: {fileID: 3564660146840932120}
   - component: {fileID: 3517034130587225594}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CapturingParticlesYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

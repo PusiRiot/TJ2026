@@ -286,6 +286,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 1752183037424772406, guid: 808c5bc6de80cf34dac2bbc78cc6acde, type: 3}
+  - {fileID: 2100000, guid: a29f8869e5193ae4bbb4d2c07a179fac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -701,6 +702,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 6673038666903834413, guid: 808c5bc6de80cf34dac2bbc78cc6acde, type: 3}
+  - {fileID: 2100000, guid: a29f8869e5193ae4bbb4d2c07a179fac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1177,6 +1179,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -7506300975346226867, guid: 808c5bc6de80cf34dac2bbc78cc6acde, type: 3}
+  - {fileID: 2100000, guid: a29f8869e5193ae4bbb4d2c07a179fac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2290,6 +2293,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -876546973899608171, guid: 808c5bc6de80cf34dac2bbc78cc6acde, type: 3}
+  - {fileID: 2100000, guid: a29f8869e5193ae4bbb4d2c07a179fac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2736,6 +2740,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -8813311267188699542, guid: 808c5bc6de80cf34dac2bbc78cc6acde, type: 3}
+  - {fileID: 2100000, guid: a29f8869e5193ae4bbb4d2c07a179fac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3601,6 +3606,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -7389882448604197132, guid: 808c5bc6de80cf34dac2bbc78cc6acde, type: 3}
+  - {fileID: 2100000, guid: a29f8869e5193ae4bbb4d2c07a179fac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4038,6 +4044,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -2843772237618043288, guid: 808c5bc6de80cf34dac2bbc78cc6acde, type: 3}
+  - {fileID: 2100000, guid: a29f8869e5193ae4bbb4d2c07a179fac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4197,6 +4204,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 6640090738432985294, guid: 808c5bc6de80cf34dac2bbc78cc6acde, type: 3}
+  - {fileID: 2100000, guid: a29f8869e5193ae4bbb4d2c07a179fac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4567,6 +4575,9 @@ GameObject:
   - component: {fileID: 7142732147414197017}
   - component: {fileID: 3532665532328849186}
   - component: {fileID: 1122160399420250751}
+  - component: {fileID: 2633486409755138093}
+  - component: {fileID: 4939728414704064398}
+  - component: {fileID: 4946658058456989588}
   m_Layer: 6
   m_Name: DrHives
   m_TagString: Player1
@@ -4749,7 +4760,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7142732147414197017}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: Hability
+        m_MethodName: Ability
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4911,6 +4922,42 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &2633486409755138093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898015373717929256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dabf965b68b97b74c896a19e21133f3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
+--- !u!114 &4939728414704064398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898015373717929256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845c4c62f7787b24d93fbf2ee538e478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+--- !u!114 &4946658058456989588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898015373717929256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d360a2d5268d3744aa924876e8e149ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
 --- !u!1 &8909493070970842898
 GameObject:
   m_ObjectHideFlags: 0

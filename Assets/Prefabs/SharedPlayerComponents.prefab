@@ -4922,7 +4922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3023215285397994222}
   - component: {fileID: 4233681370760053251}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HeavyMeleeCollider
   m_TagString: HeavyMeleeCollider
   m_Icon: {fileID: 0}
@@ -4963,7 +4963,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.7
   m_Height: 1.8786774
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -4977,7 +4977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5301199920228009269}
   - component: {fileID: 7298664462756025172}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ParryCollider
   m_TagString: ParryCollider
   m_Icon: {fileID: 0}
@@ -5032,7 +5032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8074262779508346782}
   - component: {fileID: 5932348379426319507}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RegularCollider
   m_TagString: RegularCollider
   m_Icon: {fileID: 0}

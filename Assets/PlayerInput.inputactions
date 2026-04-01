@@ -52,7 +52,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hability",
+                    "name": "Ability",
                     "type": "Button",
                     "id": "9ab8a384-fee1-4dbf-9e21-749c0dd9557e",
                     "expectedControlType": "",
@@ -175,11 +175,11 @@
                 {
                     "name": "",
                     "id": "53cf7d6d-81fb-47a6-82eb-962f9d78d3e2",
-                    "path": "<Keyboard>/tab",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Hability",
+                    "action": "Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -226,7 +226,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hability",
+                    "name": "Ability",
                     "type": "Button",
                     "id": "7fcf5142-ab27-4fcb-b423-4fe9ad8c1c20",
                     "expectedControlType": "",
@@ -360,7 +360,7 @@
                 {
                     "name": "",
                     "id": "0dfbd55c-deae-4c64-8667-8a9f9b53f0c9",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -371,7 +371,7 @@
                 {
                     "name": "",
                     "id": "dfc92d70-cf95-49e6-85bf-bfa1b692453e",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -415,11 +415,11 @@
                 {
                     "name": "",
                     "id": "6d1fab48-941e-49ec-a17a-1035aaa8ff48",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Hability",
+                    "action": "Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

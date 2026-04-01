@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LifeDrainHability : AbstractHability
+public class FlareAbility : AbstractAbility
 {
     #region Variables
     // Any variable that is general to habilities should be added to the AbstractHability class, this class should only have variables specific to this hability
@@ -11,6 +11,11 @@ public class LifeDrainHability : AbstractHability
     override public void Activate()
     {
         throw new System.NotImplementedException("Implement here");
+    }
+
+    public override void Stop()
+    {
+        throw new System.NotImplementedException("Implement here"); ;
     }
 
     #endregion

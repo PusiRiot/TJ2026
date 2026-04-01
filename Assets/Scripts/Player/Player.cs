@@ -23,17 +23,17 @@ public class Player : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerCombat playerCombat;
     private PlayerAnimator playerAnimator;
-    private AbstractHability playerHability;
+    private AbstractAbility playerAbility;
 
     // booleans control
     private bool isDashEnabled = true;
     private bool isParryEnabled = true;
     private bool isHeavyMeleeEnabled = true;
     private bool isLightMeleeEnabled = true;
-    private bool isHabilityEnabled = true;
+    private bool isAbilityEnabled = true;
 
     // cooldown durations
-    private float _specialHabilityCooldownDuration = -1f;
+    private float _specialAbilityCooldownDuration = -1f;
     private float _lightMeleeCooldownDuration = -1f;
     private float _heavyMeleeCooldownDuration = -1f;
     private float _parryCooldownDuration = -1f;
@@ -46,25 +46,25 @@ public class Player : MonoBehaviour
         else
             _teamIndex = 1;
 
-        playerHability = GetComponent<AbstractHability>();
+        playerAbility = GetComponent<AbstractAbility>();
 
-        if (playerHability == null)
+        if (playerAbility == null)
             throw new System.Exception("Player hability not assigned on inspector!");
 
-        playerHability.Initialize(_teamIndex, this, _playerStats);
+        playerAbility.Initialize(_teamIndex, this, _playerStats);
 
-        playerAnimator = gameObject.AddComponent<PlayerAnimator>();
+        playerAnimator = gameObject.GetComponent<PlayerAnimator>();
         playerAnimator.Initialize(_animationSet);
 
-        playerMovement = gameObject.AddComponent<PlayerMovement>();
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
         playerMovement.Initialize(_playerStats.Speed, _teamIndex);
 
-        playerCombat = gameObject.AddComponent<PlayerCombat>();
+        playerCombat = gameObject.GetComponent<PlayerCombat>();
         playerCombat.Initialize(_teamIndex);
 
         attackHoldAction = gameObject.GetComponent<PlayerInput>().actions.FindAction("Attack");
 
-        _specialHabilityCooldownDuration = _playerStats.HabilityCooldownDuration;
+        _specialAbilityCooldownDuration = _playerStats.AbilityCooldownDuration;
         _lightMeleeCooldownDuration = GameManager.Instance.LightMeleeCooldownDuration();
         _heavyMeleeCooldownDuration = GameManager.Instance.HeavyMeleeCooldownDuration();
         _parryCooldownDuration = GameManager.Instance.ParryCooldownDuration();
@@ -105,16 +105,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Hability(InputAction.CallbackContext ctx)
+    public void Ability(InputAction.CallbackContext ctx)
     {
-        if (playerCombat.enabled && isHabilityEnabled && ctx.performed)
+        if (playerCombat.enabled && isAbilityEnabled && ctx.performed)
         {
-            StartCoroutine(HabilityCooldown(_specialHabilityCooldownDuration));
-            playerHability.Activate();
+            playerAbility.Activate();
         }
     }
 
-    public void Parry(InputAction.CallbackContext ctx)
+    public void StartAbilityCooldown() { 
+        StartCoroutine(AbilityCooldown(_specialAbilityCooldownDuration));
+    }
+
+public void Parry(InputAction.CallbackContext ctx)
     {
         if (playerCombat.enabled && ctx.performed && isParryEnabled)
         {
@@ -186,14 +189,14 @@ public class Player : MonoBehaviour
         isHeavyMeleeEnabled = true;
     }
 
-    IEnumerator HabilityCooldown(float duration)
+    IEnumerator AbilityCooldown(float duration)
     {
-        isHabilityEnabled = false;
+        isAbilityEnabled = false;
         yield return new WaitForSeconds(duration);
-        isHabilityEnabled = true;
+        isAbilityEnabled = true;
     }
 
     #endregion
-
+    public PlayerCombat GetPlayerCombat() { return playerCombat; }
     public int GetTeamIndex() { return _teamIndex; }
 }
