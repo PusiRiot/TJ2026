@@ -109,8 +109,8 @@ public class Player : MonoBehaviour
     {
         if (playerCombat.enabled && isHabilityEnabled && ctx.performed)
         {
-            playerHability.Activate();
             StartCoroutine(HabilityCooldown(_specialHabilityCooldownDuration));
+            playerHability.Activate();
         }
     }
 
