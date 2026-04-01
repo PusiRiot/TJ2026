@@ -28,10 +28,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     private float _parryDuration = -1f;
 
-    private float _lightMeleeCooldownDuration = -1f;
-    private float _heavyMeleeCooldownDuration = -1f;
-    private float _parryCooldownDuration = -1f;
-
     // Needed player references
     private PlayerMovement playerMovement;
     private Player player;
@@ -81,10 +77,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         _succesfulParryLightOffDuration = GameManager.Instance.SuccesfulParryLightOffDuration();
 
         _parryDuration = GameManager.Instance.ParryDuration();
-
-        _lightMeleeCooldownDuration = GameManager.Instance.LightMeleeCooldownDuration();
-        _heavyMeleeCooldownDuration = GameManager.Instance.HeavyMeleeCooldownDuration();
-        _parryCooldownDuration = GameManager.Instance.ParryCooldownDuration();
     }
 
     #endregion
@@ -163,17 +155,12 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         if (isHeavyAttack)
         {
             attackSparks.Play();
-            // cooldown
-            StartCoroutine(player.HeavyMeleeCooldown(_heavyMeleeCooldownDuration));
 
             InterruptCharge();
             StartCoroutine(HeavyAttack());
         }
         else
         {
-            // cooldown
-            StartCoroutine(player.LightMeleeCooldown(_lightMeleeCooldownDuration));
-
             StartCoroutine(LightAttack());
         }
     }
@@ -263,9 +250,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     #region Hurt and parry methods
     public IEnumerator Parry()
     {
-        // cooldown
-        StartCoroutine(player.ParryCooldown(_parryCooldownDuration));
-
         // animation
         playerAnimator.TriggerParry();
 
@@ -436,7 +420,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
                     int[] dataHeal = data as int[];
                     int teamIndex = dataHeal[0];
                     int healAmount = dataHeal[1];
-                    if(player.GetTeamIndex() == teamIndex)
+                    if(_teamIndex == teamIndex)
                     {
                         if (currentLives == _maxLives) return;
 

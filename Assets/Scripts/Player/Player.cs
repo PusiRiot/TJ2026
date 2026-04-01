@@ -23,12 +23,20 @@ public class Player : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerCombat playerCombat;
     private PlayerAnimator playerAnimator;
+    private AbstractHability playerHability;
 
     // booleans control
     private bool isDashEnabled = true;
     private bool isParryEnabled = true;
     private bool isHeavyMeleeEnabled = true;
     private bool isLightMeleeEnabled = true;
+    private bool isHabilityEnabled = true;
+
+    // cooldown durations
+    private float _specialHabilityCooldownDuration = -1f;
+    private float _lightMeleeCooldownDuration = -1f;
+    private float _heavyMeleeCooldownDuration = -1f;
+    private float _parryCooldownDuration = -1f;
     #endregion
 
     void Awake()
@@ -37,6 +45,13 @@ public class Player : MonoBehaviour
             _teamIndex = 0;
         else
             _teamIndex = 1;
+
+        playerHability = GetComponent<AbstractHability>();
+
+        if (playerHability == null)
+            throw new System.Exception("Player hability not assigned on inspector!");
+
+        playerHability.Initialize(_teamIndex, this, _playerStats);
 
         playerAnimator = gameObject.AddComponent<PlayerAnimator>();
         playerAnimator.Initialize(_animationSet);
@@ -48,6 +63,11 @@ public class Player : MonoBehaviour
         playerCombat.Initialize(_teamIndex);
 
         attackHoldAction = gameObject.GetComponent<PlayerInput>().actions.FindAction("Attack");
+
+        _specialHabilityCooldownDuration = _playerStats.HabilityCooldownDuration;
+        _lightMeleeCooldownDuration = GameManager.Instance.LightMeleeCooldownDuration();
+        _heavyMeleeCooldownDuration = GameManager.Instance.HeavyMeleeCooldownDuration();
+        _parryCooldownDuration = GameManager.Instance.ParryCooldownDuration();
     }
 
     #region Player input
@@ -62,7 +82,10 @@ public class Player : MonoBehaviour
             if (ctx.interaction is TapInteraction && isLightMeleeEnabled)
             {
                 if (ctx.performed)
+                {
                     playerCombat.ExecuteAttack(false);
+                    StartCoroutine(LightMeleeCooldown(_lightMeleeCooldownDuration));
+                }
             }
 
             if (ctx.interaction is HoldInteraction && isHeavyMeleeEnabled)
@@ -74,15 +97,30 @@ public class Player : MonoBehaviour
                     playerCombat.InterruptCharge();
 
                 if (ctx.performed)
+                {
                     playerCombat.ExecuteAttack(true);
+                    StartCoroutine(HeavyMeleeCooldown(_heavyMeleeCooldownDuration));
+                }
             }
+        }
+    }
+
+    public void Hability(InputAction.CallbackContext ctx)
+    {
+        if (playerCombat.enabled && isHabilityEnabled && ctx.performed)
+        {
+            playerHability.Activate();
+            StartCoroutine(HabilityCooldown(_specialHabilityCooldownDuration));
         }
     }
 
     public void Parry(InputAction.CallbackContext ctx)
     {
         if (playerCombat.enabled && ctx.performed && isParryEnabled)
+        {
             StartCoroutine(playerCombat.Parry());
+            StartCoroutine(ParryCooldown(_parryCooldownDuration));
+        }
     }
 
     public void Dash(InputAction.CallbackContext ctx)
@@ -123,28 +161,38 @@ public class Player : MonoBehaviour
         playerCombat.enabled = true;
         isDashEnabled = true;
     }
+    #endregion
 
-    public IEnumerator ParryCooldown(float duration)
+    #region Cooldown input
+    IEnumerator ParryCooldown(float duration)
     {
         isParryEnabled = false;
         yield return new WaitForSeconds(duration);
         isParryEnabled = true;
     }
 
-    public IEnumerator LightMeleeCooldown(float duration)
+    IEnumerator LightMeleeCooldown(float duration)
     {
         isLightMeleeEnabled = false;
         yield return new WaitForSeconds(duration);
         isLightMeleeEnabled = true;
     }
 
-    public IEnumerator HeavyMeleeCooldown(float duration)
+    IEnumerator HeavyMeleeCooldown(float duration)
     {
         isHeavyMeleeEnabled = false;
         yield return new WaitForSeconds(duration);
         CancelChargeAttack();
         isHeavyMeleeEnabled = true;
     }
+
+    IEnumerator HabilityCooldown(float duration)
+    {
+        isHabilityEnabled = false;
+        yield return new WaitForSeconds(duration);
+        isHabilityEnabled = true;
+    }
+
     #endregion
 
     public int GetTeamIndex() { return _teamIndex; }

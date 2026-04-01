@@ -4565,6 +4565,7 @@ GameObject:
   - component: {fileID: 3325746940432242537}
   - component: {fileID: 3509632259478775889}
   - component: {fileID: 7142732147414197017}
+  - component: {fileID: 3532665532328849186}
   - component: {fileID: 1122160399420250751}
   m_Layer: 6
   m_Name: DrHives
@@ -4588,6 +4589,7 @@ Transform:
   m_Children:
   - {fileID: 1369209543393887756}
   - {fileID: 8063560959188550794}
+  - {fileID: 4701388973579797948}
   - {fileID: 6952494470511331922}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4762,6 +4764,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _playerStats: {fileID: 11400000, guid: 40a75fd1d09e60c45bb05ce900f4106b, type: 2}
   _animationSet: {fileID: 11400000, guid: 92b0e0272cdbad749ac084b69469d5db, type: 2}
+--- !u!114 &3532665532328849186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898015373717929256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852d6b03ac7a1a94aa2e32780eb7cad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LifeDrainHability
 --- !u!96 &1122160399420250751
 TrailRenderer:
   serializedVersion: 4
@@ -5102,4 +5116,66 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3816165549230168845, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
   m_PrefabInstance: {fileID: 6091548111065354591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7859689697374789427
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8877095996779028710}
+    m_Modifications:
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022723801411869484, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_Name
+      value: SpotLight
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+--- !u!4 &4701388973579797948 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+  m_PrefabInstance: {fileID: 7859689697374789427}
   m_PrefabAsset: {fileID: 0}
