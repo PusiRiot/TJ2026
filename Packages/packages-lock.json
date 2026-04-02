@@ -101,7 +101,7 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "file:com.unity.render-pipelines.universal@a6e30d1f59f5",
+      "version": "file:com.unity.render-pipelines.universal",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
@@ -111,7 +111,7 @@
       }
     },
     "com.unity.render-pipelines.universal-config": {
-      "version": "file:com.unity.render-pipelines.universal-config@8dc1aab4af1d",
+      "version": "file:com.unity.render-pipelines.universal-config",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
