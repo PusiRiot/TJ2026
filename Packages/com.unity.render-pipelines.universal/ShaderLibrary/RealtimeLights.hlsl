@@ -38,6 +38,11 @@ struct Light
     #define LIGHT_LOOP_END }
 #endif
 
+
+// Declare global fall-off exponent received from custom C# script "GlobalLightManager".
+float _GlobalFalloffExponent;
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //                        Attenuation Functions                               /
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,6 +65,7 @@ float DistanceAttenuation(float distanceSqr, half2 distanceAttenuation)
     return lightAtten * smoothFactor;
     */
     
+    /*
     // Calculate the linear distance from the squared distance value.
     float distance = sqrt(distanceSqr);
 
@@ -75,7 +81,22 @@ float DistanceAttenuation(float distanceSqr, half2 distanceAttenuation)
     // Smooth the falloff across the entire range for a more gradual and natural fade.
     float smoothFactor = smoothstep(0.0f, 1.0f, distance01);
     lightAtten *= smoothFactor;
+    */
+    
+    // Implementing a fall off effect when its value is 1 till the end. The higher "_GlobalFalloffExponent" the sharper the fall off will be
+    
+    // The fall-off equation is defined as: 
+    // fallOff = 1 - (distance / MAXDISTANCE) ^ _GlobalFalloffExponent
+    // Since distanceAttenuation = 1 / (MAXDISTANCE ^ 2) and
+    // distanceSqr = distance ^ 2, we can rewrite the equation as:
+    // fallOff = 1 - (distance * distanceAttenuation) ^ _GlobalFalloffExponent and just do minus one on the exponent
+    
+    float normalizedDistanceSqr = saturate(distanceSqr * distanceAttenuation.x);
         
+    float curve = pow(normalizedDistanceSqr, _GlobalFalloffExponent);
+    
+    float lightAtten = 1 - curve; // Invert the curve to get the fall-off effect at the end and not at the beginning
+    
     return lightAtten;
 
 }
