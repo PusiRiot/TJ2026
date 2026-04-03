@@ -444,10 +444,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -920.6173706054688,
-            "y": 185.00975036621095,
-            "width": 0.0,
-            "height": 0.0
+            "x": -952.0001831054688,
+            "y": 201.6000213623047,
+            "width": 126.40008544921875,
+            "height": 33.59999084472656
         }
     },
     "m_Slots": [
@@ -1318,13 +1318,13 @@
     },
     "m_Slots": [
         {
+            "m_Id": "d6689de29932454c8ca0d796e380b1b9"
+        },
+        {
             "m_Id": "c2f3f5e049f54795b2c28ce319ea23f8"
         },
         {
             "m_Id": "d9e4a6f94a224ce2ab026213bf0864e9"
-        },
-        {
-            "m_Id": "d6689de29932454c8ca0d796e380b1b9"
         }
     ],
     "synonyms": [
@@ -1338,9 +1338,9 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SourceType": 1,
+    "m_SourceType": 0,
     "m_FunctionName": "Heart",
-    "m_FunctionSource": "",
+    "m_FunctionSource": "ad3b200f35f8a51478c21f011d903763",
     "m_FunctionSourceUsePragmas": true,
     "m_FunctionBody": "// Prevent division by zero errors on the GPU\r\nfloat safeScale = max(Scale, 0.0001);\r\n\r\n// Calculate the mathematical view size based on your scale\r\nfloat mathViewSize = 36.0 / safeScale;\r\n\r\n// 1. Scale and center the UVs\r\nfloat x = (UV.x - 0.5) * mathViewSize;\r\n// We leave the -3.5 offset unscaled so the heart stays perfectly centered!\r\nfloat y = (UV.y - 0.5) * mathViewSize - 3.5; \r\n\r\n// 2. Calculate U (sin^2(t))\r\nfloat U = pow(abs(x) + 0.00001, 0.66666667) / 6.3496;\r\n\r\n// 3. Build the implicit equation\r\nfloat term1 = y + 6.0 - 18.0 * U + 8.0 * U * U;\r\nfloat term2 = (1.0 - U) * pow(11.0 + 8.0 * U, 2.0);\r\n\r\n// 4. Combine and check if inside the heart\r\nfloat equation = (term1 * term1) - term2;\r\n\r\n// 5. Anti-aliasing for smooth edges\r\nfloat edgeThickness = fwidth(equation) * 1.5;\r\nOut = smoothstep(edgeThickness, -edgeThickness, equation);\n"
 }

@@ -15,7 +15,7 @@ public class FlareAbility : AbstractAbility
 
     public override void Stop()
     {
-        throw new System.NotImplementedException("Implement here"); ;
+        // IMPLEMENT
     }
 
     #endregion
