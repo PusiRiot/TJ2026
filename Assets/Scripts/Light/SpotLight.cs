@@ -86,11 +86,13 @@ public class SpotLight : AbstractLight
             Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
 
             if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, ignorePlayerMask))
-            { 
+            {
+                if(rh.collider != hit)
+                    continue;
                 // Skip if it's not a crystal
                 if (hit.transform.TryGetComponent<Crystal>(out var crystal))
                 {
-
+                    
                     // Check angle
                     if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
                     {
