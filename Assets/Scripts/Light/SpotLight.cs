@@ -1,14 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Android;
 using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 /// <summary>
 /// Represents a spotlight that detects and interacts with crystals within its range and angle of view.
@@ -22,11 +23,49 @@ public class SpotLight : AbstractLight
     [SerializeField] private LayerMask ignoreCrystalMask;
     [SerializeField] private LayerMask justCrystalHeal;
 
+    [Header("Life Drain VFX")]
+    [SerializeField] private float regularParticlesEmission = 40.0f;
+    [SerializeField] private float pulseVisualsDuration = 0.5f;
+    [SerializeField] private float pulseIntensityMultiplier = 2.0f;
+    [SerializeField] private float pulseAnimationDuration = 0.1f;
+    [SerializeField] private float pulseParticlesStartLifetime = 0.7f;
+    [SerializeField] private float pulseParticlesStartSpeed = -12.0f;
+    [SerializeField] private float pulseParticlesEmission = 225.0f;
+
+    private ParticleSystem lifeDrainParticles;
     private AbstractAbility lifeDrainAbility;
+
+    private float initialPsStartLifetime;
+    private float initialPsStartSpeed;
+
+    private float pulseAnimationRate;
+    private Color targetColor;
+    private float targetIntensity;
 
     private void Start()
     {
         lifeDrainAbility = GetComponentInParent<AbstractAbility>();
+        lifeDrainParticles = GetComponentInChildren<ParticleSystem>();
+      
+        initialPsStartLifetime = lifeDrainParticles.main.startLifetime.constant;
+        initialPsStartSpeed = lifeDrainParticles.main.startSpeed.constant;
+
+        pulseAnimationRate = 1f / pulseAnimationDuration;
+        targetColor = flashlight.color;
+        targetIntensity = flashlight.intensity;
+    }
+
+    private void FixedUpdate()
+    {
+        if(Vector4.Distance(flashlight.color, targetColor) > 0.01f)
+        {
+            flashlight.color = Color.Lerp(flashlight.color, targetColor, pulseAnimationRate * Time.fixedDeltaTime);
+        }
+
+        if(Mathf.Abs(flashlight.intensity - targetIntensity) > 0.01f)
+        {
+            flashlight.intensity = Mathf.Lerp(flashlight.intensity, targetIntensity, pulseAnimationRate * Time.fixedDeltaTime);
+        }
     }
 
     /// <summary>
@@ -65,7 +104,6 @@ public class SpotLight : AbstractLight
                     if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
                     {
                         // Check line of sight
-                        //- TODO CHANGE LAYER TO HEAL LAYER
                         // DONE by Adri
                         if (rh.collider == hit)
                         {
@@ -81,14 +119,20 @@ public class SpotLight : AbstractLight
     public void ActivateLifeDrain(PlayerStats playerStats)
     {
         // Life Drain Visuals
-        flashlight.color = Color.red; // Example: change light color to red when activating Life Drain
+        var psEmission = lifeDrainParticles.emission;
+        psEmission.rateOverTime = regularParticlesEmission;
         StartCoroutine(LifeDrainCoroutine(playerStats));
     }
 
     public void StopLifeDrain()
     {
-        StopCoroutine(nameof(LifeDrainCoroutine));
+        StopAllCoroutines();
         //Life Drain deactivation visuals
+        var psMain = lifeDrainParticles.main;
+        var psEmission = lifeDrainParticles.emission;
+        psEmission.rateOverTime = 0.0f;
+        psMain.startLifetime = initialPsStartLifetime;
+        psMain.startSpeed = initialPsStartSpeed;
         flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
         lifeDrainAbility.StartCooldown();
     }
@@ -107,6 +151,8 @@ public class SpotLight : AbstractLight
             LifeDrainPulse(playerStats);
         }
 
+        yield return new WaitForSeconds(pulseVisualsDuration + pulseAnimationDuration); // Wait a bit before turning off particles to let the last pulse visuals play out
+
         StopLifeDrain();
     }
     
@@ -114,13 +160,33 @@ public class SpotLight : AbstractLight
     private void LifeDrainPulse(PlayerStats playerStats)
     {
         // Pulse visuals
-        StartCoroutine(TempPulseVisuals());
+        StartCoroutine(LifeDrainPulseVisuals());
 
         if (DetectLifeDrainCollision())
         {
             Notify(PlayerCombatEvent.ReceivedHeal, new int[] { teamIndex, playerStats.LifeDrainPulseHeal });
             Notify(PlayerCombatEvent.ReceivedDamage, new int[] { (teamIndex + 1) % 2, playerStats.LifeDrainPulseDamage });
         }
+    }
+
+    private IEnumerator LifeDrainPulseVisuals() 
+    { 
+        targetColor = GameManager.Instance.GetDamageColor();
+        targetIntensity *= pulseIntensityMultiplier;
+        var psMain = lifeDrainParticles.main;
+        psMain.startLifetime = pulseParticlesStartLifetime;
+        psMain.startSpeed = pulseParticlesStartSpeed;
+
+        var psEmission = lifeDrainParticles.emission;
+        psEmission.rateOverTime = pulseParticlesEmission;
+
+        yield return new WaitForSeconds(pulseVisualsDuration);
+
+        psEmission.rateOverTime = regularParticlesEmission;
+        psMain.startLifetime = initialPsStartLifetime;
+        psMain.startSpeed = initialPsStartSpeed;
+        targetIntensity /= pulseIntensityMultiplier;
+        targetColor = GameManager.Instance.GetTeamColor(teamIndex);
     }
 
     private bool DetectLifeDrainCollision()
@@ -155,13 +221,6 @@ public class SpotLight : AbstractLight
         }
 
         return false;
-    }
-    //TODO: add finals visuals
-    private IEnumerator TempPulseVisuals()
-    {
-        flashlight.intensity *= 5;
-        yield return new WaitForSeconds(0.2f);
-        flashlight.intensity /= 5;
     }
 
 
