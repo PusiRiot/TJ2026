@@ -38,6 +38,7 @@ public class Crystal : MonoBehaviour
     [SerializeField] UnityEngine.UI.Image captureProgressBar;
     [SerializeField] GameObject contestUI;
 
+
     private Light crystalLight;
     private bool isLit = false;
     // By default using generic color
@@ -54,8 +55,11 @@ public class Crystal : MonoBehaviour
     bool animateParticles = false;
     bool animateLight = false;
 
+    Material crystalMaterial;
+
 
     // Capture flags
+    #region captire_flags
     // This can and might be done in a single List (memory optimization)
     private List<bool> teamsReclaiming           = new List<bool> { false, false };
     private List<bool> teamsReclaimingPrevFrame  = new List<bool> { false, false };
@@ -81,6 +85,8 @@ public class Crystal : MonoBehaviour
     public UnityEvent<int> cooldownStartedCallback = new UnityEvent<int>();
     private UnityEvent cooldownUpdateCallback = new UnityEvent();
     public  UnityEvent cooldownFinishedCallback = new UnityEvent();
+    #endregion
+
 
     private void Awake()
     {
@@ -101,6 +107,9 @@ public class Crystal : MonoBehaviour
         inactiveActionPerFrame.AddListener(ShowInactiveResetFeedback);
         inactiveActionPerFrame.AddListener(() => animator.SetBool("capturing", false));
 
+        // Get crystal material 
+        crystalMaterial = GetComponentInChildren<MeshRenderer>().material;
+
         // Assing callbacks
         reclaimingStartedCallback.AddListener(ReclaimingStarted);
         reclaimingStartedCallback.AddListener((foo) => animator.SetBool("capturing", true));
@@ -120,8 +129,12 @@ public class Crystal : MonoBehaviour
         contestedFinishedCallback.AddListener(ContestedFinished);
 
         cooldownStartedCallback.AddListener(CooldownStarted);
+        cooldownStartedCallback.AddListener((foo) => crystalMaterial.SetInteger("_emission", 1));
+
 
         cooldownFinishedCallback.AddListener(CooldownFinished);
+        cooldownFinishedCallback.AddListener(() => crystalMaterial.SetInteger("_emission", 0));
+
     }
 
     private void LateUpdate()

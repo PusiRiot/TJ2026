@@ -4934,8 +4934,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.82, y: -0.11728001, z: -0.89}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5561941608033645086}
   - {fileID: 7890051711620956504}
@@ -5053,8 +5053,8 @@ MonoBehaviour:
   capturingParticles:
   - {fileID: 2792032985083412432}
   - {fileID: 3564660146840932120}
-  capturingParticlesMinSize: 1.5
-  capturingParticlesMaxSize: 2
+  capturingParticlesMinSize: 0.75
+  capturingParticlesMaxSize: 1
   animateParticlesRate: 1
   capturedParticles:
   - {fileID: 1548818391287797559}
@@ -14980,7 +14980,7 @@ Transform:
   m_GameObject: {fileID: 5072228283655858340}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15019,7 +15019,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f24d7026aaa834e43a5cbcf6ba4ceebd, type: 2}
+  - {fileID: 2100000, guid: 047761a57a95f7a449a1744f60397ec7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
