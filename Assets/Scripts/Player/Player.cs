@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     private bool isHeavyMeleeEnabled = true;
     private bool isLightMeleeEnabled = true;
     private bool isAbilityEnabled = true;
+    private bool actionsEnabled = true;
 
     // cooldown durations
     private float _specialAbilityCooldownDuration = -1f;
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
     }
 
     public void Attack(InputAction.CallbackContext ctx)
-    {   if (playerCombat.enabled)
+    {   if (actionsEnabled)
         {
             if (ctx.interaction is TapInteraction && isLightMeleeEnabled)
             {
@@ -107,7 +108,7 @@ public class Player : MonoBehaviour
 
     public void Ability(InputAction.CallbackContext ctx)
     {
-        if (playerCombat.enabled && isAbilityEnabled && ctx.performed)
+        if (actionsEnabled && isAbilityEnabled && ctx.performed)
         {
             playerAbility.Activate();
         }
@@ -117,9 +118,9 @@ public class Player : MonoBehaviour
         StartCoroutine(AbilityCooldown(_specialAbilityCooldownDuration));
     }
 
-public void Parry(InputAction.CallbackContext ctx)
+    public void Parry(InputAction.CallbackContext ctx)
     {
-        if (playerCombat.enabled && ctx.performed && isParryEnabled)
+        if (actionsEnabled && ctx.performed && isParryEnabled)
         {
             StartCoroutine(playerCombat.Parry());
             StartCoroutine(ParryCooldown(_parryCooldownDuration));
@@ -128,7 +129,7 @@ public void Parry(InputAction.CallbackContext ctx)
 
     public void Dash(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && isDashEnabled)
+        if (actionsEnabled && ctx.performed && isDashEnabled)
             playerMovement.Dash();
     }
 
@@ -151,18 +152,40 @@ public void Parry(InputAction.CallbackContext ctx)
         attackHoldAction.Enable();
     }
 
+    /// <summary>
+    /// To be used when player is dead. Player can move but it cannot interact with world (it cannot attack, use abilities or dash) and world cannot interact with it (combat script disabled)
+    /// </summary>
     public void DisableWorldInteraction()
     {
         CancelChargeAttack();
 
+        actionsEnabled = false;
         playerCombat.enabled = false; // other players cant interact if this one doesnt have combat enabled, and this one cannot perform actions
-        isDashEnabled = false;
     }
 
+    /// <summary>
+    /// To be used when player comes back to live.
+    /// </summary>
     public void EnableWorldInteraction()
     {
+        actionsEnabled = true;
         playerCombat.enabled = true;
-        isDashEnabled = true;
+    }
+
+    /// <summary>
+    /// Player can't perform actions (attack, dash, use abilities), but world can still interact with it (combat script enabled)
+    /// </summary>
+    public void DisablePlayerActions()
+    {
+        actionsEnabled = false;
+    }
+
+    /// <summary>
+    /// Player can't perform actions (attack, dash, use abilities), but world can still interact with it (combat script enabled)
+    /// </summary>
+    public void EnablePlayerActions()
+    {
+        actionsEnabled = true;
     }
     #endregion
 

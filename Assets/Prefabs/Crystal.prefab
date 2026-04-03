@@ -5046,9 +5046,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Crystal
   intensityWhileUnpicked: 0
-  intensityWhileCooling: 5
-  capturingMinIntensity: 1
-  capturingMaxIntensity: 5
+  intensityWhileCooling: 2
+  capturingMinIntensity: 0.5
+  capturingMaxIntensity: 2
   animateLightRate: 3
   capturingParticles:
   - {fileID: 2792032985083412432}

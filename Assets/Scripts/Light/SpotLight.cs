@@ -1,15 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Android;
-using UnityEngine.Events;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.UI;
 
 /// <summary>
 /// Represents a spotlight that detects and interacts with crystals within its range and angle of view.
@@ -21,7 +11,7 @@ public class SpotLight : AbstractLight
     [SerializeField] private float viewAngle = 40f;
     [SerializeField] private LayerMask ignorePlayerMask;
     [SerializeField] private LayerMask ignoreCrystalMask;
-    [SerializeField] private LayerMask justCrystalHeal;
+    //[SerializeField] private LayerMask justCrystalHeal;
 
     [Header("Life Drain VFX")]
     [SerializeField] private float regularParticlesEmission = 40.0f;
@@ -34,6 +24,10 @@ public class SpotLight : AbstractLight
 
     private ParticleSystem lifeDrainParticles;
     private AbstractAbility lifeDrainAbility;
+    private PlayerStats playerStats;
+
+    private bool isPulsing = false;
+    private bool alreadyDamageThisPulse = false;   
 
     private float initialPsStartLifetime;
     private float initialPsStartSpeed;
@@ -74,7 +68,7 @@ public class SpotLight : AbstractLight
     protected override void DetectLightCollision()
     {
         // Get all colliders inside a sphere around the player with a radius of viewRange
-        Collider[] hits = Physics.OverlapSphere(transform.position, viewRange, justCrystalHeal);
+        Collider[] hits = Physics.OverlapSphere(transform.position, viewRange);
         if (hits.Length == 0) return; // No colliders in range, skip
 
         foreach (var hit in hits)
@@ -82,16 +76,13 @@ public class SpotLight : AbstractLight
             Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
 
             if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, ignorePlayerMask))
-            { 
+            {
                 if(rh.collider != hit)
-                {
-                    continue; // No line of sight, skip
-                }
-
+                    continue;
                 // Skip if it's not a crystal
                 if (hit.transform.TryGetComponent<Crystal>(out var crystal))
                 {
-
+                    
                     // Check angle
                     if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
                     {
@@ -113,15 +104,39 @@ public class SpotLight : AbstractLight
                     }
                 }
             }
+
+            if (isPulsing && !alreadyDamageThisPulse)
+            {
+                if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rhPlayer, viewRange, ignoreCrystalMask))
+                {
+                    Player hitPlayer = hit.GetComponentInParent<Player>();
+
+                    if (hitPlayer != null && hitPlayer.GetTeamIndex() != GetComponentInParent<Player>().GetTeamIndex())
+                    {
+                        // Check angle
+                        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
+                        {
+                            if (rhPlayer.collider == hit)
+                            {
+                                Notify(PlayerCombatEvent.ReceivedHeal, new int[] { teamIndex, playerStats.LifeDrainPulseHeal });
+                                Notify(PlayerCombatEvent.ReceivedDamage, new int[] { (teamIndex + 1) % 2, playerStats.LifeDrainPulseDamage });
+                                alreadyDamageThisPulse = true;
+                            }
+
+                        }
+                    }
+                }
+            }
         }
     }
 
-    public void ActivateLifeDrain(PlayerStats playerStats)
+    public void ActivateLifeDrain(PlayerStats inPlayerStats)
     {
+        playerStats = inPlayerStats;
         // Life Drain Visuals
         var psEmission = lifeDrainParticles.emission;
         psEmission.rateOverTime = regularParticlesEmission;
-        StartCoroutine(LifeDrainCoroutine(playerStats));
+        StartCoroutine(LifeDrainCoroutine());
     }
 
     public void StopLifeDrain()
@@ -133,44 +148,38 @@ public class SpotLight : AbstractLight
         psEmission.rateOverTime = 0.0f;
         psMain.startLifetime = initialPsStartLifetime;
         psMain.startSpeed = initialPsStartSpeed;
+        targetColor = GameManager.Instance.GetTeamColor(teamIndex);
         flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
+        isPulsing = false;
         lifeDrainAbility.StartCooldown();
     }
 
-    private IEnumerator LifeDrainCoroutine(PlayerStats playerStats)
+    private IEnumerator LifeDrainCoroutine()
     {
         int pulsesRemaining = playerStats.LifeDrainNumPulses;
-        LifeDrainPulse(playerStats);
+        //Pulse
+        alreadyDamageThisPulse = false;
+        StartCoroutine(LifeDrainPulseVisuals());
         pulsesRemaining--;
 
         while (pulsesRemaining > 0)
         {
             yield return new WaitForSeconds(playerStats.LifeDrainPulseCadence);
 
+            //Pulse
+            alreadyDamageThisPulse = false;
+            StartCoroutine(LifeDrainPulseVisuals());
             pulsesRemaining--;
-            LifeDrainPulse(playerStats);
         }
 
         yield return new WaitForSeconds(pulseVisualsDuration + pulseAnimationDuration); // Wait a bit before turning off particles to let the last pulse visuals play out
 
         StopLifeDrain();
     }
-    
-
-    private void LifeDrainPulse(PlayerStats playerStats)
-    {
-        // Pulse visuals
-        StartCoroutine(LifeDrainPulseVisuals());
-
-        if (DetectLifeDrainCollision())
-        {
-            Notify(PlayerCombatEvent.ReceivedHeal, new int[] { teamIndex, playerStats.LifeDrainPulseHeal });
-            Notify(PlayerCombatEvent.ReceivedDamage, new int[] { (teamIndex + 1) % 2, playerStats.LifeDrainPulseDamage });
-        }
-    }
 
     private IEnumerator LifeDrainPulseVisuals() 
-    { 
+    {
+        isPulsing = true;
         targetColor = GameManager.Instance.GetDamageColor();
         targetIntensity *= pulseIntensityMultiplier;
         var psMain = lifeDrainParticles.main;
@@ -187,42 +196,8 @@ public class SpotLight : AbstractLight
         psMain.startSpeed = initialPsStartSpeed;
         targetIntensity /= pulseIntensityMultiplier;
         targetColor = GameManager.Instance.GetTeamColor(teamIndex);
+        isPulsing = false;
     }
-
-    private bool DetectLifeDrainCollision()
-    {
-        // Get all colliders inside a sphere around the player with a radius of viewRange
-        Collider[] hits = Physics.OverlapSphere(transform.position, viewRange);
-        if (hits.Length == 0) return false; // No colliders in range, skip
-
-        foreach (var hit in hits)
-        {
-            Player hitPlayer = hit.GetComponentInParent<Player>();
-
-            // Skip if it's not a player
-            if (hitPlayer != null && hitPlayer.GetTeamIndex() != GetComponentInParent<Player>().GetTeamIndex())
-            {
-
-                Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
-
-                // Check angle
-                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
-                {
-                    // Check line of sight
-                    if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, ignoreCrystalMask))
-                    {
-                        if (rh.collider == hit)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
 
     /// <summary>
     /// To visualize the spotlight's range and angle in the editor

@@ -238,6 +238,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6592878413987098964, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7953011735170054437, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
       propertyPath: m_Name
       value: Peggy
@@ -2552,25 +2556,29 @@ PrefabInstance:
       propertyPath: m_InnerSpotAngle
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4101325063520634601, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4501916411120332860, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
       propertyPath: pulseIntensityMultiplier
       value: 1.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4861375026417796753, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.096456364
-      objectReference: {fileID: 0}
-    - target: {fileID: 4861375026417796753, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.022591582
-      objectReference: {fileID: 0}
-    - target: {fileID: 4861375026417796753, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.6301887
-      objectReference: {fileID: 0}
     - target: {fileID: 6034231725407367696, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135330093624327245, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135330093624327245, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135330093624327245, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7437861440734871912, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
       propertyPath: m_Name

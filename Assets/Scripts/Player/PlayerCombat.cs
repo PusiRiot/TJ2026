@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEvent>
 {
@@ -59,6 +58,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private float interpolationSpeed = 0f;
     private Color glowColor;
 
+    // Death materials
+    private List<Material> deathGlowMaterials;
 
     // Boolean control
     private bool isProtectedByParry = false;
@@ -153,6 +154,16 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
                 }
             }
         }
+
+        // Death materials
+        deathGlowMaterials = new List<Material>();
+
+        foreach (Material originalMat in glowOverlayMaterials)
+        {
+            // This creates a brand new instance in memory with the same properties
+            Material clonedMat = new Material(originalMat);
+            deathGlowMaterials.Add(clonedMat);
+        }
     }
 
     void FixedUpdate()
@@ -164,6 +175,14 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             {
                 mat.SetColor("_Color", new Color(glowColor.r, glowColor.g, glowColor.b, currentAlpha));
             }
+        }
+    }
+
+    void OnDestroy()
+    {
+        foreach (Material mat in deathGlowMaterials)
+        {
+            Destroy(mat);
         }
     }
 
@@ -260,7 +279,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         foreach (Collider collider in collisions)
         {
             PlayerCombat enemy = collider.gameObject.GetComponentInParent<PlayerCombat>();
-            if (enemy != null && enemy != this)
+            if (enemy != null && enemy != this && enemy.enabled)
             {
                 // effect
                 enemy.ReceiveLightMelee();
@@ -273,7 +292,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         if (!isAttackingHeavy) return;
 
         PlayerCombat enemy = collision.gameObject.GetComponentInParent<PlayerCombat>();
-        if (enemy != null && enemy != this && !alreadyHit)
+        if (enemy != null && enemy != this && !alreadyHit && enemy.enabled)
         {
             isAttackingHeavy = false; // to avoid multiple collisions on the same attack
             // effect
@@ -348,7 +367,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         }
 
         // disable movement shortly for hit stun
-        playerMovement.DisableMovement(_heavyMeleeStunDuration);
+        StartCoroutine(Stun(_heavyMeleeStunDuration, false));
 
         // animation
         playerAnimator.TriggerStunAttack();
@@ -371,6 +390,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     public void ReceiveLightMelee()
     {
+        playerAnimator.TriggerLightDamage();
+
         // Damage
         Notify(PlayerCombatEvent.ReceivedDamage, new int[] { _teamIndex, _lightMeleeDamage });
     }
@@ -384,7 +405,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         StartCoroutine(nameof(TurnLightOff), _succesfulParryLightOffDuration); // only coroutines started by name can be stopped by name
 
         // stun for one second
-        StartCoroutine(playerMovement.DisableMovement(_succesfulParryStunDuration));
+        StartCoroutine(Stun(_succesfulParryStunDuration, true));
 
         // Interrupt player attacks
         if (isChargingAttack)
@@ -405,6 +426,30 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
 
+        // Store current state
+        List<Material[]> currentMaterialsCopy = new List<Material[]>();
+        SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        foreach (SkinnedMeshRenderer playerMesh in playerMeshes)
+        {
+            currentMaterialsCopy.Add(playerMesh.sharedMaterials);
+        }
+
+        // Apply the new death materials
+        foreach (Material mat in deathGlowMaterials)
+        {
+            Color teamColor = GameManager.Instance.GetTeamColor(_teamIndex);
+            teamColor.a = 0.4f; // Set the alpha to 0.5 for a semi-transparent effect
+            mat.SetColor("_Color", teamColor);
+            mat.SetFloat("_Fresnel", 0.75f); 
+        }
+
+        for (int i = 0; i < playerMeshes.Length; i++)
+        {
+            Material[] deathMaterial = { deathGlowMaterials[i] };
+            playerMeshes[i].sharedMaterials = deathMaterial;
+        }
+
         Debug.Log("stopped coroutine");
         playerLight.TurnOff(); // don't call method to not start twice the same coroutine
 
@@ -417,6 +462,12 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         // enable actions and world interaction
         player.EnableWorldInteraction();
 
+        // Revert materials back to the original ones
+        for (int i = 0; i < playerMeshes.Length; i++)
+        {
+            playerMeshes[i].sharedMaterials = currentMaterialsCopy[i];
+        }
+
         Notify(PlayerCombatEvent.BackToLife, _teamIndex);
     }
 
@@ -426,6 +477,22 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         yield return new WaitForSeconds(duration);
         playerLight.TurnOn();
 
+    }
+
+    IEnumerator Stun(float duration, bool enableAnimation)
+    {
+        if (enableAnimation)
+            playerAnimator.TriggerStun();
+
+        playerMovement.DisableMovement(true);
+        player.DisablePlayerActions();
+
+        yield return new WaitForSeconds(duration);
+        playerMovement.DisableMovement(false);
+        player.EnablePlayerActions();
+
+        if (enableAnimation)
+            playerAnimator.CancelStun();
     }
 
     #endregion
