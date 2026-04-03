@@ -59,6 +59,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private float interpolationSpeed = 0f;
     private Color glowColor;
 
+    // Death materials
+    private List<Material> deathGlowMaterials;
 
     // Boolean control
     private bool isProtectedByParry = false;
@@ -153,6 +155,16 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
                 }
             }
         }
+
+        // Death materials
+        deathGlowMaterials = new List<Material>();
+
+        foreach (Material originalMat in glowOverlayMaterials)
+        {
+            // This creates a brand new instance in memory with the same properties
+            Material clonedMat = new Material(originalMat);
+            deathGlowMaterials.Add(clonedMat);
+        }
     }
 
     void FixedUpdate()
@@ -164,6 +176,14 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             {
                 mat.SetColor("_Color", new Color(glowColor.r, glowColor.g, glowColor.b, currentAlpha));
             }
+        }
+    }
+
+    void OnDestroy()
+    {
+        foreach (Material mat in deathGlowMaterials)
+        {
+            Destroy(mat);
         }
     }
 
@@ -405,6 +425,32 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
 
+
+
+        // Store current state
+        List<Material[]> currentMaterialsCopy = new List<Material[]>();
+        SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        foreach (SkinnedMeshRenderer playerMesh in playerMeshes)
+        {
+            currentMaterialsCopy.Add(playerMesh.sharedMaterials);
+        }
+
+        // Apply the new death materials
+        foreach (Material mat in deathGlowMaterials)
+        {
+            Color teamColor = GameManager.Instance.GetTeamColor(player.GetTeamIndex());
+            teamColor.a = 0.4f; // Set the alpha to 0.5 for a semi-transparent effect
+            mat.SetColor("_Color", teamColor);
+            mat.SetFloat("_Fresnel", 0.75f); 
+        }
+
+        for (int i = 0; i < playerMeshes.Length; i++)
+        {
+            Material[] deathMaterial = { deathGlowMaterials[i] };
+            playerMeshes[i].sharedMaterials = deathMaterial;
+        }
+
         Debug.Log("stopped coroutine");
         playerLight.TurnOff(); // don't call method to not start twice the same coroutine
 
@@ -416,6 +462,12 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         // enable actions and world interaction
         player.EnableWorldInteraction();
+
+        // Revert materials back to the original ones
+        for (int i = 0; i < playerMeshes.Length; i++)
+        {
+            playerMeshes[i].sharedMaterials = currentMaterialsCopy[i];
+        }
 
         Notify(PlayerCombatEvent.BackToLife, _teamIndex);
     }
