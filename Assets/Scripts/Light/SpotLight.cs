@@ -157,6 +157,7 @@ public class SpotLight : AbstractLight
         psMain.startSpeed = initialPsStartSpeed;
         targetColor = GameManager.Instance.GetTeamColor(teamIndex);
         flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
+        isPulsing = false;
         lifeDrainAbility.StartCooldown();
     }
 
@@ -164,7 +165,6 @@ public class SpotLight : AbstractLight
     {
         int pulsesRemaining = playerStats.LifeDrainNumPulses;
         //Pulse
-        isPulsing = true;
         alreadyDamageThisPulse = false;
         StartCoroutine(LifeDrainPulseVisuals());
         pulsesRemaining--;
@@ -174,7 +174,6 @@ public class SpotLight : AbstractLight
             yield return new WaitForSeconds(playerStats.LifeDrainPulseCadence);
 
             //Pulse
-            isPulsing = true;
             alreadyDamageThisPulse = false;
             StartCoroutine(LifeDrainPulseVisuals());
             pulsesRemaining--;
@@ -186,7 +185,8 @@ public class SpotLight : AbstractLight
     }
 
     private IEnumerator LifeDrainPulseVisuals() 
-    { 
+    {
+        isPulsing = true;
         targetColor = GameManager.Instance.GetDamageColor();
         targetIntensity *= pulseIntensityMultiplier;
         var psMain = lifeDrainParticles.main;
@@ -203,6 +203,7 @@ public class SpotLight : AbstractLight
         psMain.startSpeed = initialPsStartSpeed;
         targetIntensity /= pulseIntensityMultiplier;
         targetColor = GameManager.Instance.GetTeamColor(teamIndex);
+        isPulsing = false;
     }
 
     /// <summary>
