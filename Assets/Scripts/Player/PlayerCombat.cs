@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEvent>
 {
@@ -368,7 +367,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         }
 
         // disable movement shortly for hit stun
-        playerMovement.DisableMovement(_heavyMeleeStunDuration);
+        StartCoroutine(Stun(_heavyMeleeStunDuration));
 
         // animation
         playerAnimator.TriggerStunAttack();
@@ -404,7 +403,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         StartCoroutine(nameof(TurnLightOff), _succesfulParryLightOffDuration); // only coroutines started by name can be stopped by name
 
         // stun for one second
-        StartCoroutine(playerMovement.DisableMovement(_succesfulParryStunDuration));
+        StartCoroutine(Stun(_succesfulParryStunDuration));
 
         // Interrupt player attacks
         if (isChargingAttack)
@@ -425,8 +424,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
 
-
-
         // Store current state
         List<Material[]> currentMaterialsCopy = new List<Material[]>();
         SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -439,7 +436,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         // Apply the new death materials
         foreach (Material mat in deathGlowMaterials)
         {
-            Color teamColor = GameManager.Instance.GetTeamColor(player.GetTeamIndex());
+            Color teamColor = GameManager.Instance.GetTeamColor(_teamIndex);
             teamColor.a = 0.4f; // Set the alpha to 0.5 for a semi-transparent effect
             mat.SetColor("_Color", teamColor);
             mat.SetFloat("_Fresnel", 0.75f); 
@@ -478,6 +475,16 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         yield return new WaitForSeconds(duration);
         playerLight.TurnOn();
 
+    }
+
+    IEnumerator Stun(float duration)
+    {
+        playerMovement.DisableMovement(true);
+        player.DisablePlayerActions();
+
+        yield return new WaitForSeconds(duration);
+        playerMovement.DisableMovement(false);
+        player.EnablePlayerActions();
     }
 
     #endregion

@@ -1,15 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Android;
-using UnityEngine.Events;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.UI;
 
 /// <summary>
 /// Represents a spotlight that detects and interacts with crystals within its range and angle of view.
@@ -114,9 +104,10 @@ public class SpotLight : AbstractLight
                     }
                 }
             }
-            if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rhPlayer, viewRange, ignoreCrystalMask))
+
+            if (isPulsing && !alreadyDamageThisPulse)
             {
-                if (isPulsing && !alreadyDamageThisPulse)
+                if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rhPlayer, viewRange, ignoreCrystalMask))
                 {
                     Player hitPlayer = hit.GetComponentInParent<Player>();
 
