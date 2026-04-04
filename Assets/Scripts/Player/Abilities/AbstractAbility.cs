@@ -5,7 +5,7 @@ using UnityEngine;
 /// Abstract class representing a player hability.
 /// <para>Each hability should be a child class that implements the virtual method to be called from Player input</para>
 /// </summary>
-public abstract class AbstractAbility : MonoBehaviour
+public abstract class AbstractAbility : MonoBehaviour, IObserver<PlayerCombatEvent>
 {
     protected Player player;
     protected PlayerStats _playerStats;
@@ -39,9 +39,24 @@ public abstract class AbstractAbility : MonoBehaviour
         // just be used as a way to call that logic from other classes (see LifeDrain)
     }
 
-    public void StartCooldown()
+    protected void StartCooldown()
     {
         player.StartAbilityCooldown();
     }
+
+    #region IObserver
+    public void OnNotify(PlayerCombatEvent evt, object data = null)
+    {
+        if (evt == PlayerCombatEvent.StartAbilityCooldown)
+        {
+            int[] intParams = (int[])data;
+
+            if (intParams[0] == _teamIndex)
+            {
+                StartCooldown();
+            }
+        }
+    }
+    #endregion
 }
 

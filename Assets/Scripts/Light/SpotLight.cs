@@ -23,7 +23,6 @@ public class SpotLight : AbstractLight
     [SerializeField] private float pulseParticlesEmission = 225.0f;
 
     private ParticleSystem lifeDrainParticles;
-    private AbstractAbility lifeDrainAbility;
     private PlayerStats playerStats;
 
     private bool isPulsing = false;
@@ -38,7 +37,6 @@ public class SpotLight : AbstractLight
 
     private void Start()
     {
-        lifeDrainAbility = GetComponentInParent<AbstractAbility>();
         lifeDrainParticles = GetComponentInChildren<ParticleSystem>();
       
         initialPsStartLifetime = lifeDrainParticles.main.startLifetime.constant;
@@ -151,7 +149,7 @@ public class SpotLight : AbstractLight
         targetColor = GameManager.Instance.GetTeamColor(teamIndex);
         flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
         isPulsing = false;
-        lifeDrainAbility.StartCooldown();
+        Notify(PlayerCombatEvent.StartAbilityCooldown, new int[] { teamIndex });
     }
 
     private IEnumerator LifeDrainCoroutine()

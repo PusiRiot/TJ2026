@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: DrHive
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   Speed: 10
-  AbilityCooldownDuration: 3
+  AbilityCooldownDuration: 6
   LifeDrainNumPulses: 3
   LifeDrainPulseCadence: 2
   LifeDrainPulseDamage: 1
   LifeDrainPulseHeal: 1
+  FlareSpeed: 10
+  FlareLifetimeIfWall: 5
+  FlareLifetimeIfPlayer: 5

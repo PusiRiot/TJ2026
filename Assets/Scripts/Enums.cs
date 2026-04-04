@@ -49,4 +49,5 @@ public enum PlayerCombatEvent
     Death, // data  = (int)teamIndex
     BackToLife, // data = (int)teamIndex
     SuccessfulParry,
+    StartAbilityCooldown, // data = (int)teamIndex
 }

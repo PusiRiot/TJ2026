@@ -25,14 +25,18 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
     {
         base.AddObserversOnScene();
         Player player = GetComponentInParent<Player>();
-        if (player.gameObject.CompareTag("Player1"))
+        if(player != null)
         {
-            teamIndex = 0;
+            if (player.gameObject.CompareTag("Player1"))
+            {
+                teamIndex = 0;
+            }
+            else if (player.gameObject.CompareTag("Player2"))
+            {
+                teamIndex = 1;
+            }
         }
-        else if (player.gameObject.CompareTag("Player2"))
-        {
-            teamIndex = 1;
-        }
+        
 
         flashlight = GetComponentInChildren<Light>();
         flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
@@ -53,6 +57,12 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
     protected virtual void DetectLightCollision()
     {
         throw new System.NotImplementedException("Implement on child object");
+    }
+
+    public void SetTeam(int inTeamIndex)
+    {
+        teamIndex = inTeamIndex;
+        flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
     }
 
     public void TurnOn()
