@@ -59,7 +59,7 @@ public class Crystal : MonoBehaviour
 
 
     // Capture flags
-    #region captire_flags
+    #region capture_flags
     // This can and might be done in a single List (memory optimization)
     private List<bool> teamsReclaiming           = new List<bool> { false, false };
     private List<bool> teamsReclaimingPrevFrame  = new List<bool> { false, false };
@@ -77,7 +77,7 @@ public class Crystal : MonoBehaviour
     public  UnityEvent<int> reclaimingFinishedCallback = new UnityEvent<int>();
 
     // Contested callbacks
-    public UnityEvent contestedStartedCallback = new UnityEvent();
+    public  UnityEvent contestedStartedCallback = new UnityEvent();
     private UnityEvent contestedUpdateCallback = new UnityEvent();
     public  UnityEvent contestedFinishedCallback = new UnityEvent();
 
@@ -106,6 +106,8 @@ public class Crystal : MonoBehaviour
         inactiveActionPerFrame.AddListener(InactiveReset);
         inactiveActionPerFrame.AddListener(ShowInactiveResetFeedback);
         inactiveActionPerFrame.AddListener(() => animator.SetBool("capturing", false));
+        inactiveActionPerFrame.AddListener(UpdateMatEmission);
+        inactiveActionPerFrame.AddListener(() => UpdateMatColor(teamCaptured));
 
         // Get crystal material 
         crystalMaterial = GetComponentInChildren<MeshRenderer>().material;
@@ -116,11 +118,12 @@ public class Crystal : MonoBehaviour
 
         reclaimingUpdateCallback.AddListener(ShowCaptureFeedback);
         reclaimingUpdateCallback.AddListener(ReclaimingPerforming);
-        reclaimingUpdateCallback.AddListener((foo) => Debug.Log($"{foo} team is capturing"));
+        reclaimingUpdateCallback.AddListener((foo) => UpdateMatEmission());
 
         reclaimingFinishedCallback.AddListener((foo) => reclaimPointsCurrent = 0);
         reclaimingFinishedCallback.AddListener(ReclaimingPerformed);
-        reclaimingFinishedCallback.AddListener((foo) => { animator.SetTrigger("captured"); animator.SetBool("capturing", false);});  
+        reclaimingFinishedCallback.AddListener((foo) => { animator.SetTrigger("captured"); animator.SetBool("capturing", false);});
+        reclaimingFinishedCallback.AddListener(UpdateMatColor);
 
         contestedStartedCallback.AddListener(() => animator.SetBool("contested", true));
         contestedStartedCallback.AddListener(ContestedStarted);
@@ -129,11 +132,11 @@ public class Crystal : MonoBehaviour
         contestedFinishedCallback.AddListener(ContestedFinished);
 
         cooldownStartedCallback.AddListener(CooldownStarted);
-        cooldownStartedCallback.AddListener((foo) => crystalMaterial.SetInteger("_emission", 1));
+        cooldownStartedCallback.AddListener((foo) => crystalMaterial.SetFloat("_Emission", 1));
 
 
         cooldownFinishedCallback.AddListener(CooldownFinished);
-        cooldownFinishedCallback.AddListener(() => crystalMaterial.SetInteger("_emission", 0));
+        cooldownFinishedCallback.AddListener(() => crystalMaterial.SetFloat("_Emission", 0));
 
     }
 
@@ -166,10 +169,12 @@ public class Crystal : MonoBehaviour
         if (animateLight)
         {
             crystalLight.intensity -= Time.fixedDeltaTime * animateLightRate;
+            crystalMaterial.SetFloat("_Emission", crystalLight.intensity / intensityWhileCooling); // Update emission based on current intensity
 
-            if(crystalLight.intensity <= 0)
+            if (crystalLight.intensity <= 0)
             {
                 crystalLight.intensity = 0;
+                crystalMaterial.SetFloat("_Emission", 0);
                 cooldownFinishedCallback.Invoke();
                 animateLight = false;
             }
@@ -423,6 +428,18 @@ public class Crystal : MonoBehaviour
             return;
 
         reclaimPointsCurrent -= Time.deltaTime * inactiveMinusPointsPerSecond;
+    }
+
+    private void UpdateMatEmission()
+    {
+        float ratio = reclaimPointsCurrent / reclaimPointsTotal;
+        crystalMaterial.SetFloat("_Emission", ratio);
+    }
+
+    private void UpdateMatColor(int teamIndex)
+    {
+        Color teamColor = teamsColor[teamIndex];
+        crystalMaterial.SetColor("_ColorDark", teamColor);
     }
 
     public void ReclaimFlag(int teamIndex)

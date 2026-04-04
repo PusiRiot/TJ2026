@@ -16,7 +16,7 @@ MonoBehaviour:
   TeamColor:
   - {r: 0.42544264, g: 0.026592933, b: 0.93962264, a: 1}
   - {r: 0.9547169, g: 0.658962, b: 0.14230676, a: 1}
-  - {r: 1, g: 0.013207495, b: 0.1551438, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
   TeamEmissiveMaterial:
   - {fileID: 2100000, guid: a1e2bc239b1d60044a7cd98413048d6e, type: 2}
   - {fileID: 2100000, guid: e1685f431a614fe42a5b4fdc9e9d8b95, type: 2}
@@ -31,6 +31,8 @@ MonoBehaviour:
   HealAmount: 2
   MaxLives: 6
   DeathDuration: 10
+  GlowOverlayGlowUp: 0.2
+  GlowOverlayGlowDown: 0.4
   LightMeleeDamage: 1
   LightMeleeRange: 1
   LightMeleeCooldownDuration: 1
