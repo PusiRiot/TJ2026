@@ -101,10 +101,15 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     {
         currentStamina += _staminaRegenRate * Time.fixedDeltaTime;
 
+        if(currentStamina - _staminaConsumption >= 0)
+        {
+            Notify(PlayerMovementEvent.DashEnabled, _teamIndex);
+        }
+
         if (currentStamina >= _maxStamina)
         {
             currentStamina = _maxStamina;
-            Notify(PlayerMovementEvent.DashEnabled, _teamIndex);
+            
         }
     }
 
@@ -176,6 +181,13 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         if (!movementDisabled && !dashExecuting && currentStamina >= _staminaConsumption)
         {
             StartCoroutine(DashMovement(_dashDuration, _dashSpeedIncrement));
+            currentStamina -= _staminaConsumption;
+
+            if(currentStamina <= 0)
+            {
+                currentStamina = 0;
+                Notify(PlayerMovementEvent.DashConsumed, _teamIndex);
+            } 
         }
     }
 

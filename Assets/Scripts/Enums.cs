@@ -50,4 +50,6 @@ public enum PlayerCombatEvent
     BackToLife, // data = (int)teamIndex
     SuccessfulParry,
     StartAbilityCooldown, // data = (int)teamIndex
+    AbilityEnabled, // data = (int)teamIndex
+    AbilityDisabled, // data = (int)teamIndex
 }

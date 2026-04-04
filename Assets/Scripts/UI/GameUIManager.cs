@@ -11,6 +11,7 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
     #region Variables
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
+    [SerializeField] private Image[] playerAbilityEnabled = new Image[2];
     [SerializeField] private Slider[] playerLives = new Slider[2];
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
@@ -172,6 +173,24 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
                 playerLives[(int)data].value = _maxLives;
                 break;
             }
+            case PlayerCombatEvent.AbilityEnabled:
+                {
+                    int[] dataTeam = data as int[];
+                    int teamIndex = dataTeam[0];
+                    Color teamColor = playerAbilityEnabled[teamIndex].color;
+                    teamColor.a = 1f;
+                    playerAbilityEnabled[teamIndex].color = teamColor;
+                    break; 
+                }
+            case PlayerCombatEvent.AbilityDisabled:
+                {
+                    int[] dataTeam = data as int[];
+                    int teamIndex = dataTeam[0];
+                    Color teamColor = playerAbilityEnabled[teamIndex].color;
+                    teamColor.a = 0.05f;
+                    playerAbilityEnabled[teamIndex].color = teamColor;
+                    break;
+                }
         }
     }
     #endregion
