@@ -10,7 +10,10 @@ public class SpotLight : AbstractLight
     [SerializeField] private float viewRange = 3f;
     [SerializeField] private float viewAngle = 40f;
     [SerializeField] private LayerMask ignorePlayerMask;
-    [SerializeField] private LayerMask ignoreCrystalMask;
+    // Ignore heal, player, player1
+    [SerializeField] private LayerMask lifeDrainPlayer1Mask;
+    // Ignore heal, player, player2
+    [SerializeField] private LayerMask lifeDrainPlayer2Mask;
     //[SerializeField] private LayerMask justCrystalHeal;
 
     [Header("Life Drain VFX")]
@@ -35,6 +38,8 @@ public class SpotLight : AbstractLight
     private Color targetColor;
     private float targetIntensity;
 
+    private LayerMask lifeDrainMask;
+
     private void Start()
     {
         lifeDrainParticles = GetComponentInChildren<ParticleSystem>();
@@ -45,6 +50,15 @@ public class SpotLight : AbstractLight
         pulseAnimationRate = 1f / pulseAnimationDuration;
         targetColor = flashlight.color;
         targetIntensity = flashlight.intensity;
+
+        if(teamIndex == 0)
+        {
+            lifeDrainMask = lifeDrainPlayer1Mask;
+        }
+        else
+        {
+            lifeDrainMask = lifeDrainPlayer2Mask;
+        }
     }
 
     private void FixedUpdate()
@@ -69,43 +83,45 @@ public class SpotLight : AbstractLight
         Collider[] hits = Physics.OverlapSphere(transform.position, viewRange);
         if (hits.Length == 0) return; // No colliders in range, skip
 
+        Debug.Log("isPulsing " + isPulsing + " alreadyDamageThisPulse " + alreadyDamageThisPulse);
+
         foreach (var hit in hits)
         {
             Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
 
             if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, ignorePlayerMask))
             {
-                if(rh.collider != hit)
-                    continue;
-                // Skip if it's not a crystal
-                if (hit.transform.TryGetComponent<Crystal>(out var crystal))
-                {
-                    
-                    // Check angle
-                    if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
+                if(rh.collider == hit) {
+                    // Skip if it's not a crystal
+                    if (hit.transform.TryGetComponent<Crystal>(out var crystal))
                     {
-                        crystal.ReclaimFlag(teamIndex);
-                    }
-                }
-                else if(hit.transform.TryGetComponent<Heal>(out var heal))
-                {
-                    // Check angle
-                    if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
-                    {
-                        // Check line of sight
-                        // DONE by Adri
-                        if (rh.collider == hit)
-                        {
-                            heal.ReclaimFlag(teamIndex);
-                        }
 
+                        // Check angle
+                        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
+                        {
+                            crystal.ReclaimFlag(teamIndex);
+                        }
+                    }
+                    else if (hit.transform.TryGetComponent<Heal>(out var heal))
+                    {
+                        // Check angle
+                        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
+                        {
+                            // Check line of sight
+                            // DONE by Adri
+                            if (rh.collider == hit)
+                            {
+                                heal.ReclaimFlag(teamIndex);
+                            }
+
+                        }
                     }
                 }
             }
 
             if (isPulsing && !alreadyDamageThisPulse)
             {
-                if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rhPlayer, viewRange, ignoreCrystalMask))
+                if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rhPlayer, viewRange, lifeDrainMask))
                 {
                     Player hitPlayer = hit.GetComponentInParent<Player>();
 

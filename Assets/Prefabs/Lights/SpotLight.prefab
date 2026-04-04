@@ -5032,12 +5032,12 @@ MonoBehaviour:
   ignorePlayerMask:
     serializedVersion: 2
     m_Bits: 63
-  ignoreCrystalMask:
+  lifeDrainPlayer1Mask:
+    serializedVersion: 2
+    m_Bits: 311
+  lifeDrainPlayer2Mask:
     serializedVersion: 2
     m_Bits: 119
-  justCrystalHeal:
-    serializedVersion: 2
-    m_Bits: 136
   regularParticlesEmission: 80
   pulseVisualsDuration: 0.6
   pulseIntensityMultiplier: 1
