@@ -2938,25 +2938,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4501916411120332860, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
-      propertyPath: pulseIntensityMultiplier
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6034231725407367696, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135330093624327245, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135330093624327245, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135330093624327245, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
-      propertyPath: m_Color.r
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7437861440734871912, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
       propertyPath: m_Name

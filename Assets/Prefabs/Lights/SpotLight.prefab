@@ -288,7 +288,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.275
+      scalar: 0.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -666,7 +666,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 8
-    angle: 20
+    angle: 40
     length: 10.848327
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -4881,7 +4881,7 @@ Transform:
   m_GameObject: {fileID: 7881543312527294210}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: -1.09}
+  m_LocalPosition: {x: 0, y: -0.5, z: -0.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4901,8 +4901,8 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 7
   m_Range: 11
-  m_SpotAngle: 45.095596
-  m_InnerSpotAngle: 45.095596
+  m_SpotAngle: 80
+  m_InnerSpotAngle: 80
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 2
@@ -5028,7 +5028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpotLight
   viewRange: 9
-  viewAngle: 26
+  viewAngle: 43
   ignorePlayerMask:
     serializedVersion: 2
     m_Bits: 63
@@ -5038,10 +5038,10 @@ MonoBehaviour:
   lifeDrainPlayer2Mask:
     serializedVersion: 2
     m_Bits: 119
-  regularParticlesEmission: 80
+  regularParticlesEmission: 200
   pulseVisualsDuration: 0.6
   pulseIntensityMultiplier: 1
   pulseAnimationDuration: 0.1
   pulseParticlesStartLifetime: 0.3
   pulseParticlesStartSpeed: -18
-  pulseParticlesEmission: 500
+  pulseParticlesEmission: 1000

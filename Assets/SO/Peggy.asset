@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Peggy
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   Speed: 10
-  AbilityCooldownDuration: 5
+  AbilityCooldownDuration: 8
   LifeDrainNumPulses: 3
   LifeDrainPulseCadence: 2
   LifeDrainPulseDamage: 1
