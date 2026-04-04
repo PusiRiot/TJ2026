@@ -11,9 +11,6 @@ TagManager:
   - AttackParticles
   - ParryingParticles
   - HealParticles
-  - RegularCollider
-  - ParryCollider
-  - HeavyMeleeCollider
   layers:
   - Default
   - TransparentFX
