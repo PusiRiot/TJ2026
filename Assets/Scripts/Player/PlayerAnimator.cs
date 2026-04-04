@@ -92,10 +92,20 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetTrigger("LightMelee");
     }
 
+    public void CancelAttack()
+    {
+        isAttacking = false;
+    }
+
     public void TriggerChargeAttack()
     {
         animator.Play("Motion_HeavyMelee", 0, 0f); // to restart animation clips
         isChargingAttack = true;
+    }
+
+    public void CancelChargeAttack()
+    {
+        isChargingAttack = false;
     }
 
     public void TriggerStun()
@@ -128,13 +138,8 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetTrigger("ParryStop");
     }
 
-    public void CancelChargeAttack()
+    public void TriggerLightDamage()
     {
-        isChargingAttack = false;
-    }
-
-    public void CancelAttack()
-    {
-        isAttacking = false;
+        animator.SetTrigger("LightDamage");
     }
 }

@@ -279,7 +279,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         foreach (Collider collider in collisions)
         {
             PlayerCombat enemy = collider.gameObject.GetComponentInParent<PlayerCombat>();
-            if (enemy != null && enemy != this)
+            if (enemy != null && enemy != this && enemy.enabled)
             {
                 // effect
                 enemy.ReceiveLightMelee();
@@ -292,7 +292,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         if (!isAttackingHeavy) return;
 
         PlayerCombat enemy = collision.gameObject.GetComponentInParent<PlayerCombat>();
-        if (enemy != null && enemy != this && !alreadyHit)
+        if (enemy != null && enemy != this && !alreadyHit && enemy.enabled)
         {
             isAttackingHeavy = false; // to avoid multiple collisions on the same attack
             // effect
@@ -367,7 +367,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         }
 
         // disable movement shortly for hit stun
-        StartCoroutine(Stun(_heavyMeleeStunDuration));
+        StartCoroutine(Stun(_heavyMeleeStunDuration, false));
 
         // animation
         playerAnimator.TriggerStunAttack();
@@ -390,6 +390,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     public void ReceiveLightMelee()
     {
+        playerAnimator.TriggerLightDamage();
+
         // Damage
         Notify(PlayerCombatEvent.ReceivedDamage, new int[] { _teamIndex, _lightMeleeDamage });
     }
@@ -403,7 +405,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         StartCoroutine(nameof(TurnLightOff), _succesfulParryLightOffDuration); // only coroutines started by name can be stopped by name
 
         // stun for one second
-        StartCoroutine(Stun(_succesfulParryStunDuration));
+        StartCoroutine(Stun(_succesfulParryStunDuration, true));
 
         // Interrupt player attacks
         if (isChargingAttack)
@@ -477,14 +479,20 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     }
 
-    IEnumerator Stun(float duration)
+    IEnumerator Stun(float duration, bool enableAnimation)
     {
+        if (enableAnimation)
+            playerAnimator.TriggerStun();
+
         playerMovement.DisableMovement(true);
         player.DisablePlayerActions();
 
         yield return new WaitForSeconds(duration);
         playerMovement.DisableMovement(false);
         player.EnablePlayerActions();
+
+        if (enableAnimation)
+            playerAnimator.CancelStun();
     }
 
     #endregion
