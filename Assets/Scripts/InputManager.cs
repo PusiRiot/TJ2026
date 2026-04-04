@@ -28,12 +28,8 @@ public class InputManager : MonoBehaviour
     {
         if (device is Gamepad)
         {
-            if (change == InputDeviceChange.Added ||
-                change == InputDeviceChange.Disconnected ||
-                change == InputDeviceChange.Removed)
-            {
-                AssignDevices();
-            }
+            AssignDevices();
+            Debug.Log("Gamepad Change Detected: " + change.ToString() + ". Reassinging control schemes! :)");
         }
     }
 
