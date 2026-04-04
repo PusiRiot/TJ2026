@@ -79,7 +79,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard1",
+                    "groups": "P1Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -90,7 +90,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard1",
+                    "groups": "P1Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -101,7 +101,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard1",
+                    "groups": "P1Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -112,7 +112,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard1",
+                    "groups": "P1Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -134,7 +134,7 @@
                     "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard2",
+                    "groups": "P2Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -145,7 +145,7 @@
                     "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard2",
+                    "groups": "P2Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -156,7 +156,7 @@
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard2",
+                    "groups": "P2Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -167,7 +167,7 @@
                     "path": "<Keyboard>/semicolon",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard2",
+                    "groups": "P2Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -189,7 +189,7 @@
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Controller;P1Scheme;P2Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -200,7 +200,7 @@
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Controller;P1Scheme;P2Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -211,7 +211,7 @@
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Controller;P1Scheme;P2Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -222,7 +222,7 @@
                     "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Controller;P1Scheme;P2Scheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -233,7 +233,7 @@
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard1",
+                    "groups": "P1Scheme",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -244,7 +244,7 @@
                     "path": "<Keyboard>/rightShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard2",
+                    "groups": "P2Scheme",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -255,7 +255,7 @@
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Controller;P1Scheme;P2Scheme",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -266,7 +266,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard1",
+                    "groups": "P1Scheme",
                     "action": "Parry",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -277,7 +277,7 @@
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard2",
+                    "groups": "P2Scheme",
                     "action": "Parry",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -288,7 +288,7 @@
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Controller;P1Scheme;P2Scheme",
                     "action": "Parry",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -299,7 +299,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard1",
+                    "groups": "P1Scheme",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -310,7 +310,7 @@
                     "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard2",
+                    "groups": "P2Scheme",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -321,7 +321,7 @@
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Controller;P1Scheme;P2Scheme",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -332,7 +332,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard1;Keyboard2",
+                    "groups": "P1Scheme;P2Scheme",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -343,7 +343,7 @@
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Controller;P1Scheme;P2Scheme",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -354,7 +354,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard1",
+                    "groups": "P1Scheme",
                     "action": "Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -365,7 +365,7 @@
                     "path": "<Keyboard>/leftBracket",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard2",
+                    "groups": "P2Scheme",
                     "action": "Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -376,7 +376,7 @@
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Controller;P1Scheme;P2Scheme",
                     "action": "Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -386,34 +386,33 @@
     ],
     "controlSchemes": [
         {
-            "name": "Keyboard1",
-            "bindingGroup": "Keyboard1",
+            "name": "P1Scheme",
+            "bindingGroup": "P1Scheme",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
                     "isOptional": false,
                     "isOR": false
-                }
-            ]
-        },
-        {
-            "name": "Keyboard2",
-            "bindingGroup": "Keyboard2",
-            "devices": [
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        },
-        {
-            "name": "Controller",
-            "bindingGroup": "Controller",
-            "devices": [
+                },
                 {
                     "devicePath": "<Gamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "P2Scheme",
+            "bindingGroup": "P2Scheme",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
                     "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]

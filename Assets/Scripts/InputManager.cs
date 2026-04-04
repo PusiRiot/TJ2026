@@ -8,17 +8,14 @@ public class InputManager : MonoBehaviour
 
     void Awake()
     {
-        // TODO: assign tags before this
         p1Input = GameObject.FindGameObjectWithTag("Player1").GetComponentInChildren<PlayerInput>();
         p2Input = GameObject.FindGameObjectWithTag("Player2").GetComponentInChildren<PlayerInput>();
 
-        // Run the setup once when the game starts
         AssignDevices();
     }
 
     void OnEnable()
     {
-        // Subscribe to device changes when this script is active
         InputSystem.onDeviceChange += OnDeviceChange;
     }
 
@@ -29,19 +26,16 @@ public class InputManager : MonoBehaviour
 
     private void OnDeviceChange(InputDevice device, InputDeviceChange change)
     {
-        // We only want to rearrange things if a Gamepad was added or removed
         if (device is Gamepad)
         {
             if (change == InputDeviceChange.Added ||
                 change == InputDeviceChange.Disconnected ||
                 change == InputDeviceChange.Removed)
             {
-                Debug.Log($"Gamepad {change}! Rearranging inputs...");
                 AssignDevices();
             }
         }
     }
-
 
     private void AssignDevices()
     {
@@ -50,23 +44,27 @@ public class InputManager : MonoBehaviour
         // SCENARIO 1: Two Controllers
         if (pads.Count >= 2)
         {
-            p1Input.SwitchCurrentControlScheme("Controller", pads[0]);
-            p2Input.SwitchCurrentControlScheme("Controller", pads[1]);
-            Debug.Log("1");
+            // Give P1 the keyboard AND Pad 0
+            p1Input.SwitchCurrentControlScheme("P1Scheme", Keyboard.current, pads[0]);
+
+            // Give P2 the keyboard AND Pad 1
+            p2Input.SwitchCurrentControlScheme("P2Scheme", Keyboard.current, pads[1]);
         }
         // SCENARIO 2: One Controller, One Keyboard
         else if (pads.Count == 1)
         {
-            p1Input.SwitchCurrentControlScheme("Keyboard1", Keyboard.current);
-            p2Input.SwitchCurrentControlScheme("Controller", pads[0]);
-            Debug.Log("2");
+            // P1 gets JUST the keyboard
+            p1Input.SwitchCurrentControlScheme("P1Scheme", Keyboard.current);
+
+            // P2 gets the keyboard AND the single controller
+            p2Input.SwitchCurrentControlScheme("P2Scheme", Keyboard.current, pads[0]);
         }
         // SCENARIO 3: Two Players on one Keyboard
         else
         {
-            p1Input.SwitchCurrentControlScheme("Keyboard1", Keyboard.current);
-            p2Input.SwitchCurrentControlScheme("Keyboard2", Keyboard.current);
-            Debug.Log("3");
+            // Both get the keyboard, no controllers assigned
+            p1Input.SwitchCurrentControlScheme("P1Scheme", Keyboard.current);
+            p2Input.SwitchCurrentControlScheme("P2Scheme", Keyboard.current);
         }
     }
 }
