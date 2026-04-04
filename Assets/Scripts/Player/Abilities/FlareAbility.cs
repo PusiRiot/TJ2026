@@ -4,18 +4,22 @@ using UnityEngine;
 public class FlareAbility : AbstractAbility
 {
     #region Variables
-    // Any variable that is general to habilities should be added to the AbstractHability class, this class should only have variables specific to this hability
+    [SerializeField] private GameObject flarePrefab;
+    [SerializeField] private Transform flareSpawn;
+    private GameObject flareInstance;
     #endregion
 
     #region Virtual Methods
     override public void Activate()
     {
-        throw new System.NotImplementedException("Implement here");
+        flareInstance = Instantiate(flarePrefab, flareSpawn.position, flareSpawn.rotation);
+        flareInstance.GetComponent<FlareProjectile>().Initialize(_teamIndex, _playerStats);
+        flareInstance.GetComponent<AbstractLight>().SetTeam(_teamIndex);
     }
 
     public override void Stop()
     {
-        // IMPLEMENT
+        Destroy(flareInstance);
     }
 
     #endregion

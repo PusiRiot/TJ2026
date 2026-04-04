@@ -21,7 +21,7 @@
                     "id": "ebfd33a8-4720-4d01-a999-99b9eb821a01",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.4),Tap",
+                    "interactions": "Hold(duration=0.55),Tap",
                     "initialStateCheck": false
                 },
                 {
@@ -204,7 +204,7 @@
                     "id": "01f9c70b-91b6-4bbb-82d9-38e41ed0455a",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.5),Tap",
+                    "interactions": "Hold(duration=0.55),Tap",
                     "initialStateCheck": false
                 },
                 {
@@ -416,6 +416,17 @@
                     "name": "",
                     "id": "6d1fab48-941e-49ec-a17a-1035aaa8ff48",
                     "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "504e5e56-f0e6-47ff-8517-7c401b51fdeb",
+                    "path": "<Keyboard>/period",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

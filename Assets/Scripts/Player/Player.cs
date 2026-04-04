@@ -111,6 +111,7 @@ public class Player : MonoBehaviour
         if (actionsEnabled && isAbilityEnabled && ctx.performed)
         {
             playerAbility.Activate();
+            isAbilityEnabled = false;
         }
     }
 
@@ -220,6 +221,5 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-    public PlayerCombat GetPlayerCombat() { return playerCombat; }
     public int GetTeamIndex() { return _teamIndex; }
 }

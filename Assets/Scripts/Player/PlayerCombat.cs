@@ -38,12 +38,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private AbstractLight playerLight;
     private PlayerAnimator playerAnimator;
     private AbstractAbility playerAbility;
-
-    // Colliders
-    private GameObject regularCollider;
-    private GameObject heavyMeleeCollider;
-    private GameObject parryCollider;
-
     // Visual effects
     private ParticleSystem parrySparks;
     private ParticleSystem parryingSparks;
@@ -126,21 +120,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
                 healParticles = particle;
         }
 
-        // Colliders initialization
-        Collider[] colliders = GetComponentsInChildren<Collider>();
-        foreach (Collider c in colliders)
-        {
-            if (c.gameObject.CompareTag("RegularCollider"))
-                regularCollider = c.gameObject;
-            else if (c.gameObject.CompareTag("HeavyMeleeCollider"))
-                heavyMeleeCollider = c.gameObject;
-            else if (c.gameObject.CompareTag("ParryCollider"))
-                parryCollider = c.gameObject;
-        }
-
-        heavyMeleeCollider.SetActive(false);
-        parryCollider.SetActive(false);
-
         // Glow overlay materials initialization
         SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer playerMesh in playerMeshes)
@@ -183,6 +162,22 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         foreach (Material mat in deathGlowMaterials)
         {
             Destroy(mat);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!isAttackingHeavy) return;
+
+        PlayerCombat enemy = other.gameObject.GetComponentInParent<PlayerCombat>();
+        if (enemy != null && enemy != this && !alreadyHit && enemy.enabled)
+        {
+            isAttackingHeavy = false; // to avoid multiple collisions on the same attack
+            // effect
+            bool succesful = enemy.ReceiveHeavyMelee();
+            if (!succesful) ParryResponse();
+
+            alreadyHit = true;
         }
     }
 
@@ -247,9 +242,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         playerAnimator.TriggerHeavyAttack();
 
         //dash
-        regularCollider.SetActive(false);
-        parryCollider.SetActive(false);
-        heavyMeleeCollider.SetActive(true);
         isProtectedByParry = true;
         isAttackingHeavy = true;
         alreadyHit = false;
@@ -260,8 +252,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         isAttackingHeavy = false;
         isProtectedByParry = false;
         playerAnimator.CancelAttack();
-        regularCollider.SetActive(true);
-        heavyMeleeCollider.SetActive(false);
     }
 
     IEnumerator LightAttack()
@@ -284,22 +274,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
                 // effect
                 enemy.ReceiveLightMelee();
             }
-        }
-    }
-   
-    void OnCollisionStay(Collision collision)
-    {
-        if (!isAttackingHeavy) return;
-
-        PlayerCombat enemy = collision.gameObject.GetComponentInParent<PlayerCombat>();
-        if (enemy != null && enemy != this && !alreadyHit && enemy.enabled)
-        {
-            isAttackingHeavy = false; // to avoid multiple collisions on the same attack
-            // effect
-            bool succesful = enemy.ReceiveHeavyMelee();
-            if (!succesful) ParryResponse();
-
-            alreadyHit = true;
         }
     }
     #endregion
@@ -334,9 +308,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         parryingSparks.Play();
         isProtectedByParry = true;
         playerMovement.DisableMovement(true);
-        regularCollider.SetActive(false);
-        heavyMeleeCollider.SetActive(false);
-        parryCollider.SetActive(true);
 
         yield return new WaitForSeconds(_parryDuration);
 
@@ -351,8 +322,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             playerAnimator.CancelParry();
 
         parryingSparks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        parryCollider.SetActive(false);
-        regularCollider.SetActive(true);
         isProtectedByParry = false;
         playerMovement.DisableMovement(false);
     }
@@ -439,9 +408,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         foreach (Material mat in deathGlowMaterials)
         {
             Color teamColor = GameManager.Instance.GetTeamColor(_teamIndex);
-            teamColor.a = 0.4f; // Set the alpha to 0.5 for a semi-transparent effect
+            teamColor.a = 0.75f; // Set the alpha to 0.5 for a semi-transparent effect
             mat.SetColor("_Color", teamColor);
-            mat.SetFloat("_Fresnel", 0.75f); 
+            mat.SetFloat("_Fresnel", 1.5f); 
         }
 
         for (int i = 0; i < playerMeshes.Length; i++)

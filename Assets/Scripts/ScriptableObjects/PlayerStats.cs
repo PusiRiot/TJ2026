@@ -12,4 +12,9 @@ public class PlayerStats : ScriptableObject
     public float LifeDrainPulseCadence = 2f;
     public int LifeDrainPulseDamage = 1;
     public int LifeDrainPulseHeal = 1;
+
+    [Header("Flare - Peggy")]
+    public float FlareSpeed = 10f;
+    public float FlareLifetimeIfWall = 5f;
+    public float FlareLifetimeIfPlayer = 5f;
 }
