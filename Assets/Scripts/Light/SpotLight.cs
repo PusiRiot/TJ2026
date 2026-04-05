@@ -83,8 +83,6 @@ public class SpotLight : AbstractLight
         Collider[] hits = Physics.OverlapSphere(transform.position, viewRange);
         if (hits.Length == 0) return; // No colliders in range, skip
 
-        Debug.Log("isPulsing " + isPulsing + " alreadyDamageThisPulse " + alreadyDamageThisPulse);
-
         foreach (var hit in hits)
         {
             Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;

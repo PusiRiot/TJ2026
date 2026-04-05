@@ -32,7 +32,6 @@ public class Player : Subject<PlayerCombatEvent>
     private bool isLightMeleeEnabled = true;
     private bool isAbilityEnabled = true;
     private bool actionsEnabled = true;
-
     // cooldown durations
     private float _specialAbilityCooldownDuration = -1f;
     private float _lightMeleeCooldownDuration = -1f;
