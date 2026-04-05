@@ -346,10 +346,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         StopCoroutine(nameof(TurnLightOff));
         StartCoroutine(nameof(TurnLightOff), _heavyMeleeLightOffDuration);
 
-        // Interrupt player attacks
-        if (isChargingAttack)
-            player.CancelChargeAttack();
-
         StopCoroutine(LightAttack());
 
         // Damage
@@ -376,10 +372,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         // stun for one second
         StartCoroutine(Stun(_succesfulParryStunDuration, true));
-
-        // Interrupt player attacks
-        if (isChargingAttack)
-            player.CancelChargeAttack();
 
         StopCoroutine(LightAttack());
     }
@@ -454,6 +446,17 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     {
         if (enableAnimation)
             playerAnimator.TriggerStun();
+
+        // Interrupt player attacks
+        if (isChargingAttack)
+            player.CancelChargeAttack();
+
+        parryingSparks.Stop();
+        parrySparks.Stop();
+        chargeSparks.Stop();
+        attackSparks.Stop();
+        playerAnimator.CancelChargeAttack();
+        playerAnimator.CancelAttack();
 
         playerMovement.DisableMovement(true);
         playerMovement.ToggleRotation(false);

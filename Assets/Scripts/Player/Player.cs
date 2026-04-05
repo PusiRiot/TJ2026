@@ -152,6 +152,7 @@ public class Player : Subject<PlayerCombatEvent>
     public void CancelChargeAttack()
     {
         attackHoldAction.Disable();
+        playerAnimator.CancelChargeAttack();
         attackHoldAction.Enable();
     }
 
