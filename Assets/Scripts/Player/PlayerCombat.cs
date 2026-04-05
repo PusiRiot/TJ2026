@@ -455,10 +455,12 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             playerAnimator.TriggerStun();
 
         playerMovement.DisableMovement(true);
+        playerMovement.ToggleRotation(false);
         player.DisablePlayerActions();
 
         yield return new WaitForSeconds(duration);
         playerMovement.DisableMovement(false);
+        playerMovement.ToggleRotation(true);
         player.EnablePlayerActions();
 
         if (enableAnimation)
