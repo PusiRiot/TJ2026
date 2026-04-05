@@ -34,8 +34,8 @@ MonoBehaviour:
   GlowOverlayGlowUp: 0.2
   GlowOverlayGlowDown: 0.4
   LightMeleeDamage: 1
-  LightMeleeRange: 1
-  LightMeleeCooldownDuration: 1
+  LightMeleeRange: 1.25
+  LightMeleeCooldownDuration: 0.75
   HeavyMeleeDamage: 3
   HeavyMeleeDashDuration: 0.15
   HeavyMeleeDashSpeedIncrement: 7
