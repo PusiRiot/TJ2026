@@ -28,9 +28,11 @@ MonoBehaviour:
   CrystalInactiveResetPointsPerSecond: 30
   CrystalCooldownDuration: 15
   HealCadence: 2
-  HealAmount: 2
-  MaxLives: 6
+  HealAmount: 3
+  MaxLives: 9
   DeathDuration: 10
+  GlowOverlayGlowUp: 0.2
+  GlowOverlayGlowDown: 0.4
   LightMeleeDamage: 1
   LightMeleeRange: 1
   LightMeleeCooldownDuration: 1

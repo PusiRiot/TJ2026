@@ -6,11 +6,10 @@ using UnityEngine.UIElements;
 public class InsectParticles : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask;
-    [SerializeField] private float baseParticleSpawnRate;
     ParticleSystem ps;
     ParticleSystemRenderer psRenderer;
+    Light flashlight;
 
-    private SpotLight spotLight;
     private MaterialPropertyBlock propBlock;
 
     // This string must match the Reference string of the Matrix property in Shader Graph
@@ -23,7 +22,7 @@ public class InsectParticles : MonoBehaviour
         ps = GetComponent<ParticleSystem>();
         psRenderer = GetComponent<ParticleSystemRenderer>();
         propBlock = new MaterialPropertyBlock();
-        //spotLight = GetComponentInParent<SpotLight>();
+        flashlight = GetComponentInParent<Light>();
     }
 
     private void LateUpdate()
@@ -40,10 +39,10 @@ public class InsectParticles : MonoBehaviour
         // 2. Pass this GameObject's world-to-local matrix into the shader
         propBlock.SetMatrix(WorldToLocalMatrixID, transform.worldToLocalMatrix);
 
-        float length = 10.0f;
+        float length = flashlight.range;
 
         // Check line of sight
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit rh, layerMask))
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit rh, layerMask) && rh.distance < length)
         {
             length = rh.distance;
         }

@@ -391,6 +391,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         // disable actions and world interaction
         player.DisableWorldInteraction();
+        playerAbility.Stop();   
 
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up

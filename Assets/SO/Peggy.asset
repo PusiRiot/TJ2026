@@ -19,5 +19,5 @@ MonoBehaviour:
   LifeDrainPulseDamage: 1
   LifeDrainPulseHeal: 1
   FlareSpeed: 20
-  FlareLifetimeIfWall: 5
-  FlareLifetimeIfPlayer: 5
+  FlareLifetimeIfWall: 4
+  FlareLifetimeIfPlayer: 4
