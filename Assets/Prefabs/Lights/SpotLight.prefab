@@ -4900,8 +4900,8 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 7
   m_Range: 12
-  m_SpotAngle: 75
-  m_InnerSpotAngle: 75
+  m_SpotAngle: 80
+  m_InnerSpotAngle: 80
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 2
@@ -5027,7 +5027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpotLight
   viewRange: 11
-  viewAngle: 43
+  viewAngle: 42
   ignorePlayerMask:
     serializedVersion: 2
     m_Bits: 63
