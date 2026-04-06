@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8835080883168464641}
   - component: {fileID: 8505222972508106658}
+  - component: {fileID: 7990414180188765853}
+  - component: {fileID: -4807755040218436430}
+  - component: {fileID: -3931629147574428076}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,3 +48,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameStats: {fileID: 11400000, guid: 433977458b07cd544a9b7350d1e96774, type: 2}
+--- !u!114 &7990414180188765853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576014243561465109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059a1e5537e2bf245b5208d55c7b391f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealSpawn
+--- !u!114 &-4807755040218436430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576014243561465109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a54bea2adfbecb04d80b063b1f77d6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlobalLightManager
+  fallOffExponent: 20
+--- !u!114 &-3931629147574428076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576014243561465109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84491a821c97cfe4e9159a6c66d1ae4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager
