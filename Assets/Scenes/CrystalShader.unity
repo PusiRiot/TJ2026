@@ -483,7 +483,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 02dc26fa2b32e63428a5a41e96ef349e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: ed70fa9852f2a7a4094d93229d822149, type: 2}
+      objectReference: {fileID: 2100000, guid: 047761a57a95f7a449a1744f60397ec7, type: 2}
     - target: {fileID: 919132149155446097, guid: 02dc26fa2b32e63428a5a41e96ef349e, type: 3}
       propertyPath: m_Name
       value: crystal
