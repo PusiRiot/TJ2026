@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.Interactions;
 /// <para>Configurable attributes are taken from an Scriptable object (PlayerStats). Again because there might be different players, but the skeleton/core should be the same for all.</para>
 /// </summary>
 
-public class Player : MonoBehaviour
+public class Player : Subject<PlayerCombatEvent>
 {
     #region Variables
     // Read-only variables (preceded by _ (can't be set to readonly because they have to be initialized on runtime))
@@ -32,7 +32,6 @@ public class Player : MonoBehaviour
     private bool isLightMeleeEnabled = true;
     private bool isAbilityEnabled = true;
     private bool actionsEnabled = true;
-
     // cooldown durations
     private float _specialAbilityCooldownDuration = -1f;
     private float _lightMeleeCooldownDuration = -1f;
@@ -42,6 +41,8 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        base.AddObserversOnScene();
+
         if (CompareTag("Player1"))
             _teamIndex = 0;
         else
@@ -112,6 +113,7 @@ public class Player : MonoBehaviour
         {
             playerAbility.Activate();
             isAbilityEnabled = false;
+            Notify(PlayerCombatEvent.AbilityDisabled, new int[] { _teamIndex });
         }
     }
 
@@ -150,6 +152,7 @@ public class Player : MonoBehaviour
     public void CancelChargeAttack()
     {
         attackHoldAction.Disable();
+        playerAnimator.CancelChargeAttack();
         attackHoldAction.Enable();
     }
 
@@ -215,9 +218,11 @@ public class Player : MonoBehaviour
 
     IEnumerator AbilityCooldown(float duration)
     {
+        Notify(PlayerCombatEvent.AbilityDisabled, new int[] { _teamIndex });
         isAbilityEnabled = false;
         yield return new WaitForSeconds(duration);
         isAbilityEnabled = true;
+        Notify(PlayerCombatEvent.AbilityEnabled, new int[] { _teamIndex });
     }
 
     #endregion

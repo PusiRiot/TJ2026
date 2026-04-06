@@ -101,10 +101,15 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     {
         currentStamina += _staminaRegenRate * Time.fixedDeltaTime;
 
+        if(currentStamina - _staminaConsumption >= 0)
+        {
+            Notify(PlayerMovementEvent.DashEnabled, _teamIndex);
+        }
+
         if (currentStamina >= _maxStamina)
         {
             currentStamina = _maxStamina;
-            Notify(PlayerMovementEvent.DashEnabled, _teamIndex);
+            
         }
     }
 
@@ -156,6 +161,18 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         moveInput = new Vector2(horizontal, vertical);
     }
 
+    public void ToggleRotation(bool enabled)
+    {
+        if(enabled)
+        {
+            _rotationSpeed = GameManager.Instance.GetPlayerRotationSpeed();
+        }
+        else
+        {
+            _rotationSpeed = 0.0f;
+        }
+    }
+
     /// <summary>
     /// Disable movement for a specific amount of time. Doesn't disable rotation
     /// </summary>
@@ -176,6 +193,13 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         if (!movementDisabled && !dashExecuting && currentStamina >= _staminaConsumption)
         {
             StartCoroutine(DashMovement(_dashDuration, _dashSpeedIncrement));
+            currentStamina -= _staminaConsumption;
+
+            if(currentStamina <= 0)
+            {
+                currentStamina = 0;
+                Notify(PlayerMovementEvent.DashConsumed, _teamIndex);
+            } 
         }
     }
 

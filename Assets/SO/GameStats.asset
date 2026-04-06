@@ -28,14 +28,14 @@ MonoBehaviour:
   CrystalInactiveResetPointsPerSecond: 30
   CrystalCooldownDuration: 15
   HealCadence: 2
-  HealAmount: 2
-  MaxLives: 6
+  HealAmount: 3
+  MaxLives: 9
   DeathDuration: 10
   GlowOverlayGlowUp: 0.2
   GlowOverlayGlowDown: 0.4
   LightMeleeDamage: 1
-  LightMeleeRange: 1
-  LightMeleeCooldownDuration: 1
+  LightMeleeRange: 1.25
+  LightMeleeCooldownDuration: 0.75
   HeavyMeleeDamage: 3
   HeavyMeleeDashDuration: 0.15
   HeavyMeleeDashSpeedIncrement: 7
@@ -43,8 +43,8 @@ MonoBehaviour:
   HeavyMeleeStunDuration: 0.2
   HeavyMeleeCooldownDuration: 1
   SuccesfulParryLightOffDuration: 4
-  SuccesfulParryStunDuration: 1
-  ParryDuration: 1.25
+  SuccesfulParryStunDuration: 2.5
+  ParryDuration: 1.1
   ParryCooldownDuration: 1
   PlayerRotationSpeed: 5
   DashDuration: 0.075

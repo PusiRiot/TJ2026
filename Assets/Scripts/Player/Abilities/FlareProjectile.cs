@@ -28,14 +28,11 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("A");
         if(collision.gameObject.CompareTag("Player" + (teamIndex + 1)))
         {
             // ignore collision with player of the same team
             return;
         }
-
-        Debug.Log("B");
 
         rb.linearVelocity = Vector3.zero;
         rb.isKinematic = true;

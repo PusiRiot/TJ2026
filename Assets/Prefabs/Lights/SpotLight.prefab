@@ -288,7 +288,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.275
+      scalar: 0.325
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -666,7 +666,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 8
-    angle: 20
+    angle: 40
     length: 10.848327
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -1309,8 +1309,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.8415094, g: 0, b: 0, a: 0}
-        key1: {r: 0.40370154, g: 0.83396226, b: 0, a: 1}
+        key0: {r: 0.43364787, g: 0.7433963, b: 0, a: 0}
+        key1: {r: 0.8352941, g: 0, b: 0.023638664, a: 1}
         key2: {r: 1, g: 1, b: 1, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1333,7 +1333,7 @@ ParticleSystem:
         atime5: 0
         atime6: 0
         atime7: 0
-        m_Mode: 0
+        m_Mode: 2
         m_ColorSpace: 0
         m_NumColorKeys: 2
         m_NumAlphaKeys: 4
@@ -4853,7 +4853,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 55
-  baseParticleSpawnRate: 2
 --- !u!1 &7881543312527294210
 GameObject:
   m_ObjectHideFlags: 0
@@ -4881,7 +4880,7 @@ Transform:
   m_GameObject: {fileID: 7881543312527294210}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: -1.09}
+  m_LocalPosition: {x: 0, y: -0.5, z: -0.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4900,9 +4899,9 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 7
-  m_Range: 11
-  m_SpotAngle: 45.095596
-  m_InnerSpotAngle: 45.095596
+  m_Range: 12
+  m_SpotAngle: 80
+  m_InnerSpotAngle: 80
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 2
@@ -5027,21 +5026,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886c4db1663e63b47b27b62492798aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpotLight
-  viewRange: 9
-  viewAngle: 26
+  viewRange: 11
+  viewAngle: 42
   ignorePlayerMask:
     serializedVersion: 2
     m_Bits: 63
-  ignoreCrystalMask:
+  lifeDrainPlayer1Mask:
+    serializedVersion: 2
+    m_Bits: 311
+  lifeDrainPlayer2Mask:
     serializedVersion: 2
     m_Bits: 119
-  justCrystalHeal:
-    serializedVersion: 2
-    m_Bits: 136
-  regularParticlesEmission: 80
+  regularParticlesEmission: 200
   pulseVisualsDuration: 0.6
   pulseIntensityMultiplier: 1
   pulseAnimationDuration: 0.1
   pulseParticlesStartLifetime: 0.3
   pulseParticlesStartSpeed: -18
-  pulseParticlesEmission: 500
+  pulseParticlesEmission: 1000

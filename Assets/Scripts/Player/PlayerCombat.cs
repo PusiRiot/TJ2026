@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Searcher;
 using UnityEngine;
 
 public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEvent>
@@ -60,6 +61,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private bool isAttackingHeavy = false;
     private bool isChargingAttack = false;
     private bool alreadyHit = false; // to prevent hitting multiple times with the heavy melee dash
+    private bool isDead = false;
 
     public void Initialize(int teamIndex)
     {
@@ -165,7 +167,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (!isAttackingHeavy) return;
 
@@ -344,11 +346,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         StopCoroutine(nameof(TurnLightOff));
         StartCoroutine(nameof(TurnLightOff), _heavyMeleeLightOffDuration);
 
-        // Interrupt player attacks
-        if (isChargingAttack)
-            player.CancelChargeAttack();
-
-        playerAbility.Stop();
         StopCoroutine(LightAttack());
 
         // Damage
@@ -376,11 +373,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         // stun for one second
         StartCoroutine(Stun(_succesfulParryStunDuration, true));
 
-        // Interrupt player attacks
-        if (isChargingAttack)
-            player.CancelChargeAttack();
-
-        playerAbility.Stop();
         StopCoroutine(LightAttack());
     }
 
@@ -389,9 +381,10 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         Notify(PlayerCombatEvent.Death, _teamIndex);
         currentLives = _maxLives;
 
+        isDead = true;
         // disable actions and world interaction
         player.DisableWorldInteraction();
-
+        playerAbility.Stop();
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
 
@@ -430,6 +423,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         // enable actions and world interaction
         player.EnableWorldInteraction();
+        isDead = false;
 
         // Revert materials back to the original ones
         for (int i = 0; i < playerMeshes.Length; i++)
@@ -453,12 +447,30 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         if (enableAnimation)
             playerAnimator.TriggerStun();
 
+        // Interrupt player attacks
+        if (isChargingAttack)
+            player.CancelChargeAttack();
+
+        parryingSparks.Stop();
+        parrySparks.Stop();
+        chargeSparks.Stop();
+        attackSparks.Stop();
+        playerAnimator.CancelChargeAttack();
+        playerAnimator.CancelAttack();
+
         playerMovement.DisableMovement(true);
+        playerMovement.ToggleRotation(false);
+        playerAbility.Stop();
         player.DisablePlayerActions();
 
         yield return new WaitForSeconds(duration);
+
+        if(!isDead)
+        {
+            player.EnablePlayerActions();
+        }
         playerMovement.DisableMovement(false);
-        player.EnablePlayerActions();
+        playerMovement.ToggleRotation(true);
 
         if (enableAnimation)
             playerAnimator.CancelStun();

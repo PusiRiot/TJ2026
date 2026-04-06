@@ -4673,10 +4673,6 @@ MonoBehaviour:
     m_ActionId: dfe97477-2a44-4867-a10f-730eca1de69e
     m_ActionName: 'Player 1/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8c02ec49-a3aa-4f2a-a407-4ee2780c8663
-    m_ActionName: 'Player 2/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7142732147414197017}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
@@ -4709,14 +4705,6 @@ MonoBehaviour:
     m_ActionId: 74ac69a2-f4c2-47f6-9722-2b73297c78da
     m_ActionName: 'Player 1/Parry[/Keyboard/shift]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 01f9c70b-91b6-4bbb-82d9-38e41ed0455a
-    m_ActionName: 'Player 2/Attack[/Keyboard/rightShift]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 305a3582-beda-4ba1-b0d2-2c77271b9ced
-    m_ActionName: 'Player 2/Parry[/Keyboard/rightCtrl]'
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7142732147414197017}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
@@ -4732,10 +4720,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9bddcf01-819f-4ff0-a168-7e4123050a73
     m_ActionName: 'Player 1/Dash[/Keyboard/capsLock]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d912ead6-f104-45d9-96c2-6af032fe06bc
-    m_ActionName: 'Player 2/Dash[/Keyboard/rightCtrl]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7142732147414197017}
@@ -4753,10 +4737,6 @@ MonoBehaviour:
     m_ActionId: 9fb0e513-79b0-4fee-bef9-75020b7309a6
     m_ActionName: 'Player 1/Pause[/Keyboard/escape]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7fcf5142-ab27-4fcb-b423-4fe9ad8c1c20
-    m_ActionName: Player 2/New action
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7142732147414197017}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
@@ -4772,9 +4752,9 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9ab8a384-fee1-4dbf-9e21-749c0dd9557e
     m_ActionName: 'Player 1/Hability[/Keyboard/tab]'
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player 1
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: P1Scheme
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &7142732147414197017
