@@ -357,7 +357,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: -1.2, y: 1.2, z: 1.2}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2884428233925926510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1611,6 +1611,9 @@ MonoBehaviour:
   playerDashEnabled:
   - {fileID: 2848262320841196326}
   - {fileID: 2371943404498629940}
+  playerAbilityEnabled:
+  - {fileID: 0}
+  - {fileID: 0}
   playerLives:
   - {fileID: 4261821529929702774}
   - {fileID: 6071264945397409728}
