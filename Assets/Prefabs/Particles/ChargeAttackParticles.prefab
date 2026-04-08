@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7521437221650928649}
   - component: {fileID: 5942514656106424069}
   - component: {fileID: 1503060324202938676}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ChargeAttackParticles
   m_TagString: ChargeAttackParticles
   m_Icon: {fileID: 0}

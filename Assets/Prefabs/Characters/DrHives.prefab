@@ -4584,7 +4584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8877095996779028710
 Transform:
   m_ObjectHideFlags: 0
@@ -5074,18 +5074,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 8877095996779028710}
     m_Modifications:
     - target: {fileID: 3816165549230168845, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3816165549230168845, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3816165549230168845, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3816165549230168845, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -5125,32 +5113,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3972496381624273312, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
-      propertyPath: detectCrystalMask.m_Bits
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5832217880122826955, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664820850225874385, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
-      propertyPath: m_SpotAngle
-      value: 29.91888
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664820850225874385, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
-      propertyPath: m_InnerSpotAngle
-      value: 29.91888
-      objectReference: {fileID: 0}
     - target: {fileID: 7597649379654322392, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
       propertyPath: m_Name
       value: SharedPlayerComponents
       objectReference: {fileID: 0}
-    - target: {fileID: 8679798609817929801, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
-      propertyPath: m_RenderingLayersMask.m_Bits
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5424887615111344851, guid: ede3170a6760b0941a63ba8b3d665cd6, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
