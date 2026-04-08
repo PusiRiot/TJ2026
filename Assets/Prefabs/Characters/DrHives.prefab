@@ -4580,11 +4580,11 @@ GameObject:
   - component: {fileID: 4946658058456989588}
   m_Layer: 6
   m_Name: DrHives
-  m_TagString: Player1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8877095996779028710
 Transform:
   m_ObjectHideFlags: 0
@@ -4753,7 +4753,7 @@ MonoBehaviour:
     m_ActionId: 9ab8a384-fee1-4dbf-9e21-749c0dd9557e
     m_ActionName: 'Player 1/Hability[/Keyboard/tab]'
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: P1Scheme
+  m_DefaultControlScheme: P2Scheme
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

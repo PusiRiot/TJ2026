@@ -24,7 +24,7 @@ public enum ScreenName
 
 public enum PlayerCharacter
 {
-    Brawlight,
+    DrHives,
     Peggy
 }
 
@@ -52,4 +52,10 @@ public enum PlayerCombatEvent
     StartAbilityCooldown, // data = (int)teamIndex
     AbilityEnabled, // data = (int)teamIndex
     AbilityDisabled, // data = (int)teamIndex
+}
+
+public enum InputManagerEvent
+{
+    DeviceChangeP1, // data = (int) controlScheme 0 = keyboard, 1 = gamepad
+    DeviceChangeP2, // data = (int) controlScheme 0 = keyboard, 1 = gamepad
 }

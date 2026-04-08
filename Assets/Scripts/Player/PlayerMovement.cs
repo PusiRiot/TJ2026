@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -93,7 +92,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
             rb.linearVelocity = motionVector.normalized * speed;
 
             // Animation walk forward
-            playerAnimator.Motion = motionVector.magnitude;
+            playerAnimator.Motion = rb.linearVelocity.magnitude;
         }
     }
 
