@@ -180,14 +180,14 @@ public class CharacterSelection : MonoBehaviour
         string readyKey = GetBindingForCurrentDevice("Ready", layout); // Your action name
 
         if (infoShown)
-            infoText.text = $"{infoKey} - Info";
-        else 
             infoText.text = $"{infoKey} - Hide Info";
+        else 
+            infoText.text = $"{infoKey} - Info";
 
         if (ready)
-            readyText.text = $"{readyKey} - Ready";
+            readyText.text = $"{readyKey} - UnReady";
         else
-            readyText.text = $"{readyKey} - Unready";
+            readyText.text = $"{readyKey} - ready";
     }
     private string GetBindingForCurrentDevice(string actionName, string layout)
     {
