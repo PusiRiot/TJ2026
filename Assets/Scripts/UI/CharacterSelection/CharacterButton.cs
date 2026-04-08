@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
-/// Character selection button, when pressed, assigns the character to the player that pressed it and updates the character screen with the new character info.
+/// Character selection button. It has methods to show animation when selected and a reference to the character it represents
 /// </summary>
 public class CharacterButton : MonoBehaviour
 {
@@ -27,7 +22,7 @@ public class CharacterButton : MonoBehaviour
     }
 
     /// <summary>
-    /// Assign the character to the player that pressed the button and update the player character screen with the new character info.
+    /// Select animation for player that selected and returns the button character
     /// </summary>
     public PlayerCharacter Select(int playerIndex)
     {
@@ -39,7 +34,7 @@ public class CharacterButton : MonoBehaviour
     }
 
     /// <summary>
-    /// Change the outline of the button when the player is hovering it to show which character they are currently hovering on.
+    /// Stop animation of player that deselected
     /// </summary>
     /// <param name="eventData"></param>
     public void Deselect(int playerIndex)

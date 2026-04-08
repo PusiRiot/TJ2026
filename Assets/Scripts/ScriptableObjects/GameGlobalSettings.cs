@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// This is where the current game global settings are stored (selected player characters, global score...)
+/// This is where the current game global settings are stored (selected player characters...)
 /// </summary>
 public class GameGlobalSettings : MonoBehaviour
 {

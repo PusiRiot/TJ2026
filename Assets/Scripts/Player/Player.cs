@@ -227,4 +227,5 @@ public class Player : Subject<PlayerCombatEvent>
 
     #endregion
     public int GetTeamIndex() { return _teamIndex; }
+    public PlayerCharacter GetPlayerCharacter() { return _playerStats.character; }
 }

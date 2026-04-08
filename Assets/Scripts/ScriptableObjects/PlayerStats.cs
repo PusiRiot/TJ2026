@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Scriptable Objects/PlayerStats")]
 public class PlayerStats : ScriptableObject
 {
+    public PlayerCharacter character;
+
     [Header("General")]
     public float Speed = 10f;
     public float AbilityCooldownDuration = 10f;
