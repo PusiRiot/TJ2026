@@ -319,6 +319,7 @@ public class Crystal : MonoBehaviour
         float deltaTime = Time.deltaTime;
         float capturePointsGained = deltaTime * reclaimPointsPerSecond;
         reclaimPointsCurrent += capturePointsGained;
+        captureProgressBar.gameObject.SetActive(true);
     }
 
 
