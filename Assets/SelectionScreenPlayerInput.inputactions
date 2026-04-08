@@ -70,7 +70,7 @@
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller;P1Scheme;P2Scheme",
+                    "groups": "Controller;P1Scheme",
                     "action": "Ready",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -92,7 +92,7 @@
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller;P1Scheme;P2Scheme",
+                    "groups": "Controller;P1Scheme",
                     "action": "Info",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -114,7 +114,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller;P1Scheme;P2Scheme",
+                    "groups": "Controller;P1Scheme",
                     "action": "Esc",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -136,7 +136,7 @@
                     "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";P1Scheme;P2Scheme",
+                    "groups": ";P1Scheme",
                     "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -147,7 +147,7 @@
                     "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";P1Scheme;P2Scheme",
+                    "groups": ";P1Scheme",
                     "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -169,7 +169,7 @@
                     "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";P2Scheme;P1Scheme",
+                    "groups": ";P1Scheme",
                     "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -180,7 +180,7 @@
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";P2Scheme;P1Scheme",
+                    "groups": ";P1Scheme",
                     "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -373,5 +373,38 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "P1Scheme",
+            "bindingGroup": "P1Scheme",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "P2Scheme",
+            "bindingGroup": "P2Scheme",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

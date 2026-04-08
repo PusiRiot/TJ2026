@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,11 +21,12 @@ public class CharacterSelection : MonoBehaviour
     bool ready = false;
     public bool PlayerReady => ready;
     public UnityEvent<bool> PlayerReadyChanged;
+    InputDevice lastDevice;
 
     void OnEnable()
     {
         _playerIndex = gameObject.CompareTag("Player1") ? 0 : 1; // it is important that this goes onEnable because it must be initialized, and OnEnable is before Start
-        InputSystem.onDeviceChange += OnDeviceChange;
+        InputSystem.onDeviceChange += OnDeviceChange; 
         playerInput.actionMaps[_playerIndex].FindAction("Left").performed += OnLeft;
         playerInput.actionMaps[_playerIndex].FindAction("Right").performed += OnRight;
         playerInput.actionMaps[_playerIndex].FindAction("Info").performed += OnInfo;
@@ -41,15 +41,43 @@ public class CharacterSelection : MonoBehaviour
         playerInput.actionMaps[_playerIndex].FindAction("Info").performed -= OnInfo;
         playerInput.actionMaps[_playerIndex].FindAction("Ready").performed -= OnReady;
     }
+
     private void OnDeviceChange(InputDevice device, InputDeviceChange change)
     {
         UpdateUI(device.name);
+        AssignDevices();
+        
     }
+    private void AssignDevices()
+    {
+        var pads = Gamepad.all;
+        // Player 2
+        if (_playerIndex == 1)
+        {
+            if (pads.Count == 0)
+                playerInput.actionMaps[1].devices = new InputDevice[] { Keyboard.current };
+            else if (pads.Count >= 1)
+                playerInput.actionMaps[1].devices = new InputDevice[] { Keyboard.current, pads[0] };
+
+        }
+
+        // Player 1
+        if (_playerIndex == 0)
+        {
+            if (pads.Count <= 1)
+                playerInput.actionMaps[0].devices = new InputDevice[] { Keyboard.current };
+            else
+                playerInput.actionMaps[0].devices = new InputDevice[] { Keyboard.current, pads[1] };
+        }
+    }
+
 
     // this cannot go on Awake because other scripts must initialize before
     void Start()
     {
         playerInput.actionMaps[_playerIndex].Enable(); // Enable the first action map (you may want to specify which one if you have multiple)
+
+        AssignDevices();
 
         // Get references to character screens and buttons
         characterScreens = GetComponentsInChildren<CharacterScreen>(true);
@@ -96,6 +124,7 @@ public class CharacterSelection : MonoBehaviour
     {
         if (!ctx.performed) return;
 
+        UpdateUI(ctx.action.activeControl.device.name);
         characterButtons[currentIndex].Deselect(_playerIndex);
 
         currentIndex = (currentIndex - 1 + characterButtons.Length) % characterButtons.Length;
@@ -107,6 +136,7 @@ public class CharacterSelection : MonoBehaviour
     {
         if (!ctx.performed) return;
 
+        UpdateUI(ctx.action.activeControl.device.name);
         characterButtons[currentIndex].Deselect(_playerIndex);
 
         currentIndex = (currentIndex + 1) % characterButtons.Length;
@@ -140,34 +170,17 @@ public class CharacterSelection : MonoBehaviour
     {
         InputAction action = playerInput.actionMaps[_playerIndex].FindAction(actionName);
 
-        int bindingIndex = GetBindingIndexForDevice(action, layout);
-
-        if (bindingIndex < 0)
-            return "N/A";
+        // binding index always has to be set up so 0 is for keyboard and 1 for gamepad
+        int bindingIndex = 0;
+        if (!layout.Contains("keyboard", System.StringComparison.OrdinalIgnoreCase))
+            bindingIndex = 1;
 
         return action.GetBindingDisplayString(bindingIndex);
     }
 
-    private int GetBindingIndexForDevice(InputAction action, string layout)
-    {
-        for (int i = 0; i < action.bindings.Count; i++)
-        {
-            var binding = action.bindings[i];
-
-            // Skip composites like "2DVector"
-            if (binding.isComposite || binding.isPartOfComposite)
-                continue;
-
-            // Match device layout
-            if (binding.path.Contains(layout, System.StringComparison.OrdinalIgnoreCase))
-                return i;
-        }
-
-        return -1;
-    }
-
     private void UpdateUI(string layout)
     {
+        if (layout == null) return; 
         string infoKey = GetBindingForCurrentDevice("Info", layout);   // Your action name
         string readyKey = GetBindingForCurrentDevice("Ready", layout); // Your action name
 

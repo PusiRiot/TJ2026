@@ -41,10 +41,10 @@ public class InputManager : MonoBehaviour
         if (pads.Count >= 2)
         {
             // Give P1 the keyboard AND Pad 0
-            p1Input.SwitchCurrentControlScheme("P1Scheme", Keyboard.current, pads[1]);
+            p1Input.SwitchCurrentControlScheme("P1Scheme", Keyboard.current, pads[0]);
 
             // Give P2 the keyboard AND Pad 1
-            p2Input.SwitchCurrentControlScheme("P2Scheme", Keyboard.current, pads[0]);
+            p2Input.SwitchCurrentControlScheme("P2Scheme", Keyboard.current, pads[1]);
         }
         // SCENARIO 2: One Controller, One Keyboard
         else if (pads.Count == 1)
