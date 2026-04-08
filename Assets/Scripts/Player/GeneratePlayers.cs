@@ -29,9 +29,4 @@ public class GeneratePlayers : MonoBehaviour
             }
         }       
     }
-
-    private void Start()
-    {
-        gameObject.AddComponent<InputManager>();
-    }
 }
