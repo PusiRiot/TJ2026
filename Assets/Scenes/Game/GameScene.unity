@@ -1309,7 +1309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f402d0f47dd745e438bb8c0384c88d7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrystalSpawner
-  numCrystalsToSpawn: 11
+  numCrystalsToSpawn: 9
   minCrystalsPerBlock: 2
   nwSpawns:
   - {fileID: 864671104}
