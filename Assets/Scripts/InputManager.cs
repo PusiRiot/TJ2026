@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// This can't be on scene, it has to be generated on runtime by GeneratePlayers class because of script execution order
+/// </summary>
 public class InputManager : MonoBehaviour
 {
     PlayerInput p1Input;
@@ -35,6 +38,9 @@ public class InputManager : MonoBehaviour
 
     private void AssignDevices()
     {
+        // If you dont assign a control scheme by default in the player input prefab it throws an error,
+        // i dont know how to fix that bug so if this method is throwing an error please
+        // check if the prefab has a default control scheme different than <any>
         var pads = Gamepad.all;
 
         // SCENARIO 1: Two Controllers

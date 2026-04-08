@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b0a674da9d04b45ba8bb98da3721dd, type: 3}
   m_Name: Peggy
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  character: 1
   Speed: 10
   AbilityCooldownDuration: 8
   LifeDrainNumPulses: 3
