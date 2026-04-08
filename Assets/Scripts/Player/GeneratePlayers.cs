@@ -23,10 +23,15 @@ public class GeneratePlayers : MonoBehaviour
                     GameObject instanciated = Instantiate(p);
                     instanciated.transform.position = startPosition[i].position;
                     instanciated.tag = i == 0 ? "Player1" : "Player2";
-                    p.SetActive(true);
+                    instanciated.SetActive(true);
                     break;
                 }
             }
-        }
+        }       
+    }
+
+    private void Start()
+    {
+        gameObject.AddComponent<InputManager>();
     }
 }

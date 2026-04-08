@@ -1648,7 +1648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b25026577a83cf4ab3bffd10e7d3685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSelection
-  playerInput: {fileID: -944628639613478452, guid: c8a22fa61b11bc445aeededca9621add, type: 3}
+  inputAction: {fileID: -944628639613478452, guid: c8a22fa61b11bc445aeededca9621add, type: 3}
   infoText: {fileID: 3713055753630433372}
   readyText: {fileID: 7161697352669052442}
   readyImage: {fileID: 6668177918927430470}
@@ -1717,7 +1717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b25026577a83cf4ab3bffd10e7d3685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSelection
-  playerInput: {fileID: -944628639613478452, guid: c8a22fa61b11bc445aeededca9621add, type: 3}
+  inputAction: {fileID: -944628639613478452, guid: c8a22fa61b11bc445aeededca9621add, type: 3}
   infoText: {fileID: 7949021373392326709}
   readyText: {fileID: 4977663060058615364}
   readyImage: {fileID: 6815443439859914170}

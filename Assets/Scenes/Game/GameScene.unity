@@ -1839,7 +1839,7 @@ GameObject:
   - component: {fileID: 1390013213}
   - component: {fileID: 1390013214}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DontDestroyOnLoad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2438,7 +2438,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3931629147574428076, guid: 7ee117f3fa677024284c52659ee7598b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

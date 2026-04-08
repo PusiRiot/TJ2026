@@ -39,7 +39,7 @@ public class Player : Subject<PlayerCombatEvent>
     private float _parryCooldownDuration = -1f;
     #endregion
 
-    void Awake()
+    void Start() // IMPORTANT! This cant be on Awake because of script execution order related to prefab instanciation
     {
         base.AddObserversOnScene();
 
