@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6277894655264650861}
   m_Layer: 0
   m_Name: StunIdleParticles
-  m_TagString: Untagged
+  m_TagString: StunIdleParticles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -40,7 +40,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private PlayerAnimator playerAnimator;
     private AbstractAbility playerAbility;
     // Visual effects
-    private ParticleSystem parrySparks;
+    private ParticleSystem stunBurstParticles;
+    private ParticleSystem stunIdleParticles;
     private ParticleSystem parryingSparks;
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
@@ -109,17 +110,38 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         // Particles initialization
         ParticleSystem[] particles = GetComponentsInChildren<ParticleSystem>();
-        foreach (ParticleSystem particle in particles) {
-            if (particle.gameObject.CompareTag("ParrySparkParticles"))
-                parrySparks = particle;
+        foreach (ParticleSystem particle in particles)
+        {
+            if (particle.gameObject.CompareTag("StunBurstParticles"))
+            {
+                stunBurstParticles = particle;
+                Debug.Log(player.GetTeamIndex() + " Tag: StunBurstParticles, Name: " + particle.gameObject.name);
+            }
+            else if (particle.gameObject.CompareTag("StunIdleParticles"))
+            {
+                stunIdleParticles = particle;
+                Debug.Log(player.GetTeamIndex() + " Tag: StunIdleParticles, Name: " + particle.gameObject.name);
+            }
             else if (particle.gameObject.CompareTag("ChargeAttackParticles"))
+            {
                 chargeSparks = particle;
+                Debug.Log(player.GetTeamIndex() + " Tag: ChargeAttackParticles, Name: " + particle.gameObject.name);
+            }
             else if (particle.gameObject.CompareTag("AttackParticles"))
+            {
                 attackSparks = particle;
+                Debug.Log(player.GetTeamIndex() + " Tag: AttackParticles, Name: " + particle.gameObject.name);
+            }
             else if (particle.gameObject.CompareTag("ParryingParticles"))
+            {
                 parryingSparks = particle;
+                Debug.Log(player.GetTeamIndex() + " Tag: ParryingParticles, Name: " + particle.gameObject.name);
+            }
             else if (particle.gameObject.CompareTag("HealParticles"))
+            {
                 healParticles = particle;
+                Debug.Log(player.GetTeamIndex() + " Tag: HealParticles, Name: " + particle.gameObject.name);
+            }
         }
 
         // Glow overlay materials initialization
@@ -332,7 +354,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     {
         if (isProtectedByParry)
         {
-            parrySparks.Play();
             StopParry(true);
             return false;
         }
@@ -451,8 +472,14 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         if (isChargingAttack)
             player.CancelChargeAttack();
 
+        stunBurstParticles.Play();
+
+        if(duration > 0.25f)
+        {
+            stunIdleParticles.Play();
+        }
+
         parryingSparks.Stop();
-        parrySparks.Stop();
         chargeSparks.Stop();
         attackSparks.Stop();
         playerAnimator.CancelChargeAttack();
@@ -465,7 +492,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         yield return new WaitForSeconds(duration);
 
-        if(!isDead)
+        stunIdleParticles.Stop();
+
+        if (!isDead)
         {
             player.EnablePlayerActions();
         }
