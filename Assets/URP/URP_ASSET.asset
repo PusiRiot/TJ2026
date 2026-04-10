@@ -50,7 +50,7 @@ MonoBehaviour:
   m_AdditionalLightsShadowmapResolution: 8192
   m_AdditionalLightsShadowResolutionTierLow: 128
   m_AdditionalLightsShadowResolutionTierMedium: 256
-  m_AdditionalLightsShadowResolutionTierHigh: 512
+  m_AdditionalLightsShadowResolutionTierHigh: 256
   m_ReflectionProbeBlending: 1
   m_ReflectionProbeBoxProjection: 0
   m_ReflectionProbeAtlas: 1
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_SoftShadowsSupported: 1
   m_ConservativeEnclosingSphere: 1
   m_NumIterationsEnclosingSphere: 64
-  m_SoftShadowQuality: 3
+  m_SoftShadowQuality: 1
   m_AdditionalLightsCookieResolution: 4096
   m_AdditionalLightsCookieFormat: 0
   m_UseSRPBatcher: 1
