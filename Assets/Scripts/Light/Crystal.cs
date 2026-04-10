@@ -1,15 +1,7 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using NUnit.Framework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// Crystal class, attached to the crystal game objects. 
@@ -90,15 +82,15 @@ public class Crystal : MonoBehaviour
 
     private void Awake()
     {
-        inactiveResetTime = GameManager.Instance.GetCrystalTimeToInactiveReset();
-        reclaimPointsTotal = GameManager.Instance.GetTotalReclaimCrystalPoints();
-        inactiveMinusPointsPerSecond = GameManager.Instance.GetCrystalInactiveResetPointsPerSecond();
+        inactiveResetTime = GameStatsAccess.Instance.GetCrystalTimeToInactiveReset();
+        reclaimPointsTotal = GameStatsAccess.Instance.GetTotalReclaimCrystalPoints();
+        inactiveMinusPointsPerSecond = GameStatsAccess.Instance.GetCrystalInactiveResetPointsPerSecond();
         crystalLight = GetComponent<Light>();
         crystalLight.intensity = intensityWhileUnpicked; // Set initial intensity to the "unpicked" value, which is the default state of the crystal
 
-        teamsColor.Add(GameManager.Instance.GetTeamColor(0));   // Team 1 color
-        teamsColor.Add(GameManager.Instance.GetTeamColor(1));   // Team 2 color
-        teamsColor.Add(GameManager.Instance.GetTeamColor(2));   // Neutral color
+        teamsColor.Add(GameStatsAccess.Instance.GetTeamColor(0));   // Team 1 color
+        teamsColor.Add(GameStatsAccess.Instance.GetTeamColor(1));   // Team 2 color
+        teamsColor.Add(GameStatsAccess.Instance.GetTeamColor(2));   // Neutral color
 
         animator = GetComponent<Animator>();
 
@@ -315,7 +307,7 @@ public class Crystal : MonoBehaviour
         animateParticles = false;
         animateLight = false;
 
-        float reclaimPointsPerSecond = GameManager.Instance.GetReclaimCrystalPointsPerSecond();
+        float reclaimPointsPerSecond = GameStatsAccess.Instance.GetReclaimCrystalPointsPerSecond();
         float deltaTime = Time.deltaTime;
         float capturePointsGained = deltaTime * reclaimPointsPerSecond;
         reclaimPointsCurrent += capturePointsGained;
@@ -371,7 +363,7 @@ public class Crystal : MonoBehaviour
     private void CooldownStarted(int teamIndex) {
         isLit = true;
         cooldownActive = true;
-        crystalLight.color = GameManager.Instance.GetTeamColor(teamIndex);
+        crystalLight.color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
         crystalLight.intensity = intensityWhileCooling; // You can adjust this value or make it a serialized field if you want different intensity for different crystals
         StartCoroutine(CooldownCountdown());
     }
@@ -384,7 +376,7 @@ public class Crystal : MonoBehaviour
     IEnumerator CooldownCountdown()
     {
         // Make it so the cooldown ends exactly when the light turns off
-        yield return new WaitForSeconds(GameManager.Instance.GetCrystalCooldownDuration() - (intensityWhileCooling / animateLightRate));
+        yield return new WaitForSeconds(GameStatsAccess.Instance.GetCrystalCooldownDuration() - (intensityWhileCooling / animateLightRate));
         animateLight = true;
     }
 

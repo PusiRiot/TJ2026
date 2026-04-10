@@ -160,8 +160,8 @@ public class SpotLight : AbstractLight
         psEmission.rateOverTime = 0.0f;
         psMain.startLifetime = initialPsStartLifetime;
         psMain.startSpeed = initialPsStartSpeed;
-        targetColor = GameManager.Instance.GetTeamColor(teamIndex);
-        flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
+        targetColor = GameStatsAccess.Instance.GetTeamColor(teamIndex);
+        flashlight.color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
         isPulsing = false;
         Notify(PlayerCombatEvent.StartAbilityCooldown, new int[] { teamIndex });
     }
@@ -192,7 +192,7 @@ public class SpotLight : AbstractLight
     private IEnumerator LifeDrainPulseVisuals() 
     {
         isPulsing = true;
-        targetColor = GameManager.Instance.GetDamageColor();
+        targetColor = GameStatsAccess.Instance.GetDamageColor();
         targetIntensity *= pulseIntensityMultiplier;
         var psMain = lifeDrainParticles.main;
         psMain.startLifetime = pulseParticlesStartLifetime;
@@ -207,7 +207,7 @@ public class SpotLight : AbstractLight
         psMain.startLifetime = initialPsStartLifetime;
         psMain.startSpeed = initialPsStartSpeed;
         targetIntensity /= pulseIntensityMultiplier;
-        targetColor = GameManager.Instance.GetTeamColor(teamIndex);
+        targetColor = GameStatsAccess.Instance.GetTeamColor(teamIndex);
         isPulsing = false;
     }
 

@@ -1,15 +1,7 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using NUnit.Framework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// Heal class, attached to the heal game objects. 
@@ -50,13 +42,13 @@ public class Heal : Subject<PlayerCombatEvent>
     private void Awake()
     {
         base.AddObserversOnScene();
-        healCadence = GameManager.Instance.GetHealCadence();
-        healAmount = GameManager.Instance.GetHealAmount();
+        healCadence = GameStatsAccess.Instance.GetHealCadence();
+        healAmount = GameStatsAccess.Instance.GetHealAmount();
 
         animator = GetComponent<Animator>();
 
         spotlight = GetComponentInChildren<Light>();
-        spotlight.color = GameManager.Instance.GetHealColor();   // Change color to heal color
+        spotlight.color = GameStatsAccess.Instance.GetHealColor();   // Change color to heal color
 
         teamParticlesSize = greenParticles.main.startSize.constant;
 

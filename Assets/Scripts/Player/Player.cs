@@ -67,9 +67,9 @@ public class Player : Subject<PlayerCombatEvent>
         attackHoldAction = gameObject.GetComponent<PlayerInput>().actions.FindAction("Attack");
 
         _specialAbilityCooldownDuration = _playerStats.AbilityCooldownDuration;
-        _lightMeleeCooldownDuration = GameManager.Instance.LightMeleeCooldownDuration();
-        _heavyMeleeCooldownDuration = GameManager.Instance.HeavyMeleeCooldownDuration();
-        _parryCooldownDuration = GameManager.Instance.ParryCooldownDuration();
+        _lightMeleeCooldownDuration = GameStatsAccess.Instance.LightMeleeCooldownDuration();
+        _heavyMeleeCooldownDuration = GameStatsAccess.Instance.HeavyMeleeCooldownDuration();
+        _parryCooldownDuration = GameStatsAccess.Instance.ParryCooldownDuration();
     }
 
     #region Player input

@@ -9,7 +9,6 @@ public class CharacterButton : MonoBehaviour
     [SerializeField] PlayerCharacter characterReference;
     public PlayerCharacter CharacterReference => characterReference;
     [SerializeField] Outline[] outline;
-    [SerializeField] GameStats gameStats;
     bool[] playerHovering = new bool[2]; // 0 for P1, 1 for P2
 
     private void Awake()
@@ -17,7 +16,7 @@ public class CharacterButton : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             outline[i].enabled = false;
-            outline[i].effectColor = gameStats.TeamColor[i];
+            outline[i].effectColor = GameStatsAccess.Instance.GetTeamColor(i);
         }
     }
 

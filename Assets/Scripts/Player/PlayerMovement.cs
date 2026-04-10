@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerMovement : Subject<PlayerMovementEvent>
 {
     #region Variables
-    float _rotationSpeed;
+    float rotationSpeed;
     float speed;
     Vector2 moveInput;
     bool movementDisabled = false;
@@ -39,12 +39,12 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         trailRenderer.emitting = false;
         playerAnimator = GetComponent<PlayerAnimator>();
 
-        _rotationSpeed = GameManager.Instance.GetPlayerRotationSpeed();
-        _dashDuration = GameManager.Instance.GetDashDuration();
-        _dashSpeedIncrement = GameManager.Instance.GetDashSpeedIncrement();
-        _maxStamina = GameManager.Instance.GetMaxStamina();
-        _staminaConsumption = GameManager.Instance.GetStaminaConsumption();
-        _staminaRegenRate = GameManager.Instance.GetStaminaRegenRate();
+        rotationSpeed = GameStatsAccess.Instance.GetPlayerRotationSpeed();
+        _dashDuration = GameStatsAccess.Instance.GetDashDuration();
+        _dashSpeedIncrement = GameStatsAccess.Instance.GetDashSpeedIncrement();
+        _maxStamina = GameStatsAccess.Instance.GetMaxStamina();
+        _staminaConsumption = GameStatsAccess.Instance.GetStaminaConsumption();
+        _staminaRegenRate = GameStatsAccess.Instance.GetStaminaRegenRate();
 
         currentStamina = _maxStamina;
 
@@ -83,7 +83,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         if (motionVector.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(motionVector);
-            rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * _rotationSpeed));
+            rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * rotationSpeed));
         }
 
         // move in the direction of the input
@@ -151,7 +151,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         // Add trailRenderer material, it is linked to the team index to change color accordingly
         List<Material> trailRendererMats = new();
         _teamIndex = teamIndex;
-        trailRendererMats.Add(GameManager.Instance.GetTeamEmissiveMaterial(_teamIndex));
+        trailRendererMats.Add(GameStatsAccess.Instance.GetTeamEmissiveMaterial(_teamIndex));
         trailRenderer.SetMaterials(trailRendererMats);
     }
 
@@ -164,11 +164,11 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     {
         if(enabled)
         {
-            _rotationSpeed = GameManager.Instance.GetPlayerRotationSpeed();
+            rotationSpeed = GameStatsAccess.Instance.GetPlayerRotationSpeed();
         }
         else
         {
-            _rotationSpeed = 0.0f;
+            rotationSpeed = 0.0f;
         }
     }
 

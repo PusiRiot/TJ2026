@@ -32,7 +32,7 @@ public class PlayerHighlight : MonoBehaviour
             teamIndex = 1;
         }
 
-        lights[0].color = GameManager.Instance.GetTeamColor(teamIndex);
+        lights[0].color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
     }
 }
 
