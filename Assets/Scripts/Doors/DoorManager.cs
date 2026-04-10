@@ -83,7 +83,7 @@ public class DoorManager : MonoBehaviour
         while (true)
         {
             float wait = Random.Range(_minRandomTime, _maxRandomTime);
-            yield return new WaitForSeconds(_minRandomTime);
+            yield return new WaitForSeconds(wait);
 
             if (openedDoors.Count == doors.Count || !ShouldOpenDoor()) // if all doors are open close a door, else check randomlly based on state to either close or open
             {

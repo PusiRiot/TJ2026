@@ -52,3 +52,9 @@ MonoBehaviour:
   MaxStamina: 100
   StaminaConsumption: 100
   StaminaRegenRate: 20
+  ClosedDoorsOnAwake: 5
+  BaseDoorRandom: 0.5
+  BiasToCloseDoorRandom: 0.3
+  BiasToOpenDoorRandom: 0.7
+  MinDoorRandomTime: 20
+  MaxDoorRandomTime: 40
