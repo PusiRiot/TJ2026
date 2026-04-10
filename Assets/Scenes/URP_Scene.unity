@@ -6185,17 +6185,21 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 986524538161303390, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
+      propertyPath: m_Shadows.m_Resolution
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 2630163692404249411, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: doorsContainer
       value: 
       objectReference: {fileID: 2012984938}
     - target: {fileID: 3834890350250094418, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_AdditionalLightsShadowResolutionTier
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.65
+      value: 33.53
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalPosition.y
