@@ -15,10 +15,17 @@ enum DoorEventState
 public class DoorManager : MonoBehaviour
 {
     [SerializeField] GameObject doorsContainer;
+
     List<Door> doors;
-    Dictionary<int, List<Door>> roomsMapHelper = new();
-    Dictionary<Door, List<Door>> connectivityGraph = new (); // graph where each door is a node and the edges are when doors are in the same room
+    List<Door> openedDoors;
+    List<Door> closedDoors;
+
+
+    Dictionary<int, List<Door>> roomsMapHelper = new(); // rooms and which doors has each room
+    Dictionary<int, List<int>> connectivityGraph = new (); // each room is a node
     DoorEventState currentState;
+
+    int _closedDoorsOnAwake = 5;
 
     float _baseDoorRandom = 0.5f;
     float _biasToCloseDoorRandom = 0.3f;
@@ -27,8 +34,6 @@ public class DoorManager : MonoBehaviour
     int _minRandomTime = 3;
     int _maxRandomTime = 10;
 
-    const int MAX_CLOSE_DOOR_TRIES = 5;
-
     private void Start()
     {
         if (doorsContainer == null)
@@ -36,9 +41,24 @@ public class DoorManager : MonoBehaviour
 
         doors = doorsContainer.GetComponentsInChildren<Door>().ToList();
 
+        openedDoors = doors.Where(d => !d.IsClosed).ToList();
+        closedDoors = doors.Where(d => d.IsClosed).ToList();
+
         BuildRoomsDictionary();
 
-        BuildDoorGraph();
+        BuildConnectivityGraph();
+
+        for (int i = 0; i <= _closedDoorsOnAwake; i++)
+        {
+            bool closedSuccesfully = CloseDoor();
+
+            if (!closedSuccesfully)
+            {
+                // there are no more doors to close that kep path connected, stop and open one next time
+                currentState = DoorEventState.ForceOpen;
+                break;
+            }
+        }
 
         StartCoroutine(DoorRoutine());
     }
@@ -50,37 +70,25 @@ public class DoorManager : MonoBehaviour
             float wait = UnityEngine.Random.Range(_minRandomTime, _maxRandomTime);
             yield return new WaitForSeconds(_minRandomTime);
 
-            List<Door> openedDoors = doors.Where(d => !d.IsClosed).ToList();
-            List<Door> closedDoors = doors.Where(d => !d.IsClosed).ToList();
+            if (openedDoors.Count == doors.Count || !ShouldOpenDoor()) // if all doors are open close a door, else check randomlly based on state to either close or open
+            {
+                bool closedSuccesfully = CloseDoor();
 
-            bool opened = false;
-
-            if (openedDoors.Count == 0)
-            {
-                OpenDoor(closedDoors);
-                opened = true;
-            } 
-            else if (closedDoors.Count == 0)
-            {
-                CloseDoor(openedDoors.Count, openedDoors); // it cannot close a door so it has to try until it can
-            }
-            else if (ShouldOpenDoor())
-            {
-                OpenDoor(openedDoors);
-                opened = true;
+                if (!closedSuccesfully) // if it checked all doors and could find one that it could safelly clase
+                {
+                    OpenDoor(); // if it checked all doors and couldn't close one just open a door
+                    currentState = DoorEventState.ForceOpen; // next state it also opens one
+                }
+                else
+                {
+                    UpdateState(false);
+                }
             }
             else
             {
-                bool closed = CloseDoor(MAX_CLOSE_DOOR_TRIES, openedDoors); // limited number of tries to close a door that leaves path connected
-
-                if (!closed)
-                { // if tried to many times to close a door just open one
-                    OpenDoor(openedDoors);
-                    opened = true;
-                }
+                OpenDoor();
+                UpdateState(true);
             }
-
-            UpdateState(opened);
         }
     }
 
@@ -154,116 +162,85 @@ public class DoorManager : MonoBehaviour
         }
      }
 
-    void BuildDoorGraph()
+    void BuildConnectivityGraph()
     {
-        foreach (var door in doors)
+        // Initialize all rooms
+        foreach (int room in roomsMapHelper.Keys)
+            connectivityGraph[room] = new List<int>();
+
+        // Add edges for open doors
+        foreach (Door door in doors)
         {
-            connectivityGraph[door] = new List<Door>();
-
-            // Add neighbours (doors in room A that are not this door)
-            foreach (var neighbor in roomsMapHelper[door.RoomA])
-                if (neighbor != door)
-                    connectivityGraph[door].Add(neighbor);
-
-            // Add neighbours (doors in room B that are not this door)
-            foreach (var neighbor in roomsMapHelper[door.RoomB])
-                if (neighbor != door)
-                    connectivityGraph[door].Add(neighbor);
+            if (!door.IsClosed)
+            {
+                connectivityGraph[door.RoomA].Add(door.RoomB);
+                connectivityGraph[door.RoomB].Add(door.RoomA);
+            }
         }
     }
 
-    bool CloseDoor(int closeTries, List<Door> openDoors)
+    bool CloseDoor()
     {
-        if (closeTries == 0) return false;
+        // randomize list to go through it searching for a room that can be closed and keeps path connected
+        List<int> indices = Enumerable.Range(0, openedDoors.Count).OrderBy(_ => Random.value).ToList();
 
-        // choose door at random that is currently open
-        Dictionary<Door, List<Door>> graphDoorClosed = TryClosingDoor(openDoors);
-        
-        if (graphDoorClosed != null)
+        foreach (int index in indices)
         {
-            connectivityGraph = graphDoorClosed;
-            return true;
+            Door chosenDoor = openedDoors[index];
+
+            // Remove edges
+            connectivityGraph[chosenDoor.RoomA].Remove(chosenDoor.RoomB);
+            connectivityGraph[chosenDoor.RoomB].Remove(chosenDoor.RoomA);
+
+            // If the graph stays connected it can be closed, else, reassign edges
+            if (CheckConnectivity())
+            {
+                // execute door's Close() method and update lists
+                openedDoors.Remove(chosenDoor);
+                closedDoors.Add(chosenDoor);
+                chosenDoor.Close();
+                return true;
+            }
+            else
+            {
+                connectivityGraph[chosenDoor.RoomA].Add(chosenDoor.RoomB);
+                connectivityGraph[chosenDoor.RoomB].Add(chosenDoor.RoomA);
+            }
         }
-        else
-        {
-            return CloseDoor(closeTries - 1, openDoors);
-        }
+
+        return false;
     }
 
-    Dictionary<Door, List<Door>> TryClosingDoor(List<Door> openDoors)
+    void OpenDoor()
     {
-        // Deep copy the graph
-        var copy = new Dictionary<Door, List<Door>>();
-        foreach (var kv in connectivityGraph)
-            copy[kv.Key] = new List<Door>(kv.Value);
+        Door chosenDoor = closedDoors[UnityEngine.Random.Range(0, closedDoors.Count)];
 
-        Door chosen = openDoors[UnityEngine.Random.Range(0, openDoors.Count)];
+        connectivityGraph[chosenDoor.RoomA].Add(chosenDoor.RoomB);
+        connectivityGraph[chosenDoor.RoomB].Add(chosenDoor.RoomA);
 
-        // Remove edges
-        foreach (var neighbor in copy[chosen])
-            copy[neighbor].Remove(chosen);
-
-        copy[chosen].Clear();
-
-        // If connected close door and return graph copy, else return null
-        if (CheckConnectivity(copy))
-        {
-            chosen.Close();
-            return copy;
-
-        }
-        else
-        {
-            return null;
-        }
+        // update lists and execute doors Open() method
+        closedDoors.Remove(chosenDoor);
+        openedDoors.Add(chosenDoor);
+        chosenDoor.Open();
     }
 
-    void OpenDoor(List<Door> closedDoors)
+    bool CheckConnectivity()
     {
-        Door chosen = closedDoors[UnityEngine.Random.Range(0, closedDoors.Count)];
-
-        foreach (var neighbor in roomsMapHelper[chosen.RoomA])
-        {
-            if (neighbor == chosen) continue;
-
-            if (!connectivityGraph[chosen].Contains(neighbor))
-                connectivityGraph[chosen].Add(neighbor);
-
-            if (!connectivityGraph[neighbor].Contains(chosen))
-                connectivityGraph[neighbor].Add(chosen);
-        }
-
-        foreach (var neighbor in roomsMapHelper[chosen.RoomB])
-        {
-            if (neighbor == chosen) continue;
-
-            if (!connectivityGraph[chosen].Contains(neighbor))
-                connectivityGraph[chosen].Add(neighbor);
-
-            if (!connectivityGraph[neighbor].Contains(chosen))
-                connectivityGraph[neighbor].Add(chosen);
-        }
-
-        chosen.Open();
-    }
-
-    bool CheckConnectivity(Dictionary<Door, List<Door>> graphToCheck)
-    {
-        if (graphToCheck.Count == 0)
+        if (connectivityGraph.Count == 0)
             return true;
 
-        HashSet<Door> visited = new HashSet<Door>();
-        Stack<Door> stack = new Stack<Door>();
+        HashSet<int> visited = new();
+        Stack<int> stack = new();
 
-        Door start = graphToCheck.Keys.First();
+        int start = connectivityGraph.Keys.First();
         stack.Push(start);
         visited.Add(start);
 
         while (stack.Count > 0)
         {
-            Door current = stack.Pop();
+            int current = stack.Pop();
 
-            foreach (Door next in graphToCheck[current])
+            foreach (int next in connectivityGraph[current])
             {
                 if (!visited.Contains(next))
                 {
@@ -273,6 +250,6 @@ public class DoorManager : MonoBehaviour
             }
         }
 
-        return visited.Count == graphToCheck.Count;
+        return visited.Count == connectivityGraph.Count;
     }
 }
