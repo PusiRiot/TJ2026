@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8547895994996040371}
   - component: {fileID: 4799559887306526063}
   - component: {fileID: 5447550867362806453}
-  - component: {fileID: 7399357597578028104}
+  - component: {fileID: 6391252702251267962}
+  - component: {fileID: 128980854600159154}
   m_Layer: 0
   m_Name: wall_door
   m_TagString: Untagged
@@ -35,7 +36,6 @@ Transform:
   m_Children:
   - {fileID: 1164806152458517401}
   - {fileID: 2741459104798261546}
-  - {fileID: 4205281958988366745}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &8547895994996040371
@@ -117,27 +117,40 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8762059795579050133, guid: f3b55ca8ea2d96747be064a96f19b2ca, type: 3}
---- !u!65 &7399357597578028104
-BoxCollider:
+--- !u!114 &6391252702251267962
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311394073253654374}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.70114535, y: 3.903871, z: 13.761621}
-  m_Center: {x: 0.000016778708, y: -1.9449174, z: 10.20383}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3035ad45bd3af184f8b43f5df5385e3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Door
+--- !u!95 &128980854600159154
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311394073253654374}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b7f08a82369494d4a9b5a832bd448dcd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2745275578870017874
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +179,7 @@ Transform:
   m_GameObject: {fileID: 2745275578870017874}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.5, y: -3.46, z: 0}
+  m_LocalPosition: {x: 0, y: -3.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -250,37 +263,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.14823623, y: 1.4823612, z: 2.9498985}
   m_Center: {x: -0.014680719, y: -0.7589182, z: 1.4897729}
---- !u!1 &3499020094222735612
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4205281958988366745}
-  m_Layer: 0
-  m_Name: UpCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4205281958988366745
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3499020094222735612}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3364548409875657984}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8659494277035724076
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +291,7 @@ Transform:
   m_GameObject: {fileID: 8659494277035724076}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.5, y: -0.45, z: 0}
+  m_LocalPosition: {x: 0, y: -0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

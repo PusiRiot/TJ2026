@@ -87,5 +87,13 @@ public class GameStatsAccess : MonoBehaviour
     public float GetStaminaConsumption() { return gameStats.StaminaConsumption; }
     public float GetStaminaRegenRate() { return gameStats.StaminaRegenRate; }
 
+    // Doors
+
+    public int GetClosedDoorsOnAwake() { return gameStats.ClosedDoorsOnAwake; }
+    public float GetBaseDoorRandom() { return gameStats.BaseDoorRandom; }
+    public float GetBiasToCloseDoorRandom() { return gameStats.BiasToCloseDoorRandom; }
+    public float GetBiasToOpenDoorRandom() { return gameStats.BiasToOpenDoorRandom; }
+    public int GetMinDoorRandomTime() { return gameStats.MinDoorRandomTime; }
+    public int GetMaxDoorRandomTime() { return gameStats.MaxDoorRandomTime; }
     #endregion
 }
