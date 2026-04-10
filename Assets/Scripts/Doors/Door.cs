@@ -11,24 +11,33 @@ public class Door : MonoBehaviour
     public bool IsClosed { get { return isClosed; } }
 
     Animator animator;
-
+    Collider[] colliders;
 
     public void Awake()
     {
         ParseRooms();
         animator = GetComponent<Animator>();
+        colliders = GetComponentsInChildren<Collider>();
     }
 
     public void Open()
     {
         isClosed = false;
+
         animator.SetBool("IsClosed", isClosed);
+
+        foreach(Collider collider in colliders)
+            collider.enabled = false;
     }
 
     public void Close()
     {
         isClosed = true;
+
         animator.SetBool("IsClosed", isClosed);
+
+        foreach (Collider collider in colliders)
+            collider.enabled = true;
     }
 
     void ParseRooms()

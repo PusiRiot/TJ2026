@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -7,60 +8,74 @@ public class DoorLightningEffect : MonoBehaviour
 {
     #region Variables
     // variables needed to calc the lighning impact location
-    [SerializeField] GameObject sceneFloor;
-    Transform sceneFloorTransform;
-    Vector2 meshSize;
+    [SerializeField] MeshRenderer outsideBounds; // using the outside floor so it is further to the side
 
     // variables needed for the visual effect
-    [SerializeField] ParticleSystem lightningParticles;
-    [SerializeField] Light lightningLight;
+    Light lightningLight;
 
     #endregion
 
     void Awake()
     {
-        sceneFloorTransform = GetComponent<Transform>();
-        meshSize = Vector3.Scale(GetComponent<MeshFilter>().sharedMesh.bounds.size, sceneFloorTransform.localScale); // mesh size scaled by its transform
+        lightningLight = GetComponent<Light>();
+        lightningLight.intensity = 0;
     }
 
     public void GenerateLighningEffect(Transform doorLocation)
     {
-        Vector3 impactLocation = CalcImpactLocation(doorLocation);
+        this.transform.position = CalcImpactLocation(doorLocation);
 
+        StartCoroutine(LightEffect());
+    }
+
+    IEnumerator LightEffect()
+    {
+        lightningLight.intensity = 10;
+        yield return new WaitForSeconds(0.1f);
+        lightningLight.intensity = 0;
+        yield return new WaitForSeconds(0.1f);
+        lightningLight.intensity = 10;
+        yield return new WaitForSeconds(0.1f);
+        lightningLight.intensity = 0;
     }
 
     Vector3 CalcImpactLocation(Transform doorLocation)
     {
-        // Convert point to plane-local space
-        Vector3 local = sceneFloorTransform.InverseTransformPoint(doorLocation.position);
+        // Get world-space bounds of the plane
+        Bounds b = outsideBounds.bounds;
 
-        // We only need x and z axys
-        float halfX = meshSize.x * 0.5f;
-        float halfZ = meshSize.y * 0.5f;
+        // Extract the 4 world-space edges
+        float left = b.min.x;
+        float right = b.max.x;
+        float bottom = b.min.z;
+        float top = b.max.z;
 
-        // Clamp inside the rectangle
-        float clampedX = Mathf.Clamp(local.x, -halfX, halfX);
-        float clampedZ = Mathf.Clamp(local.z, -halfZ, halfZ);
+        // Get the point in world space
+        Vector3 p = doorLocation.position;
+
+        // Clamp X and Z inside the rectangle
+        float clampedX = Mathf.Clamp(p.x, left, right);
+        float clampedZ = Mathf.Clamp(p.z, bottom, top);
 
         // Distances to each edge
-        float distLeft = Mathf.Abs(clampedX + halfX);
-        float distRight = Mathf.Abs(halfX - clampedX);
-        float distBottom = Mathf.Abs(clampedZ + halfZ);
-        float distTop = Mathf.Abs(halfZ - clampedZ);
+        float distLeft = Mathf.Abs(p.x - left);
+        float distRight = Mathf.Abs(p.x - right);
+        float distBottom = Mathf.Abs(p.z - bottom);
+        float distTop = Mathf.Abs(p.z - top);
 
-        // Find nearest edge
+        // Snap to nearest edge
         float min = Mathf.Min(distLeft, distRight, distBottom, distTop);
 
         if (min == distLeft)
-            clampedX = -halfX;
+            clampedX = left;
         else if (min == distRight)
-            clampedX = halfX;
+            clampedX = right;
         else if (min == distBottom)
-            clampedZ = -halfZ;
+            clampedZ = bottom;
         else
-            clampedZ = halfZ;
+            clampedZ = top;
 
-        // Convert back to world space
-        return sceneFloorTransform.TransformPoint(new Vector3(clampedX, local.y, clampedZ));
+        // Return the final world-space point
+        return new Vector3(clampedX, p.y + 2f, clampedZ);
     }
 }

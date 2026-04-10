@@ -14,28 +14,42 @@ enum DoorEventState
 
 public class DoorManager : MonoBehaviour
 {
+    #region variables
     [SerializeField] GameObject doorsContainer;
 
     List<Door> doors;
     List<Door> openedDoors;
     List<Door> closedDoors;
 
+    Door chosenDoor;
 
     Dictionary<int, List<Door>> roomsMapHelper = new(); // rooms and which doors has each room
     Dictionary<int, List<int>> connectivityGraph = new (); // each room is a node
     DoorEventState currentState;
 
-    int _closedDoorsOnAwake = 5;
+    int _closedDoorsOnAwake;
+    float _baseDoorRandom;
+    float _biasToCloseDoorRandom;
+    float _biasToOpenDoorRandom;
+    int _minRandomTime;
+    int _maxRandomTime;
 
-    float _baseDoorRandom = 0.5f;
-    float _biasToCloseDoorRandom = 0.3f;
-    float _biasToOpenDoorRandom = 0.7f;
+    // lightning effect
+    DoorLightningEffect lightningEffect;
+    #endregion
 
-    int _minRandomTime = 3;
-    int _maxRandomTime = 10;
-
+    #region MonoBehaviour
     private void Start()
     {
+        lightningEffect = GetComponent<DoorLightningEffect>();
+
+        _closedDoorsOnAwake = GameStatsAccess.Instance.GetClosedDoorsOnAwake();
+        _baseDoorRandom = GameStatsAccess.Instance.GetBaseDoorRandom();
+        _biasToCloseDoorRandom = GameStatsAccess.Instance.GetBiasToCloseDoorRandom();
+        _biasToOpenDoorRandom = GameStatsAccess.Instance.GetBiasToOpenDoorRandom();
+        _minRandomTime = GameStatsAccess.Instance.GetMinDoorRandomTime();
+        _maxRandomTime = GameStatsAccess.Instance.GetMaxDoorRandomTime();
+
         if (doorsContainer == null)
             throw new System.Exception("No doors container assigned on DoorsManager");
 
@@ -62,12 +76,13 @@ public class DoorManager : MonoBehaviour
 
         StartCoroutine(DoorRoutine());
     }
+    #endregion
 
     IEnumerator DoorRoutine()
     {
         while (true)
         {
-            float wait = UnityEngine.Random.Range(_minRandomTime, _maxRandomTime);
+            float wait = Random.Range(_minRandomTime, _maxRandomTime);
             yield return new WaitForSeconds(_minRandomTime);
 
             if (openedDoors.Count == doors.Count || !ShouldOpenDoor()) // if all doors are open close a door, else check randomlly based on state to either close or open
@@ -89,12 +104,16 @@ public class DoorManager : MonoBehaviour
                 OpenDoor();
                 UpdateState(true);
             }
+
+            lightningEffect.GenerateLighningEffect(chosenDoor.transform);
         }
     }
 
+    #region Decision randomness and state
+
     bool ShouldOpenDoor()
     {
-        float r = UnityEngine.Random.value;
+        float r = Random.value;
 
         switch (currentState)
         {
@@ -145,7 +164,9 @@ public class DoorManager : MonoBehaviour
                 break;
         }
     }
+    #endregion
 
+    #region Create graphs
     void BuildRoomsDictionary()
      {
         foreach (Door door in doors)
@@ -178,6 +199,9 @@ public class DoorManager : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Open/Close
 
     bool CloseDoor()
     {
@@ -186,7 +210,7 @@ public class DoorManager : MonoBehaviour
 
         foreach (int index in indices)
         {
-            Door chosenDoor = openedDoors[index];
+            chosenDoor = openedDoors[index];
 
             // Remove edges
             connectivityGraph[chosenDoor.RoomA].Remove(chosenDoor.RoomB);
@@ -213,7 +237,7 @@ public class DoorManager : MonoBehaviour
 
     void OpenDoor()
     {
-        Door chosenDoor = closedDoors[UnityEngine.Random.Range(0, closedDoors.Count)];
+        chosenDoor = closedDoors[Random.Range(0, closedDoors.Count)];
 
         connectivityGraph[chosenDoor.RoomA].Add(chosenDoor.RoomB);
         connectivityGraph[chosenDoor.RoomB].Add(chosenDoor.RoomA);
@@ -252,4 +276,5 @@ public class DoorManager : MonoBehaviour
 
         return visited.Count == connectivityGraph.Count;
     }
+    #endregion
 }

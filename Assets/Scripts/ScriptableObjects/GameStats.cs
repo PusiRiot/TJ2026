@@ -66,4 +66,11 @@ public class GameStats : ScriptableObject
     public float StaminaConsumption = 100.0f;
     public float StaminaRegenRate = 20.0f;
 
+    [Header ("Doors")]
+    public int ClosedDoorsOnAwake = 5;
+    public float BaseDoorRandom = 0.5f;
+    public float BiasToCloseDoorRandom = 0.3f;
+    public float BiasToOpenDoorRandom = 0.7f;
+    public int MinDoorRandomTime = 20;
+    public int MaxDoorRandomTime = 40;
 }
