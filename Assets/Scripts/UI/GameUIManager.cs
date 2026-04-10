@@ -28,11 +28,11 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         teamScoreTexts[0].text = "0";
         teamScoreTexts[1].text = "0";
 
-        timerText.text = System.TimeSpan.FromSeconds(GameManager.Instance.GetGameDuration()).ToString(@"mm\:ss");
+        timerText.text = System.TimeSpan.FromSeconds(GameStatsAccess.Instance.GetGameDuration()).ToString(@"mm\:ss");
 
         timeUpText.enabled = false;
 
-        _maxLives = GameManager.Instance.GetMaxLives();
+        _maxLives = GameStatsAccess.Instance.GetMaxLives();
         playerLives[0].maxValue = _maxLives;
         playerLives[0].value = _maxLives;
         playerLives[1].maxValue = _maxLives;
@@ -52,7 +52,7 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
     void UpdateTimer()
     {
         timePassed += Time.deltaTime;
-        int currentTime = Mathf.CeilToInt(GameManager.Instance.GetGameDuration() - timePassed);
+        int currentTime = Mathf.CeilToInt(GameStatsAccess.Instance.GetGameDuration() - timePassed);
         if (currentTime <= 0)
         {
             timeBelowZero = true;

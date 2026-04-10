@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Searcher;
 using UnityEngine;
 
 public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEvent>
@@ -16,6 +15,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     // Combat
     private int _lightMeleeDamage = -1;
+    private float _lightMeleeRange = -1;
     private int _heavyMeleeDamage = -1;
 
     private float _heavyMeleeDashDuration = -1f;
@@ -68,26 +68,27 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     {
         _teamIndex = teamIndex;
 
-        _deathDuration = GameManager.Instance.DeathDuration();
+        _deathDuration = GameStatsAccess.Instance.DeathDuration();
 
-        _maxLives = GameManager.Instance.GetMaxLives();
+        _maxLives = GameStatsAccess.Instance.GetMaxLives();
         currentLives = _maxLives;
 
-        _glowUpDuration = GameManager.Instance.GetGlowOverlayGlowUp();
-        _glowDownDuration = GameManager.Instance.GetGlowOverlayGlowDown();
+        _glowUpDuration = GameStatsAccess.Instance.GetGlowOverlayGlowUp();
+        _glowDownDuration = GameStatsAccess.Instance.GetGlowOverlayGlowDown();
 
-        _lightMeleeDamage = GameManager.Instance.LightMeleeDamage();
-        _heavyMeleeDamage = GameManager.Instance.HeavyMeleeDamage();
+        _lightMeleeDamage = GameStatsAccess.Instance.LightMeleeDamage();
+        _lightMeleeRange = GameStatsAccess.Instance.LightMeleeRange();
+        _heavyMeleeDamage = GameStatsAccess.Instance.HeavyMeleeDamage();
 
-        _heavyMeleeDashDuration = GameManager.Instance.HeavyMeleeDashDuration();
-        _heavyMeleeDashSpeedIncrement = GameManager.Instance.HeavyMeleeDashSpeedIncrement();
+        _heavyMeleeDashDuration = GameStatsAccess.Instance.HeavyMeleeDashDuration();
+        _heavyMeleeDashSpeedIncrement = GameStatsAccess.Instance.HeavyMeleeDashSpeedIncrement();
 
-        _heavyMeleeLightOffDuration = GameManager.Instance.HeavyMeleeLightOffDuration();
-        _heavyMeleeStunDuration = GameManager.Instance.HeavyMeleeStunDuration();
-        _succesfulParryLightOffDuration = GameManager.Instance.SuccesfulParryLightOffDuration();
+        _heavyMeleeLightOffDuration = GameStatsAccess.Instance.HeavyMeleeLightOffDuration();
+        _heavyMeleeStunDuration = GameStatsAccess.Instance.HeavyMeleeStunDuration();
+        _succesfulParryLightOffDuration = GameStatsAccess.Instance.SuccesfulParryLightOffDuration();
 
-        _parryDuration = GameManager.Instance.ParryDuration();
-        _succesfulParryStunDuration = GameManager.Instance.SuccesfulParryStunDuration();
+        _parryDuration = GameStatsAccess.Instance.ParryDuration();
+        _succesfulParryStunDuration = GameStatsAccess.Instance.SuccesfulParryStunDuration();
     }
 
     #endregion
@@ -272,7 +273,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement);
 
         // after dash player is no longer attacking
-        yield return new WaitForSeconds(GameManager.Instance.GetDashDuration());
+        yield return new WaitForSeconds(_heavyMeleeDashDuration);
         isAttackingHeavy = false;
         isProtectedByParry = false;
         playerAnimator.CancelAttack();
@@ -287,7 +288,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         attackSparks.Play();
 
         // check collision
-        float range = GameManager.Instance.LightMeleeRange();
+        float range = _lightMeleeRange;
         Collider[] collisions = Physics.OverlapSphere(transform.position, range);
 
         foreach (Collider collider in collisions)
@@ -421,7 +422,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         // Apply the new death materials
         foreach (Material mat in deathGlowMaterials)
         {
-            Color teamColor = GameManager.Instance.GetTeamColor(_teamIndex);
+            Color teamColor = GameStatsAccess.Instance.GetTeamColor(_teamIndex);
             teamColor.a = 0.75f; // Set the alpha to 0.5 for a semi-transparent effect
             mat.SetColor("_Color", teamColor);
             mat.SetFloat("_Fresnel", 1.5f); 
@@ -524,7 +525,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
                     currentLives = Math.Min(currentLives + healAmount, _maxLives);
                     healParticles.Play();
-                    StartCoroutine(AnimateGlowOverlay(GameManager.Instance.GetHealColor()));
+                    StartCoroutine(AnimateGlowOverlay(GameStatsAccess.Instance.GetHealColor()));
                 }
                 break;
             }
@@ -537,7 +538,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
                 {
                     // Damage
                     currentLives -= damageAmount;
-                    StartCoroutine(AnimateGlowOverlay(GameManager.Instance.GetDamageColor()));
+                    StartCoroutine(AnimateGlowOverlay(GameStatsAccess.Instance.GetDamageColor()));
 
                     if (currentLives <= 0)
                     {

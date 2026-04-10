@@ -39,8 +39,8 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
         
 
         flashlight = GetComponentInChildren<Light>();
-        flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
-        reclaimPointsPerSecond = GameManager.Instance.GetReclaimCrystalPointsPerSecond();
+        flashlight.color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
+        reclaimPointsPerSecond = GameStatsAccess.Instance.GetReclaimCrystalPointsPerSecond();
     }
 
     private void Update()
@@ -62,7 +62,7 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
     public void SetTeam(int inTeamIndex)
     {
         teamIndex = inTeamIndex;
-        flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
+        flashlight.color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
     }
 
     public void TurnOn()
