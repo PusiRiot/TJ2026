@@ -34,7 +34,7 @@ MonoBehaviour:
   GlowOverlayGlowUp: 0.2
   GlowOverlayGlowDown: 0.4
   LightMeleeDamage: 1
-  LightMeleeRange: 1.25
+  LightMeleeRange: 1
   LightMeleeCooldownDuration: 0.75
   HeavyMeleeDamage: 3
   HeavyMeleeDashDuration: 0.15
@@ -52,7 +52,7 @@ MonoBehaviour:
   MaxStamina: 100
   StaminaConsumption: 100
   StaminaRegenRate: 20
-  ClosedDoorsOnAwake: 5
+  ClosedDoorsOnAwake: 6
   BaseDoorRandom: 0.5
   BiasToCloseDoorRandom: 0.3
   BiasToOpenDoorRandom: 0.7
