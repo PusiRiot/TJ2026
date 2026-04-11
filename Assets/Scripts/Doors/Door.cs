@@ -15,13 +15,14 @@ public class Door : MonoBehaviour
 
     Animator animator;
     Collider[] colliders;
-    List<MeshRenderer> meshRenderers;
+    List<MeshRenderer> meshRenderers ;
 
     public void Awake()
     {
         ParseRooms();
         animator = GetComponent<Animator>();
         colliders = GetComponentsInChildren<Collider>();
+        meshRenderers = new List<MeshRenderer>();
         MeshRenderer[] allMeshRenderers = GetComponentsInChildren<MeshRenderer>();
 
         foreach(MeshRenderer m in allMeshRenderers)
