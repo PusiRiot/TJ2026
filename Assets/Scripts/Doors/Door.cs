@@ -1,4 +1,7 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Door : MonoBehaviour
 {
@@ -12,12 +15,21 @@ public class Door : MonoBehaviour
 
     Animator animator;
     Collider[] colliders;
+    List<MeshRenderer> meshRenderers;
 
     public void Awake()
     {
         ParseRooms();
         animator = GetComponent<Animator>();
         colliders = GetComponentsInChildren<Collider>();
+        MeshRenderer[] allMeshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+        foreach(MeshRenderer m in allMeshRenderers)
+        {
+            if(m.gameObject != gameObject) { 
+                meshRenderers.Add(m);
+            }
+        }
     }
 
     public void Open()
@@ -28,6 +40,8 @@ public class Door : MonoBehaviour
 
         foreach(Collider collider in colliders)
             collider.enabled = false;
+        foreach (MeshRenderer m in meshRenderers)
+            m.shadowCastingMode = ShadowCastingMode.Off;
     }
 
     public void Close()
@@ -38,6 +52,8 @@ public class Door : MonoBehaviour
 
         foreach (Collider collider in colliders)
             collider.enabled = true;
+        foreach (MeshRenderer m in meshRenderers)
+            m.shadowCastingMode = ShadowCastingMode.On;
     }
 
     void ParseRooms()
