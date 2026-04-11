@@ -60,9 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0063af5a8d49cc74eb68a0ea18f14c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorLightningEffect
-  outsideBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
+  outsideBounds: {fileID: 0}
 --- !u!108 &986524538161303390
 Light:
   m_ObjectHideFlags: 0
@@ -75,7 +73,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2
-  m_Range: 100
+  m_Range: 27.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 0.5, y: 0.5}

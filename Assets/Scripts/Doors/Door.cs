@@ -1,10 +1,14 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class Door : MonoBehaviour
 {
+    const float animationStaticPartDuration = 1.0f;
+    const float animationDynamicPartDuration = 1.0f;
+
     int roomA; // first room the door belongs to
     public int RoomA { get { return roomA; } }
     int roomB; // second room the door belongs to
@@ -38,11 +42,7 @@ public class Door : MonoBehaviour
         isClosed = false;
 
         animator.SetBool("IsClosed", isClosed);
-
-        foreach(Collider collider in colliders)
-            collider.enabled = false;
-        foreach (MeshRenderer m in meshRenderers)
-            m.shadowCastingMode = ShadowCastingMode.Off;
+        StartCoroutine(ToggleCollider(isClosed));
     }
 
     public void Close()
@@ -50,11 +50,7 @@ public class Door : MonoBehaviour
         isClosed = true;
 
         animator.SetBool("IsClosed", isClosed);
-
-        foreach (Collider collider in colliders)
-            collider.enabled = true;
-        foreach (MeshRenderer m in meshRenderers)
-            m.shadowCastingMode = ShadowCastingMode.On;
+        StartCoroutine(ToggleCollider(isClosed));
     }
 
     void ParseRooms()
@@ -65,5 +61,27 @@ public class Door : MonoBehaviour
 
         roomA = int.Parse(rooms[0].Substring(1));
         roomB = int.Parse(rooms[1].Substring(1));
+    }
+
+    IEnumerator ToggleCollider(bool enable)
+    {
+        yield return new WaitForSeconds(animationStaticPartDuration);
+        foreach (Collider collider in colliders)
+            collider.enabled = enable;
+
+        if (enable)
+        {
+            foreach (MeshRenderer m in meshRenderers)
+                m.shadowCastingMode = ShadowCastingMode.On;
+        }
+
+        yield return new WaitForSeconds(animationDynamicPartDuration);
+        
+        if(!enable)
+        {
+            foreach (MeshRenderer m in meshRenderers)
+                m.shadowCastingMode = ShadowCastingMode.Off;
+        }
+        
     }
 }
