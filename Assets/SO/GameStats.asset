@@ -56,5 +56,5 @@ MonoBehaviour:
   BaseDoorRandom: 0.5
   BiasToCloseDoorRandom: 0.3
   BiasToOpenDoorRandom: 0.7
-  MinDoorRandomTime: 4
-  MaxDoorRandomTime: 4
+  MinDoorRandomTime: 20
+  MaxDoorRandomTime: 40
