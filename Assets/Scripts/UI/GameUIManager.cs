@@ -12,7 +12,7 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
     [SerializeField] private Image[] playerAbilityEnabled = new Image[2];
-    [SerializeField] private Slider[] playerLives = new Slider[2];
+    [SerializeField] private Image[] playerLives = new Image[2];
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
     float timePassed = 0;
@@ -33,10 +33,8 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         timeUpText.enabled = false;
 
         _maxLives = GameStatsAccess.Instance.GetMaxLives();
-        playerLives[0].maxValue = _maxLives;
-        playerLives[0].value = _maxLives;
-        playerLives[1].maxValue = _maxLives;
-        playerLives[1].value = _maxLives;
+        playerLives[0].fillAmount = 1;
+        playerLives[1].fillAmount = 1;
 
         //StartCoroutine(StartCountdown());
     }
@@ -155,8 +153,7 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
                 int[] dataDamage = data as int[];
                 int teamIndex = dataDamage[0];
                 int damage = dataDamage[1];
-                int newValue = (int)playerLives[teamIndex].value - damage;
-                playerLives[teamIndex].value = newValue < 0 ? 0 : newValue;
+                playerLives[teamIndex].fillAmount = Mathf.Max(playerLives[teamIndex].fillAmount - (float)damage / (float)_maxLives, 0);
                 break;
             }
             case PlayerCombatEvent.ReceivedHeal:
@@ -164,13 +161,12 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
                     int[] dataHeal = data as int[];
                     int teamIndex = dataHeal[0];
                     int healAmount = dataHeal[1];
-                    int newValue = Mathf.Min((int)playerLives[teamIndex].value + healAmount, _maxLives);
-                    playerLives[teamIndex].value = newValue < 0 ? 0 : newValue;
+                    playerLives[teamIndex].fillAmount = Mathf.Min(playerLives[teamIndex].fillAmount + (float)healAmount / (float)_maxLives, _maxLives);
                     break;
                 }
             case PlayerCombatEvent.BackToLife:
             {
-                playerLives[(int)data].value = _maxLives;
+                playerLives[(int)data].fillAmount = 1;
                 break;
             }
             case PlayerCombatEvent.AbilityEnabled:
