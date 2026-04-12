@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9607844, g: 0.6666667, b: 0.34117648, a: 1}
+  m_Color: {r: 0.9137255, g: 0.64705884, b: 0.3529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectColor: {r: 0.6901961, g: 0.20392159, b: 0.5411765, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
 --- !u!114 &2436503556302615285
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectColor: {r: 0.91372555, g: 0.56078434, b: 0.15294118, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
 --- !u!1 &163842988205589617
@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.6942003, b: 0.3537736, a: 1}
+  m_Color: {r: 0.91372555, g: 0.64705884, b: 0.3529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 1, g: 0.4991045, b: 0.033018887, a: 1}
+  m_EffectColor: {r: 0.6901961, g: 0.20392159, b: 0.5411765, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 0
 --- !u!114 &7670672566176174473
@@ -714,7 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 1, g: 0, b: 0.7974682, a: 1}
+  m_EffectColor: {r: 0.91372555, g: 0.56078434, b: 0.15294118, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 0
 --- !u!114 &1315450098893544884
@@ -2074,7 +2074,6 @@ MonoBehaviour:
   infoText: {fileID: 3713055753630433372}
   readyText: {fileID: 7161697352669052442}
   readyImage: {fileID: 6668177918927430470}
-  screen: {fileID: 8282902576813244898}
   PlayerReadyChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2144,7 +2143,6 @@ MonoBehaviour:
   infoText: {fileID: 7949021373392326709}
   readyText: {fileID: 4977663060058615364}
   readyImage: {fileID: 6815443439859914170}
-  screen: {fileID: 0}
   PlayerReadyChanged:
     m_PersistentCalls:
       m_Calls: []
