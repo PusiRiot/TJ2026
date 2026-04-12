@@ -98,23 +98,23 @@ public class CharacterSelection : MonoBehaviour
     private void AssignDevices()
     {
         var pads = Gamepad.all;
-        // Player 2
+        //Player 1
+        if (_playerIndex == 0)
+        {
+            if (pads.Count == 0)
+                inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current };
+            else
+                inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current, pads[0] };
+        }
+        //Player 2
         if (_playerIndex == 1)
         {
             if (pads.Count == 0)
                 inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current };
-            else if (pads.Count >= 1)
-                inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current, pads[0] };
-
-        }
-
-        // Player 1
-        if (_playerIndex == 0)
-        {
-            if (pads.Count <= 1)
-                inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current };
+            else if (pads.Count == 1)
+                inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current };
             else
-                inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current, pads[1] };
+                inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current, pads[1] };
         }
     }
     #endregion
@@ -190,7 +190,10 @@ public class CharacterSelection : MonoBehaviour
 
     public void OnEsc(InputAction.CallbackContext ctx)
     {
+        Debug.Log("OnEsc called from: " + ctx.control.device.name);
+        Debug.Log("UINavigationManager instance: " + UINavigationManager.Instance);
         UINavigationManager.Instance.ShowScreen(ScreenName.MainMenu, true);
+        Debug.Log("ShowScreen called successfully");
     }
     #endregion
 
