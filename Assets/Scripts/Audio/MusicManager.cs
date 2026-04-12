@@ -28,9 +28,12 @@ public class MusicManager : MonoBehaviour
 
     private void Start()
     {
+        AkUnitySoundEngine.LoadBank("PlaceHolder_Music", out uint musicBankID);
+        AkUnitySoundEngine.LoadBank("PlaceHolder_SFX", out uint sfxBankID);
+
         AkUnitySoundEngine.PostEvent(musicEventName, gameObject);
         SetMusicState(STATE_TITLE);
-        AkUnitySoundEngine.SetRTPCValue("Music_Volume", 0f);
+        AkUnitySoundEngine.SetRTPCValue("Music_Volume", 20f);
         AkUnitySoundEngine.SetRTPCValue("SFX_Volume", 80f);
     }
 

@@ -495,7 +495,9 @@ void FixedUpdate()
         if (isChargingAttack)
             player.CancelChargeAttack();
 
+        //Audio
         AkUnitySoundEngine.PostEvent("Play_Stunned", gameObject);
+
         stunBurstParticles.Play();
 
         if(duration > 0.25f)

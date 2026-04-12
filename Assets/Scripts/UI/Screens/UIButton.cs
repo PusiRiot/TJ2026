@@ -22,11 +22,17 @@ public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandle
 
     public void LoadNextScene()
     {
+        if (nextSceneName == SceneName.MainMenuScene)
+            MusicManager.Instance.PlayTitleMusic();
+        else if (nextSceneName == SceneName.GameScene)
+            MusicManager.Instance.PlayGamePlayMusic();
+
         UINavigationManager.Instance.LoadScene(nextSceneName);
     }
 
     public void ReloadScene()
     {
+        MusicManager.Instance.PlayGamePlayMusic();
         UINavigationManager.Instance.ReloadScene();
     }
 
