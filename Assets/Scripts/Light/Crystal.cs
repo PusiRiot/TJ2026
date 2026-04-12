@@ -40,6 +40,7 @@ public class Crystal : MonoBehaviour
     // Capture variables
     float reclaimPointsTotal;
     private float reclaimPointsCurrent = 0f;
+    [ColorUsage(true, true)]
     private List<Color> teamsColor = new List<Color>();
 
     Animator animator;
@@ -100,8 +101,8 @@ public class Crystal : MonoBehaviour
         crystalLight = GetComponent<Light>();
         crystalLight.intensity = intensityWhileUnpicked; // Set initial intensity to the "unpicked" value, which is the default state of the crystal
 
-        teamsColor.Add(GameStatsAccess.Instance.GetTeamColor(0));   // Team 1 color
-        teamsColor.Add(GameStatsAccess.Instance.GetTeamColor(1));   // Team 2 color
+        teamsColor.Add(GameStatsAccess.Instance.GetTeamColor(3));   // Team 1 color - HDR
+        teamsColor.Add(GameStatsAccess.Instance.GetTeamColor(4));   // Team 2 color - HDR
         teamsColor.Add(GameStatsAccess.Instance.GetTeamColor(2));   // Neutral color
 
         animator = GetComponent<Animator>();

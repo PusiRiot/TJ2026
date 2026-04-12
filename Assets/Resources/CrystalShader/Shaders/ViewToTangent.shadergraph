@@ -1128,7 +1128,7 @@
     "m_Title": "View to Tangent",
     "m_Position": {
         "x": -2145.0,
-        "y": 1.9999732971191407
+        "y": 2.0
     }
 }
 
@@ -1465,8 +1465,8 @@
     "m_ObjectId": "41d94547a6724347881de2a4be938585",
     "m_Title": "Color",
     "m_Position": {
-        "x": -208.99996948242188,
-        "y": 18.999969482421876
+        "x": -209.0,
+        "y": 18.999961853027345
     }
 }
 
@@ -1476,8 +1476,8 @@
     "m_ObjectId": "41f3052037d14d9bb0a68b0186151135",
     "m_Title": "Base Map",
     "m_Position": {
-        "x": -1389.9998779296875,
-        "y": -543.9999389648438
+        "x": -1390.0,
+        "y": -544.0
     }
 }
 
@@ -2248,8 +2248,8 @@
     "m_ObjectId": "768afe5f01cc4efeba8956c9f653cd2e",
     "m_Title": "Base Map Reflection",
     "m_Position": {
-        "x": -835.9998168945313,
-        "y": -1.0000267028808594
+        "x": -836.0001831054688,
+        "y": -1.00006103515625
     }
 }
 
@@ -2585,7 +2585,7 @@
         "a": 1.0
     },
     "isMainColor": false,
-    "m_ColorMode": 0
+    "m_ColorMode": 1
 }
 
 {
@@ -2779,7 +2779,7 @@
         "a": 1.0
     },
     "isMainColor": false,
-    "m_ColorMode": 0
+    "m_ColorMode": 1
 }
 
 {
@@ -3603,7 +3603,7 @@
         "a": 1.0
     },
     "isMainColor": false,
-    "m_ColorMode": 0
+    "m_ColorMode": 1
 }
 
 {
