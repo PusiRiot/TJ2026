@@ -23,7 +23,6 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
 
     private void Awake()
     {
-        base.AddObserversOnScene();
         Player player = GetComponentInParent<Player>();
         if(player != null)
         {

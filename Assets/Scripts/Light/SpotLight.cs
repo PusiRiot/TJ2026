@@ -42,6 +42,7 @@ public class SpotLight : AbstractLight
 
     private void Start()
     {
+        base.AddObserversOnScene();
         lifeDrainParticles = GetComponentInChildren<ParticleSystem>();
       
         initialPsStartLifetime = lifeDrainParticles.main.startLifetime.constant;
