@@ -9,15 +9,18 @@ public class CharacterScreen : MonoBehaviour
 {
     [SerializeField] PlayerCharacter characterReference;
     public PlayerCharacter CharacterReference => characterReference;
-    [SerializeField] GameObject infoScreen;
+    [SerializeField] GameObject flashlightScreen;
+    [SerializeField] GameObject skillScreen;
 
     private void Awake()
     {
-        infoScreen.SetActive(false);
+        skillScreen.SetActive(false);
+        flashlightScreen.SetActive(true);
     }
 
     public void ShowInfo(bool show)
     {
-        infoScreen.SetActive(show);
+        skillScreen.SetActive(show);
+        flashlightScreen.SetActive(!show);
     }
 }

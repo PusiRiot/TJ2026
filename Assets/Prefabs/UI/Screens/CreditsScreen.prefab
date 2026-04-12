@@ -2235,7 +2235,7 @@ GameObject:
   - component: {fileID: 3507952392600406677}
   - component: {fileID: 8551272026614873299}
   m_Layer: 5
-  m_Name: Text
+  m_Name: "Cr\xE9ditos"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2588,7 +2588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8616483368218158488
 RectTransform:
   m_ObjectHideFlags: 0

@@ -165,6 +165,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
   musicEventName: Play_Music
   stateGroupName: Game_State
+--- !u!1 &303905795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6571723038331702928, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+  m_PrefabInstance: {fileID: 807176701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &392811312 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7066620988339305826, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+  m_PrefabInstance: {fileID: 807176701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &500833039 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8178063241010929585, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+  m_PrefabInstance: {fileID: 807176701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &686531941 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 839418212401789974, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+  m_PrefabInstance: {fileID: 807176701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &807176701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,6 +193,44 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 153099492872054363, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_text
+      value: 'FLASHLIGHT
+
+        She left hers at home, so she picked up a small
+        candle she found in the manor. It emits light in a small area around her.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 429017077432843836, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: firstToNavigate
+      value: 
+      objectReference: {fileID: 500833039}
+    - target: {fileID: 839418212401789974, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: FlashlightText
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260170853921706396, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: SkillText
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260170853921706396, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494061365432840705, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_text
+      value: 'SKILL
+
+        For a few seconds, you suck the life of the opponent
+        if he stands in your flashlight''s beam.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548209403867124021, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: FlashlightText
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548209403867124021, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509351295637234406, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -188,6 +246,17 @@ PrefabInstance:
     - target: {fileID: 2509351295637234406, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911739057472016191, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_text
+      value: 'FLASHLIGHT
+
+        He emits light in a cone in front of him from the
+        moth eyes in his moth head.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4150843932528301683, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4312955611983102545, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_Pivot.x
@@ -269,19 +338,137 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4652904329791557429, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: skillScreen
+      value: 
+      objectReference: {fileID: 303905795}
+    - target: {fileID: 4652904329791557429, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: flashlightScreen
+      value: 
+      objectReference: {fileID: 686531941}
+    - target: {fileID: 4885544907941274198, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: infoText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5102425535639754176, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: skillScreen
+      value: 
+      objectReference: {fileID: 1656240249}
+    - target: {fileID: 5102425535639754176, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: flashlightScreen
+      value: 
+      objectReference: {fileID: 392811312}
+    - target: {fileID: 5991328563660561312, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_text
+      value: 'SKILL
+
+        For a few seconds, you suck the life of the opponent
+        if he stands in your flashlight''s beam.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071395493133376469, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: skillScreen
+      value: 
+      objectReference: {fileID: 1646658257}
+    - target: {fileID: 6071395493133376469, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: flashlightScreen
+      value: 
+      objectReference: {fileID: 807176703}
+    - target: {fileID: 6571723038331702928, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: SkillTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602298173602551611, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_text
+      value: 'FLASHLIGHT
+
+        He emits light in a cone in front of him from the
+        moth eyes in his moth head.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683839786760501318, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: SkillText
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683839786760501318, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6870388854830848929, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923822336009007851, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: SkillText
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949042969166409840, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_text
+      value: 'SKILL
+
+        She hurls the scene light attached to her camera. It''ll
+        attach to walls or the opponent, where it''ll emit light that captures crystals,
+        just like her regular flashlight.
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 6959194802506426264, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_Name
       value: MainMenuScene
       objectReference: {fileID: 0}
+    - target: {fileID: 7066620988339305826, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: FlashlightText
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578158214192203218, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: ControlsText
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744441204555404246, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: ControlsText
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075569393451079910, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: ControlInfo
+      objectReference: {fileID: 0}
+    - target: {fileID: 8480343906804962134, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_text
+      value: 'FLASHLIGHT
+
+        She left hers at home, so she picked up a small
+        candle she found in the manor. It emits light in a small area around her.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930326817483330817, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_Name
+      value: FlashlightText
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930326817483330817, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168225151918615890, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: skillScreen
+      value: 
+      objectReference: {fileID: 1414851003}
+    - target: {fileID: 9168225151918615890, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: flashlightScreen
+      value: 
+      objectReference: {fileID: 807176702}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6931184183881116069, guid: f853faf4babe7254d8ef33913451373a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+--- !u!1 &807176702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8930326817483330817, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+  m_PrefabInstance: {fileID: 807176701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &807176703 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1548209403867124021, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+  m_PrefabInstance: {fileID: 807176701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &869967577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -339,6 +526,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45783f23fdb1e1d45ab3419adb2fb2ec, type: 3}
+--- !u!1 &1414851003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1260170853921706396, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+  m_PrefabInstance: {fileID: 807176701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1646658257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6683839786760501318, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+  m_PrefabInstance: {fileID: 807176701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1656240249 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6923822336009007851, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+  m_PrefabInstance: {fileID: 807176701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1697916635
 GameObject:
   m_ObjectHideFlags: 0

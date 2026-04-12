@@ -126,17 +126,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4312955611983102545}
     m_Modifications:
-    - target: {fileID: 6399087896543813275, guid: 89eda403652bc854aa6cf65c719dc6bc, type: 3}
-      propertyPath: m_Name
-      value: "Cr\xE9ditos"
-      objectReference: {fileID: 0}
     - target: {fileID: 6679209888614663209, guid: 89eda403652bc854aa6cf65c719dc6bc, type: 3}
       propertyPath: m_Name
       value: CreditsScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 6679209888614663209, guid: 89eda403652bc854aa6cf65c719dc6bc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8616483368218158488, guid: 89eda403652bc854aa6cf65c719dc6bc, type: 3}
       propertyPath: m_Pivot.x
@@ -236,50 +228,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4312955611983102545}
     m_Modifications:
-    - target: {fileID: 1350861804319809875, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1350861804319809875, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1350861804319809875, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1350861804319809875, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1350861804319809875, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1915862695660109090, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1915862695660109090, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1915862695660109090, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1915862695660109090, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1915862695660109090, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3593144784112709621, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1de2a4ea023306e46b727f971a793c20, type: 3}
     - target: {fileID: 6679209888614663209, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
       propertyPath: m_Name
       value: CharacterSelectionScreen
@@ -385,10 +333,6 @@ PrefabInstance:
     - target: {fileID: 6679209888614663209, guid: cee18ce1f975656428d233386b04f587, type: 3}
       propertyPath: m_Name
       value: MainMenuScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 6679209888614663209, guid: cee18ce1f975656428d233386b04f587, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8616483368218158488, guid: cee18ce1f975656428d233386b04f587, type: 3}
       propertyPath: m_Pivot.x
