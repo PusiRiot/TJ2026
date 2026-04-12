@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIScreen
   screenName: 0
-  firstToNavigate: {fileID: 0}
+  firstToNavigate: {fileID: 7804117529091303473}
 --- !u!1 &8161378173482176056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,9 +1787,14 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3048482454359885666, guid: debd31454fcaa944c82eb3d18d49c1b9, type: 3}
   m_PrefabInstance: {fileID: 8582813460050024183}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7804117529091303473}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!1 &7804117529091303473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1968509359421652678, guid: debd31454fcaa944c82eb3d18d49c1b9, type: 3}
+  m_PrefabInstance: {fileID: 8582813460050024183}
+  m_PrefabAsset: {fileID: 0}

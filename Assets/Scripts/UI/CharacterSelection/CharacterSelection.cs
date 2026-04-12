@@ -203,17 +203,21 @@ public class CharacterSelection : MonoBehaviour
         string readyKey = GetBindingForCurrentDevice("Ready", layout); // Your action name
         string escKey = GetBindingForCurrentDevice("Esc", layout); // Your action name
 
+        if(infoText == null) {
+            Debug.Log("?");
+        }
+
         if (infoShown)
-            infoText.text = $"{infoKey} - Hide Info";
+            infoText.text = $"{infoKey} - Skill Info";
         else 
-            infoText.text = $"{infoKey} - Info";
+            infoText.text = $"{infoKey} - Flashlight Info";
 
         if (ready)
-            readyText.text = $"{readyKey} - UnReady";
+            readyText.text = $"{readyKey} - Unready";
         else
-            readyText.text = $"{readyKey} - ready";
+            readyText.text = $"{readyKey} - Ready";
 
-        screen.ChangeEscText(_playerIndex, escKey);
+        screen.ChangeEscText(_playerIndex, $"{escKey}");
     }
 
     private string GetBindingForCurrentDevice(string actionName, string layout)
