@@ -34,8 +34,8 @@ public class GameStats : ScriptableObject
     [Header("General Combat")]
     public int MaxLives = 6;
     public float DeathDuration = 7;
-    public float GlowOverlayGlowUp = 0.2f;
-    public float GlowOverlayGlowDown = 0.4f;
+    public float GroovyOutlineGlowUp = 0.2f;
+    public float GroovyOutlineGlowDown = 0.4f;
 
     [Header("Light Melee")]
 

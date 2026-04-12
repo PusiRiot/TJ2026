@@ -378,6 +378,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: StunBurstParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 8028799895010376111, guid: 82a8ac1e53e841541b6d2e6addd1a176, type: 3}
+      propertyPath: lengthInSec
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8028799895010376111, guid: 82a8ac1e53e841541b6d2e6addd1a176, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8624892898402254305, guid: 82a8ac1e53e841541b6d2e6addd1a176, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

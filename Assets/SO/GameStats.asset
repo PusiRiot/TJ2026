@@ -31,8 +31,8 @@ MonoBehaviour:
   HealAmount: 3
   MaxLives: 9
   DeathDuration: 10
-  GlowOverlayGlowUp: 0.2
-  GlowOverlayGlowDown: 0.4
+  GroovyOutlineGlowUp: 0.2
+  GroovyOutlineGlowDown: 0.5
   LightMeleeDamage: 1
   LightMeleeRange: 1
   LightMeleeCooldownDuration: 0.75

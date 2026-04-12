@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEvent>
@@ -47,15 +48,17 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private ParticleSystem attackSparks;
     private ParticleSystem healParticles;
 
-    // Glow overlay
-    private List<Material> glowOverlayMaterials = new List<Material>();
-    private float currentAlpha = 0f;
-    private float targetAlpha = 0f;
+    // Groovy outline
+    [SerializeField] private Material transparentMask; 
+    private List<Material> groovyOutlineMaterials = new List<Material>();
+    private float currentThickness = 0f;
+    private float targetThickness = 0f;
     private float interpolationSpeed = 0f;
-    private Color glowColor;
+    private const float desiredThickness = 0.05f;
+    private Color outlineColor;
 
     // Death materials
-    private List<Material> deathGlowMaterials;
+    private List<Material> deathOutlineMaterials;
 
     // Boolean control
     private bool isProtectedByParry = false;
@@ -75,8 +78,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         _maxLives = GameStatsAccess.Instance.GetMaxLives();
         currentLives = _maxLives;
 
-        _glowUpDuration = GameStatsAccess.Instance.GetGlowOverlayGlowUp();
-        _glowDownDuration = GameStatsAccess.Instance.GetGlowOverlayGlowDown();
+        _glowUpDuration = GameStatsAccess.Instance.GetGroovyOutlineGlowUp();
+        _glowDownDuration = GameStatsAccess.Instance.GetGroovyOutlineGlowDown();
 
         _lightMeleeDamage = GameStatsAccess.Instance.LightMeleeDamage();
         _lightMeleeRange = GameStatsAccess.Instance.LightMeleeRange();
@@ -147,28 +150,29 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             }
         }
 
-        // Glow overlay materials initialization
+        // Groovy outline materials initialization
         SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer playerMesh in playerMeshes)
         {
             foreach(Material mat in playerMesh.materials)
             {
-                if (mat.HasFloat("_Fresnel"))
+                if (mat.HasFloat("_BaseThickness"))
                 {
-                    glowOverlayMaterials.Add(mat);
-                    mat.SetColor("_Color", new Color(0,0,0,0));
+                    groovyOutlineMaterials.Add(mat);
+                    mat.SetFloat("_BaseThickness", 0.0f);
+                    mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
                 }
             }
         }
 
         // Death materials
-        deathGlowMaterials = new List<Material>();
+        deathOutlineMaterials = new List<Material>();
 
-        foreach (Material originalMat in glowOverlayMaterials)
+        foreach (Material originalMat in groovyOutlineMaterials)
         {
             // This creates a brand new instance in memory with the same properties
             Material clonedMat = new Material(originalMat);
-            deathGlowMaterials.Add(clonedMat);
+            deathOutlineMaterials.Add(clonedMat);
         }
 
         //Audio
@@ -178,19 +182,19 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
 void FixedUpdate()
     {
-        if(targetAlpha != currentAlpha)
+        if(currentThickness != targetThickness)
         {
-            currentAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, interpolationSpeed * Time.fixedDeltaTime);
-            foreach (Material mat in glowOverlayMaterials)
+            currentThickness = Mathf.MoveTowards(currentThickness, targetThickness, interpolationSpeed * Time.fixedDeltaTime);
+            foreach (Material mat in groovyOutlineMaterials)
             {
-                mat.SetColor("_Color", new Color(glowColor.r, glowColor.g, glowColor.b, currentAlpha));
+                mat.SetFloat("_BaseThickness", currentThickness);
             }
         }
     }
 
     void OnDestroy()
     {
-        foreach (Material mat in deathGlowMaterials)
+        foreach (Material mat in deathOutlineMaterials)
         {
             Destroy(mat);
         }
@@ -214,39 +218,41 @@ void FixedUpdate()
 
     #endregion
 
-    #region Glow overlay methods
+    #region Groovy outline methods
 
-    private IEnumerator AnimateGlowOverlay(Color inGlowColor)
+    private IEnumerator AnimateGroovyOutline(Color inOutlineColor)
     {
-        glowColor = inGlowColor;
-        interpolationSpeed = 1f / _glowUpDuration;
-        currentAlpha = 0.0f;
-        targetAlpha = 1.0f;
+        outlineColor = inOutlineColor;
+        interpolationSpeed = desiredThickness / _glowUpDuration;
+        currentThickness = 0.0f;
+        targetThickness = desiredThickness;
 
-        foreach (Material mat in glowOverlayMaterials)
+        foreach (Material mat in groovyOutlineMaterials)
         {
-            mat.SetColor("_Color", new Color(glowColor.r, glowColor.g, glowColor.b, currentAlpha));
+            mat.SetColor("_OutlineColor", outlineColor);
+            mat.SetFloat("_BaseThickness", 0.0f);
         }
 
         yield return new WaitForSeconds(_glowUpDuration);
 
-        interpolationSpeed = 1f / _glowDownDuration;
-        currentAlpha = 1.0f;
-        targetAlpha = 0.0f;
+        interpolationSpeed = desiredThickness / _glowDownDuration;
+        currentThickness = desiredThickness;
+        targetThickness = 0.0f;
 
-        foreach (Material mat in glowOverlayMaterials)
+        foreach (Material mat in groovyOutlineMaterials)
         {
-            mat.SetColor("_Color", new Color(glowColor.r, glowColor.g, glowColor.b, currentAlpha));
+            mat.SetFloat("_BaseThickness", desiredThickness);
         }
 
         yield return new WaitForSeconds(_glowDownDuration);
 
         interpolationSpeed = 0f;
-        currentAlpha = targetAlpha;
+        currentThickness = targetThickness;
 
-        foreach (Material mat in glowOverlayMaterials)
+        foreach (Material mat in groovyOutlineMaterials)
         {
-            mat.SetColor("_Color", new Color(0,0,0,0));
+            mat.SetFloat("_BaseThickness", 0.0f);
+            mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
         }
     }
 
@@ -438,17 +444,16 @@ void FixedUpdate()
         }
 
         // Apply the new death materials
-        foreach (Material mat in deathGlowMaterials)
+        foreach (Material mat in deathOutlineMaterials)
         {
             Color teamColor = GameStatsAccess.Instance.GetTeamColor(_teamIndex);
-            teamColor.a = 0.75f; // Set the alpha to 0.5 for a semi-transparent effect
-            mat.SetColor("_Color", teamColor);
-            mat.SetFloat("_Fresnel", 1.5f); 
+            mat.SetColor("_OutlineColor", teamColor);
+            mat.SetFloat("_BaseThickness", desiredThickness); 
         }
 
         for (int i = 0; i < playerMeshes.Length; i++)
         {
-            Material[] deathMaterial = { deathGlowMaterials[i] };
+            Material[] deathMaterial = { transparentMask, deathOutlineMaterials[i] };
             playerMeshes[i].sharedMaterials = deathMaterial;
         }
 
@@ -550,7 +555,7 @@ void FixedUpdate()
 
                     currentLives = Math.Min(currentLives + healAmount, _maxLives);
                     healParticles.Play();
-                    StartCoroutine(AnimateGlowOverlay(GameStatsAccess.Instance.GetHealColor()));
+                    StartCoroutine(AnimateGroovyOutline(GameStatsAccess.Instance.GetHealColor()));
                 }
                 break;
             }
@@ -563,7 +568,7 @@ void FixedUpdate()
                 {
                     // Damage
                     currentLives -= damageAmount;
-                    StartCoroutine(AnimateGlowOverlay(GameStatsAccess.Instance.GetDamageColor()));
+                    StartCoroutine(AnimateGroovyOutline(GameStatsAccess.Instance.GetDamageColor()));
 
                     if (currentLives <= 0)
                     {

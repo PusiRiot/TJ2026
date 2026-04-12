@@ -55,8 +55,8 @@ public class GameStatsAccess : MonoBehaviour
     // Combat
     public int GetMaxLives() { return gameStats.MaxLives; }
 
-    public float GetGlowOverlayGlowUp() { return gameStats.GlowOverlayGlowUp; }
-    public float GetGlowOverlayGlowDown() { return gameStats.GlowOverlayGlowDown; }
+    public float GetGroovyOutlineGlowUp() { return gameStats.GroovyOutlineGlowUp; }
+    public float GetGroovyOutlineGlowDown() { return gameStats.GroovyOutlineGlowDown; }
     public int LightMeleeDamage(){ return gameStats.LightMeleeDamage; }
     public int HeavyMeleeDamage(){ return gameStats.HeavyMeleeDamage; }
 
