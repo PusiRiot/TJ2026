@@ -709,6 +709,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InstructionsScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 6679209888614663209, guid: ae3c7a08804e6ff49a6a613ac3a88cac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8616483368218158488, guid: ae3c7a08804e6ff49a6a613ac3a88cac, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

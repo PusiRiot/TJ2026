@@ -1600,7 +1600,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4268665715130717908}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8e9eaaa0cf150c4dac34bc81d30655c, type: 3}
   m_Name: 
@@ -1615,8 +1615,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   playerLives:
-  - {fileID: 4261821529929702774}
-  - {fileID: 6071264945397409728}
+  - {fileID: 0}
+  - {fileID: 0}
   timerText: {fileID: 6544838819717035768}
   timeUpText: {fileID: 5836284409237953018}
 --- !u!114 &206761294017659614
@@ -1626,7 +1626,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4268665715130717908}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c0554678d1a8824e9ea8e94de35fb8d, type: 3}
   m_Name: 
