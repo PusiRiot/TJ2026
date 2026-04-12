@@ -19,9 +19,15 @@ public class UIScreen : MonoBehaviour
     virtual public void Show()
     {
         if (screenName == ScreenName.Game)
+        {
+            MusicManager.Instance.PlayGamePlayMusic();
             GameManager.Instance.UnpauseGame();
+        }
         if (screenName == ScreenName.Pause)
+        {
+            MusicManager.Instance.PlayPauseMusic();
             GameManager.Instance.PauseGame();
+        }
 
         EventSystem.current.SetSelectedGameObject(firstToNavigate);
         gameObject.SetActive(true);

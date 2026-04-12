@@ -16,6 +16,7 @@ public class UIScreenVictory : UIScreen, IObserver<GameEvent>
                 winningTeamText.text = "Gana el jugador 2";
 
             Show();
+            MusicManager.Instance.PlayEndGameMusic();
         }
     }
 }

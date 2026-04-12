@@ -113,6 +113,8 @@ public class UINavigationManager : MonoBehaviour
 
     public void LoadScene(SceneName nextSceneName)
     {
+        if (nextSceneName == SceneName.MainMenuScene)
+            MusicManager.Instance.PlayTitleMusic();
         SceneManager.LoadScene(nextSceneName.ToString());
     }
     #endregion
