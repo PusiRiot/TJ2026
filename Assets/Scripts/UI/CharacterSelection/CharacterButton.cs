@@ -16,7 +16,6 @@ public class CharacterButton : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             outline[i].enabled = false;
-            outline[i].effectColor = GameStatsAccess.Instance.GetTeamColor(i);
         }
     }
 

@@ -2839,7 +2839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIScreenCharacterSelection
   screenName: 1
-  firstToNavigate: {fileID: 0}
+  firstToNavigate: {fileID: 2335793414117925869}
   exitText: {fileID: 5747137803469430932}
 --- !u!1 &6815443439859914170
 GameObject:
