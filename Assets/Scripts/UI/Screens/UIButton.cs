@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Class made to be able to easily asocciate a UINavigationManager function with a button on a screen
 /// </summary>
-public class UIButton : MonoBehaviour 
+public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
     /// <summary>
     /// If this button is used to switch to another screen give the correspondant value to nextScreenName
@@ -43,4 +44,15 @@ public class UIButton : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        AkUnitySoundEngine.PostEvent("Select_UI", gameObject);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        AkUnitySoundEngine.PostEvent("Click_UI", gameObject);
+    }
+
 }

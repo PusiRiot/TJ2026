@@ -4578,6 +4578,9 @@ GameObject:
   - component: {fileID: 2633486409755138093}
   - component: {fileID: 4939728414704064398}
   - component: {fileID: 4946658058456989588}
+  - component: {fileID: -8179968349459280407}
+  - component: {fileID: 8358910750164749759}
+  - component: {fileID: 5039259738369198392}
   m_Layer: 6
   m_Name: DrHives
   m_TagString: Untagged
@@ -4938,6 +4941,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d360a2d5268d3744aa924876e8e149ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
+--- !u!114 &-8179968349459280407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898015373717929256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afdab732f96d084f916976940e3cf33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSFX
+  hurtEvent: Hurt_Dr_Hives
+  turnOnEvent: Turn_On_Dr_Hives
+  turnOffEvent: Turn_Off_Dr_Hives
+--- !u!114 &8358910750164749759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898015373717929256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2705d55afa6094b4d89f3fb3f1de54ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AK.Wwise.Unity.MonoBehaviour::AkGameObj
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 1
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
+--- !u!114 &5039259738369198392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898015373717929256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad0c2134337d2f4d82bfb5b744d9071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AK.Wwise.Unity.MonoBehaviour::AkAudioListener
+  isDefaultListener: 1
+  bOverrideScalingFactor: 0
+  scalingFactor: -1
+  listenerId: 0
 --- !u!1 &8909493070970842898
 GameObject:
   m_ObjectHideFlags: 0

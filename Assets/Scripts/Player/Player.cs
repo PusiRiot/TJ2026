@@ -109,11 +109,19 @@ public class Player : Subject<PlayerCombatEvent>
 
     public void Ability(InputAction.CallbackContext ctx)
     {
-        if (actionsEnabled && isAbilityEnabled && ctx.performed)
+        if (actionsEnabled && ctx.performed)
         {
-            playerAbility.Activate();
-            isAbilityEnabled = false;
-            Notify(PlayerCombatEvent.AbilityDisabled, new int[] { _teamIndex });
+            if (isAbilityEnabled)
+            {
+                playerAbility.Activate();
+                isAbilityEnabled = false;
+                Notify(PlayerCombatEvent.AbilityDisabled, new int[] { _teamIndex });
+
+            }
+            else
+            {
+                AkUnitySoundEngine.PostEvent("Error_UI", gameObject);
+            }
         }
     }
 
@@ -228,4 +236,12 @@ public class Player : Subject<PlayerCombatEvent>
     #endregion
     public int GetTeamIndex() { return _teamIndex; }
     public PlayerCharacter GetPlayerCharacter() { return _playerStats.character; }
+
+    #region Audio
+    public void PlayFootstep()
+    {
+        AkUnitySoundEngine.PostEvent("Play_Footsteps", gameObject);
+    }
+
+    #endregion
 }

@@ -41,6 +41,9 @@ public class Door : MonoBehaviour
     {
         isClosed = false;
 
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_Doors", gameObject);
+
         animator.SetBool("IsClosed", isClosed);
         StartCoroutine(ToggleCollider(isClosed));
     }
@@ -48,6 +51,9 @@ public class Door : MonoBehaviour
     public void Close()
     {
         isClosed = true;
+
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_Doors", gameObject);
 
         animator.SetBool("IsClosed", isClosed);
         StartCoroutine(ToggleCollider(isClosed));

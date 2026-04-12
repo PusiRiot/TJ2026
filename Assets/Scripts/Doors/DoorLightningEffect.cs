@@ -30,6 +30,9 @@ public class DoorLightningEffect : MonoBehaviour
 
     IEnumerator LightEffect()
     {
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_Thunder", gameObject);
+
         lightningLight.intensity = 10;
         yield return new WaitForSeconds(0.1f);
         lightningLight.intensity = 0;

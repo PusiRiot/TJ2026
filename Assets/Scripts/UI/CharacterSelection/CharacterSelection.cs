@@ -137,7 +137,11 @@ public class CharacterSelection : MonoBehaviour
 
         currentButtonIndex = (currentButtonIndex - 1 + characterButtons.Length) % characterButtons.Length;
         var selectedCharacter = characterButtons[currentButtonIndex].Select(_playerIndex);
+        currentCharacter = selectedCharacter;
         AssignCharacterScreen(selectedCharacter);
+
+        //Audio
+        AkUnitySoundEngine.PostEvent(GetHoverEvent(selectedCharacter), gameObject);
     }
 
     public void OnRight(InputAction.CallbackContext ctx)
@@ -149,7 +153,11 @@ public class CharacterSelection : MonoBehaviour
 
         currentButtonIndex = (currentButtonIndex + 1) % characterButtons.Length;
         var selectedCharacter = characterButtons[currentButtonIndex].Select(_playerIndex);
+        currentCharacter = selectedCharacter;
         AssignCharacterScreen(selectedCharacter);
+        
+        //Audio
+        AkUnitySoundEngine.PostEvent(GetHoverEvent(selectedCharacter), gameObject);
     }
 
     public void OnInfo(InputAction.CallbackContext ctx)
@@ -165,6 +173,11 @@ public class CharacterSelection : MonoBehaviour
     public void OnReady(InputAction.CallbackContext ctx)
     {
         ready = !ready;
+
+        //Audio
+        if (ready)
+            AkUnitySoundEngine.PostEvent(GetSelectEvent(currentCharacter), gameObject);
+
         readyImage.SetActive(ready);
         UpdateUI(ctx.action.activeControl.device.name);
         PlayerReadyChanged?.Invoke(ready);
@@ -200,5 +213,30 @@ public class CharacterSelection : MonoBehaviour
 
         return action.GetBindingDisplayString(bindingIndex);
     }
+    #endregion
+
+    #region Audio
+
+    private string GetHoverEvent(PlayerCharacter character)
+    {
+        return character switch
+        {
+            PlayerCharacter.Peggy => "Peggy_Hover",
+            PlayerCharacter.DrHives => "Dr_Hives_Hover",
+            _ => ""
+        };
+    }
+
+    private string GetSelectEvent(PlayerCharacter character)
+    {
+        return character switch
+        {
+            PlayerCharacter.Peggy => "Peggy_Select",
+            PlayerCharacter.DrHives => "Dr_Hives_Select",
+            _ => ""
+        };
+    }
+
+
     #endregion
 }

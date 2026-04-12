@@ -64,6 +64,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private bool alreadyHit = false; // to prevent hitting multiple times with the heavy melee dash
     private bool isDead = false;
 
+    //Audio
+    private PlayerSFX playerSFX;
     public void Initialize(int teamIndex)
     {
         _teamIndex = teamIndex;
@@ -168,9 +170,13 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             Material clonedMat = new Material(originalMat);
             deathGlowMaterials.Add(clonedMat);
         }
+
+        //Audio
+        playerSFX = GetComponent<PlayerSFX>();
+
     }
 
-    void FixedUpdate()
+void FixedUpdate()
     {
         if(targetAlpha != currentAlpha)
         {
@@ -251,6 +257,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     {
         if (isHeavyAttack)
         {
+            //Audio
+            AkUnitySoundEngine.PostEvent("Play_Heavy", gameObject);
+
             attackSparks.Play();
 
             InterruptCharge();
@@ -258,6 +267,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         }
         else
         {
+            //Audio
+            AkUnitySoundEngine.PostEvent("Play_Light", gameObject);
+
             StartCoroutine(LightAttack());
         }
     }
@@ -370,6 +382,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         StopCoroutine(LightAttack());
 
+        //Audio
+        playerSFX.PlayHurt();
+
         // Damage
         Notify(PlayerCombatEvent.ReceivedDamage, new int[]{_teamIndex, _heavyMeleeDamage});
 
@@ -379,6 +394,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     public void ReceiveLightMelee()
     {
         playerAnimator.TriggerLightDamage();
+
+        //Audio
+        playerSFX.PlayHurt();
 
         // Damage
         Notify(PlayerCombatEvent.ReceivedDamage, new int[] { _teamIndex, _lightMeleeDamage });
@@ -435,12 +453,16 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         }
 
         Debug.Log("stopped coroutine");
+        //Audio
+        playerSFX.PlayTurnOff();
         playerLight.TurnOff(); // don't call method to not start twice the same coroutine
 
         Debug.Log(_deathDuration);
         yield return new WaitForSeconds(_deathDuration);
 
         // light switching
+        //Audio
+        playerSFX.PlayTurnOn();
         playerLight.TurnOn();
 
         // enable actions and world interaction
@@ -473,6 +495,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         if (isChargingAttack)
             player.CancelChargeAttack();
 
+        AkUnitySoundEngine.PostEvent("Play_Stunned", gameObject);
         stunBurstParticles.Play();
 
         if(duration > 0.25f)

@@ -106,6 +106,8 @@ public class DoorManager : MonoBehaviour
             }
 
             lightningEffect.GenerateLighningEffect(chosenDoor.transform);
+
+            
         }
     }
 

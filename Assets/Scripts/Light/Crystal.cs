@@ -82,6 +82,18 @@ public class Crystal : MonoBehaviour
 
     private void Awake()
     {
+        // Capturing started
+        reclaimingStartedCallback.AddListener((team) => AkUnitySoundEngine.PostEvent("Play_Crystal_Capturing", gameObject));
+
+        // Fully captured
+        reclaimingFinishedCallback.AddListener((team) => AkUnitySoundEngine.PostEvent("Play_Captured_Crystal", gameObject));
+
+        // Capture abandoned (inactive reset starts)
+        inactiveActionPerFrame.AddListener(() => {
+            if (inactiveCountdown == 0f) // first frame only
+                AkUnitySoundEngine.PostEvent("Play_Crystal_Not_Capturing", gameObject);
+        });
+
         inactiveResetTime = GameStatsAccess.Instance.GetCrystalTimeToInactiveReset();
         reclaimPointsTotal = GameStatsAccess.Instance.GetTotalReclaimCrystalPoints();
         inactiveMinusPointsPerSecond = GameStatsAccess.Instance.GetCrystalInactiveResetPointsPerSecond();

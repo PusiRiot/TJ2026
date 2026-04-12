@@ -191,6 +191,9 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     {
         if (!movementDisabled && !dashExecuting && currentStamina >= _staminaConsumption)
         {
+            //Audio
+            AkUnitySoundEngine.PostEvent("Play_Dash", gameObject);
+
             StartCoroutine(DashMovement(_dashDuration, _dashSpeedIncrement));
             currentStamina -= _staminaConsumption;
 
