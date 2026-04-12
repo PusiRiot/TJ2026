@@ -11,9 +11,9 @@ public class UIScreenVictory : UIScreen, IObserver<GameEvent>
         {
             int[] teamScore = (int[])data;
             if (teamScore[0] > teamScore[1])
-                winningTeamText.text = "Gana el jugador 1";
+                winningTeamText.text = "Player 1 wins!!!!";
             else
-                winningTeamText.text = "Gana el jugador 2";
+                winningTeamText.text = "Player 2 wins!!!!";
 
             Show();
             MusicManager.Instance.PlayEndGameMusic();
