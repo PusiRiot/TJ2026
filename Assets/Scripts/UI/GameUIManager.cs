@@ -12,7 +12,7 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
     [SerializeField] private Image[] playerAbilityEnabled = new Image[2];
-    [SerializeField] private Slider[] playerLives = new Slider[2];
+    [SerializeField] private Image[] playerLives = new Image[2];
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
     float timePassed = 0;
@@ -33,10 +33,8 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         timeUpText.enabled = false;
 
         _maxLives = GameStatsAccess.Instance.GetMaxLives();
-        playerLives[0].maxValue = _maxLives;
-        playerLives[0].value = _maxLives;
-        playerLives[1].maxValue = _maxLives;
-        playerLives[1].value = _maxLives;
+        playerLives[0].fillAmount = 1;
+        playerLives[1].fillAmount = 1;
 
         //StartCoroutine(StartCountdown());
     }
@@ -91,7 +89,7 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         GameManager.Instance.PauseGame(); // pause game and set message that time's up
         timeUpText.text = "¡Tiempo!";
         timeUpText.enabled = true;
-        yield return new WaitForSecondsRealtime(2); 
+        yield return new WaitForSecondsRealtime(2);
         GameManager.Instance.TimerEnded(); // Notify GameManager of timer end
     }
 
@@ -109,21 +107,21 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         switch (evt)
         {
             case PlayerMovementEvent.DashConsumed:
-            {
-                int teamIndex = (int)data;
-                Color teamColor = playerDashEnabled[teamIndex].color;
-                teamColor.a = 0.05f;
-                playerDashEnabled[teamIndex].color = teamColor;
-                break;
-            }
+                {
+                    int teamIndex = (int)data;
+                    Color teamColor = playerDashEnabled[teamIndex].color;
+                    teamColor.a = 0.05f;
+                    playerDashEnabled[teamIndex].color = teamColor;
+                    break;
+                }
             case PlayerMovementEvent.DashEnabled:
-            {
-                int teamIndex = (int)data;
-                Color teamColor = playerDashEnabled[teamIndex].color;
-                teamColor.a = 1f;
-                playerDashEnabled[teamIndex].color = teamColor;
-                break;
-            }
+                {
+                    int teamIndex = (int)data;
+                    Color teamColor = playerDashEnabled[teamIndex].color;
+                    teamColor.a = 1f;
+                    playerDashEnabled[teamIndex].color = teamColor;
+                    break;
+                }
         }
     }
 
@@ -132,17 +130,17 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         switch (evt)
         {
             case GameEvent.ScoreUpdate:
-            {
-                int[] score = data as int[];
-                teamScoreTexts[0].text = score[0].ToString();
-                teamScoreTexts[1].text = score[1].ToString();
-                break;
-            }
+                {
+                    int[] score = data as int[];
+                    teamScoreTexts[0].text = score[0].ToString();
+                    teamScoreTexts[1].text = score[1].ToString();
+                    break;
+                }
             case GameEvent.SuddenDeath:
-            {
-                StartCoroutine(SuddenDeath());
-                break;
-            }
+                {
+                    StartCoroutine(SuddenDeath());
+                    break;
+                }
         }
     }
 
@@ -151,28 +149,26 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         switch (evt)
         {
             case PlayerCombatEvent.ReceivedDamage:
-            {
-                int[] dataDamage = data as int[];
-                int teamIndex = dataDamage[0];
-                int damage = dataDamage[1];
-                int newValue = (int)playerLives[teamIndex].value - damage;
-                playerLives[teamIndex].value = newValue < 0 ? 0 : newValue;
-                break;
-            }
+                {
+                    int[] dataDamage = data as int[];
+                    int teamIndex = dataDamage[0];
+                    int damage = dataDamage[1];
+                    playerLives[teamIndex].fillAmount = Mathf.Max(playerLives[teamIndex].fillAmount - (float)damage / (float)_maxLives, 0);
+                    break;
+                }
             case PlayerCombatEvent.ReceivedHeal:
                 {
                     int[] dataHeal = data as int[];
                     int teamIndex = dataHeal[0];
                     int healAmount = dataHeal[1];
-                    int newValue = Mathf.Min((int)playerLives[teamIndex].value + healAmount, _maxLives);
-                    playerLives[teamIndex].value = newValue < 0 ? 0 : newValue;
+                    playerLives[teamIndex].fillAmount = Mathf.Min(playerLives[teamIndex].fillAmount + (float)healAmount / (float)_maxLives, _maxLives);
                     break;
                 }
             case PlayerCombatEvent.BackToLife:
-            {
-                playerLives[(int)data].value = _maxLives;
-                break;
-            }
+                {
+                    playerLives[(int)data].fillAmount = 1;
+                    break;
+                }
             case PlayerCombatEvent.AbilityEnabled:
                 {
                     int[] dataTeam = data as int[];
@@ -180,7 +176,7 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
                     Color teamColor = playerAbilityEnabled[teamIndex].color;
                     teamColor.a = 1f;
                     playerAbilityEnabled[teamIndex].color = teamColor;
-                    break; 
+                    break;
                 }
             case PlayerCombatEvent.AbilityDisabled:
                 {
