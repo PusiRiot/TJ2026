@@ -23,10 +23,34 @@ public class GeneratePlayers : MonoBehaviour
                     GameObject instanciated = Instantiate(p);
                     instanciated.transform.position = startPosition[i].position;
                     instanciated.tag = i == 0 ? "Player1" : "Player2";
+                    ConfigCharacterLayer(instanciated, i);
+                    ConfigCharacterRenderLayerMask(instanciated, i);
                     instanciated.SetActive(true);
                     break;
                 }
             }
         }       
+    }
+
+    private void ConfigCharacterLayer(GameObject player, int teamIndex)
+    {
+        // Set the layer of the player and its children to the appropriate team layer
+        int layer = teamIndex == 0 ? LayerMask.NameToLayer("Player1") : LayerMask.NameToLayer("Player2");
+        player.layer = layer;
+        foreach (Transform child in player.transform)
+        {
+            child.gameObject.layer = layer;
+        }
+    }
+
+    private void ConfigCharacterRenderLayerMask(GameObject player, int teamIndex)
+    {
+        // Set the render layer mask of the player's renderers to the appropriate team layer
+        uint layerMask = teamIndex == 0 ? RenderingLayerMask.GetMask("Player1") : RenderingLayerMask.GetMask("Player2");
+        Renderer[] renderers = player.GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.renderingLayerMask = layerMask;
+        }
     }
 }
