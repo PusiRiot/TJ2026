@@ -5030,7 +5030,7 @@ MonoBehaviour:
   viewAngle: 42
   ignorePlayerMask:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 703
   lifeDrainPlayer1Mask:
     serializedVersion: 2
     m_Bits: 311

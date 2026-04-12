@@ -175,7 +175,7 @@ MonoBehaviour:
   viewRange: 3
   ignorePlayerMask:
     serializedVersion: 2
-    m_Bits: 191
+    m_Bits: 703
   justCrystalHealMask:
     serializedVersion: 2
     m_Bits: 136
