@@ -24,10 +24,7 @@ public class MusicManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
 
-    private void Start()
-    {
         AkUnitySoundEngine.LoadBank("PlaceHolder_Music", out uint musicBankID);
         AkUnitySoundEngine.LoadBank("PlaceHolder_SFX", out uint sfxBankID);
 

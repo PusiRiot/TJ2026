@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameStats
   GameDuration: 120
   TeamColor:
-  - {r: 0.45758677, g: 0, b: 1, a: 1}
-  - {r: 0.9547169, g: 0.658962, b: 0.14230676, a: 1}
+  - {r: 0.62352943, g: 0, b: 0.87843144, a: 1}
+  - {r: 0.9529412, g: 0.65882355, b: 0.14117648, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.60404813, g: 0, b: 0.7490196, a: 1}
+  - {r: 0.7490196, g: 0.51784074, b: 0.0061647715, a: 1}
   TeamEmissiveMaterial:
   - {fileID: 2100000, guid: a1e2bc239b1d60044a7cd98413048d6e, type: 2}
   - {fileID: 2100000, guid: e1685f431a614fe42a5b4fdc9e9d8b95, type: 2}

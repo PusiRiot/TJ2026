@@ -129,7 +129,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorA: {r: 0, g: 0, b: 0, a: 1}
     - _ColorB: {r: 0, g: 0, b: 0, a: 1}
-    - _ColorDark: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorDark: {r: 5.9921575, g: 5.9921575, b: 5.9921575, a: 1}
     - _ColorLight: {r: 0, g: 0, b: 0, a: 1}
     - _ColorSpecular: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
