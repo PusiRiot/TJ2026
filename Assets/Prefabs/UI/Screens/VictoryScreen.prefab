@@ -167,16 +167,16 @@ RectTransform:
   m_GameObject: {fileID: 988054766210392504}
   m_LocalRotation: {x: -0, y: -0, z: -0.06184051, w: 0.9980861}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2499999, y: 1.2499999, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2356833253743029920}
-  m_Father: {fileID: 8616483368218158488}
+  m_Father: {fileID: 6813756150187122184}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 730, y: -406}
-  m_SizeDelta: {x: 329.4988, y: 156.0171}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -287.5, y: 172.4122}
+  m_SizeDelta: {x: 329.49878, y: 156.01709}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &365715860567604049
 CanvasRenderer:
@@ -860,8 +860,6 @@ RectTransform:
   - {fileID: 2055762368065287273}
   - {fileID: 6813756150187122184}
   - {fileID: 4473828157900550597}
-  - {fileID: 7401735239737195625}
-  - {fileID: 3880711224283067674}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -913,17 +911,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6833497902432643275}
   m_LocalRotation: {x: -0, y: -0, z: -0.055871215, w: 0.998438}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2499999, y: 1.2499999, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8346885259029882835}
-  m_Father: {fileID: 8616483368218158488}
+  m_Father: {fileID: 6813756150187122184}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -6.406}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 734, y: -245}
-  m_SizeDelta: {x: 336.9282, y: 159.5349}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -282.49994, y: 373.66217}
+  m_SizeDelta: {x: 336.92822, y: 159.53491}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6228610308133253666
 CanvasRenderer:
@@ -1117,7 +1115,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7401735239737195625}
+  - {fileID: 3880711224283067674}
   m_Father: {fileID: 8616483368218158488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
