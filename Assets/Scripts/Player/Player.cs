@@ -86,6 +86,7 @@ public class Player : Subject<PlayerCombatEvent>
                 if (ctx.performed)
                 {
                     playerCombat.ExecuteAttack(false);
+                    StopCoroutine(nameof(StartChargeAttack));
                     StartCoroutine(LightMeleeCooldown(_lightMeleeCooldownDuration));
                 }
             }
@@ -93,10 +94,13 @@ public class Player : Subject<PlayerCombatEvent>
             if (ctx.interaction is HoldInteraction && isHeavyMeleeEnabled)
             {
                 if (ctx.started)
-                    playerCombat.ChargeAttack();
+                    StartCoroutine(nameof(StartChargeAttack)); // it is a coroutine to not start it if the player was just tapping
 
                 if (ctx.canceled)
+                {
+                    StopCoroutine(nameof(StartChargeAttack)); // just in case it hadn't started
                     playerCombat.InterruptCharge();
+                }
 
                 if (ctx.performed)
                 {
@@ -105,6 +109,12 @@ public class Player : Subject<PlayerCombatEvent>
                 }
             }
         }
+    }
+
+    IEnumerator StartChargeAttack()
+    {
+        yield return new WaitForSeconds(0.25f);
+        playerCombat.ChargeAttack();
     }
 
     public void Ability(InputAction.CallbackContext ctx)
