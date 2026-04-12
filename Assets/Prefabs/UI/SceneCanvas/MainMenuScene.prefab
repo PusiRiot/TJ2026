@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterSelectionScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 6679209888614663209, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8616483368218158488, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -382,13 +386,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4312955611983102545}
     m_Modifications:
+    - target: {fileID: 281427097967174062, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 281427097967174062, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773933284680094267, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773933284680094267, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3690906432113243957, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3690906432113243957, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3690906432113243957, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307342998987635836, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307342998987635836, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307342998987635836, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6679209888614663209, guid: cee18ce1f975656428d233386b04f587, type: 3}
       propertyPath: m_Name
       value: MainMenuScreen
       objectReference: {fileID: 0}
     - target: {fileID: 6679209888614663209, guid: cee18ce1f975656428d233386b04f587, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8616483368218158488, guid: cee18ce1f975656428d233386b04f587, type: 3}
       propertyPath: m_Pivot.x
