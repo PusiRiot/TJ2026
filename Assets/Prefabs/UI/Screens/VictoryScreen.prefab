@@ -882,7 +882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIScreenVictory
   screenName: 9
-  firstToNavigate: {fileID: 0}
+  firstToNavigate: {fileID: 6833497902432643275}
   winningTeamText: {fileID: 8551272026614873299}
 --- !u!1 &6833497902432643275
 GameObject:
