@@ -44,7 +44,6 @@ public abstract class Subject<TEvent> : MonoBehaviour
             return;
 
         _observers.CopyTo(snapshot);
-
         for (int i = 0; i < snapshot.Length; i++)
         {
             var obs = snapshot[i];

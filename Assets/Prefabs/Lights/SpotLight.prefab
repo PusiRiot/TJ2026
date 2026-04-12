@@ -5033,10 +5033,10 @@ MonoBehaviour:
     m_Bits: 703
   lifeDrainPlayer1Mask:
     serializedVersion: 2
-    m_Bits: 823
+    m_Bits: 256
   lifeDrainPlayer2Mask:
     serializedVersion: 2
-    m_Bits: 631
+    m_Bits: 64
   regularParticlesEmission: 200
   pulseVisualsDuration: 0.5
   pulseIntensityMultiplier: 1.6

@@ -86,7 +86,6 @@ public class SpotLight : AbstractLight
         foreach (var hit in hits)
         {
             Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
-
             if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, ignorePlayerMask))
             {
                 if(rh.collider == hit) {
@@ -106,7 +105,6 @@ public class SpotLight : AbstractLight
                         if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
                         {
                             // Check line of sight
-                            // DONE by Adri
                             if (rh.collider == hit)
                             {
                                 heal.ReclaimFlag(teamIndex);
