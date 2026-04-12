@@ -1,6 +1,11 @@
+using TMPro;
+using UnityEngine;
+
 public class UIScreenCharacterSelection : UIScreen
 {
     CharacterSelection[] players;
+    [SerializeField] TextMeshProUGUI exitText;
+    string[] exitPlayerButton = new string[2];
 
     private void Awake()
     {
@@ -27,5 +32,15 @@ public class UIScreenCharacterSelection : UIScreen
 
         if (allReady)
             UINavigationManager.Instance.LoadScene(SceneName.GameScene);
+    }
+
+    public void ChangeEscText(int playerIndex, string playerButton)
+    {
+        exitPlayerButton[playerIndex] = playerButton;
+        if (exitPlayerButton[0] == exitPlayerButton[1])
+            exitText.text = exitPlayerButton[0];
+        else
+            exitText.text = exitPlayerButton[0] + "/" + exitPlayerButton[1];
+
     }
 }

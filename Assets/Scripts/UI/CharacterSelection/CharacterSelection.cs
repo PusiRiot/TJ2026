@@ -14,7 +14,8 @@ public class CharacterSelection : MonoBehaviour
     [SerializeField] InputActionAsset inputAction;
     [SerializeField] TextMeshProUGUI infoText;
     [SerializeField] TextMeshProUGUI readyText;
-    [SerializeField] GameObject readyImage; // Reference to the character screen to update character info
+    [SerializeField] GameObject readyImage; // ready image
+    UIScreenCharacterSelection screen; // Reference to the character screen to update character info
 
     CharacterScreen[] characterScreens; // Reference to the character screen to update character info
     CharacterButton[] characterButtons;
@@ -37,6 +38,7 @@ public class CharacterSelection : MonoBehaviour
         inputAction.actionMaps[_playerIndex].FindAction("Right").performed += OnRight;
         inputAction.actionMaps[_playerIndex].FindAction("Info").performed += OnInfo;
         inputAction.actionMaps[_playerIndex].FindAction("Ready").performed += OnReady;
+        inputAction.actionMaps[_playerIndex].FindAction("Esc").performed += OnEsc;
     }
 
     void OnDisable()
@@ -46,10 +48,13 @@ public class CharacterSelection : MonoBehaviour
         inputAction.actionMaps[_playerIndex].FindAction("Right").performed -= OnRight;
         inputAction.actionMaps[_playerIndex].FindAction("Info").performed -= OnInfo;
         inputAction.actionMaps[_playerIndex].FindAction("Ready").performed -= OnReady;
+        inputAction.actionMaps[_playerIndex].FindAction("Esc").performed -= OnEsc;
     }
 
     void Start()
     {
+        screen = GetComponentInParent<UIScreenCharacterSelection>();
+
         inputAction.actionMaps[_playerIndex].Enable(); // Enable the first action map (you may want to specify which one if you have multiple)
 
         AssignDevices();
@@ -182,6 +187,11 @@ public class CharacterSelection : MonoBehaviour
         UpdateUI(ctx.action.activeControl.device.name);
         PlayerReadyChanged?.Invoke(ready);
     }
+
+    public void OnEsc(InputAction.CallbackContext ctx)
+    {
+        UINavigationManager.Instance.ShowScreen(ScreenName.MainMenu, true);
+    }
     #endregion
 
     #region Player input text update
@@ -191,6 +201,7 @@ public class CharacterSelection : MonoBehaviour
         if (layout == null) return; 
         string infoKey = GetBindingForCurrentDevice("Info", layout);   // Your action name
         string readyKey = GetBindingForCurrentDevice("Ready", layout); // Your action name
+        string escKey = GetBindingForCurrentDevice("Esc", layout); // Your action name
 
         if (infoShown)
             infoText.text = $"{infoKey} - Hide Info";
@@ -201,7 +212,10 @@ public class CharacterSelection : MonoBehaviour
             readyText.text = $"{readyKey} - UnReady";
         else
             readyText.text = $"{readyKey} - ready";
+
+        screen.ChangeEscText(_playerIndex, escKey);
     }
+
     private string GetBindingForCurrentDevice(string actionName, string layout)
     {
         InputAction action = inputAction.actionMaps[_playerIndex].FindAction(actionName);

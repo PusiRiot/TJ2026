@@ -284,11 +284,11 @@
                 },
                 {
                     "name": "",
-                    "id": "9e73f643-4a56-4e96-b8df-77b46dfe92fd",
+                    "id": "64b2ef1f-e24e-4beb-a6e8-1f9700ede459",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "P1Scheme",
+                    "groups": ";P2Scheme",
                     "action": "Esc",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -299,7 +299,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller;P1Scheme;P2Scheme",
+                    "groups": "Controller;P2Scheme",
                     "action": "Esc",
                     "isComposite": false,
                     "isPartOfComposite": false
