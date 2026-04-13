@@ -518,7 +518,10 @@ void FixedUpdate()
 
         playerMovement.DisableMovement(true);
         playerMovement.ToggleRotation(false);
-        playerAbility.Stop();
+
+        if(player.isAbilityInUse)
+            playerAbility.Stop();
+
         player.DisablePlayerActions();
 
         yield return new WaitForSeconds(duration);

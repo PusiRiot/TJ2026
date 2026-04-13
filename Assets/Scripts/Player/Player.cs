@@ -30,6 +30,8 @@ public class Player : Subject<PlayerCombatEvent>
     private bool isParryEnabled = true;
     private bool isHeavyMeleeEnabled = true;
     private bool isLightMeleeEnabled = true;
+    [HideInInspector]
+    public bool isAbilityInUse = false;
     private bool isAbilityEnabled = true;
     private bool actionsEnabled = true;
     // cooldown durations
@@ -115,6 +117,7 @@ public class Player : Subject<PlayerCombatEvent>
             {
                 playerAbility.Activate();
                 isAbilityEnabled = false;
+                isAbilityInUse = true;
                 Notify(PlayerCombatEvent.AbilityDisabled, new int[] { _teamIndex });
 
             }
@@ -125,7 +128,8 @@ public class Player : Subject<PlayerCombatEvent>
         }
     }
 
-    public void StartAbilityCooldown() { 
+    public void StartAbilityCooldown() {
+        isAbilityInUse = false;
         StartCoroutine(AbilityCooldown(_specialAbilityCooldownDuration));
     }
 
