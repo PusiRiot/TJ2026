@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Script to generate players on runtime when game starts based on the player selection of GameGlobalSettings
@@ -27,11 +28,12 @@ public class GeneratePlayers : MonoBehaviour
                     ConfigureParryMaterials(instanciated, i);
                     ConfigCharacterLayer(instanciated, i);
                     ConfigCharacterRenderLayerMask(instanciated, i);
+                    ConfigLightsRenderLayerMask(instanciated, i);
                     instanciated.SetActive(true);
                     break;
                 }
             }
-        }       
+        }
     }
 
     private void ConfigureParryMaterials(GameObject player, int teamIndex)
@@ -53,9 +55,29 @@ public class GeneratePlayers : MonoBehaviour
         // Set the layer of the player and its children to the appropriate team layer
         int layer = teamIndex == 0 ? LayerMask.NameToLayer("Player1") : LayerMask.NameToLayer("Player2");
         player.layer = layer;
-        foreach (Transform child in player.transform)
+
+        var children = player.GetComponentsInChildren<Transform>(includeInactive: true);
+        foreach (var child in children)
         {
             child.gameObject.layer = layer;
+        }
+    }
+
+    private void ConfigLightsRenderLayerMask(GameObject player, int teamIndex)
+    {
+        // Set the render layer mask of the player's lights to the appropriate team layer
+        uint renderMask = teamIndex == 0 ? RenderingLayerMask.GetMask("Player1") : RenderingLayerMask.GetMask("Player2");
+        Light[] lights = player.GetComponentsInChildren<Light>(includeInactive: true);
+        foreach (Light light in lights)
+        {
+            if (light.renderingLayerMask != RenderingLayerMask.GetMask("Default"))
+            {
+                UniversalAdditionalLightData additionalData = light.gameObject.GetComponent<UniversalAdditionalLightData>();
+                additionalData.renderingLayers = renderMask;
+                additionalData.shadowRenderingLayers = renderMask;
+
+                light.renderingLayerMask = (int)renderMask;
+            }
         }
     }
 
@@ -64,9 +86,15 @@ public class GeneratePlayers : MonoBehaviour
         // Set the render layer mask of the player's renderers to the appropriate team layer
         uint layerMask = teamIndex == 0 ? RenderingLayerMask.GetMask("Player1") : RenderingLayerMask.GetMask("Player2");
         Renderer[] renderers = player.GetComponentsInChildren<Renderer>();
+        SkinnedMeshRenderer[] skinnedMeshRenderers = player.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (Renderer renderer in renderers)
         {
             renderer.renderingLayerMask = layerMask;
+        }
+
+        foreach (SkinnedMeshRenderer skinnedMeshRenderer in skinnedMeshRenderers)
+        {
+            skinnedMeshRenderer.renderingLayerMask = layerMask;
         }
     }
 }
