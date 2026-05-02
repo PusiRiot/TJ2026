@@ -211,9 +211,9 @@ public class CharacterSelection : MonoBehaviour
         }
 
         if (infoShown)
-            infoText.text = $"{infoKey} - Skill Info";
+            infoText.text = $"{infoKey} - Info";
         else 
-            infoText.text = $"{infoKey} - Flashlight Info";
+            infoText.text = $"{infoKey} - Info";
 
         if (ready)
             readyText.text = $"{readyKey} - Unready";
