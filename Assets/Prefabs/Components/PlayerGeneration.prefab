@@ -111,6 +111,9 @@ MonoBehaviour:
   players:
   - {fileID: 8898015373717929256, guid: 9fd577dd24cf3464eb1a075b36d8d9e5, type: 3}
   - {fileID: 7953011735170054437, guid: 055f6bbf4536d0e45be5e4e58f0b0b86, type: 3}
+  parryMaterials:
+  - {fileID: 2100000, guid: 2a3ba2b104166944fa4a75bf75332e5a, type: 2}
+  - {fileID: 2100000, guid: bee67ee545b26fe419938d8be1b5881a, type: 2}
   startPosition:
   - {fileID: 83397844235470885}
   - {fileID: 6883039860923753212}

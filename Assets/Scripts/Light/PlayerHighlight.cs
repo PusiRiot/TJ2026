@@ -20,7 +20,7 @@ public class PlayerHighlight : MonoBehaviour
     /// </summary>
     public Light[] lights;
 
-    private void Awake()
+    private void Start()
     {
         Player player = GetComponentInParent<Player>();
         if (player.gameObject.CompareTag("Player1"))

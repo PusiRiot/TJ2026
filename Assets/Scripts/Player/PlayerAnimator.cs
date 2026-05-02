@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
@@ -17,7 +18,16 @@ public class PlayerAnimator : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
+        var animators = GetComponentsInChildren<Animator>();
+        foreach (var anim in animators)
+        {
+            if (anim.gameObject.name.Contains("Body"))
+            {
+                animator = anim;
+                break;
+            }
+        }
+
 
         var overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
 
@@ -130,6 +140,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void TriggerParry()
     {
+        animator.ResetTrigger("ParryStop");
         animator.SetTrigger("Parry");
     }
 

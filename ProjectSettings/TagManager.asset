@@ -8,11 +8,11 @@ TagManager:
   - Player2
   - ChargeAttackParticles
   - AttackParticles
-  - ParryingParticles
   - HealParticles
   - StunBurstParticles
   - StunIdleParticles
   - ParrySparkParticles
+  - ParrySphere
   layers:
   - Default
   - TransparentFX

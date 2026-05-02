@@ -43,17 +43,18 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     // Visual effects
     private ParticleSystem stunBurstParticles;
     private ParticleSystem stunIdleParticles;
-    private ParticleSystem parryingSparks;
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
     private ParticleSystem healParticles;
+    // Animator
+    Animator parryAnim;
 
     // Groovy outline
     [SerializeField] private Material transparentMask; 
     private List<Material> groovyOutlineMaterials = new List<Material>();
     private float currentThickness = 0f;
     private float targetThickness = 0f;
-    private float interpolationSpeed = 0f;
+    private float goInterpolationSpeed = 0f;
     private const float desiredThickness = 0.05f;
     private Color outlineColor;
 
@@ -114,6 +115,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         // Initialize player light
         playerLight = GetComponentInChildren<AbstractLight>();
 
+       
+
         // Particles initialization
         ParticleSystem[] particles = GetComponentsInChildren<ParticleSystem>();
         foreach (ParticleSystem particle in particles)
@@ -137,11 +140,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             {
                 attackSparks = particle;
                 Debug.Log(player.GetTeamIndex() + " Tag: AttackParticles, Name: " + particle.gameObject.name);
-            }
-            else if (particle.gameObject.CompareTag("ParryingParticles"))
-            {
-                parryingSparks = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: ParryingParticles, Name: " + particle.gameObject.name);
             }
             else if (particle.gameObject.CompareTag("HealParticles"))
             {
@@ -174,6 +172,18 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             Material clonedMat = new Material(originalMat);
             deathOutlineMaterials.Add(clonedMat);
         }
+        // Parry anim
+        Animator[] animators = player.GetComponentsInChildren<Animator>();
+        foreach (Animator anim in animators)
+        {
+            if (anim.gameObject.CompareTag("ParrySphere"))
+            {
+                parryAnim = anim;
+                break;
+            }
+        }
+        if(parryAnim == null)
+            throw new Exception("Parry anim not found!");
 
         //Audio
         playerSFX = GetComponent<PlayerSFX>();
@@ -184,7 +194,7 @@ void FixedUpdate()
     {
         if(currentThickness != targetThickness)
         {
-            currentThickness = Mathf.MoveTowards(currentThickness, targetThickness, interpolationSpeed * Time.fixedDeltaTime);
+            currentThickness = Mathf.MoveTowards(currentThickness, targetThickness, goInterpolationSpeed * Time.fixedDeltaTime);
             foreach (Material mat in groovyOutlineMaterials)
             {
                 mat.SetFloat("_BaseThickness", currentThickness);
@@ -223,7 +233,7 @@ void FixedUpdate()
     private IEnumerator AnimateGroovyOutline(Color inOutlineColor)
     {
         outlineColor = inOutlineColor;
-        interpolationSpeed = desiredThickness / _glowUpDuration;
+        goInterpolationSpeed = desiredThickness / _glowUpDuration;
         currentThickness = 0.0f;
         targetThickness = desiredThickness;
 
@@ -235,7 +245,7 @@ void FixedUpdate()
 
         yield return new WaitForSeconds(_glowUpDuration);
 
-        interpolationSpeed = desiredThickness / _glowDownDuration;
+        goInterpolationSpeed = desiredThickness / _glowDownDuration;
         currentThickness = desiredThickness;
         targetThickness = 0.0f;
 
@@ -246,7 +256,7 @@ void FixedUpdate()
 
         yield return new WaitForSeconds(_glowDownDuration);
 
-        interpolationSpeed = 0f;
+        goInterpolationSpeed = 0f;
         currentThickness = targetThickness;
 
         foreach (Material mat in groovyOutlineMaterials)
@@ -348,7 +358,7 @@ void FixedUpdate()
         playerAnimator.TriggerParry();
 
         // effect
-        parryingSparks.Play();
+        parryAnim.SetBool("Active", true);
         isProtectedByParry = true;
         playerMovement.DisableMovement(true);
 
@@ -360,12 +370,21 @@ void FixedUpdate()
     void StopParry(bool parrySuccesfull)
     {
         if (parrySuccesfull)
+        {
             playerAnimator.TriggerParrySuccess();
+            parryAnim.SetTrigger("React");
+            parryAnim.SetBool("Active", false);
+        }
+            
         else
+        {
             playerAnimator.CancelParry();
+            parryAnim.SetBool("Active", false);
+        }
+            
 
-        parryingSparks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         isProtectedByParry = false;
+        
         playerMovement.DisableMovement(false);
     }
 
@@ -510,11 +529,11 @@ void FixedUpdate()
             stunIdleParticles.Play();
         }
 
-        parryingSparks.Stop();
         chargeSparks.Stop();
         attackSparks.Stop();
         playerAnimator.CancelChargeAttack();
         playerAnimator.CancelAttack();
+        parryAnim.SetBool("Active", false);
 
         playerMovement.DisableMovement(true);
         playerMovement.ToggleRotation(false);
