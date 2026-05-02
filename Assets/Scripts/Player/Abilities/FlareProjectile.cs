@@ -6,6 +6,10 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
     private float _speed = -1f;
     private float _lifetimeIfWall = -1f;
     private float _lifetimeIfPlayer = -1f;
+    [SerializeField]
+    private float angularSpeed = 50f;
+    [SerializeField]
+    private Transform cookieLight;
     private Rigidbody rb;
     private int teamIndex;
     AbstractLight enemyLight;
@@ -26,6 +30,11 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         rb.linearVelocity = transform.forward * _speed;
     }
 
+    private void FixedUpdate()
+    {
+        cookieLight.Rotate(new Vector3(1, 0, 0) * angularSpeed * Time.fixedDeltaTime);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Player" + (teamIndex + 1)))
@@ -35,6 +44,7 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         }
 
         rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
         GetComponent<Collider>().enabled = false;
         transform.SetParent(collision.transform);
