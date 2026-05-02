@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.Interactions;
 /// <para>Configurable attributes are taken from an Scriptable object (PlayerStats). Again because there might be different players, but the skeleton/core should be the same for all.</para>
 /// </summary>
 
-public class Player : Subject<PlayerCombatEvent>
+public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 {
     #region Variables
     // Read-only variables (preceded by _ (can't be set to readonly because they have to be initialized on runtime))
@@ -24,6 +24,7 @@ public class Player : Subject<PlayerCombatEvent>
     private PlayerCombat playerCombat;
     private PlayerAnimator playerAnimator;
     private AbstractAbility playerAbility;
+    private GameObject playerTriangle;
 
     // booleans control
     private bool isDashEnabled = true;
@@ -67,6 +68,14 @@ public class Player : Subject<PlayerCombatEvent>
         playerCombat.Initialize(_teamIndex);
 
         attackHoldAction = gameObject.GetComponent<PlayerInput>().actions.FindAction("Attack");
+
+        SpriteRenderer[] spriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+            if (spriteRenderer.CompareTag("Triangle"))
+                playerTriangle = spriteRenderer.gameObject;
+
+        playerTriangle.SetActive(false);
 
         _specialAbilityCooldownDuration = _playerStats.AbilityCooldownDuration;
         _lightMeleeCooldownDuration = GameStatsAccess.Instance.LightMeleeCooldownDuration();
@@ -150,7 +159,7 @@ public class Player : Subject<PlayerCombatEvent>
 
     public void PauseGame()
     {
-        if (UINavigationManager.Instance.CurrentScreen.GetName() == ScreenName.Game.ToString())
+        if (!GameManager.Instance.GameInitializing && UINavigationManager.Instance.CurrentScreen.GetName() == ScreenName.Game.ToString())
             UINavigationManager.Instance.ShowScreen(ScreenName.Pause, false);
     }
 
@@ -246,6 +255,15 @@ public class Player : Subject<PlayerCombatEvent>
     {
         AkUnitySoundEngine.PostEvent("Play_Footsteps", gameObject);
     }
+    #endregion
+
+    #region Observer
+    public void OnNotify(GameUIAnimEvents evt, object data = null)
+    {
+        if (evt == GameUIAnimEvents.GameStart)
+            playerTriangle.SetActive(true);
+    }
 
     #endregion
+
 }

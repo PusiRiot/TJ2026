@@ -6,16 +6,21 @@ using UnityEngine.UI;
 /// <summary>
 /// This class is responsible for managing the in game UI (score, timer...), it listen's to GameManager events.
 /// </summary>
-public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObserver<GameEvent>, IObserver<PlayerCombatEvent>
+public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovementEvent>, IObserver<GameEvent>, IObserver<PlayerCombatEvent>
 {
     #region Variables
+    [Header("UI References")]
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
     [SerializeField] private Image[] playerAbilityEnabled = new Image[2];
     [SerializeField] private Image[] playerLives = new Image[2];
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
+
+    [Header("Settings")]
+    [SerializeField] private Color timerEndingColor;
     float timePassed = 0;
+    int lastCurrentTime = 0;
     int _maxLives;
 
     bool timeBelowZero = false;
@@ -25,9 +30,12 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
 
     private void Start()
     {
+        base.AddObserversOnScene();
+
         teamScoreTexts[0].text = "0";
         teamScoreTexts[1].text = "0";
 
+        timerText.color = Color.white;
         timerText.text = System.TimeSpan.FromSeconds(GameStatsAccess.Instance.GetGameDuration()).ToString(@"mm\:ss");
 
         timeUpText.enabled = false;
@@ -36,9 +44,8 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         playerLives[0].fillAmount = 1;
         playerLives[1].fillAmount = 1;
 
-        //StartCoroutine(StartCountdown());
+        StartCoroutine(StartAnimations());
     }
-
 
     void Update()
     {
@@ -50,55 +57,120 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
     void UpdateTimer()
     {
         timePassed += Time.deltaTime;
+
         int currentTime = Mathf.CeilToInt(GameStatsAccess.Instance.GetGameDuration() - timePassed);
+
+        if (currentTime == lastCurrentTime) return; // same second
+
+        lastCurrentTime = currentTime;
+
         if (currentTime <= 0)
         {
             timeBelowZero = true;
             StartCoroutine(TimeUp());
         }
 
+        if (currentTime <= 10)
+        {
+            AnimateTimerEnding();
+        }
+
         timerText.text = System.TimeSpan.FromSeconds(currentTime).ToString(@"mm\:ss");
     }
 
-    IEnumerator StartCountdown()
+    IEnumerator StartAnimations()
     {
-        GameManager.Instance.PauseGame();
+        yield return new WaitForSecondsRealtime(1);
+
+        Notify(GameUIAnimEvents.LightningOnStart);
+
+        yield return new WaitForSecondsRealtime(2);
+
+        Notify(GameUIAnimEvents.PlayersLightOn);
+
+        yield return new WaitForSecondsRealtime(2);
+
         timeUpText.enabled = true;
+                for (int i = 3; i > 0; i--)
+        {
+            timeUpText.text = i + "...";
+            LeanTween.scale(timeUpText.gameObject, Vector3.one * 1.3f, 0.8f)
+            .setEasePunch()
+            .setIgnoreTimeScale(true);
+            yield return new WaitForSecondsRealtime(1);
+        }
 
-        //for (int i = 3; i > 0; i--)
-        //{
-        //    timeUpText.text = i + "...";
-        //    yield return new WaitForSecondsRealtime(1);
-        //}
-        timeUpText.text = "3...";
-        yield return new WaitForSecondsRealtime(1);
-        timeUpText.text = "2...";
-        yield return new WaitForSecondsRealtime(1);
-        timeUpText.text = "1...";
+        timeUpText.text = "START!";
+        LeanTween.scale(timeUpText.gameObject, Vector3.one * 1.3f, 0.8f)
+            .setEasePunch()
+            .setIgnoreTimeScale(true);
         yield return new WaitForSecondsRealtime(1);
 
-        timeUpText.text = "¡Ya!";
-        yield return new WaitForSecondsRealtime(1);
         timeUpText.enabled = false;
 
-        GameManager.Instance.UnpauseGame();
+        Notify(GameUIAnimEvents.GameStart);
+
+        GameManager.Instance.InitializationComplete();
     }
 
     IEnumerator TimeUp()
     {
         GameManager.Instance.PauseGame(); // pause game and set message that time's up
-        timeUpText.text = "¡Tiempo!";
+        timeUpText.text = "TIME'S UP!";
         timeUpText.enabled = true;
+
+        // Animation on appear
+        LeanTween.scale(timeUpText.gameObject, Vector3.one * 1.5f, 0.8f)
+        .setEaseInOutQuad()
+        .setIgnoreTimeScale(true);
+
         yield return new WaitForSecondsRealtime(2);
+
+        FadeToBlack();
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
         GameManager.Instance.TimerEnded(); // Notify GameManager of timer end
+    }
+
+    void FadeToBlack()
+    {
+        timeUpText.alpha = 1f;
+        LeanTween.value(timeUpText.gameObject, 1f, 0f, 0.4f)
+            .setOnUpdate((float val) => { timeUpText.alpha = val; })
+            .setIgnoreTimeScale(true);
     }
 
     IEnumerator SuddenDeath()
     {
-        timeUpText.text = "Muerte súbita";
+        timeUpText.text = "SUDDEN DEATH!";
+        timeUpText.alpha = 1f;
+        timeUpText.color = timerEndingColor;
+
         yield return new WaitForSecondsRealtime(2);
+
+        // animation when disappearing
+        timerText.enabled = false;
+        Vector3 targetPos = timeUpText.transform.parent.InverseTransformPoint(timerText.transform.position);
+        LeanTween.move(timeUpText.rectTransform, targetPos, 0.8f)
+                .setEaseInOutBack()
+                .setIgnoreTimeScale(true);
+
+        LeanTween.scale(timeUpText.gameObject, Vector3.one * 0.5f, 0.8f)
+            .setEaseInOutQuad()
+            .setIgnoreTimeScale(true);
+
         GameManager.Instance.UnpauseGame();
-        timeUpText.enabled = false;
+    }
+
+    void AnimateTimerEnding()
+    {
+        LeanTween.cancelAll();
+
+        LeanTween.scale(timerText.gameObject, Vector3.one * 1.1f, 1f)
+           .setEasePunch();
+
+        LeanTween.value(timerText.gameObject, Color.white, timerEndingColor, 0.5f).setOnUpdate((Color val) => { timerText.color = val; }).setEaseInOutCubic().setLoopPingPong(1);
     }
 
     #region IObserver

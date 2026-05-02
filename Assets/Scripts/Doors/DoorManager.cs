@@ -35,13 +35,13 @@ public class DoorManager : MonoBehaviour
     int _maxRandomTime;
 
     // lightning effect
-    DoorLightningEffect lightningEffect;
+    LightningEffect lightningEffect;
     #endregion
 
     #region MonoBehaviour
     private void Start()
     {
-        lightningEffect = GetComponent<DoorLightningEffect>();
+        lightningEffect = GetComponent<LightningEffect>();
 
         _closedDoorsOnAwake = GameStatsAccess.Instance.GetClosedDoorsOnAwake();
         _baseDoorRandom = GameStatsAccess.Instance.GetBaseDoorRandom();
@@ -64,7 +64,7 @@ public class DoorManager : MonoBehaviour
 
         for (int i = 0; i <= _closedDoorsOnAwake; i++)
         {
-            bool closedSuccesfully = CloseDoor();
+            bool closedSuccesfully = CloseDoor(true);
 
             if (!closedSuccesfully)
             {
@@ -105,7 +105,7 @@ public class DoorManager : MonoBehaviour
                 UpdateState(true);
             }
 
-            lightningEffect.GenerateLighningEffect(chosenDoor.transform);
+            lightningEffect.GenerateDoorLighningEffect(chosenDoor.transform);
 
             
         }
@@ -205,7 +205,7 @@ public class DoorManager : MonoBehaviour
 
     #region Open/Close
 
-    bool CloseDoor()
+    bool CloseDoor(bool abruptClose = false)
     {
         // randomize list to go through it searching for a room that can be closed and keeps path connected
         List<int> indices = Enumerable.Range(0, openedDoors.Count).OrderBy(_ => Random.value).ToList();
@@ -224,7 +224,7 @@ public class DoorManager : MonoBehaviour
                 // execute door's Close() method and update lists
                 openedDoors.Remove(chosenDoor);
                 closedDoors.Add(chosenDoor);
-                chosenDoor.Close();
+                chosenDoor.Close(abruptClose);
                 return true;
             }
             else

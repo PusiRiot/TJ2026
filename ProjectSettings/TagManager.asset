@@ -13,6 +13,7 @@ TagManager:
   - StunIdleParticles
   - ParrySparkParticles
   - ParrySphere
+  - Triangle
   layers:
   - Default
   - TransparentFX

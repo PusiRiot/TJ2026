@@ -9,6 +9,9 @@ public class GameManager : Subject<GameEvent>
     #region Variables
     int[] teamScore = new int[2] { 0, 0 };
 
+    bool gameInitializing = true;
+    public bool GameInitializing { get { return gameInitializing; }}
+
     bool suddenDeathEnabled = false;
     public bool SuddenDeathEnabled { get { return suddenDeathEnabled; } }
 
@@ -28,8 +31,8 @@ public class GameManager : Subject<GameEvent>
         {
             Destroy(gameObject);
         }
-
-        UnpauseGame();
+        
+        PauseGame();
     }
 
     #endregion
@@ -50,6 +53,12 @@ public class GameManager : Subject<GameEvent>
     public void UnpauseGame()
     {
         Time.timeScale = 1;
+    }
+
+    public void InitializationComplete()
+    {
+        gameInitializing = false;
+        UnpauseGame();
     }
     #endregion
 

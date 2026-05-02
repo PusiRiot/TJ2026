@@ -21,7 +21,9 @@ public class UIScreen : MonoBehaviour
         if (screenName == ScreenName.Game)
         {
             MusicManager.Instance.PlayGamePlayMusic();
-            GameManager.Instance.UnpauseGame();
+
+            if (!GameManager.Instance.GameInitializing)
+                GameManager.Instance.UnpauseGame();
         }
         if (screenName == ScreenName.Pause)
         {

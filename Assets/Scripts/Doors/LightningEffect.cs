@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// This executes the lightning effect when a door closes, which happens on the closest point to where the door moved on the outside of the house
 /// </summary>
-public class DoorLightningEffect : MonoBehaviour
+public class LightningEffect : MonoBehaviour, IObserver<GameUIAnimEvents>
 {
     #region Variables
     // variables needed to calc the lighning impact location
@@ -21,24 +21,24 @@ public class DoorLightningEffect : MonoBehaviour
         lightningLight.intensity = 0;
     }
 
-    public void GenerateLighningEffect(Transform doorLocation)
+    public void GenerateDoorLighningEffect(Transform doorLocation)
     {
         this.transform.position = CalcImpactLocation(doorLocation);
 
-        StartCoroutine(LightEffect());
+        StartCoroutine(LightEffect(10f));
     }
 
-    IEnumerator LightEffect()
+    IEnumerator LightEffect(float intensity)
     {
         //Audio
         AkUnitySoundEngine.PostEvent("Play_Thunder", gameObject);
 
-        lightningLight.intensity = 10;
-        yield return new WaitForSeconds(0.1f);
+        lightningLight.intensity = intensity;
+        yield return new WaitForSecondsRealtime(0.1f);
         lightningLight.intensity = 0;
-        yield return new WaitForSeconds(0.1f);
-        lightningLight.intensity = 10;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSecondsRealtime(0.1f);
+        lightningLight.intensity = intensity;
+        yield return new WaitForSecondsRealtime(0.1f);
         lightningLight.intensity = 0;
     }
 
@@ -81,4 +81,12 @@ public class DoorLightningEffect : MonoBehaviour
         // Return the final world-space point
         return new Vector3(clampedX, p.y + 2f, clampedZ);
     }
+
+    #region
+    public void OnNotify(GameUIAnimEvents evt, object data = null)
+    {
+        if (evt == GameUIAnimEvents.LightningOnStart)
+            StartCoroutine(LightEffect(20f));
+    }
+    #endregion
 }

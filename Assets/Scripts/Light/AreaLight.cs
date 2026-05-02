@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -51,5 +52,35 @@ public class AreaLight : AbstractLight
         // Sphere
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, viewRange);
+    }
+
+    protected override void InitLightAnimation()
+    {
+        // slowly increase intensity for initilization, with an initial flicker effect, as lighting a candle
+        StartCoroutine(LightCandle());
+    }
+
+    IEnumerator LightCandle()
+    {
+        float initialRange = flashlight.range;
+
+        // flicker effect
+        flashlight.range = initialRange * 0.5f;
+        yield return new WaitForSecondsRealtime(0.1f);
+        flashlight.intensity = baseIntensity;
+        yield return new WaitForSecondsRealtime(0.2f);
+        flashlight.intensity = 0.1f;
+
+        // slow increase to target
+        float duration = 0.2f;
+        while (true)
+        {
+            float t = Time.unscaledDeltaTime / duration;
+
+            flashlight.intensity = Mathf.Lerp(flashlight.intensity, baseIntensity, t);
+            flashlight.range = Mathf.Lerp(flashlight.range, initialRange, t);
+            yield return null;
+
+        }
     }
 }

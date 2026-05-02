@@ -59,3 +59,10 @@ public enum InputManagerEvent
     DeviceChangeP1, // data = (int) controlScheme 0 = keyboard, 1 = gamepad
     DeviceChangeP2, // data = (int) controlScheme 0 = keyboard, 1 = gamepad
 }
+
+public enum GameUIAnimEvents
+{
+    LightningOnStart,
+    PlayersLightOn,
+    GameStart,
+}

@@ -25,6 +25,8 @@ public class Door : MonoBehaviour
     {
         ParseRooms();
         animator = GetComponent<Animator>();
+        animator.Play("OpenDoor", 0, 1.0f);
+        animator.SetBool("IsClosed", false);
         colliders = GetComponentsInChildren<Collider>();
         meshRenderers = new List<MeshRenderer>();
         MeshRenderer[] allMeshRenderers = GetComponentsInChildren<MeshRenderer>();
@@ -41,18 +43,33 @@ public class Door : MonoBehaviour
     {
         isClosed = false;
 
-        
-
         animator.SetBool("IsClosed", isClosed);
         StartCoroutine(ToggleCollider(isClosed));
     }
 
-    public void Close()
+    /// <summary>
+    /// If abruptClose is true, the door will close immediately without playing the closing animation, and the colliders will be enabled right away. If false, the door will play the closing animation before enabling the colliders.
+    /// </summary>
+    /// <param name="forceClose"></param>
+    public void Close(bool abruptClose = false)
     {
         isClosed = true;
+        if (abruptClose)
+        {
+            foreach (Collider collider in colliders)
+                collider.enabled = true;
+            foreach (MeshRenderer m in meshRenderers)
+                m.shadowCastingMode = ShadowCastingMode.On;
+            animator.Play("CloseDoor", 0, 1f);
+            animator.SetBool("IsClosed", isClosed);
+            return;
+        }
+        else
+        {
+            animator.SetBool("IsClosed", isClosed);
+            StartCoroutine(ToggleCollider(isClosed));
+        }
 
-        animator.SetBool("IsClosed", isClosed);
-        StartCoroutine(ToggleCollider(isClosed));
     }
 
     void ParseRooms()
