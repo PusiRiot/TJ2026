@@ -239,9 +239,14 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 
     IEnumerator AbilityCooldown(float duration)
     {
-        Notify(PlayerCombatEvent.AbilityDisabled, new int[] { _teamIndex });
         isAbilityEnabled = false;
-        yield return new WaitForSeconds(duration);
+        while(duration > 0)
+        {
+            Notify(PlayerCombatEvent.AbilityCooldownUpdate, new int[] { _teamIndex, Mathf.CeilToInt(duration) });
+            yield return new WaitForSeconds(1f);
+            duration -= 1f;
+        }
+        Notify(PlayerCombatEvent.AbilityCooldownUpdate, new int[] { _teamIndex, Mathf.CeilToInt(duration) });
         isAbilityEnabled = true;
         Notify(PlayerCombatEvent.AbilityEnabled, new int[] { _teamIndex });
     }

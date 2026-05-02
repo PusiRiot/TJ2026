@@ -14,6 +14,7 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
     [SerializeField] private Image[] playerAbilityEnabled = new Image[2];
     [SerializeField] private Image[] playerLives = new Image[2];
+    [SerializeField] private TextMeshProUGUI[] abilityCooldownTexts = new TextMeshProUGUI[2];
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
 
@@ -257,6 +258,15 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
                     Color teamColor = playerAbilityEnabled[teamIndex].color;
                     teamColor.a = 0.05f;
                     playerAbilityEnabled[teamIndex].color = teamColor;
+                    break;
+                }
+            case PlayerCombatEvent.AbilityCooldownUpdate:
+                {
+                    int[] processedData = data as int[];
+                    int teamIndex = processedData[0];
+                    int remainingCooldown = processedData[1];
+                    abilityCooldownTexts[teamIndex].text = remainingCooldown > 0 ? remainingCooldown.ToString() : "";
+
                     break;
                 }
         }
