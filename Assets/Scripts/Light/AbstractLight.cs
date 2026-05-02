@@ -26,6 +26,9 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>, IObserver<Game
     /// </summary>
     protected float baseIntensity = 1.0f;
 
+    // So the camera doesnt get its light turned off when it spawns
+    [SerializeField] bool isFlashlight = true;
+
     void Awake()
     {
         Player player = GetComponentInParent<Player>();
@@ -44,7 +47,8 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>, IObserver<Game
         flashlight = GetComponentInChildren<Light>();
 
         baseIntensity = flashlight.intensity;
-        flashlight.intensity = 0.0f; // turn off for the start animation
+        if(isFlashlight)
+            flashlight.intensity = 0.0f; // turn off for the start animation
 
         flashlight.color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
         reclaimPointsPerSecond = GameStatsAccess.Instance.GetReclaimCrystalPointsPerSecond();

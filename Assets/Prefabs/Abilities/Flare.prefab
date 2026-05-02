@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69270645a270b5f44aee40a5bf3b89e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AreaLight
+  isFlashlight: 0
   viewRange: 5
   ignorePlayerMask:
     serializedVersion: 2
