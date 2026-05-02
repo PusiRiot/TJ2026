@@ -89,6 +89,7 @@ public class GeneratePlayers : MonoBehaviour
         SkinnedMeshRenderer[] skinnedMeshRenderers = player.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (Renderer renderer in renderers)
         {
+            if(renderer.gameObject.CompareTag("ParrySphere")) continue; // Parry sphere blocks light if renderer is changed
             renderer.renderingLayerMask = layerMask;
         }
 
