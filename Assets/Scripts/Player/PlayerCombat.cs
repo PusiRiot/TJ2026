@@ -399,7 +399,8 @@ void FixedUpdate()
         }
 
         // disable movement shortly for hit stun
-        StartCoroutine(Stun(_heavyMeleeStunDuration, false));
+        if(currentLives - _heavyMeleeDamage > 0)
+            StartCoroutine(Stun(_heavyMeleeStunDuration, false));
 
         // animation
         playerAnimator.TriggerStunAttack();

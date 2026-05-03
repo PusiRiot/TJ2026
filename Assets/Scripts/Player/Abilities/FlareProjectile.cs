@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class FlareProjectile : Subject<PlayerCombatEvent>
@@ -13,10 +14,13 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
     private Rigidbody rb;
     private int teamIndex;
     AbstractLight enemyLight;
+    Animator anim;
+    const float fadeAnimDuration = 0.333f;
 
     private void Awake()
     {
         base.AddObserversOnScene();
+        anim = GetComponent<Animator>();
     }
 
     public void Initialize(int inTeamIndex, PlayerStats playerStats)
@@ -73,18 +77,19 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         {
             yield return new WaitForSeconds(_lifetimeIfWall);
         }
-        Destroy(gameObject);
-
+        Eliminate();
     }
 
-    private void OnDestroy()
+    public void Eliminate()
     {
-        if(enemyLight != null)
+        if (enemyLight != null)
         {
             enemyLight.TurnOn();
         }
 
-        Notify(PlayerCombatEvent.StartAbilityCooldown, new int[]{ teamIndex});
+        Notify(PlayerCombatEvent.StartAbilityCooldown, new int[] { teamIndex });
+        anim.SetTrigger("Fade");
+        Destroy(gameObject, fadeAnimDuration);
     }
 }
 

@@ -19,7 +19,7 @@ public class FlareAbility : AbstractAbility
 
     public override void Stop()
     {
-        Destroy(flareInstance);
+        flareInstance.GetComponent<FlareProjectile>().Eliminate();
     }
 
     #endregion
