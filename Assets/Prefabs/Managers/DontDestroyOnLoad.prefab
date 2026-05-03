@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 483211723734724198}
   - component: {fileID: 1472837398300819933}
   - component: {fileID: 5945378091844230647}
+  - component: {fileID: 7932946782715071863}
   m_Layer: 0
   m_Name: DontDestroyOnLoad
   m_TagString: Untagged
@@ -58,3 +59,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStatsAccess
   gameStats: {fileID: 11400000, guid: 433977458b07cd544a9b7350d1e96774, type: 2}
+--- !u!114 &7932946782715071863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3522243567512807082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab68aecd05aaeb94cb2d3b67697ebbdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SystemGameDataStorage

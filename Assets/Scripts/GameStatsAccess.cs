@@ -96,4 +96,9 @@ public class GameStatsAccess : MonoBehaviour
     public int GetMinDoorRandomTime() { return gameStats.MinDoorRandomTime; }
     public int GetMaxDoorRandomTime() { return gameStats.MaxDoorRandomTime; }
     #endregion
+
+    #region Diary entries
+    public int GetMaxDiaryEntriesNumber() { return gameStats.MaxDiaryEntriesNumber; }
+
+    #endregion
 }

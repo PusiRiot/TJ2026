@@ -14,6 +14,9 @@ TagManager:
   - ParrySparkParticles
   - ParrySphere
   - Triangle
+  - DiaryEntry
+  - DiaryTitle
+  - DiaryText
   layers:
   - Default
   - TransparentFX
@@ -50,6 +53,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 413408679
+    locked: 0
+  - name: UIParticles
+    uniqueID: 17943151
     locked: 0
   m_RenderingLayers:
   - Default

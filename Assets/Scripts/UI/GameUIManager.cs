@@ -14,6 +14,7 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
     [SerializeField] private Image[] playerAbilityEnabled = new Image[2];
     [SerializeField] private Image[] playerLives = new Image[2];
+    [SerializeField] private Image newDiaryEntry;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
 
@@ -43,6 +44,9 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
         _maxLives = GameStatsAccess.Instance.GetMaxLives();
         playerLives[0].fillAmount = 1;
         playerLives[1].fillAmount = 1;
+
+
+        newDiaryEntry.enabled = false;
 
         StartCoroutine(StartAnimations());
     }
@@ -211,6 +215,13 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
             case GameEvent.SuddenDeath:
                 {
                     StartCoroutine(SuddenDeath());
+                    break;
+                }
+            case GameEvent.GameEnd:
+                {
+                    bool unlocked = SystemGameDataStorage.Instance.UnlockDiaryEntries();
+                    if (unlocked)
+                        newDiaryEntry.enabled = true;
                     break;
                 }
         }
