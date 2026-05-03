@@ -10,16 +10,14 @@ public enum ScreenName
 { 
     MainMenu,
     PlayerSelection,
-    PlayerSelectionSandbox,
     Game,
-    GameSandbox,
     Pause,
-    PauseSandbox, //TODO: review, this is probably going to end up being the same as 1v1
     Options,
-    OptionsSandbox, //TODO: review, this is probably going to end up being the same as 1v1
     Victory, 
     Instructions, 
     Credits,
+    Library,
+    DiaryEntry
 }
 
 public enum PlayerCharacter

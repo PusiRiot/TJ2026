@@ -38,7 +38,6 @@ public class CharacterSelection : MonoBehaviour
         inputAction.actionMaps[_playerIndex].FindAction("Right").performed += OnRight;
         inputAction.actionMaps[_playerIndex].FindAction("Info").performed += OnInfo;
         inputAction.actionMaps[_playerIndex].FindAction("Ready").performed += OnReady;
-        inputAction.actionMaps[_playerIndex].FindAction("Esc").performed += OnEsc;
     }
 
     void OnDisable()
@@ -48,7 +47,6 @@ public class CharacterSelection : MonoBehaviour
         inputAction.actionMaps[_playerIndex].FindAction("Right").performed -= OnRight;
         inputAction.actionMaps[_playerIndex].FindAction("Info").performed -= OnInfo;
         inputAction.actionMaps[_playerIndex].FindAction("Ready").performed -= OnReady;
-        inputAction.actionMaps[_playerIndex].FindAction("Esc").performed -= OnEsc;
     }
 
     void Start()
@@ -187,14 +185,6 @@ public class CharacterSelection : MonoBehaviour
         UpdateUI(ctx.action.activeControl.device.name);
         PlayerReadyChanged?.Invoke(ready);
     }
-
-    public void OnEsc(InputAction.CallbackContext ctx)
-    {
-        Debug.Log("OnEsc called from: " + ctx.control.device.name);
-        Debug.Log("UINavigationManager instance: " + UINavigationManager.Instance);
-        UINavigationManager.Instance.ShowScreen(ScreenName.MainMenu, true);
-        Debug.Log("ShowScreen called successfully");
-    }
     #endregion
 
     #region Player input text update
@@ -204,7 +194,6 @@ public class CharacterSelection : MonoBehaviour
         if (layout == null) return; 
         string infoKey = GetBindingForCurrentDevice("Info", layout);   // Your action name
         string readyKey = GetBindingForCurrentDevice("Ready", layout); // Your action name
-        string escKey = GetBindingForCurrentDevice("Esc", layout); // Your action name
 
         if(infoText == null) {
             Debug.Log("?");
@@ -219,8 +208,6 @@ public class CharacterSelection : MonoBehaviour
             readyText.text = $"{readyKey} - Unready";
         else
             readyText.text = $"{readyKey} - Ready";
-
-        screen.ChangeEscText(_playerIndex, $"{escKey}");
     }
 
     private string GetBindingForCurrentDevice(string actionName, string layout)

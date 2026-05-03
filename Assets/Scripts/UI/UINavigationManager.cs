@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -11,12 +12,16 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class UINavigationManager : MonoBehaviour
 {
-
+    [SerializeField] InputActionAsset inputAction;
     [SerializeField] private ScreenName _firstShownScreenName; // the screen that will first be visible on the canvas when the scene starts
     private IDictionary<string, UIScreen> _screens;
     private UIScreen _currentScreen;
     public UIScreen CurrentScreen {  get { return _currentScreen; } }
-    private UIScreen _lastScreen;
+    private Stack<UIScreen> _screenStack = new();
+
+    // Back button
+    string[] backBtnBinding = new string[3]; // 0 for keyboard, 1 for gamepad, 2 for both
+    int currentBinding;
 
     #region Singleton implementation
     public static UINavigationManager Instance { get; private set; }
@@ -36,6 +41,9 @@ public class UINavigationManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        InitializeDeviceBindings();
+        AssignDevices();
+
         UIScreen[] screensUnderManager = GetComponentsInChildren<UIScreen>(true);
 
         foreach (UIScreen screen in screensUnderManager)
@@ -46,6 +54,21 @@ public class UINavigationManager : MonoBehaviour
 
     #endregion
 
+    #region MonoBehaviour
+    void OnEnable()
+    {
+        InputSystem.onDeviceChange += OnDeviceChange;
+        InputSystem.onActionChange += OnActionChange;
+        inputAction.actionMaps[0].Enable();
+        inputAction.actionMaps[0].FindAction("Esc").performed += OnEsc;
+    }
+
+    void OnDisable()
+    {
+        InputSystem.onDeviceChange -= OnDeviceChange;
+        InputSystem.onActionChange -= OnActionChange;
+        inputAction.actionMaps[0].FindAction("Esc").performed -= OnEsc;
+    }
 
     /// <summary>
     /// Hides all screens on Start and stores them in a dictionary for easy access, then shows the first screen defined on the inspector
@@ -65,6 +88,8 @@ public class UINavigationManager : MonoBehaviour
 
         ShowScreen(_firstShownScreenName); // show the first screen
     }
+
+    #endregion
 
     #region Screen navigation related methods
 
@@ -87,12 +112,16 @@ public class UINavigationManager : MonoBehaviour
 
         if (_currentScreen != null && hidePreviousScreen) // if there's a screen showing at the moment of the change hide it and store it as the previous screen
         {
-            _currentScreen?.Hide();
+            _currentScreen.Hide();
         }
 
-        _lastScreen = _currentScreen;
+        if (_currentScreen != null) 
+            _screenStack.Push(_currentScreen);;
+
         _currentScreen = screenToSwitch;
         _currentScreen.Show();
+
+        ChangeBackButtonText();
     }
 
     /// <summary>
@@ -101,7 +130,6 @@ public class UINavigationManager : MonoBehaviour
     public void HideCurrentScreen()
     {
         _currentScreen?.Hide();
-        _currentScreen = _lastScreen;
     }
     #endregion
 
@@ -116,6 +144,81 @@ public class UINavigationManager : MonoBehaviour
         if (nextSceneName == SceneName.MainMenuScene)
             MusicManager.Instance.PlayTitleMusic();
         SceneManager.LoadScene(nextSceneName.ToString());
+    }
+    #endregion
+
+    #region Back to screen management
+
+    public void BackToScreen()
+    {
+        if (!_currentScreen.HasBackButton()) return;
+
+        _currentScreen.Hide();
+        _currentScreen = _screenStack.Pop();
+        _currentScreen.Show();
+    }
+
+    void OnEsc(InputAction.CallbackContext ctx)
+    {
+        BackToScreen();
+    }
+
+    void ChangeBackButtonText()
+    {
+        if (!_currentScreen.HasBackButton()) return;
+
+        _currentScreen.ChangeBackButtonText(backBtnBinding[currentBinding]);
+    }
+
+    void OnDeviceChange(InputDevice device, InputDeviceChange change)
+    {
+        if (change == InputDeviceChange.Added || change == InputDeviceChange.Removed ||
+        change == InputDeviceChange.Reconnected || change == InputDeviceChange.Disconnected)
+        {
+            AssignDevices();
+            ChangeBackButtonText();
+        }
+    }
+
+    void OnActionChange(object obj, InputActionChange change)
+    {
+        if (change == InputActionChange.ActionStarted)
+        {
+            var d = ((InputAction)obj).activeControl.device;
+
+            if (currentBinding == 1) // else it would change onDeviceChange, only other change is if both gamepads are active but they use keyboard anyway
+            {
+                if (d is Keyboard)
+                    currentBinding = 2;
+                else
+                    currentBinding = 1;
+                
+                ChangeBackButtonText();
+            }
+        }
+    }
+
+    void AssignDevices()
+    {
+        var pads = Gamepad.all;
+
+        if (pads.Count == 0)
+            currentBinding = 0; // keyboard
+        else if (pads.Count == 1)
+            currentBinding = 2; // keyboard and gamepad
+        else
+            currentBinding = 1; // gamepad
+    }
+
+    void InitializeDeviceBindings()
+    {
+        InputAction action = inputAction.actionMaps[0].FindAction("Esc");
+
+        backBtnBinding[0] = action.GetBindingDisplayString(0); // keyboard button
+        backBtnBinding[1] = action.GetBindingDisplayString(1); // gamepad button
+        backBtnBinding[2] = backBtnBinding[0] + " / " + backBtnBinding[1];
+
+        currentBinding = 0;
     }
     #endregion
 }

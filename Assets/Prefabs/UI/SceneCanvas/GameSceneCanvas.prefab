@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fba9180cf7b97943a99e909cf5d5fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UINavigationManager
+  inputAction: {fileID: 0}
   _firstShownScreenName: 3
 --- !u!1001 &978363543250176224
 PrefabInstance:
@@ -874,10 +875,6 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6736288669127112056, guid: ae3c7a08804e6ff49a6a613ac3a88cac, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 4478966631769566141}
-    - target: {fileID: 6736288669127112056, guid: ae3c7a08804e6ff49a6a613ac3a88cac, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ShowNextScreen
       objectReference: {fileID: 0}
@@ -1091,14 +1088,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8616483368218158488, guid: ae3c7a08804e6ff49a6a613ac3a88cac, type: 3}
   m_PrefabInstance: {fileID: 8739746087459300610}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4478966631769566141 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5143582092045373119, guid: ae3c7a08804e6ff49a6a613ac3a88cac, type: 3}
-  m_PrefabInstance: {fileID: 8739746087459300610}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a584ff7e1ed4240ae31e6a58b548ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIButton

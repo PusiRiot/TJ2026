@@ -74,4 +74,7 @@ public class GameStats : ScriptableObject
     public float BiasToOpenDoorRandom = 0.7f;
     public int MinDoorRandomTime = 20;
     public int MaxDoorRandomTime = 40;
+
+    [Header("Diary entries")]
+    public int MaxDiaryEntriesNumber = 12;
 }
