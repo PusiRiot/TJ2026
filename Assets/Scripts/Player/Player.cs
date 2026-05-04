@@ -187,7 +187,7 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
         Collider[] collider = gameObject.GetComponentsInChildren<Collider>();
         foreach (Collider col in collider)
         {
-            col.excludeLayers = LayerMask.GetMask("Player1", "Player2");
+            col.excludeLayers = LayerMask.GetMask("Player1", "Player2", "Flare");
         }
 
         actionsEnabled = false;

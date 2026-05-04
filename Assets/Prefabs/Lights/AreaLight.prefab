@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 8489362576884359751}
   m_Layer: 8
   m_Name: AreaLight
-  m_TagString: Untagged
+  m_TagString: PlayerLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,10 +172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69270645a270b5f44aee40a5bf3b89e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AreaLight
+  isFlashlight: 1
   viewRange: 3
   ignorePlayerMask:
     serializedVersion: 2
-    m_Bits: 703
+    m_Bits: 191
   justCrystalHealMask:
     serializedVersion: 2
     m_Bits: 136

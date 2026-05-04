@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3556172847178624200}
   - component: {fileID: 7573507863759837815}
   - component: {fileID: 4805735230526262472}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OtherLight (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 1286541860951261582}
   - component: {fileID: 53339301148867971}
   - component: {fileID: 1941707959608380193}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MainLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 4790295539436644379}
   - component: {fileID: 2485399231977442843}
   - component: {fileID: 222856570652961477}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 3710097466438023655}
   - component: {fileID: 526592618657296919}
   - component: {fileID: 904673658802702801}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FlareLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -533,7 +533,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2325967438614104597}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RotatingLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +569,7 @@ GameObject:
   - component: {fileID: 259055264497097523}
   - component: {fileID: 6769668845590381199}
   - component: {fileID: 7305828307567774079}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 5938124582676976059}
   - component: {fileID: 9018647544954023346}
   - component: {fileID: 6246931610401597527}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OtherLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

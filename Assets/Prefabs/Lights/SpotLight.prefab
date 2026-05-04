@@ -4993,7 +4993,7 @@ GameObject:
   - component: {fileID: 6010404706873405199}
   m_Layer: 0
   m_Name: SpotLight
-  m_TagString: Untagged
+  m_TagString: PlayerLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5031,7 +5031,7 @@ MonoBehaviour:
   viewAngle: 42
   ignorePlayerMask:
     serializedVersion: 2
-    m_Bits: 703
+    m_Bits: 191
   lifeDrainPlayer1Mask:
     serializedVersion: 2
     m_Bits: 256

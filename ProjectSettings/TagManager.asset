@@ -19,6 +19,7 @@ TagManager:
   - EntryText
   - ReviveParticlesP
   - ReviveParticlesY
+  - PlayerLight
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - Player1
   - Heal
   - Player2
-  - Outlined
+  - Flare
   - Roof
   - 
   - 

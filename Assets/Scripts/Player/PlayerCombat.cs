@@ -70,7 +70,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private bool isChargingAttack = false;
     private bool alreadyHitHeavy = false; // to prevent hitting multiple times with the heavy melee dash
     private bool alreadyHitLight = false; // to prevent hitting multiple times with the light melee
-    private bool isDead = false;
+    public bool isDead = false;
 
     //Audio
     private PlayerSFX playerSFX;
@@ -502,6 +502,13 @@ void FixedUpdate()
         currentLives = _maxLives;
 
         isDead = true;
+        //Destroy attached flare if any
+        FlareProjectile attachedFlare = GetComponentInChildren<FlareProjectile>();
+        if (attachedFlare != null)
+        {
+            attachedFlare.Eliminate();
+        }
+
         // disable actions and world interaction
         player.DisableWorldInteraction();
         if (player.isAbilityInUse)
