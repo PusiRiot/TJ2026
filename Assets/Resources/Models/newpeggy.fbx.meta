@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 275c0a5275a30db41b98f0f732f42735
+guid: e8cc930aceed12146b4817c1ff1183e7
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,43 +7,33 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Body_MAT4
-    second: {fileID: 2100000, guid: 89f9197843c264442a9a568cdee8c2f5, type: 2}
+      name: 01___Default
+    second: {fileID: 2100000, guid: 1e1cd9f3eb1dfeb4c8f5bc0cdd7185ce, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: EYE
-    second: {fileID: 2100000, guid: e9e0b721b1adf3a4db81b2d15a3fab22, type: 2}
+      name: Ch22_body
+    second: {fileID: 2100000, guid: 0197d7da0e1391b4ca4c488e0bea4801, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: EyeSpec_MAT4
-    second: {fileID: 2100000, guid: dc766ad093a185343bc34d7d357f3dfc, type: 2}
+      name: Collar.003
+    second: {fileID: 2100000, guid: 1593cd534e1216f42be915f6ce13122d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MaleBruteA_Bottom5
-    second: {fileID: 2100000, guid: 274af6216a7b9f9419a149c913d75b75, type: 2}
+      name: Material #25
+    second: {fileID: 2100000, guid: 0535fe0778e1a4c43853a17f0a7f707d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MaleBruteA_Shoes6
-    second: {fileID: 2100000, guid: 9088b0a4cc4b3634e860f0ae52c8ad01, type: 2}
+      name: Material.006
+    second: {fileID: 2100000, guid: 782341ce60bef2e408da821234a04309, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: d35439c328c1bf34287c8d9f7d8e15ba, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Peacock_Moth
-    second: {fileID: 2100000, guid: a942eb1c211607545ae3a6b0fa4c4ae3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mothhead
-    second: {fileID: 2100000, guid: abcd070071d186141bfab75532ab8397, type: 2}
+      name: Pelo
+    second: {fileID: 2100000, guid: cbdf17d563dd804488348b4a67c8ee8b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -62,7 +52,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5

@@ -3013,6 +3013,10 @@ PrefabInstance:
       propertyPath: 'playerAbilityEnabled.Array.data[1]'
       value: 
       objectReference: {fileID: 883943898}
+    - target: {fileID: 3605077897983393051, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4312955611983102545, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3143,6 +3147,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8656740310466230668, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
       propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799956170673069977, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
