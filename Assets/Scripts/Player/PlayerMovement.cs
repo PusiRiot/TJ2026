@@ -20,10 +20,9 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     // Dash
     float _dashSpeedIncrement;
     float _dashDuration;
-    float _maxStamina;
-    float currentStamina;
-    float _staminaConsumption;
-    float _staminaRegenRate;
+    float _dashCooldownDuration;
+
+    bool dashEnabled = true;
 
     bool dashExecuting = false;
     TrailRenderer trailRenderer;
@@ -42,11 +41,7 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
         rotationSpeed = GameStatsAccess.Instance.GetPlayerRotationSpeed();
         _dashDuration = GameStatsAccess.Instance.GetDashDuration();
         _dashSpeedIncrement = GameStatsAccess.Instance.GetDashSpeedIncrement();
-        _maxStamina = GameStatsAccess.Instance.GetMaxStamina();
-        _staminaConsumption = GameStatsAccess.Instance.GetStaminaConsumption();
-        _staminaRegenRate = GameStatsAccess.Instance.GetStaminaRegenRate();
-
-        currentStamina = _maxStamina;
+        _dashCooldownDuration = GameStatsAccess.Instance.GetDashCooldownDuration();
 
         AddObserversOnScene();
     }
@@ -54,10 +49,6 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     void FixedUpdate()
     {
         Motion();
-
-        // Stamina regeneration
-        if (currentStamina < _maxStamina)
-            RegenerateStamina();
     }
 
     #endregion
@@ -93,22 +84,6 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
 
             // Animation walk forward
             playerAnimator.Motion = rb.linearVelocity.magnitude;
-        }
-    }
-
-    void RegenerateStamina()
-    {
-        currentStamina += _staminaRegenRate * Time.fixedDeltaTime;
-
-        if(currentStamina - _staminaConsumption >= 0)
-        {
-            Notify(PlayerMovementEvent.DashEnabled, _teamIndex);
-        }
-
-        if (currentStamina >= _maxStamina)
-        {
-            currentStamina = _maxStamina;
-            
         }
     }
 
@@ -189,19 +164,13 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     /// </summary>
     public void Dash()
     {
-        if (!movementDisabled && !dashExecuting && currentStamina >= _staminaConsumption)
+        if (!movementDisabled && !dashExecuting && dashEnabled)
         {
             //Audio
             AkUnitySoundEngine.PostEvent("Play_Dash", gameObject);
 
             StartCoroutine(DashMovement(_dashDuration, _dashSpeedIncrement));
-            currentStamina -= _staminaConsumption;
-
-            if(currentStamina <= 0)
-            {
-                currentStamina = 0;
-                Notify(PlayerMovementEvent.DashConsumed, _teamIndex);
-            } 
+            StartCoroutine(DashCooldown());
         }
     }
 
@@ -222,6 +191,21 @@ public class PlayerMovement : Subject<PlayerMovementEvent>
     public void DisableMovement(bool movementDisabled)
     {
         this.movementDisabled = movementDisabled;
+    }
+
+    public IEnumerator DashCooldown()
+    {
+        dashEnabled = false;
+        Notify(PlayerMovementEvent.DashConsumed, _teamIndex);
+        float remainingCooldown = _dashCooldownDuration;
+        while (remainingCooldown > 0) {
+            Notify(PlayerMovementEvent.DashCooldownUpdate, new int[] { _teamIndex, (int)remainingCooldown });
+            yield return new WaitForSeconds(1.0f);
+            remainingCooldown -= 1.0f;
+        }
+        Notify(PlayerMovementEvent.DashCooldownUpdate, new int[] { _teamIndex, (int)remainingCooldown });
+        dashEnabled = true;
+        Notify(PlayerMovementEvent.DashEnabled, _teamIndex);
     }
 
     #endregion

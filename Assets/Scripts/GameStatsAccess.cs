@@ -83,9 +83,7 @@ public class GameStatsAccess : MonoBehaviour
     public float GetPlayerRotationSpeed(){ return gameStats.PlayerRotationSpeed; }
     public float GetDashDuration(){ return gameStats.DashDuration; }
     public float GetDashSpeedIncrement() { return gameStats.DashSpeedIncrement; }
-    public float GetMaxStamina() { return gameStats.MaxStamina; }
-    public float GetStaminaConsumption() { return gameStats.StaminaConsumption; }
-    public float GetStaminaRegenRate() { return gameStats.StaminaRegenRate; }
+    public float GetDashCooldownDuration() { return gameStats.DashCooldownDuration; }
 
     // Doors
 

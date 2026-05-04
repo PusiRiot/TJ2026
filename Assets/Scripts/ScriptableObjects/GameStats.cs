@@ -63,9 +63,7 @@ public class GameStats : ScriptableObject
     public float PlayerRotationSpeed = 7f;
     public float DashDuration = 0.2f;
     public float DashSpeedIncrement = 2f;
-    public float MaxStamina = 100.0f;
-    public float StaminaConsumption = 100.0f;
-    public float StaminaRegenRate = 20.0f;
+    public float DashCooldownDuration = 6f;
 
     [Header ("Doors")]
     public int ClosedDoorsOnAwake = 5;

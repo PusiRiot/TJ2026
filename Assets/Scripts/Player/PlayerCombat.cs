@@ -493,8 +493,16 @@ void FixedUpdate()
         playerSFX.PlayTurnOff();
         playerLight.TurnOff(); // don't call method to not start twice the same coroutine
 
-        Debug.Log(_deathDuration);
-        yield return new WaitForSeconds(_deathDuration);
+        float remainingDeathDuration = _deathDuration;
+
+        while(remainingDeathDuration > 0)
+        {
+            Notify(PlayerCombatEvent.DeathCooldownUpdate, new int[] { _teamIndex, (int)remainingDeathDuration });
+            yield return new WaitForSeconds(1.0f);
+            remainingDeathDuration -= 1.0f;
+        }
+
+        Notify(PlayerCombatEvent.DeathCooldownUpdate, new int[] { _teamIndex, (int)remainingDeathDuration });
 
         // light switching
         //Audio

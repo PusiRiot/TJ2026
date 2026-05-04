@@ -38,6 +38,7 @@ public enum PlayerMovementEvent
 {
     DashConsumed, // data = (int)teamIndex
     DashEnabled, // data = (int)teamIndex
+    DashCooldownUpdate, //data = (int)teamIndex, (int)remainingCooldown
 }
 
 public enum PlayerCombatEvent
@@ -51,6 +52,7 @@ public enum PlayerCombatEvent
     AbilityEnabled, // data = (int)teamIndex
     AbilityDisabled, // data = (int)teamIndex
     AbilityCooldownUpdate, //data = (int)teamIndex, (int)remainingCooldown
+    DeathCooldownUpdate, //data = (int)teamIndex, (int)remainingCooldown
 }
 
 public enum InputManagerEvent

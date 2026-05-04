@@ -29,7 +29,7 @@ MonoBehaviour:
   CrystalTimeToInactiveReset: 1
   CrystalInactiveResetPointsPerSecond: 30
   CrystalCooldownDuration: 15
-  HealCadence: 1
+  HealCadence: 1.25
   HealAmount: 3
   MaxLives: 9
   DeathDuration: 10
@@ -51,9 +51,7 @@ MonoBehaviour:
   PlayerRotationSpeed: 5
   DashDuration: 0.075
   DashSpeedIncrement: 10.5
-  MaxStamina: 100
-  StaminaConsumption: 100
-  StaminaRegenRate: 20
+  DashCooldownDuration: 6
   ClosedDoorsOnAwake: 6
   BaseDoorRandom: 0.5
   BiasToCloseDoorRandom: 0.3

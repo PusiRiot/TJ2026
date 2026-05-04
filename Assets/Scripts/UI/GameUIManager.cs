@@ -15,6 +15,8 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
     [SerializeField] private Image[] playerAbilityEnabled = new Image[2];
     [SerializeField] private Image[] playerLives = new Image[2];
     [SerializeField] private TextMeshProUGUI[] abilityCooldownTexts = new TextMeshProUGUI[2];
+    [SerializeField] private TextMeshProUGUI[] deathCooldownTexts = new TextMeshProUGUI[2];
+    [SerializeField] private TextMeshProUGUI[] dashCooldownTexts = new TextMeshProUGUI[2];
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
 
@@ -182,17 +184,22 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
             case PlayerMovementEvent.DashConsumed:
                 {
                     int teamIndex = (int)data;
-                    Color teamColor = playerDashEnabled[teamIndex].color;
-                    teamColor.a = 0.05f;
-                    playerDashEnabled[teamIndex].color = teamColor;
+                    playerDashEnabled[teamIndex].gameObject.SetActive(false);
                     break;
                 }
             case PlayerMovementEvent.DashEnabled:
                 {
                     int teamIndex = (int)data;
-                    Color teamColor = playerDashEnabled[teamIndex].color;
-                    teamColor.a = 1f;
-                    playerDashEnabled[teamIndex].color = teamColor;
+                    playerDashEnabled[teamIndex].gameObject.SetActive(true);
+                    break;
+                }
+            case PlayerMovementEvent.DashCooldownUpdate:
+                {
+                    int[] processedData = data as int[];
+                    int teamIndex = processedData[0];
+                    int remainingCooldown = processedData[1];
+                    dashCooldownTexts[teamIndex].text = remainingCooldown > 0 ? remainingCooldown.ToString() : "";
+
                     break;
                 }
         }
@@ -266,6 +273,15 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
                     int teamIndex = processedData[0];
                     int remainingCooldown = processedData[1];
                     abilityCooldownTexts[teamIndex].text = remainingCooldown > 0 ? remainingCooldown.ToString() : "";
+
+                    break;
+                }
+            case PlayerCombatEvent.DeathCooldownUpdate:
+                {
+                    int[] processedData = data as int[];
+                    int teamIndex = processedData[0];
+                    int remainingCooldown = processedData[1];
+                    deathCooldownTexts[teamIndex].text = remainingCooldown > 0 ? remainingCooldown.ToString() : "";
 
                     break;
                 }
