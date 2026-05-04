@@ -12,7 +12,7 @@ public class FlareAbility : AbstractAbility
     #region Virtual Methods
     override public void Activate()
     {
-        flareInstance = Instantiate(flarePrefab, flareSpawn.position, flareSpawn.rotation);
+        flareInstance = Instantiate(flarePrefab, flareSpawn.position, Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f));
         flareInstance.GetComponent<FlareProjectile>().Initialize(_teamIndex, _playerStats);
         flareInstance.GetComponentInChildren<AbstractLight>().SetTeam(_teamIndex);
     }
