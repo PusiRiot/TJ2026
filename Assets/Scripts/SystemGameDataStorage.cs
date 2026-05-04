@@ -65,7 +65,6 @@ public class SystemGameDataStorage : MonoBehaviour
         }
         else
         {
-            Debug.Log("notfound");
             gameData = new GameData();
             gameData.UnlockedDiaryEntries = new List<int>();
             gameData.GoneThroughDiaryEntries = new List<int>();
@@ -107,7 +106,7 @@ public class SystemGameDataStorage : MonoBehaviour
         List<int> availableIds = new List<int>();
 
         // find ids not unlocked
-        for (int i = 0; i <= GameStatsAccess.Instance.GetMaxDiaryEntriesNumber(); i++)
+        for (int i = 0; i < GameStatsAccess.Instance.GetMaxDiaryEntriesNumber(); i++)
         {
             if (!gameData.UnlockedDiaryEntries.Contains(i))
             {

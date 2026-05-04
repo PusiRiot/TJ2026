@@ -395,6 +395,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1281558839058430711, guid: 170908fd49a02354b8573474acdc85f6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5df82c9dc5f199646af94c412617a586, type: 3}
     - target: {fileID: 1542298802868178808, guid: 170908fd49a02354b8573474acdc85f6, type: 3}
       propertyPath: m_Name
       value: Books
@@ -496,7 +500,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 265756598779021596}
     - target: {fileID: 7450304630932427533, guid: 170908fd49a02354b8573474acdc85f6, type: 3}
+      propertyPath: entryTextSlot
+      value: 
+      objectReference: {fileID: 265756598779021596}
+    - target: {fileID: 7450304630932427533, guid: 170908fd49a02354b8573474acdc85f6, type: 3}
       propertyPath: EntryTitleSlot
+      value: 
+      objectReference: {fileID: 1800809386599544841}
+    - target: {fileID: 7450304630932427533, guid: 170908fd49a02354b8573474acdc85f6, type: 3}
+      propertyPath: allEntriesText
+      value: 
+      objectReference: {fileID: 11400000, guid: 78d5f4bbc327aed4f98c3f2a8d28f7c1, type: 2}
+    - target: {fileID: 7450304630932427533, guid: 170908fd49a02354b8573474acdc85f6, type: 3}
+      propertyPath: entryTitleSlot
       value: 
       objectReference: {fileID: 1800809386599544841}
     - target: {fileID: 7734436251544607173, guid: 170908fd49a02354b8573474acdc85f6, type: 3}

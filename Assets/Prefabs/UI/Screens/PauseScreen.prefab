@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c0554678d1a8824e9ea8e94de35fb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIScreen
-  screenName: 5
+  screenName: 3
   firstToNavigate: {fileID: 3307090948904086890}
 --- !u!1 &8719796634614169274
 GameObject:

@@ -90,15 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3fab5186c629c14b886839ee58df948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diary
-  entryTitle: Title
-  entryText: Lorem ipsum dolor sit amet consectetur adipiscing elit, varius himenaeos
-    justo mi neque cursus, rhoncus nulla hac quam orci venenatis. Quis netus iaculis
-    vehicula laoreet sagittis duis integer vestibulum curabitur cum, placerat nullam
-    sed at fames interdum imperdiet facilisis odio donec, platea tortor parturient
-    nulla suspendisse ac pulvinar urna tincidunt. Consequat tortor congue sagittis
-    phasellus luctus eleifend urna condimentum in suspendisse parturient, felis nostra
-    platea interdum maecenas habitant sem pharetra natoque rhoncus, eu rutrum nisi
-    tellus placerat dictum ad commodo nulla dapibus.
 --- !u!114 &8871380386311987774
 MonoBehaviour:
   m_ObjectHideFlags: 0
