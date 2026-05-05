@@ -53,7 +53,6 @@ public abstract class AbstractAbility : Subject<PlayerCombatEvent>, IObserver<Pl
 
             if (intParams[0] == _teamIndex)
             {
-                Notify(PlayerCombatEvent.AbilityDisabled, new int[] { _teamIndex });
                 StartCooldown();
             }
         }

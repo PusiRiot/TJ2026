@@ -25,6 +25,7 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
     private PlayerAnimator playerAnimator;
     private AbstractAbility playerAbility;
     private GameObject playerTriangle;
+    private PlayerInput playerInput;
 
     // booleans control
     private bool isDashEnabled = true;
@@ -90,7 +91,7 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
     }
 
     public void Attack(InputAction.CallbackContext ctx)
-    {   if (actionsEnabled)
+    {   if (actionsEnabled && Time.timeScale != 0)
         {
             if (ctx.interaction is TapInteraction && isLightMeleeEnabled)
             {
@@ -120,14 +121,14 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 
     public void Ability(InputAction.CallbackContext ctx)
     {
-        if (actionsEnabled && ctx.performed)
+        if (actionsEnabled && ctx.performed && Time.timeScale != 0)
         {
             if (isAbilityEnabled)
             {
                 playerAbility.Activate();
                 isAbilityEnabled = false;
                 isAbilityInUse = true;
-                Notify(PlayerCombatEvent.AbilityDisabled, new int[] { _teamIndex });
+                Notify(PlayerCombatEvent.AbilityDisabled, new int[] { _teamIndex, playerAbility is FlareAbility ? 0 : 1 });
 
             }
             else
@@ -144,7 +145,7 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 
     public void Parry(InputAction.CallbackContext ctx)
     {
-        if (actionsEnabled && ctx.performed && isParryEnabled)
+        if (actionsEnabled && ctx.performed && isParryEnabled && Time.timeScale != 0)
         {
             StartCoroutine(playerCombat.Parry());
             StartCoroutine(ParryCooldown(_parryCooldownDuration));
@@ -153,7 +154,7 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 
     public void Dash(InputAction.CallbackContext ctx)
     {
-        if (actionsEnabled && ctx.performed && isDashEnabled)
+        if (actionsEnabled && ctx.performed && isDashEnabled && Time.timeScale != 0)
             playerMovement.Dash();
     }
 

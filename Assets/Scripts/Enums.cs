@@ -50,7 +50,7 @@ public enum PlayerCombatEvent
     SuccessfulParry,
     StartAbilityCooldown, // data = (int)teamIndex
     AbilityEnabled, // data = (int)teamIndex
-    AbilityDisabled, // data = (int)teamIndex
+    AbilityDisabled, // data = {(int)teamIndex, (int)playerAbility 0 = LifeDrain 1 = Flare}
     AbilityCooldownUpdate, //data = (int)teamIndex, (int)remainingCooldown
     DeathCooldownUpdate, //data = (int)teamIndex, (int)remainingCooldown
 }
