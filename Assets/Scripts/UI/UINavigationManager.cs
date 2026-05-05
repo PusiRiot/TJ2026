@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +23,10 @@ public class UINavigationManager : MonoBehaviour
     // Back button
     string[] backBtnBinding = new string[3]; // 0 for keyboard, 1 for gamepad, 2 for both
     int currentBinding;
+
+    // Handle navigation in both mouse and keyboard/Gamepad
+    GameObject lastUsedButton;
+    bool isUsingMouse = false;
 
     #region Singleton implementation
     public static UINavigationManager Instance { get; private set; }
@@ -89,6 +94,10 @@ public class UINavigationManager : MonoBehaviour
         ShowScreen(_firstShownScreenName); // show the first screen
     }
 
+    private void Update()
+    {
+        HandleControllerMouseNavigation();
+    }
     #endregion
 
     #region Screen navigation related methods
@@ -101,7 +110,7 @@ public class UINavigationManager : MonoBehaviour
     /// <param name="hidePreviousScreen"></param>
     public void ShowScreen(ScreenName screenName, bool hidePreviousScreen = true)
     {
-        // try to find the screen by its name on the dictionary
+        // try to find the new screen by its name on the dictionary
         UIScreen screenToSwitch;
         bool foundScreen = _screens.TryGetValue(screenName.ToString(), out screenToSwitch);
 
@@ -110,14 +119,26 @@ public class UINavigationManager : MonoBehaviour
             return; // if the screen wasn't found, return without switching
         }
 
-        if (_currentScreen != null && hidePreviousScreen) // if there's a screen showing at the moment of the change hide it and store it as the previous screen
+        HandleScreenChange(screenToSwitch, hidePreviousScreen, true);
+    }
+
+    void HandleScreenChange(UIScreen screenToSwitch, bool hidePreviousScreen, bool pushPreviousToStack)
+    {
+        if (_currentScreen != null)
         {
-            _currentScreen.Hide();
+            // update the last navigated item on current screen to select it as first when going back to that screen
+            _currentScreen.UpdateLastToNavigate(lastUsedButton);
+
+            // hide current screen
+            if (hidePreviousScreen)
+                _currentScreen.Hide();
+
+            // stack screen to return to it with BackButton
+            if (pushPreviousToStack)
+                _screenStack.Push(_currentScreen);
         }
 
-        if (_currentScreen != null) 
-            _screenStack.Push(_currentScreen);;
-
+        // change screen to new
         _currentScreen = screenToSwitch;
         _currentScreen.Show();
 
@@ -153,9 +174,7 @@ public class UINavigationManager : MonoBehaviour
     {
         if (!_currentScreen.HasBackButton()) return;
 
-        _currentScreen.Hide();
-        _currentScreen = _screenStack.Pop();
-        _currentScreen.Show();
+        HandleScreenChange(_screenStack.Pop(), true, false);
     }
 
     void OnEsc(InputAction.CallbackContext ctx)
@@ -219,6 +238,52 @@ public class UINavigationManager : MonoBehaviour
         backBtnBinding[2] = backBtnBinding[0] + " / " + backBtnBinding[1];
 
         currentBinding = 0;
+    }
+    #endregion
+
+    #region Handle focus
+    void HandleControllerMouseNavigation()
+    {
+        // Monitor current selection
+        if (EventSystem.current.currentSelectedGameObject != null)
+        {
+            lastUsedButton = EventSystem.current.currentSelectedGameObject;
+        }
+
+        // Check for mouse input
+        if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+        {
+            if (!isUsingMouse) SwitchToMouse();
+        }
+
+        // Check for keyboard/gamepad input
+        if (Input.anyKeyDown && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
+        {
+            if (isUsingMouse) SwitchToController();
+        }
+    }
+
+    /// <summary>
+    /// Deselects lingering button when using mouse
+    /// </summary>
+    private void SwitchToMouse()
+    {
+        isUsingMouse = true;
+        Cursor.visible = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        GetComponent<CanvasGroup>().blocksRaycasts = true; // mouse interaction
+    }
+
+    /// <summary>
+    /// Selects last used button again when using gamepad/keyboard
+    /// </summary>
+    void SwitchToController()
+    {
+        isUsingMouse = false;
+        Cursor.visible = false;
+        EventSystem.current.SetSelectedGameObject(lastUsedButton);
+        GetComponent<CanvasGroup>().blocksRaycasts = false; // deselect the mouse interaction so it doesnt hover
+
     }
     #endregion
 }
