@@ -101,18 +101,18 @@ public class CharacterSelection : MonoBehaviour
         {
             if (pads.Count == 0)
                 inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current };
+            else if (pads.Count == 1)
+                inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current };
             else
-                inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current, pads[0] };
+                inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current, pads[1] };
         }
         //Player 2
         if (_playerIndex == 1)
         {
             if (pads.Count == 0)
                 inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current };
-            else if (pads.Count == 1)
-                inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current };
             else
-                inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current, pads[1] };
+                inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current, pads[0] };
         }
     }
     #endregion
