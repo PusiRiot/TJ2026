@@ -12,7 +12,6 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
-    [SerializeField] private Image[] playerAbilityEnabled = new Image[2];
     [SerializeField] private Image[] playerLives = new Image[2];
     [SerializeField] private TextMeshProUGUI[] abilityCooldownTexts = new TextMeshProUGUI[2];
     [SerializeField] private TextMeshProUGUI[] deathCooldownTexts = new TextMeshProUGUI[2];
@@ -247,24 +246,6 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
             case PlayerCombatEvent.BackToLife:
                 {
                     playerLives[(int)data].fillAmount = 1;
-                    break;
-                }
-            case PlayerCombatEvent.AbilityEnabled:
-                {
-                    int[] dataTeam = data as int[];
-                    int teamIndex = dataTeam[0];
-                    Color teamColor = playerAbilityEnabled[teamIndex].color;
-                    teamColor.a = 1f;
-                    playerAbilityEnabled[teamIndex].color = teamColor;
-                    break;
-                }
-            case PlayerCombatEvent.AbilityDisabled:
-                {
-                    int[] dataTeam = data as int[];
-                    int teamIndex = dataTeam[0];
-                    Color teamColor = playerAbilityEnabled[teamIndex].color;
-                    teamColor.a = 0.05f;
-                    playerAbilityEnabled[teamIndex].color = teamColor;
                     break;
                 }
             case PlayerCombatEvent.AbilityCooldownUpdate:
