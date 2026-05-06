@@ -8064,6 +8064,7 @@ MonoBehaviour:
   - {fileID: 4420053055882008733, guid: c13e39244f61b7244822f79fc4f2364e, type: 3}
   - {fileID: 218662967202669677, guid: 0f5d184731abcaa4da89c4368ca72933, type: 3}
   bloodSplatter: {fileID: 8571808255837122860, guid: 5fe247a4fd1db7f47a8c33e453e64bd8, type: 3}
+  isDead: 0
 --- !u!114 &4988592170253092119
 MonoBehaviour:
   m_ObjectHideFlags: 0
