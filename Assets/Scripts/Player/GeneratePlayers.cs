@@ -68,11 +68,12 @@ public class GeneratePlayers : MonoBehaviour
         // Set the render layer mask of the player's lights to the appropriate team layer
         uint renderMask = teamIndex == 0 ? RenderingLayerMask.GetMask("Player1") : RenderingLayerMask.GetMask("Player2");
         Light[] lights = player.GetComponentsInChildren<Light>(includeInactive: true);
+
         foreach (Light light in lights)
         {
-            if (light.renderingLayerMask != RenderingLayerMask.GetMask("Default"))
+            UniversalAdditionalLightData additionalData = light.gameObject.GetComponent<UniversalAdditionalLightData>();
+            if (additionalData.renderingLayers != RenderingLayerMask.GetMask("Default"))
             {
-                UniversalAdditionalLightData additionalData = light.gameObject.GetComponent<UniversalAdditionalLightData>();
                 additionalData.renderingLayers = renderMask;
                 additionalData.shadowRenderingLayers = renderMask;
 

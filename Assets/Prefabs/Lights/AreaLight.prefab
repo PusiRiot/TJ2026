@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2840937752187675369}
   - component: {fileID: 7657705761578180981}
   - component: {fileID: 3366703693310338047}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 25
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_CustomShadowLayers: 0
+  m_CustomShadowLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
     m_Bits: 1
   m_ShadowRenderingLayersMask:
     serializedVersion: 0
-    m_Bits: 1
+    m_Bits: 25
   m_Version: 4
   m_LightLayerMask: 1
   m_ShadowLayerMask: 1
@@ -137,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3183352793477667471}
   - component: {fileID: 8489362576884359751}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: AreaLight
   m_TagString: PlayerLight
   m_Icon: {fileID: 0}

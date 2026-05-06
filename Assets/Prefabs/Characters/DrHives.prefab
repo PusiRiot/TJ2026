@@ -9212,6 +9212,7 @@ MonoBehaviour:
   - {fileID: 4420053055882008733, guid: c13e39244f61b7244822f79fc4f2364e, type: 3}
   - {fileID: 218662967202669677, guid: 0f5d184731abcaa4da89c4368ca72933, type: 3}
   bloodSplatter: {fileID: 8571808255837122860, guid: 5fe247a4fd1db7f47a8c33e453e64bd8, type: 3}
+  isDead: 0
 --- !u!114 &4939728414704064398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9616,6 +9617,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8877095996779028710}
     m_Modifications:
+    - target: {fileID: 1481704094309267386, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_CustomShadowLayers
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9655,6 +9660,10 @@ PrefabInstance:
     - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050468987990942590, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9022723801411869484, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
       propertyPath: m_Name
