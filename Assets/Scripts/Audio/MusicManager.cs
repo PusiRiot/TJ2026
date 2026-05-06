@@ -9,8 +9,8 @@ public class MusicManager : MonoBehaviour
 
     // State name constants — must match exactly what's in Wwise
     public const string STATE_TITLE = "TitleMenu";
-    public const string STATE_FIGHT = "Fight";
-    public const string STATE_PAUSE = "Pause";
+    public const string STATE_SUDDEN_DEATH = "Sudden_Death";
+
     public const string STATE_END_GAME = "GameOver";
     public const string STATE_GAMEPLAY = "GamePlay";
 
@@ -40,8 +40,7 @@ public class MusicManager : MonoBehaviour
     }
 
     public void PlayTitleMusic() => SetMusicState(STATE_TITLE);
-    public void PlayFightMusic() => SetMusicState(STATE_FIGHT);
-    public void PlayPauseMusic() => SetMusicState(STATE_PAUSE);
+    public void PlaySuddenDeathMusic() => SetMusicState(STATE_SUDDEN_DEATH);
     public void PlayEndGameMusic() => SetMusicState(STATE_END_GAME);
     public void PlayGamePlayMusic() => SetMusicState(STATE_GAMEPLAY);
 }

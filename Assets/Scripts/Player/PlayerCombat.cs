@@ -605,6 +605,9 @@ void FixedUpdate()
 
         //Audio
         AkUnitySoundEngine.PostEvent("Play_Stunned", gameObject);
+        AkUnitySoundEngine.PostEvent("Play_Punch_Heavy", gameObject);
+        AkUnitySoundEngine.SetRTPCValue("Stun_Intensity", 70f, null, 0);
+        
 
         stunBurstParticles.Play();
 
@@ -629,6 +632,9 @@ void FixedUpdate()
 
         yield return new WaitForSeconds(duration);
 
+        //Audio
+        AkUnitySoundEngine.SetRTPCValue("Stun_Intensity", 0f, null, 3500);
+
         stunIdleParticles.Stop();
 
         if (!isDead)
@@ -640,6 +646,8 @@ void FixedUpdate()
 
         if (enableAnimation)
             playerAnimator.CancelStun();
+
+
     }
 
     #endregion

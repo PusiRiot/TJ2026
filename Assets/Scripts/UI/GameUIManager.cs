@@ -162,6 +162,9 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
             .setEaseInOutQuad()
             .setIgnoreTimeScale(true);
 
+        //Audio
+        AkUnitySoundEngine.SetRTPCValue("Music_Speed", 75f, null, 500);
+
         GameManager.Instance.UnpauseGame();
     }
 

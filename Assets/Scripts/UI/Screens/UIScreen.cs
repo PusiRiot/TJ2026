@@ -29,13 +29,16 @@ public class UIScreen : MonoBehaviour
         if (screenName == ScreenName.Game)
         {
             MusicManager.Instance.PlayGamePlayMusic();
-
+            AkUnitySoundEngine.SetRTPCValue("Music_LowPassFilter", 0f, null, 1000);
+            AkUnitySoundEngine.SetRTPCValue("Music_Speed", 50f, null, 500);
             if (!GameManager.Instance.GameInitializing)
                 GameManager.Instance.UnpauseGame();
         }
         if (screenName == ScreenName.Pause)
         {
-            MusicManager.Instance.PlayPauseMusic();
+            AkUnitySoundEngine.SetRTPCValue("Music_LowPassFilter", 60f, null, 500);
+            AkUnitySoundEngine.SetRTPCValue("Music_Speed", 25f, null, 500);
+            //MusicManager.Instance.PlayPauseMusic();
             GameManager.Instance.PauseGame();
         }
 
