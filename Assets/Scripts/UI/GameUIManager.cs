@@ -81,6 +81,11 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
             AnimateTimerEnding();
         }
 
+        if(currentTime == 10 )
+        {
+            StartCoroutine(AudioEndCountdown());
+        }
+
         timerText.text = System.TimeSpan.FromSeconds(currentTime).ToString(@"mm\:ss");
     }
 
@@ -130,6 +135,9 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
         timeUpText.text = "TIME'S UP!";
         timeUpText.enabled = true;
 
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_EndBell", gameObject);
+
         // Animation on appear
         LeanTween.scale(timeUpText.gameObject, Vector3.one * 1.5f, 0.8f)
         .setEaseInOutQuad()
@@ -158,6 +166,9 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
         timeUpText.alpha = 1f;
         timeUpText.color = timerEndingColor;
 
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_EndBell", gameObject);
+
         yield return new WaitForSecondsRealtime(2);
 
         // animation when disappearing
@@ -172,7 +183,7 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
             .setIgnoreTimeScale(true);
 
         //Audio
-        AkUnitySoundEngine.SetRTPCValue("Music_Speed", 75f, null, 500);
+        AkUnitySoundEngine.SetRTPCValue("Music_Speed", 75f, null, 2000);
 
         GameManager.Instance.UnpauseGame();
     }
@@ -185,6 +196,19 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
            .setEasePunch();
 
         LeanTween.value(timerText.gameObject, Color.white, timerEndingColor, 0.5f).setOnUpdate((Color val) => { timerText.color = val; }).setEaseInOutCubic().setLoopPingPong(1);
+    }
+
+    IEnumerator AudioEndCountdown()
+    {
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_clockTick", gameObject);
+
+        for (int i = 9; i > 0; i--)
+        {
+            yield return new WaitForSecondsRealtime(1);
+
+            AkUnitySoundEngine.PostEvent("Play_clockTick", gameObject);
+        }
     }
 
     #region IObserver

@@ -25,14 +25,14 @@ public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandle
         if (nextSceneName == SceneName.MainMenuScene)
             MusicManager.Instance.PlayTitleMusic();
         else if (nextSceneName == SceneName.GameScene)
-            MusicManager.Instance.PlayGamePlayMusic();
+            MusicManager.Instance.PlayNoMusic();
 
         UINavigationManager.Instance.LoadScene(nextSceneName);
     }
 
     public void ReloadScene()
     {
-        MusicManager.Instance.PlayGamePlayMusic();
+        MusicManager.Instance.PlayNoMusic();
         UINavigationManager.Instance.ReloadScene();
     }
 
