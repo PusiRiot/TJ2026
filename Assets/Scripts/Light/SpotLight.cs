@@ -270,4 +270,18 @@ public class SpotLight : AbstractLight
             emissiveEyeMaterial.SetColor("_EmissionColor", newColor);
         }
     }
+
+    override public void TurnOn()
+    {
+        base.TurnOn();
+        if (emissiveEyeMaterial != null)
+            emissiveEyeMaterial.SetColor("_EmissionColor", emissiveEyeInspectorColor);
+    }
+
+    override public void TurnOff()
+    {
+        base.TurnOff();
+        if (emissiveEyeMaterial != null)
+            emissiveEyeMaterial.SetColor("_EmissionColor", Color.black);
+    }
 }

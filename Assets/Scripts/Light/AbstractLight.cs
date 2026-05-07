@@ -76,13 +76,13 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>, IObserver<Game
         flashlight.color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
     }
 
-    public void TurnOn()
+    public virtual void TurnOn()
     {
         lightCollisionEnabled = true;
         flashlight.enabled = true;
     }
 
-    public void TurnOff()
+    public virtual void TurnOff()
     {
         lightCollisionEnabled = false;
         flashlight.enabled = false;
