@@ -394,6 +394,9 @@ void FixedUpdate()
         isChargingAttack = true;
         chargeSparks.Play();
         playerMovement.DisableMovement(true);
+
+        //AUdio
+        AkUnitySoundEngine.PostEvent("Play_AttackCharge", gameObject);
     }
 
     public void InterruptCharge()
@@ -402,6 +405,9 @@ void FixedUpdate()
         isChargingAttack = false;
         chargeSparks.Stop();
         playerMovement.DisableMovement(false);
+
+        //AUdio
+        AkUnitySoundEngine.PostEvent("Stop_AttackCharge", gameObject);
     }
     #endregion
 
@@ -416,6 +422,9 @@ void FixedUpdate()
         isProtectedByParry = true;
         playerMovement.DisableMovement(true);
 
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_Shield", gameObject);
+
         yield return new WaitForSeconds(_parryDuration);
 
         StopParry(false);
@@ -423,6 +432,9 @@ void FixedUpdate()
 
     void StopParry(bool parrySuccesfull)
     {
+        //Audio
+        AkUnitySoundEngine.PostEvent("Stop_Shield", gameObject);
+
         if (parrySuccesfull)
         {
             playerAnimator.TriggerParrySuccess();
