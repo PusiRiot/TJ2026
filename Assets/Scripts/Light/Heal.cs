@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Heal class, attached to the heal game objects. 
 /// </summary>
-public class Heal : Subject<PlayerCombatEvent>
+public class Heal : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 {
     [SerializeField] List<ParticleSystem> teamParticles;
     [SerializeField] List<ParticleSystem> teamPulseParticles;
@@ -66,6 +66,9 @@ public class Heal : Subject<PlayerCombatEvent>
 
         contestedFinishedCallback.AddListener(() => animator.SetBool("contested", false));
         contestedFinishedCallback.AddListener(ContestedFinished);
+
+
+        gameObject.SetActive(false);
     }
 
     private void LateUpdate()
@@ -238,5 +241,14 @@ public class Heal : Subject<PlayerCombatEvent>
         }
     }
 
+    #region Observer
+    public void OnNotify(GameUIAnimEvents evt, object data = null)
+    {
+        if (evt == GameUIAnimEvents.GameStart)
+        {
+            gameObject.SetActive(true);
+        }
+    }
+    #endregion
 }
 

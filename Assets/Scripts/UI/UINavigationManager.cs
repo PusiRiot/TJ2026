@@ -23,6 +23,8 @@ public class UINavigationManager : MonoBehaviour
     // Back button
     string[] backBtnBinding = new string[3]; // 0 for keyboard, 1 for gamepad, 2 for both
     int currentBinding;
+    bool bothPadsActive = false;
+    int consecutiveBindingChanges = 0;
 
     // Handle navigation in both mouse and keyboard/Gamepad
     GameObject lastUsedButton;
@@ -205,7 +207,7 @@ public class UINavigationManager : MonoBehaviour
         {
             var d = ((InputAction)obj).activeControl.device;
 
-            if (currentBinding == 1) // else it would change onDeviceChange, only other change is if both gamepads are active but they use keyboard anyway
+            if (bothPadsActive) // both pads are active but they use keyboard anyway
             {
                 if (d is Keyboard)
                     currentBinding = 2;
@@ -226,7 +228,10 @@ public class UINavigationManager : MonoBehaviour
         else if (pads.Count == 1)
             currentBinding = 2; // keyboard and gamepad
         else
+        {
             currentBinding = 1; // gamepad
+            bothPadsActive = true;
+        }
     }
 
     void InitializeDeviceBindings()
@@ -256,8 +261,12 @@ public class UINavigationManager : MonoBehaviour
             if (!isUsingMouse) SwitchToMouse();
         }
 
+
         // Check for keyboard/gamepad input
-        if (Input.anyKeyDown && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        if ((Input.anyKey || Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f) && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
         {
             if (isUsingMouse) SwitchToController();
         }

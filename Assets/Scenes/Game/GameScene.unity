@@ -2981,6 +2981,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3338625974144442669, guid: 37dc02b6903158f4b8deb993d03f2363, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7696148967200917827, guid: 37dc02b6903158f4b8deb993d03f2363, type: 3}
       propertyPath: m_Name
       value: Heal

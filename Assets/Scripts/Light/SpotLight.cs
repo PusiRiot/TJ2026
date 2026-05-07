@@ -39,9 +39,15 @@ public class SpotLight : AbstractLight
 
     private LayerMask lifeDrainMask;
 
+    [Header("Materials")] // to also change eye emission of dr hives
+    [SerializeField] SkinnedMeshRenderer eyesMeshRenderer;
+    private Material emissiveEyeMaterial;
+    private Color emissiveEyeInspectorColor;
+
     private void Start()
     {
         base.AddObserversOnScene(); // this needs to be onStart so observers are initialized
+
         lifeDrainParticles = GetComponentInChildren<ParticleSystem>();
       
         initialPsStartLifetime = lifeDrainParticles.main.startLifetime.constant;
@@ -57,6 +63,15 @@ public class SpotLight : AbstractLight
         else
         {
             lifeDrainMask = lifeDrainPlayer2Mask;
+        }
+
+        if (eyesMeshRenderer != null)
+        {
+            emissiveEyeMaterial = eyesMeshRenderer.materials[0];
+            emissiveEyeInspectorColor = emissiveEyeMaterial.GetColor("_EmissionColor");
+            emissiveEyeMaterial.EnableKeyword("_EMISSION");
+
+            ChangeEyeEmission(0);
         }
     }
 
@@ -238,10 +253,35 @@ public class SpotLight : AbstractLight
         for (int i = 0; i < 10; i++)
         {
             flashlight.intensity = baseIntensity * Random.Range(0.5f, 1.2f);
-
+            ChangeEyeEmission(flashlight.intensity);
             yield return new WaitForSecondsRealtime(0.05f);
         }
 
         flashlight.intensity = baseIntensity;
+        ChangeEyeEmission(baseIntensity);
+    }
+
+    void ChangeEyeEmission(float intensity)
+    {
+        if (emissiveEyeMaterial != null)
+        {
+            float currentIntensity = Mathf.Clamp(intensity / baseIntensity, 0, 1);
+            Color newColor = emissiveEyeInspectorColor * currentIntensity;
+            emissiveEyeMaterial.SetColor("_EmissionColor", newColor);
+        }
+    }
+
+    override public void TurnOn()
+    {
+        base.TurnOn();
+        if (emissiveEyeMaterial != null)
+            emissiveEyeMaterial.SetColor("_EmissionColor", emissiveEyeInspectorColor);
+    }
+
+    override public void TurnOff()
+    {
+        base.TurnOff();
+        if (emissiveEyeMaterial != null)
+            emissiveEyeMaterial.SetColor("_EmissionColor", Color.black);
     }
 }

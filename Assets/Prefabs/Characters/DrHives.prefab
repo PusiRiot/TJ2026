@@ -9665,6 +9665,10 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6010404706873405199, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: eyesMeshRenderer
+      value: 
+      objectReference: {fileID: 8699008473553103381}
     - target: {fileID: 9022723801411869484, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
       propertyPath: m_Name
       value: SpotLight

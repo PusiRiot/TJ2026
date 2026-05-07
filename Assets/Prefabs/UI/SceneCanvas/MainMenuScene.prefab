@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3435671115189907011}
   - component: {fileID: 8740590084890103953}
   - component: {fileID: 2406479683789520412}
+  - component: {fileID: 4343433325849144865}
   m_Layer: 5
   m_Name: MainMenuScene
   m_TagString: Untagged
@@ -121,6 +122,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UINavigationManager
   inputAction: {fileID: -944628639613478452, guid: f3bc0e348952a644eb493991821d706d, type: 3}
   _firstShownScreenName: 0
+--- !u!225 &4343433325849144865
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6959194802506426264}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &281989832959958920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -235,6 +248,66 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4312955611983102545}
     m_Modifications:
+    - target: {fileID: 3029544422245728561, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029544422245728561, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029544422245728561, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3582554935010822353, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3582554935010822353, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3582554935010822353, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938758778780462613, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: buttonSelectedColor.b
+      value: 0.25882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938758778780462613, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: buttonSelectedColor.g
+      value: 0.4745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938758778780462613, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: buttonSelectedColor.r
+      value: 0.7254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068510942048285920, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: buttonSelectedColor.b
+      value: 0.25882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068510942048285920, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: buttonSelectedColor.g
+      value: 0.4745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068510942048285920, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: buttonSelectedColor.r
+      value: 0.7254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095368684573950743, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095368684573950743, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095368684573950743, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6679209888614663209, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
       propertyPath: m_Name
       value: CharacterSelectionScreen
@@ -242,6 +315,18 @@ PrefabInstance:
     - target: {fileID: 6679209888614663209, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909673629640707186, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: buttonSelectedColor.b
+      value: 0.6627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909673629640707186, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: buttonSelectedColor.g
+      value: 0.6784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909673629640707186, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
+      propertyPath: buttonSelectedColor.r
+      value: 0.54901963
       objectReference: {fileID: 0}
     - target: {fileID: 8616483368218158488, guid: 7d61d74f7ae025c47aae8e533da3e8aa, type: 3}
       propertyPath: m_Pivot.x
