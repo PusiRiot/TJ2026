@@ -28,6 +28,11 @@ public class CharacterSelection : MonoBehaviour
     bool ready = false;
     public bool PlayerReady => ready;
     public UnityEvent<bool> PlayerReadyChanged; // screen subscribes to listen when player ready state changes to start game scene
+
+    // text
+    string[] infoBtnBinding = new string[2]; // 0 for keyboard, 1 for gamepad
+    string[] readyBtnBinding = new string[2]; // 0 for keyboard, 1 for gamepad
+    int currentBinding;
     #endregion
 
     #region MonoBehaviour
@@ -59,6 +64,8 @@ public class CharacterSelection : MonoBehaviour
 
         AssignDevices();
 
+        InitializeDeviceBindings();
+
         // Get references to character screens and buttons
         characterScreens = GetComponentsInChildren<CharacterScreen>(true);
         characterButtons = FindObjectsByType<CharacterButton>(FindObjectsSortMode.None);
@@ -82,7 +89,7 @@ public class CharacterSelection : MonoBehaviour
         readyImage.SetActive(false);
 
         // Update UI text based on the current control scheme
-        UpdateUI("keyboard");
+        UpdateUI(currentBinding);
     }
 
     #endregion
@@ -91,10 +98,10 @@ public class CharacterSelection : MonoBehaviour
 
     private void OnDeviceChange(InputDevice device, InputDeviceChange change)
     {
-        UpdateUI(device.name);
         AssignDevices();
-        
+        UpdateUI(currentBinding);
     }
+
     private void AssignDevices()
     {
         var pads = Gamepad.all;
@@ -102,19 +109,34 @@ public class CharacterSelection : MonoBehaviour
         if (_playerIndex == 0)
         {
             if (pads.Count == 0)
+            {
                 inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current };
+                currentBinding = 0;
+            }
             else if (pads.Count == 1)
-                inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current };
+            {
+                inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current };
+                currentBinding = 0;
+            }
             else
+            {
                 inputAction.actionMaps[0].devices = new InputDevice[] { Keyboard.current, pads[1] };
+                currentBinding = 1;
+            }
         }
         //Player 2
         if (_playerIndex == 1)
         {
             if (pads.Count == 0)
+            {
                 inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current };
+                currentBinding = 0;
+            }
             else
+            {
                 inputAction.actionMaps[1].devices = new InputDevice[] { Keyboard.current, pads[0] };
+                currentBinding = 1;
+            }
         }
     }
     #endregion
@@ -137,7 +159,7 @@ public class CharacterSelection : MonoBehaviour
     {
         if (!ctx.performed || (!infoShown && ready)) return;
 
-        UpdateUI(ctx.action.activeControl.device.name);
+        UpdateUI(ctx.action.activeControl.device.name == "Keyboard" ? 0 : 1);
 
         if (!infoShown)
         {
@@ -163,7 +185,7 @@ public class CharacterSelection : MonoBehaviour
     {
         if (!ctx.performed || (!infoShown && ready)) return;
 
-        UpdateUI(ctx.action.activeControl.device.name);
+        UpdateUI(ctx.action.activeControl.device.name == "Keyboard" ? 0 : 1);
 
         if (!infoShown)
         {        
@@ -192,7 +214,7 @@ public class CharacterSelection : MonoBehaviour
         {
             characterScreen.ShowInfo(infoShown);
         }
-        UpdateUI(ctx.action.activeControl.device.name);
+        UpdateUI(ctx.action.activeControl.device.name == "Keyboard" ? 0 : 1);
     }
 
     public void OnReady(InputAction.CallbackContext ctx)
@@ -204,18 +226,29 @@ public class CharacterSelection : MonoBehaviour
             AkUnitySoundEngine.PostEvent(GetSelectEvent(currentCharacter), gameObject);
 
         readyImage.SetActive(ready);
-        UpdateUI(ctx.action.activeControl.device.name);
+        UpdateUI(ctx.action.activeControl.device.name == "Keyboard" ? 0 : 1);
         PlayerReadyChanged?.Invoke(ready);
     }
     #endregion
 
     #region Player input text update
-
-    private void UpdateUI(string layout)
+    void InitializeDeviceBindings()
     {
-        if (layout == null) return; 
-        string infoKey = GetBindingForCurrentDevice("Info", layout);   // Your action name
-        string readyKey = GetBindingForCurrentDevice("Ready", layout); // Your action name
+        InputAction action = inputAction.actionMaps[0].FindAction("Info");
+        infoBtnBinding[0] = action.GetBindingDisplayString(0); // keyboard button
+        infoBtnBinding[1] = action.GetBindingDisplayString(1); // gamepad button
+
+        action = inputAction.actionMaps[0].FindAction("Ready");
+        readyBtnBinding[0] = action.GetBindingDisplayString(0); // keyboard button
+        readyBtnBinding[1] = action.GetBindingDisplayString(1); // gamepad button
+
+        currentBinding = 0;
+    }
+
+    private void UpdateUI(int binding)
+    {
+        string infoKey = infoBtnBinding[binding];
+        string readyKey = readyBtnBinding[binding];
 
         if (infoShown)
             infoText.text = $"{infoKey} - Info";
@@ -226,18 +259,6 @@ public class CharacterSelection : MonoBehaviour
             readyText.text = $"{readyKey} - Unready";
         else
             readyText.text = $"{readyKey} - Ready";
-    }
-
-    private string GetBindingForCurrentDevice(string actionName, string layout)
-    {
-        InputAction action = inputAction.actionMaps[_playerIndex].FindAction(actionName);
-
-        // binding index always has to be set up so 0 is for keyboard and 1 for gamepad
-        int bindingIndex = 0;
-        if (!layout.Contains("keyboard", System.StringComparison.OrdinalIgnoreCase))
-            bindingIndex = 1;
-
-        return action.GetBindingDisplayString(bindingIndex);
     }
     #endregion
 
