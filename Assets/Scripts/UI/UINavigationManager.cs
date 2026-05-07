@@ -261,8 +261,12 @@ public class UINavigationManager : MonoBehaviour
             if (!isUsingMouse) SwitchToMouse();
         }
 
+
         // Check for keyboard/gamepad input
-        if (Input.anyKeyDown && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        if ((Input.anyKey || Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f) && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
         {
             if (isUsingMouse) SwitchToController();
         }
