@@ -24,6 +24,8 @@ public class CarouselBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log($"previousButton: {previousButton}, nextButton: {nextButton}");
+
         // reset image to starter
         currentCarouselOption = 0;
         image.sprite = carouselOptionsInOrder[currentCarouselOption];
@@ -53,6 +55,10 @@ public class CarouselBehaviour : MonoBehaviour
 
     private void PreviousInstruction()
     {
+        //Audio
+        Debug.Log("PrevInstruction called");
+        AkUnitySoundEngine.PostEvent("Select_UI", gameObject);
+
         currentCarouselOption--;
         image.sprite = carouselOptionsInOrder[currentCarouselOption];
 
@@ -68,6 +74,10 @@ public class CarouselBehaviour : MonoBehaviour
     
     private void NextInstruction()
     {
+        //Audio
+        Debug.Log("NextInstruction called");
+        AkUnitySoundEngine.PostEvent("Select_UI", gameObject);
+
         currentCarouselOption++;
         image.sprite = carouselOptionsInOrder[currentCarouselOption];
 

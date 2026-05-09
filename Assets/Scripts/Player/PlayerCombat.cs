@@ -461,8 +461,11 @@ void FixedUpdate()
             return false;
         }
 
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_Punch_Heavy", gameObject);
+
         // disable movement shortly for hit stun
-        if(currentLives - _heavyMeleeDamage > 0)
+        if (currentLives - _heavyMeleeDamage > 0)
             StartCoroutine(Stun(_heavyMeleeStunDuration, false));
 
         // animation
@@ -475,7 +478,7 @@ void FixedUpdate()
 
         //Audio
         playerSFX.PlayHurt();
-        AkUnitySoundEngine.PostEvent("Play_Punch_Heavy", gameObject);
+        
 
         // Damage
         Notify(PlayerCombatEvent.ReceivedDamage, new int[]{_teamIndex, _heavyMeleeDamage});
@@ -514,6 +517,9 @@ void FixedUpdate()
     {
         Notify(PlayerCombatEvent.Death, _teamIndex);
         currentLives = _maxLives;
+
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_Death", gameObject);
 
         isDead = true;
         //Destroy attached flare if any
@@ -561,6 +567,7 @@ void FixedUpdate()
         Debug.Log("stopped coroutine");
         //Audio
         playerSFX.PlayTurnOff();
+        
         playerLight.TurnOff(); // don't call method to not start twice the same coroutine
 
         StartCoroutine(DeathVFX());
