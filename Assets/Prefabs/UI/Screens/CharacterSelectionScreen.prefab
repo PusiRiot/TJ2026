@@ -30,12 +30,12 @@ RectTransform:
   m_Children:
   - {fileID: 814189339654039861}
   - {fileID: 7023082251396817986}
-  - {fileID: 1379217326227653979}
-  - {fileID: 4829916753914258114}
-  - {fileID: 8884354214273868170}
   - {fileID: 6412919383246166448}
   - {fileID: 6606052537624029921}
   - {fileID: 7681760781018943307}
+  - {fileID: 4829916753914258114}
+  - {fileID: 8884354214273868170}
+  - {fileID: 1379217326227653979}
   m_Father: {fileID: 4801125254304601827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -73,7 +73,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156519119721317022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -83,8 +83,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 101, y: -422.9}
-  m_SizeDelta: {x: 164.88, y: 179.38}
+  m_AnchoredPosition: {x: -102.678856, y: -422.9}
+  m_SizeDelta: {x: 164.8751, y: 179.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &61120823774910631
 CanvasRenderer:
@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 7158277422111406852}
   - component: {fileID: 570030168847369377}
   m_Layer: 5
-  m_Name: ButtonSkill
+  m_Name: ButtonLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1075,7 +1075,7 @@ GameObject:
   - component: {fileID: 5090326649709908174}
   - component: {fileID: 8082971545353142550}
   m_Layer: 5
-  m_Name: ButtonStory
+  m_Name: ButtonSkill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1305,7 +1305,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214366474383984223}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1315,8 +1315,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -102.678856, y: -422.9}
-  m_SizeDelta: {x: 164.8751, y: 179.38}
+  m_AnchoredPosition: {x: 101, y: -422.9}
+  m_SizeDelta: {x: 164.88, y: 179.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4479652191277284747
 CanvasRenderer:
@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SKILL
+  m_text: LIGHT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -1679,7 +1679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STORY
+  m_text: SKILL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -1763,7 +1763,7 @@ GameObject:
   - component: {fileID: 3788974852258166598}
   - component: {fileID: 4985688026427171105}
   m_Layer: 5
-  m_Name: ButtonLight
+  m_Name: ButtonStory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2305,7 +2305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SKILL
+  m_text: LIGHT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -2615,7 +2615,7 @@ GameObject:
   - component: {fileID: 1368823382889447557}
   - component: {fileID: 4444372381402375324}
   m_Layer: 5
-  m_Name: ButtonLight
+  m_Name: ButtonSkill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2744,7 +2744,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SKILL
+  m_text: LIGHT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -3183,7 +3183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5482677326622639089
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3225,8 +3225,8 @@ MonoBehaviour:
   - {fileID: 570030168847369377}
   - {fileID: 1145531797004929712}
   infoTexts:
-  - {fileID: 1832842102684873749}
   - {fileID: 7928441881891916317}
+  - {fileID: 1832842102684873749}
   - {fileID: 7765903425918565077}
   buttonNormalColor: {r: 0.5849056, g: 0.333579, b: 0.11311853, a: 1}
   buttonSelectedColor: {r: 0.6886792, g: 0.53019077, b: 0.20465466, a: 1}
@@ -3455,7 +3455,7 @@ GameObject:
   - component: {fileID: 2164372556148980715}
   - component: {fileID: 8161040593837639279}
   m_Layer: 5
-  m_Name: ButtonLight
+  m_Name: ButtonSkill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3660,7 +3660,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SKILL
+  m_text: LIGHT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -3791,9 +3791,9 @@ MonoBehaviour:
   - {fileID: 2229045999199090824}
   - {fileID: 4985688026427171105}
   infoTexts:
-  - {fileID: 6376464281770463419}
   - {fileID: 2335478244810811578}
   - {fileID: 5136187590030076896}
+  - {fileID: 6376464281770463419}
   buttonNormalColor: {r: 0.4, g: 0.23921569, b: 0.05490196, a: 1}
   buttonSelectedColor: {r: 0.8784314, g: 0.54509807, b: 0.16078432, a: 1}
   infoScreen: {fileID: 7790663071611424540}
@@ -3830,8 +3830,8 @@ RectTransform:
   - {fileID: 447439997256385075}
   - {fileID: 7513981311919109121}
   - {fileID: 990246703925648227}
-  - {fileID: 7911221128660818711}
   - {fileID: 5112546975730121734}
+  - {fileID: 7911221128660818711}
   - {fileID: 7862851684940957895}
   m_Father: {fileID: 8480290298847552430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4767,7 +4767,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LIGHT
+  m_text: 'SKILL
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -4904,7 +4906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LIGHT
+  m_text: SKILL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -5034,9 +5036,9 @@ MonoBehaviour:
   - {fileID: 6095368684573950743}
   - {fileID: 3582554935010822353}
   infoTexts:
-  - {fileID: 5116159914683166098}
   - {fileID: 253851697123078332}
   - {fileID: 7572308671608550433}
+  - {fileID: 5116159914683166098}
   buttonNormalColor: {r: 0.34901962, g: 0.45098042, b: 0.43921572, a: 1}
   buttonSelectedColor: {r: 0.54901963, g: 0.6784314, b: 0.6627451, a: 1}
   infoScreen: {fileID: 116339529026791139}
@@ -5749,7 +5751,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -391, y: -24}
+  m_AnchoredPosition: {x: -390.99997, y: -23.99997}
   m_SizeDelta: {x: 623.35, y: 757.7449}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1670445110268324944
@@ -6130,7 +6132,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LIGHT
+  m_text: STORY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -6351,7 +6353,7 @@ GameObject:
   - component: {fileID: 7173998926221490424}
   - component: {fileID: 4670745503360162542}
   m_Layer: 5
-  m_Name: ButtonSkill
+  m_Name: ButtonLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6598,8 +6600,8 @@ RectTransform:
   - {fileID: 1915862695660109090}
   - {fileID: 3762002360710593383}
   - {fileID: 7882429038199121284}
-  - {fileID: 8593135693342757646}
   - {fileID: 4566328508990486133}
+  - {fileID: 8593135693342757646}
   - {fileID: 4015490264287691085}
   - {fileID: 1541162066737425928}
   m_Father: {fileID: 0}
@@ -6688,7 +6690,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LIGHT
+  m_text: STORY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -6969,8 +6971,8 @@ MonoBehaviour:
   - {fileID: 4670745503360162542}
   - {fileID: 5597745053558686690}
   infoTexts:
-  - {fileID: 541701002215043093}
   - {fileID: 5636570144014604646}
+  - {fileID: 541701002215043093}
   - {fileID: 259458774911901730}
   buttonNormalColor: {r: 0.34901962, g: 0.4509804, b: 0.4392157, a: 1}
   buttonSelectedColor: {r: 0.54901963, g: 0.6784314, b: 0.6627451, a: 1}
@@ -7062,7 +7064,7 @@ GameObject:
   - component: {fileID: 41607096390064504}
   - component: {fileID: 3029544422245728561}
   m_Layer: 5
-  m_Name: ButtonStory
+  m_Name: ButtonSkill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7641,7 +7643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7385613960583409454
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7659,8 +7661,8 @@ RectTransform:
   - {fileID: 6328800297973724821}
   - {fileID: 4831267421025925056}
   - {fileID: 2828430083905877408}
-  - {fileID: 4788000425752208296}
   - {fileID: 6022295207257032951}
+  - {fileID: 4788000425752208296}
   - {fileID: 1484387883154048607}
   m_Father: {fileID: 5482677326622639089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7821,7 +7823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7800465239255510043
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7839,9 +7841,9 @@ RectTransform:
   - {fileID: 4580641053655472119}
   - {fileID: 1807681529844284702}
   - {fileID: 7340992017283842279}
-  - {fileID: 4573436621231388004}
   - {fileID: 5564911760597243179}
   - {fileID: 362196226371842937}
+  - {fileID: 4573436621231388004}
   m_Father: {fileID: 5703090734001032555}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -8051,7 +8053,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STORY
+  m_text: SKILL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
   m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
@@ -8285,7 +8287,7 @@ GameObject:
   - component: {fileID: 1300424792722850987}
   - component: {fileID: 3582554935010822353}
   m_Layer: 5
-  m_Name: ButtonLight
+  m_Name: ButtonStory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8651,7 +8653,7 @@ GameObject:
   - component: {fileID: 4217672325261640602}
   - component: {fileID: 2229045999199090824}
   m_Layer: 5
-  m_Name: ButtonSkill
+  m_Name: ButtonLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8665,7 +8667,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8613723936401279264}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8727,7 +8729,7 @@ GameObject:
   - component: {fileID: 4360744958043676655}
   - component: {fileID: 6095368684573950743}
   m_Layer: 5
-  m_Name: ButtonSkill
+  m_Name: ButtonLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
