@@ -227,7 +227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4268665715130717908, guid: 0c5504625df930b439434e5fee977bf9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -347,6 +347,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3741883037312778109, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3773195322512198465, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -369,15 +373,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4473828157900550597, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 1876.7332
       objectReference: {fileID: 0}
     - target: {fileID: 4473828157900550597, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 390.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 4473828157900550597, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.464
       objectReference: {fileID: 0}
     - target: {fileID: 4473828157900550597, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -390
+      value: -219.67
       objectReference: {fileID: 0}
     - target: {fileID: 4592572532511205374, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_SortingLayer
@@ -441,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6679209888614663209, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6729491371112923653, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_SortingLayer

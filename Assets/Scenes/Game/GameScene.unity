@@ -1770,13 +1770,37 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2567581906760081864, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1858.114
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567581906760081864, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 330.4181
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567581906760081864, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 6.7134
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567581906760081864, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -189.55
+      objectReference: {fileID: 0}
     - target: {fileID: 3867032411489376395, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
       propertyPath: m_Name
       value: GameSceneUI
       objectReference: {fileID: 0}
-    - target: {fileID: 4685585445081158692, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 7718010568463346910, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
+      propertyPath: m_text
+      value: Player 1 wins
+      objectReference: {fileID: 0}
+    - target: {fileID: 7718010568463346910, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
+      propertyPath: m_fontSize
+      value: 249.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7718010568463346910, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 249.18
       objectReference: {fileID: 0}
     - target: {fileID: 9186202294089602877, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
       propertyPath: m_LocalPosition.x
