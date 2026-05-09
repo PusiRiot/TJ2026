@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18431373, g: 0.18823531, b: 0.2901961, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -231,16 +231,16 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 4371210602423523356}
-    m_SelectOnDown: {fileID: 4371210602423523356}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 8055418362310021487}
+    m_SelectOnRight: {fileID: 8055418362310021487}
+  m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.18039216, g: 0.18431373, b: 0.28627452, a: 1}
+    m_HighlightedColor: {r: 0.5803922, g: 0.5882353, b: 0.7529412, a: 1}
+    m_PressedColor: {r: 0.5803922, g: 0.5882353, b: 0.7529412, a: 1}
+    m_SelectedColor: {r: 0.5803922, g: 0.5882353, b: 0.7529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -700,7 +700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6825591044870674409
 RectTransform:
   m_ObjectHideFlags: 0
@@ -741,7 +741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6509434, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1091,17 +1091,9 @@ MonoBehaviour:
   screenName: 5
   firstToNavigate: {fileID: 6833497902432643275}
   winningTeamText: {fileID: 8551272026614873299}
-  buttonRematchText: {fileID: 7545117645531507451}
-  buttonMenuText: {fileID: 4311796652687631240}
   unlockedDiaryEntry: {fileID: 3073239244111603090}
-  skullMat: {fileID: 2100000, guid: e0a0ec3cc6b71444880e402bd18f816a, type: 2}
-  fireMat: {fileID: 2100000, guid: 19f41be0656e89946a7b98df987625ec, type: 2}
   peggy: {fileID: 4625024130581168951}
   hives: {fileID: 552213171240382519}
-  p1_color1: {r: 0.80887604, g: 0, b: 1, a: 1}
-  p1_color2: {r: 0.021928167, g: 0, b: 0.7830189, a: 1}
-  p2_color1: {r: 1, g: 0.5629426, b: 0.2971698, a: 1}
-  p2_color2: {r: 0.6862745, g: 0, b: 0, a: 1}
 --- !u!1 &6833497902432643275
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18039216, g: 0.18431373, b: 0.28627452, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1196,16 +1188,16 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 8055418362310021487}
-    m_SelectOnDown: {fileID: 8055418362310021487}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 4371210602423523356}
+    m_SelectOnRight: {fileID: 4371210602423523356}
+  m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.18039216, g: 0.18431373, b: 0.28627452, a: 1}
+    m_HighlightedColor: {r: 0.5803922, g: 0.5882353, b: 0.7529412, a: 1}
+    m_PressedColor: {r: 0.5803922, g: 0.5882353, b: 0.7529412, a: 1}
+    m_SelectedColor: {r: 0.5803922, g: 0.5882353, b: 0.7529412, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
