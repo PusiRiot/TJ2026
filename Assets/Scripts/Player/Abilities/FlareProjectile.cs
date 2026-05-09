@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class FlareProjectile : Subject<PlayerCombatEvent>
 {
@@ -105,6 +106,11 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
     
     private IEnumerator Stuck(bool stuckToPlayer)
     {
+        //Audio
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_Peggy_Hability", gameObject);
+        AkUnitySoundEngine.SetRTPCValue("Music_LowPassFilter", 80f);
+
         if (stuckToPlayer) { 
             enemyLight.TurnOff();
             yield return new WaitForSeconds(_lifetimeIfPlayer);
@@ -113,6 +119,7 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         {
             yield return new WaitForSeconds(_lifetimeIfWall);
         }
+        AkUnitySoundEngine.SetRTPCValue("Music_LowPassFilter", 0f);
         Eliminate();
     }
 

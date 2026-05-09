@@ -15,6 +15,9 @@ public class FlareAbility : AbstractAbility
         flareInstance = Instantiate(flarePrefab, flareSpawn.position, Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f));
         flareInstance.GetComponent<FlareProjectile>().Initialize(_teamIndex, _playerStats);
         flareInstance.GetComponentInChildren<AbstractLight>().SetTeam(_teamIndex);
+
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_Peggy_Hability_Throw", gameObject);
     }
 
     public override void Stop()

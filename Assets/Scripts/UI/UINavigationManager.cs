@@ -266,7 +266,7 @@ public class UINavigationManager : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        if ((Input.anyKey || Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f) && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
+        if ((Input.anyKeyDown || Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f) && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
         {
             if (isUsingMouse) SwitchToController();
         }

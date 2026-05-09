@@ -234,11 +234,11 @@ public class CharacterSelection : MonoBehaviour
     #region Player input text update
     void InitializeDeviceBindings()
     {
-        InputAction action = inputAction.actionMaps[0].FindAction("Info");
+        InputAction action = inputAction.actionMaps[_playerIndex].FindAction("Info");
         infoBtnBinding[0] = action.GetBindingDisplayString(0); // keyboard button
         infoBtnBinding[1] = action.GetBindingDisplayString(1); // gamepad button
 
-        action = inputAction.actionMaps[0].FindAction("Ready");
+        action = inputAction.actionMaps[_playerIndex].FindAction("Ready");
         readyBtnBinding[0] = action.GetBindingDisplayString(0); // keyboard button
         readyBtnBinding[1] = action.GetBindingDisplayString(1); // gamepad button
 
