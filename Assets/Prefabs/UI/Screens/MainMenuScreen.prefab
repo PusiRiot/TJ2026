@@ -33,7 +33,7 @@ RectTransform:
   m_Father: {fileID: 8119910090743922724}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -709,7 +709,7 @@ RectTransform:
   m_Father: {fileID: 8231524308088198635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1873,15 +1873,15 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5499108889264003664}
         m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-        m_MethodName: ExitApp
-        m_Mode: 1
+        m_MethodName: ShowNextScreen
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &5499108889264003664
 MonoBehaviour:
@@ -2280,7 +2280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1757, y: 96.538}
+  m_AnchoredPosition: {x: 1757, y: 96.537994}
   m_SizeDelta: {x: 365.3572, y: 242.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7755774320790495798
@@ -2834,6 +2834,7 @@ GameObject:
   - component: {fileID: 8453761172669894048}
   - component: {fileID: 4048048607114319938}
   - component: {fileID: 7033200742610304983}
+  - component: {fileID: 7984363812495826123}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2933,6 +2934,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b2fc4419707b34c9c5a18125aed356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AuidoLightingMainMenu
+--- !u!114 &7984363812495826123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8161378173482176056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9ee4349dc5bfb4d8e886ff31048848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuAnim
 --- !u!1 &8425491033086923977
 GameObject:
   m_ObjectHideFlags: 0
@@ -2970,7 +2983,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 245, y: 96.538}
+  m_AnchoredPosition: {x: 245, y: 96.537994}
   m_SizeDelta: {x: 365.3572, y: 242.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8955501610883288608
@@ -3113,8 +3126,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3518753640902561994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0}
-  m_AnchorMax: {x: 0.1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 30, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3188,8 +3201,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2823425365010716665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 30, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

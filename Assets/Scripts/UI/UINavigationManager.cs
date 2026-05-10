@@ -55,7 +55,7 @@ public class UINavigationManager : MonoBehaviour
 
         foreach (UIScreen screen in screensUnderManager)
         {
-            screen.Show();
+            screen.gameObject.SetActive(true);
         }
     }
 
@@ -89,11 +89,12 @@ public class UINavigationManager : MonoBehaviour
 
         foreach (UIScreen screen in screensUnderManager)
         {
-            screen.Hide();
+            if (screen.GetName() != _firstShownScreenName.ToString())
+                screen.Hide();
             _screens.Add(screen.GetName(), screen);
         }
 
-        ShowScreen(_firstShownScreenName); // show the first screen
+        ShowScreen(_firstShownScreenName);
     }
 
     private void Update()

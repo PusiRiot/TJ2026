@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIScreenVictory : UIScreen, IObserver<GameEvent>
 {
     [SerializeField] TextMeshProUGUI winningTeamText;
-    [SerializeField] Image unlockedDiaryEntry;
+    [SerializeField] GameObject unlockedDiaryEntry;
     [SerializeField] Image peggy;
     [SerializeField] Image hives;
 
@@ -36,7 +36,7 @@ public class UIScreenVictory : UIScreen, IObserver<GameEvent>
 
             bool unlocked = SystemGameDataStorage.Instance.UnlockDiaryEntries();
 
-            unlockedDiaryEntry.enabled = unlocked;
+            unlockedDiaryEntry.SetActive(unlocked);
 
             Show();
 

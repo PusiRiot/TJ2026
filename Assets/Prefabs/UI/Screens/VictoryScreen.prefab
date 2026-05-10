@@ -1190,7 +1190,7 @@ MonoBehaviour:
   screenName: 5
   firstToNavigate: {fileID: 6833497902432643275}
   winningTeamText: {fileID: 8551272026614873299}
-  unlockedDiaryEntry: {fileID: 3073239244111603090}
+  unlockedDiaryEntry: {fileID: 2105511405712389916}
   peggy: {fileID: 4625024130581168951}
   hives: {fileID: 552213171240382519}
 --- !u!1 &6833497902432643275
