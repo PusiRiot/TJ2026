@@ -885,8 +885,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -534, y: 424}
-  m_SizeDelta: {x: 256.636, y: 193.8211}
+  m_AnchoredPosition: {x: 1161.1378, y: 443.94937}
+  m_SizeDelta: {x: 254.3603, y: 192.1024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1607089458740740454
 MonoBehaviour:
@@ -902,8 +902,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIPlayerEye
   teamIdx: 0
   abilityImage: {fileID: 4668199200819895463}
-  lifeDrainSprite: {fileID: 21300000, guid: a5ac81dc87870ac499a2097141255be5, type: 3}
-  flareSprite: {fileID: 21300000, guid: 43d880b1ae901aa498cd01572617099d, type: 3}
+  lifeDrainSprite: {fileID: 21300000, guid: 3708198c963ddfe46a6be19859f70bd3, type: 3}
+  flareSprite: {fileID: 21300000, guid: 6b3ff14937555af479836306a59ecad7, type: 3}
 --- !u!95 &8492979005420750606
 Animator:
   serializedVersion: 7
@@ -952,7 +952,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2644634901777869315}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -960,8 +960,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22.000122, y: 26}
-  m_SizeDelta: {x: 121.952, y: 60.2321}
+  m_AnchoredPosition: {x: -1759, y: 23}
+  m_SizeDelta: {x: 103.1012, y: 50.9217}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1505671821993875942
 CanvasRenderer:
@@ -1302,14 +1302,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8333334, y: 0.8333334, z: 0.8333334}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7980326767592945058}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.0274048, y: 0.6999817}
-  m_SizeDelta: {x: 48.5737, y: 48.2244}
+  m_AnchoredPosition: {x: -0.6, y: 3.2}
+  m_SizeDelta: {x: 89.2118, y: 89.2118}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2938792007672293205
 CanvasRenderer:
@@ -1339,7 +1339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1821e4303ddba7d479ca0f36210e75c6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3708198c963ddfe46a6be19859f70bd3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2025,8 +2025,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18.700378, y: 26}
-  m_SizeDelta: {x: 55.2732, y: 54.8756}
+  m_AnchoredPosition: {x: -1756.2104, y: 23.000042}
+  m_SizeDelta: {x: 46.7293, y: 46.3932}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2037420650332713680
 CanvasRenderer:
@@ -2237,8 +2237,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -17.467525, y: 22.063238}
-  m_SizeDelta: {x: 318.3172, y: 224.6716}
+  m_AnchoredPosition: {x: -1755.1681, y: 19.671642}
+  m_SizeDelta: {x: 269.1132, y: 189.9429}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6738016940742139722
 CanvasRenderer:
@@ -3238,8 +3238,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -17.468, y: 26}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -1755.1683, y: 23.000042}
+  m_SizeDelta: {x: 84.5425, y: 84.5425}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8364568426839491075
 CanvasRenderer:
@@ -3680,14 +3680,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2932542163086718016}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18.700378, y: 26}
-  m_SizeDelta: {x: 55.2732, y: 54.8756}
+  m_AnchoredPosition: {x: -1755.2, y: 25.627}
+  m_SizeDelta: {x: 79.288, y: 79.2878}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6914856926019351714
 CanvasRenderer:
@@ -3717,7 +3717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1821e4303ddba7d479ca0f36210e75c6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3708198c963ddfe46a6be19859f70bd3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3852,8 +3852,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIPlayerEye
   teamIdx: 1
   abilityImage: {fileID: 6023067200374008783}
-  lifeDrainSprite: {fileID: 21300000, guid: a5ac81dc87870ac499a2097141255be5, type: 3}
-  flareSprite: {fileID: 21300000, guid: 43d880b1ae901aa498cd01572617099d, type: 3}
+  lifeDrainSprite: {fileID: 21300000, guid: 3708198c963ddfe46a6be19859f70bd3, type: 3}
+  flareSprite: {fileID: 21300000, guid: 6b3ff14937555af479836306a59ecad7, type: 3}
 --- !u!1 &8998624177578501905
 GameObject:
   m_ObjectHideFlags: 0
