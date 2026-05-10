@@ -9,6 +9,15 @@ public class Starman : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
     [SerializeField] private Sprite defaultSprite;
     [SerializeField] private Sprite hoverSprite;
 
+
+    private void OnDisable()
+    {
+        BookshelfImage.sprite = defaultSprite;
+
+        //Audio
+        MusicManager.Instance.PlayTitleMusic();
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         BookshelfImage.sprite = hoverSprite;
