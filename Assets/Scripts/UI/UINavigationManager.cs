@@ -24,7 +24,7 @@ public class UINavigationManager : MonoBehaviour
     string[] backBtnBinding = new string[3]; // 0 for keyboard, 1 for gamepad, 2 for both
     int currentBinding;
     bool bothPadsActive = false;
-    int consecutiveBindingChanges = 0;
+    //int consecutiveBindingChanges = 0;
 
     // Handle navigation in both mouse and keyboard/Gamepad
     GameObject lastUsedButton;
