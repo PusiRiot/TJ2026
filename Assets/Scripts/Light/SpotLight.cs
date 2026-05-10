@@ -210,7 +210,7 @@ public class SpotLight : AbstractLight
     private IEnumerator LifeDrainPulseVisuals() 
     {
         isPulsing = true;
-        targetColor = GameStatsAccess.Instance.GetDamageColor();
+        targetColor = GameStatsAccess.Instance.GetDamageSecondaryColor();
         baseIntensity *= pulseIntensityMultiplier;
         var psMain = lifeDrainParticles.main;
         psMain.startLifetime = pulseParticlesStartLifetime;

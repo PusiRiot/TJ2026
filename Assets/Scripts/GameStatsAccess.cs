@@ -37,6 +37,7 @@ public class GameStatsAccess : MonoBehaviour
     public Material GetTeamEmissiveMaterial(int teamIndex){ return gameStats.TeamEmissiveMaterial[teamIndex]; }
 
     public Color GetDamageColor() { return gameStats.DamageColor; }
+    public Color GetDamageSecondaryColor() { return gameStats.DamageSecondaryColor; }
     public Color GetHealColor() { return gameStats.HealColor; }
 
     // Crystal

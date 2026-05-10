@@ -588,6 +588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 6679209888614663209, guid: cee18ce1f975656428d233386b04f587, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8616483368218158488, guid: cee18ce1f975656428d233386b04f587, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -728,7 +732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6679209888614663209, guid: 6a697c98b38c83c4aa2dcda643c1c207, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7012147646865651060, guid: 6a697c98b38c83c4aa2dcda643c1c207, type: 3}
       propertyPath: m_SortingLayer

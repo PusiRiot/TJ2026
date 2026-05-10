@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &802920705171822479
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1294,7 +1294,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: A Dynamical Theory of the Electromagnetic Field.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3bd64587291f76a4e9395ffeb8ad6c0a, type: 2}
   m_sharedMaterial: {fileID: 6111153563765365950, guid: 3bd64587291f76a4e9395ffeb8ad6c0a, type: 2}
@@ -1321,13 +1321,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 44.5
+  m_fontSizeBase: 44.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -3097,8 +3097,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.997, y: 49}
-  m_SizeDelta: {x: 959.783, y: 634.394}
+  m_AnchoredPosition: {x: 7.997, y: 11.1602}
+  m_SizeDelta: {x: 959.783, y: 644.621}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5811300106992646650
 CanvasRenderer:
@@ -3128,7 +3128,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "Monday, October 29th, 1967\r\nDear diary,\r\nWow! So much happened last
+    night! I was exploring the grim halls of the manor, examining those strange crystals,
+    when a heavy metal door concealed in the wall simply... opened on its own. But,
+    despite my fear I managed to venture inside.\r\nI found Lord Brawlight\u2019s
+    original journals. The rumors were true! He contacted the ruler of the otherworld,
+    who promised him safe passage if he performed a ritual. But Charles died. Maybe
+    because he misunderstood the entity\u2019s demand? Maybe it isn't just about
+    lighting the crystals? Maybe it wants a competition. Two people fighting for
+    control of the crystals\u2026\r\nThis is bigger than I ever imagined! I struggle
+    to wrap my head around this all being real, but after seeing a massive door moving
+    on its own, I think I\u2019m ready to believe. If it all works out I might just
+    be the first journalist in history to report directly from the afterlife!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3bd64587291f76a4e9395ffeb8ad6c0a, type: 2}
   m_sharedMaterial: {fileID: 6111153563765365950, guid: 3bd64587291f76a4e9395ffeb8ad6c0a, type: 2}
@@ -3194,7 +3205,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -2.0451965}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
