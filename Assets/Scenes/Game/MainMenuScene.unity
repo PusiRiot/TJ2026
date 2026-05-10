@@ -135,6 +135,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1394239163599672566, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583817670115235540, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -31.878998
+      objectReference: {fileID: 0}
     - target: {fileID: 2221487167455139374, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -247,13 +255,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4324106034986294029, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 96.537994
+      objectReference: {fileID: 0}
+    - target: {fileID: 4720556061615420329, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5887199840143407083, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 96.537994
       objectReference: {fileID: 0}
+    - target: {fileID: 6275139050900351190, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_margin.x
+      value: -911.9136
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537891817571589211, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -533.99994
+      objectReference: {fileID: 0}
+    - target: {fileID: 6870388854830848929, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6959194802506426264, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_Name
       value: MainMenuScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7668915698338504214, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -323.99994
       objectReference: {fileID: 0}
     - target: {fileID: 8116903774339677777, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_Camera
