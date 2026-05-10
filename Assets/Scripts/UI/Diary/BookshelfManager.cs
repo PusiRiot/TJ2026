@@ -10,6 +10,7 @@ public class BookshelfManager : MonoBehaviour
     // references to the entry text visualizer
     [SerializeField] TextMeshProUGUI entryTitleSlot;
     [SerializeField] TextMeshProUGUI entryTextSlot;
+    [SerializeField] GameObject firstTime;
 
     private void Awake()
     {
@@ -23,10 +24,18 @@ public class BookshelfManager : MonoBehaviour
         List<int> unlockedEntries = SystemGameDataStorage.Instance.GetUnlockedDiaryEntries();
         List<int> goneThroughEntries = SystemGameDataStorage.Instance.GetGoneThroughDiaryEntries();
 
-        for (int i = 0; i < unlockedEntries.Count; i++)
+        if (unlockedEntries.Count > 0)
         {
-            int entryidx = unlockedEntries[i];
-            allBooks[i].Initialize(this, goneThroughEntries.Contains(entryidx), entryidx);
+            firstTime.SetActive(false);
+            for (int i = 0; i < unlockedEntries.Count; i++)
+            {
+                int entryidx = unlockedEntries[i];
+                allBooks[i].Initialize(this, goneThroughEntries.Contains(entryidx), entryidx);
+            }
+        }
+        else
+        {
+            firstTime.SetActive(true);
         }
     }
 
