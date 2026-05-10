@@ -20,6 +20,7 @@ TagManager:
   - ReviveParticlesP
   - ReviveParticlesY
   - PlayerLight
+  - GameElements
   layers:
   - Default
   - TransparentFX

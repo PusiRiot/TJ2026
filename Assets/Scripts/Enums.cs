@@ -17,7 +17,8 @@ public enum ScreenName
     Instructions, 
     Credits,
     Library,
-    DiaryEntry
+    DiaryEntry,
+    SoundSettings
 }
 
 public enum PlayerCharacter

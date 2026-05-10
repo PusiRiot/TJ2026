@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIScreenVictory : UIScreen, IObserver<GameEvent>
 {
     [SerializeField] TextMeshProUGUI winningTeamText;
-    [SerializeField] Image unlockedDiaryEntry;
+    [SerializeField] GameObject unlockedDiaryEntry;
     [SerializeField] Image peggy;
     [SerializeField] Image hives;
 
@@ -36,9 +36,21 @@ public class UIScreenVictory : UIScreen, IObserver<GameEvent>
 
             bool unlocked = SystemGameDataStorage.Instance.UnlockDiaryEntries();
 
-            unlockedDiaryEntry.enabled = unlocked;
+            unlockedDiaryEntry.SetActive(unlocked);
 
             Show();
+
+            // unpause game but set game elements to inactive so they dont sound or anything
+            GameObject gameElements = GameObject.FindGameObjectWithTag("GameElements");
+            gameElements.SetActive(false);
+
+            Player[] players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+            foreach (Player player in players)
+            {
+                player.gameObject.SetActive(false);
+            }
+
+            GameManager.Instance.UnpauseGame();
 
             MusicManager.Instance.PlayEndGameMusic();
         }

@@ -23,7 +23,10 @@ public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandle
     public void LoadNextScene()
     {
         if (nextSceneName == SceneName.MainMenuScene)
+        {
             MusicManager.Instance.PlayTitleMusic();
+            GameManager.Instance.UnpauseGame();
+        }
         else if (nextSceneName == SceneName.GameScene)
             MusicManager.Instance.PlayNoMusic();
 

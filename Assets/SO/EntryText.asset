@@ -9,31 +9,127 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: de8f540b85c52b546b2036c74cd36906, type: 3}
   m_Name: EntryText
   m_EditorClassIdentifier: Assembly-CSharp::EntryTextList
   entries:
-  - Title: Story 1
-    Text: LOREM IPSUM LOREM LOREM LOREM MACU MACU MACU
-  - Title: Story 2
-    Text: Story 2 story story text
-  - Title: Story 3
-    Text: hhfrhfhrifhrihfrisfirshfrsfsrfrs
-  - Title: Story 4
-    Text: 'grhughregherger '
-  - Title: Story 5
-    Text: dfdfdfdfdf
-  - Title: Story 6
-    Text: dfdfdfdfdsfsdddddddddddddddddddddddddddddddddddddddddddd
-  - Title: Story 7
-    Text: Teto texto texto texto
-  - Title: 'Story 8 '
-    Text: 'Lorem ipsum loren '
-  - Title: Story 9
-    Text: dsfsdfdsfdsfds
-  - Title: 
-    Text: fdfdfdsfsd
-  - Title: Story 11
-    Text: dfsdfds UUUUUUUUUUUUUUUUUUUU
-  - Title: Story 12
-    Text: popopopopopopopopopooppppooo
+  - Title: ENCYCLOPAEDIA OF WELSH MYTHOS
+    Text: "GWYN AP NUDD\r\nIn the ancient traditions of the Cymry, Gwyn ap Nudd is
+      feared as the sovereign of Annwn, the shadowy Otherworld. He is a lord of the
+      departed, often said to ride through the mist alongside his spectral hounds,
+      the C\u0175n Annwn, to gather the souls of the fallen.\r\nThe old bards describe
+      him not as a gentle guide, but as a fierce, unyielding warlord. According to
+      the ancient texts, his very existence is bound to conflict. He is cursed to
+      fight a brutal, never-ending duel against his bitter rival every May Day until
+      the end of time\u2026\r\n"
+  - Title: A Dynamical Theory of the Electromagnetic Field.
+    Text: "By J. Clerk Maxwell.\r\nReceived October 27, - Read December 8, 1864.\r\n-
+      Property of Charles Brawlight\u2019s personal library -\r\nPART I - INTRODUCTORY.\r\nThe
+      most obvious mechanical phenomenon in electrical and magnetical experiments
+      is the mutual action by which bodies in certain states set each other in motion
+      while still at a sensible distance from each other\u2026\r\n(This is revolutionary
+      work. Perhaps it could finally explain the apparition I saw all those years
+      ago that bent electricity around itself. What if apparitions themselves possess
+      electromagnetic properties? I shall research this.)"
+  - Title: "RESEARCH LOG N\xBA 44 "
+    Text: After multiple experiments with visible electromagnetic radiation, light,
+      I successfully made contact with a spirit from the dead. Using electric arc
+      lamps I communicated with them. I am yet unsure how. I posed questions, instructing
+      the spirit to manipulate the lamp's intensity to answer them. He claimed to
+      be Iwan, the gardener from my childhood. It answered questions only he could
+      possibly know. This shall change everything.
+  - Title: "RESEARCH LOG N\xBA 56 "
+    Text: "I made contact with something else. It is not the soul of the deceased.
+      It claims to be\u2026 more, a ruler of this other land. A world where all the
+      deceased roam under its rule. Hell? Annwn? I asked for passage to visit its
+      realm. It would further my research even more. I need to see it. It answered
+      that I would visit when death knocks at my door. But I must visit now and come
+      back to share my findings with mother science. I tried to communicate my resolve,
+      but I lost contact with the entity. I need a device more potent than these
+      arc lamps. Their light is too dim."
+  - Title: "RESEARCH LOG N\xBA 67 "
+    Text: 'After testing many materials, I have settled upon calcite crystals. Their
+      phosphorescent properties make them ideal amplifiers of light. I theorise that
+      light acts as a bridge between the realm of the dead and ours. The spirits
+      must be capable of sensing electromagnetic disturbances and interacting with
+      them. As such, by illuminating these crystals with my lantern, they shall become
+      beacons to the other world. '
+  - Title: "RESEARCH LOG N\xBA 69"
+    Text: "I established contact with the superior entity once again, thanks to the
+      power of the crystals. I asked for safe passage to its realm. To cross the
+      threshold and return. It answered that I must first prove my power. To show
+      my dominance over others of my kind. It asked for a summoning ritual. I shall
+      prepare it.\r\nI will gather more calcite crystals and distribute them throughout
+      the halls and corridors of my mansion. I shall light them all, and their light
+      combined will be a beacon powerful enough to command the respect of this otherworldly
+      ruler. No other of my kind could possibly achieve this. And it shall open the
+      door for me. I will step into the realm of the dead and return, advancing humanity\u2019s
+      knowledge beyond our wildest dreams."
+  - Title: THE NORTH WALES CHRONICLE
+    Text: "- November 3rd 1882 -\nSUDDEN DEMISE OF LORD BRAWLIGHT\r\nMysterious Scene
+      at Aberglyn Mansion\r\nIn the early hours of yesterday morning, a most grim
+      discovery was made at the Brawlight manor. A local tradesman, arriving for
+      his customary weekly delivery at six o'clock, discovered the lifeless body
+      of Lord Charles Brawlight within the halls of his manor.\r\nThe circumstances
+      of the nobleman\u2019s passing are most baffling. Reports indicate that the
+      deceased was found contorted in an unnatural fashion, his countenance frozen
+      in a look of utter terror, and entirely encircled by an inexplicable arrangement
+      of peculiar crystals. The local physician has attributed the death to cardiac
+      arrest, estimating that the lord must have expired several days prior. However,
+      the lack of prior illness, combined with the bizarre state of the scene, has
+      left the authorities mystified."
+  - Title: 'To Gwyneth Pritchard '
+    Text: "Dear Gwyneth,\r\nHow fares Cardiff, my love? How was the city after the
+      Swansea earthquake? What a misfortune that it was so shaken mere days before
+      your arrival.\r\nHere, things continue quiet as always. Well, not so quiet.
+      A few nights past, Megan\u2019s children snuck out and went to the old manor.
+      They came back screaming and weeping. They swear a door slammed shut by itself.
+      I confess, I scarcely know what to believe. Perhaps they were merely unnerved
+      by all the ghost stories. But, that night wasn\u2019t windy at all!\r\nI wouldn't
+      be surprised if, after all the strangeness surrounding Brawlight\u2019s death
+      and the curious things he researched, his spirit remained bound to haunt his
+      old estate. Mayhaps we can venture a look when you return, dear.\r\nMiss you,\r\nEllis"
+  - Title: 'ABERGLYN: COME AND VISIT! '
+    Text: 'Nestled beneath the beautiful Clwydian Range, the quaint village of Aberglyn
+      offers rolling meadows, quiet woodlands, and a warm Welsh welcome. Perfect
+      for a peaceful retreat!
+
+      Stroll along the village high street, admire
+      the old stone chapel, cross the tranquil bridge over the river, or climb to
+      the clock tower for some fine views.
+
+      Only 15 miles from Wrexham, Aberglyn:
+      come and visit!'
+  - Title: Peggy Bramble's Diary <3
+    Text: "Sunday, October 28th, 1967\r\nDear diary,\r\nI arrived in Aberglyn today!
+      I took a stroll around the town while looking for the inn. It really is beautiful.
+      I loved the clock tower! But I must not get distracted. I\u2019m here to investigate
+      the mysterious death of Lord Charles Brawlight.\r\nI\u2019ve already asked
+      a few locals about the late Lord and his estate. Most of them genuinely believe
+      the place is haunted. They say he was searching for a way to cross into the
+      realm of the dead. It\u2019s fantastic! This is going to make for a brilliant
+      write-up, maybe even a front-page scoop. I can feel it!\r\nI\u2019ll head up
+      to the old manor to see it for myself tonight. Wish me luck!"
+  - Title: Peggy Bramble's Diary <3
+    Text: "Monday, October 29th, 1967\r\nDear diary,\r\nWow! So much happened last
+      night! I was exploring the grim halls of the manor, examining those strange
+      crystals, when a heavy metal door concealed in the wall simply... opened on
+      its own. But, despite my fear I managed to venture inside.\r\nI found Lord
+      Brawlight\u2019s original journals. The rumors were true! He contacted the
+      ruler of the otherworld, who promised him safe passage if he performed a ritual.
+      But Charles died. Maybe because he misunderstood the entity\u2019s demand?
+      Maybe it isn't just about lighting the crystals? Maybe it wants a competition.
+      Two people fighting for control of the crystals\u2026\r\nThis is bigger than
+      I ever imagined! I struggle to wrap my head around this all being real, but
+      after seeing a massive door moving on its own, I think I\u2019m ready to believe.
+      If it all works out I might just be the first journalist in history to report
+      directly from the afterlife!"
+  - Title: To James Evans
+    Text: "Alright James,\r\nYou have to come back to town! I don\u2019t know if
+      you\u2019ve been keeping up with the news, but Aberglyn has been buzzing with
+      outsiders ever since that journalist from London snooped around the old manor.
+      People from all over the country are coming in and competing in the ritual
+      at the old Brawlight estate. There\u2019s even a bloke with the head of a moth!
+      Apparently, whoever wins gets to visit the afterlife and come back. Talk about
+      New Age eh?\r\nWhen are you coming down to have a light-off with me? If you
+      win, give your mum my regards!\r\nCheers, Madoc"
