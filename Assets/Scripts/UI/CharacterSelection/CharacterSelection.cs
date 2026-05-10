@@ -14,6 +14,7 @@ public class CharacterSelection : MonoBehaviour
     [SerializeField] InputActionAsset inputAction;
     [SerializeField] TextMeshProUGUI infoText;
     [SerializeField] TextMeshProUGUI readyText;
+    [SerializeField] GameObject chooseText;
     [SerializeField] GameObject readyImage; // ready image
     UIScreenCharacterSelection screen; // Reference to the character screen to update character info
 
@@ -249,9 +250,14 @@ public class CharacterSelection : MonoBehaviour
         string infoKey = infoBtnBinding[binding];
         string readyKey = readyBtnBinding[binding];
 
+        if (binding == 0)
+            chooseText.SetActive(true);
+        else 
+            chooseText.SetActive(false);
+
         if (infoShown)
             infoText.text = $"{infoKey} - Info";
-        else 
+        else
             infoText.text = $"{infoKey} - Info";
 
         if (ready)

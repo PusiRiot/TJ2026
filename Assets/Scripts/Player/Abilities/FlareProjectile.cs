@@ -120,12 +120,12 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         {
             yield return new WaitForSeconds(_lifetimeIfWall);
         }
-        AkUnitySoundEngine.SetRTPCValue("Music_LowPassFilter", 0f);
         Eliminate();
     }
 
     public void Eliminate()
     {
+        AkUnitySoundEngine.SetRTPCValue("Music_LowPassFilter", 0f);
         if (enemyLight != null && !enemyLight.GetComponentInParent<PlayerCombat>().isDead)
         {
             enemyLight.TurnOn();
