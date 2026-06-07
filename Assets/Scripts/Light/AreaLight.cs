@@ -22,25 +22,32 @@ public class AreaLight : AbstractLight
 
         foreach (var hit in hits)
         {
-            Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
+            
+            float lengthToTarget = (new Vector2(hit.transform.position.x, hit.transform.position.z) - 
+                new Vector2(transform.position.x, transform.position.z)).magnitude;
+            Debug.Log("Hit " + hit.transform.name + " at distance " + lengthToTarget);  
 
             // Check line of sight
-            if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, ignorePlayerMask))
+            if (lengthToTarget > 0.4f)
             {
-                if (rh.collider != hit)
-                    continue; // Something is blocking the line of sight, skip
-
-                // Skip if it's not a crystal
-                if (hit.transform.TryGetComponent<Crystal>(out var crystal))
+                Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
+                if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, ignorePlayerMask))
                 {
-                    crystal.ReclaimFlag(teamIndex);
-                }
-                else if(hit.transform.TryGetComponent<Heal>(out var heal))
-                {
-                    heal.ReclaimFlag(teamIndex);
+                    if (!(rh.transform.GetComponent<Crystal>() || rh.transform.GetComponent<Heal>()))
+                    {
+                        continue;
+                    }
                 }
             }
-
+            // Skip if it's not a crystal
+            if (hit.transform.TryGetComponent<Crystal>(out var crystal))
+            {
+                crystal.ReclaimFlag(teamIndex);
+            }
+            else if (hit.transform.TryGetComponent<Heal>(out var heal))
+            {
+                heal.ReclaimFlag(teamIndex);
+            }
         }
     }
 

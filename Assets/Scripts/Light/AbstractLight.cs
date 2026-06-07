@@ -78,12 +78,16 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>, IObserver<Game
 
     public virtual void TurnOn()
     {
+        PlayerCombat playerCombat = GetComponentInParent<PlayerCombat>();
+        playerCombat.ToggleLightOffOutline(false);
         lightCollisionEnabled = true;
         flashlight.enabled = true;
     }
 
     public virtual void TurnOff()
     {
+        PlayerCombat playerCombat = GetComponentInParent<PlayerCombat>();
+        playerCombat.ToggleLightOffOutline(true);
         lightCollisionEnabled = false;
         flashlight.enabled = false;
     }

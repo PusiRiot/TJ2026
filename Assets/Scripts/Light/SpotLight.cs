@@ -33,6 +33,7 @@ public class SpotLight : AbstractLight
 
     private float initialPsStartLifetime;
     private float initialPsStartSpeed;
+    private float initialLightIntensity;
 
     private float pulseAnimationRate;
     private Color targetColor;
@@ -52,6 +53,7 @@ public class SpotLight : AbstractLight
       
         initialPsStartLifetime = lifeDrainParticles.main.startLifetime.constant;
         initialPsStartSpeed = lifeDrainParticles.main.startSpeed.constant;
+        initialLightIntensity = flashlight.intensity;
 
         pulseAnimationRate = 1f / pulseAnimationDuration;
         targetColor = flashlight.color;
@@ -136,13 +138,14 @@ public class SpotLight : AbstractLight
                 if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rhPlayer, viewRange, lifeDrainMask))
                 {
                     Player hitPlayer = hit.GetComponentInParent<Player>();
+                    PlayerCombat hitPlayerCombat = hit.GetComponentInParent<PlayerCombat>();
 
-                    if (hitPlayer != null && hitPlayer.GetTeamIndex() != GetComponentInParent<Player>().GetTeamIndex())
+                    if (hitPlayer != null && hitPlayer.GetTeamIndex() != GetComponentInParent<Player>().GetTeamIndex() && !hitPlayerCombat.isDead)
                     {
                         // Check angle
                         if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
                         {
-                            if (rhPlayer.collider == hit)
+                            if (rhPlayer.collider == hit )
                             {
                                 Notify(PlayerCombatEvent.ReceivedHeal, new int[] { teamIndex, playerStats.LifeDrainPulseHeal });
                                 Notify(PlayerCombatEvent.ReceivedDamage, new int[] { (teamIndex + 1) % 2, playerStats.LifeDrainPulseDamage });
@@ -176,6 +179,7 @@ public class SpotLight : AbstractLight
         psMain.startSpeed = initialPsStartSpeed;
         targetColor = GameStatsAccess.Instance.GetTeamColor(teamIndex);
         flashlight.color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
+        flashlight.intensity = initialLightIntensity;
         isPulsing = false;
         Notify(PlayerCombatEvent.StartAbilityCooldown, new int[] { teamIndex });
     }

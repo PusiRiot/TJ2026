@@ -58,7 +58,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private float targetThickness = 0f;
     private float goInterpolationSpeed = 0f;
     private const float desiredThickness = 0.05f;
-    private const float desiredLightOffThickness = 0.03f;
+    private const float desiredLightOffThickness = 0.02f;
     private Color outlineColor;
 
     // Death materials
@@ -307,6 +307,29 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             mat.SetFloat("_BaseThickness", 0.0f);
             mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
         }
+    }
+
+    public void ToggleLightOffOutline(bool active)
+    {
+        if (active) {
+            foreach (Material mat in lightOffOutlineMaterials)
+            {
+                Color teamColor = GameStatsAccess.Instance.GetTeamColor(_teamIndex);
+                mat.SetColor("_OutlineColor", teamColor);
+                mat.SetFloat("_BaseThickness", desiredLightOffThickness);
+                mat.SetFloat("_WobbleScale", 0.0f);
+            }
+        }
+
+        else
+        {
+            foreach (Material mat in lightOffOutlineMaterials)
+            {
+                mat.SetFloat("_BaseThickness", 0.0f);
+                mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
+                mat.SetFloat("_WobbleScale", 0.0f);
+            }
+        }    
     }
 
     #endregion
@@ -625,22 +648,9 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     IEnumerator TurnLightOff(float duration)
     {
         playerLight.TurnOff();
-        // Outline to recognize player without light
-        foreach (Material mat in lightOffOutlineMaterials)
-        {
-            Color teamColor = GameStatsAccess.Instance.GetTeamColor(_teamIndex);
-            mat.SetColor("_OutlineColor", teamColor);
-            mat.SetFloat("_BaseThickness", desiredLightOffThickness);
-        }
+        // Outline to recognize player without light       
         yield return new WaitForSeconds(duration);
-        foreach (Material mat in lightOffOutlineMaterials)
-        {
-            mat.SetFloat("_BaseThickness", 0.0f);
-            mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
-        }
-        
         playerLight.TurnOn();
-
     }
 
     IEnumerator Stun(float duration, bool enableAnimation)

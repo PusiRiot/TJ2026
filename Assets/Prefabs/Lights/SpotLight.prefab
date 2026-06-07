@@ -5039,10 +5039,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 119
   regularParticlesEmission: 150
-  pulseVisualsDuration: 0.5
+  pulseVisualsDuration: 0.3
   pulseIntensityMultiplier: 1.6
-  pulseAnimationDuration: 0.1
+  pulseAnimationDuration: 0.05
   pulseParticlesStartLifetime: 0.3
   pulseParticlesStartSpeed: -18
-  pulseParticlesEmission: 800
+  pulseParticlesEmission: 1200
   eyesMeshRenderer: {fileID: 0}

@@ -35,7 +35,7 @@ MonoBehaviour:
   MaxLives: 9
   DeathDuration: 10
   GroovyOutlineGlowUp: 0.2
-  GroovyOutlineGlowDown: 0.5
+  GroovyOutlineGlowDown: 0.6
   LightMeleeDamage: 1
   LightMeleeRange: 1
   LightMeleeCooldownDuration: 0.75
