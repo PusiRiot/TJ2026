@@ -53,10 +53,12 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     // Groovy outline
     [SerializeField] private Material transparentMask; 
     private List<Material> groovyOutlineMaterials = new List<Material>();
+    private List<Material> lightOffOutlineMaterials = new List<Material>();
     private float currentThickness = 0f;
     private float targetThickness = 0f;
     private float goInterpolationSpeed = 0f;
     private const float desiredThickness = 0.05f;
+    private const float desiredLightOffThickness = 0.03f;
     private Color outlineColor;
 
     // Death materials
@@ -160,15 +162,19 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         SkinnedMeshRenderer[] playerMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer playerMesh in playerMeshes)
         {
-            foreach(Material mat in playerMesh.materials)
-            {
-                if (mat.HasFloat("_BaseThickness"))
-                {
-                    groovyOutlineMaterials.Add(mat);
-                    mat.SetFloat("_BaseThickness", 0.0f);
-                    mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
-                }
-            }
+            Material mat = playerMesh.materials[2];
+            groovyOutlineMaterials.Add(mat);
+            mat.SetFloat("_BaseThickness", 0.0f);
+            mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
+        }
+
+        // Groovy outline light off
+        foreach (SkinnedMeshRenderer playerMesh in playerMeshes)
+        {
+            Material mat = playerMesh.materials[1];
+            lightOffOutlineMaterials.Add(mat);
+            mat.SetFloat("_BaseThickness", 0.0f);
+            mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
         }
 
         // Death materials
@@ -599,6 +605,12 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             playerMeshes[i].sharedMaterials = currentMaterialsCopy[i];
         }
 
+        foreach (Material mat in lightOffOutlineMaterials)
+        {
+            mat.SetFloat("_BaseThickness", 0.0f);
+            mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
+        }
+
         Notify(PlayerCombatEvent.BackToLife, _teamIndex);
     }
 
@@ -613,7 +625,20 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     IEnumerator TurnLightOff(float duration)
     {
         playerLight.TurnOff();
+        // Outline to recognize player without light
+        foreach (Material mat in lightOffOutlineMaterials)
+        {
+            Color teamColor = GameStatsAccess.Instance.GetTeamColor(_teamIndex);
+            mat.SetColor("_OutlineColor", teamColor);
+            mat.SetFloat("_BaseThickness", desiredLightOffThickness);
+        }
         yield return new WaitForSeconds(duration);
+        foreach (Material mat in lightOffOutlineMaterials)
+        {
+            mat.SetFloat("_BaseThickness", 0.0f);
+            mat.SetColor("_OutlineColor", new Color(0.0f, 0.0f, 0.0f, 0.0f));
+        }
+        
         playerLight.TurnOn();
 
     }

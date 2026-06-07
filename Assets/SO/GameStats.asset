@@ -33,7 +33,7 @@ MonoBehaviour:
   HealCadence: 1.1
   HealAmount: 3
   MaxLives: 9
-  DeathDuration: 11
+  DeathDuration: 10
   GroovyOutlineGlowUp: 0.2
   GroovyOutlineGlowDown: 0.5
   LightMeleeDamage: 1
